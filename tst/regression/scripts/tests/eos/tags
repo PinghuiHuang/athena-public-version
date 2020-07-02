@@ -1,0 +1,44 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+_exec	eos_riemann.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_fluxes	eos_riemann.py	/^_fluxes = ['hlle', 'hllc']$/;"	v
+_gammas	eos_comparison.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
+_gammas	eos_hdf5_table.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
+_gammas	eos_table_test.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
+_mag_list	eos_mhd.py	/^_mag_list = [str(i) for i in [1e-5, 1e-4, 1e-3]]$/;"	v
+_mhd_states	eos_mhd.py	/^_mhd_states = _states + len(_mag_list) * [_states[0]]$/;"	v
+_mhd_tests	eos_mhd.py	/^_mhd_tests = _tests + len(_mag_list) * [_tests[0]]$/;"	v
+_mhd_thresh	eos_mhd.py	/^_mhd_thresh = _thresh + len(_mag_list) * [_thresh[0]]$/;"	v
+_states	eos_riemann.py	/^_states = [dict(zip(tmp, i[:-1])) for i in _tests]$/;"	v
+_tests	eos_riemann.py	/^_tests = [[1e-07, 0.00, 0.150, 1.25e-8, 0., 0.062, .25],$/;"	v
+_tests	eos_riemann.py	/^_tests = [dict(zip(tmp, i)) for i in _tests]$/;"	v
+_thresh	eos_riemann.py	/^_thresh = [[5.1e-10, 6.5e-11, 0.0039],$/;"	v
+_thresh	eos_riemann.py	/^_thresh = [dict(zip(['rho', 'press', 'vel'], i)) for i in _thresh]$/;"	v
+analyze	eos_comparison.py	/^def analyze():$/;"	f
+analyze	eos_hdf5_table.py	/^def analyze():$/;"	f
+analyze	eos_mhd.py	/^def analyze():$/;"	f
+analyze	eos_riemann.py	/^def analyze():$/;"	f
+analyze	eos_table_test.py	/^def analyze():$/;"	f
+eos_rj2a	eos_mhd.py	/^eos_rj2a = [[1.08, 1.2, 1.0e-2, 0.5, 1.0155412503859613, 0.5641895835477563, 0.95],$/;"	v
+eos_rj2a	eos_mhd.py	/^eos_rj2a = np.array(eos_rj2a)$/;"	v
+logger	eos_comparison.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	eos_hdf5_table.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	eos_mhd.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	eos_riemann.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+prepare	eos_comparison.py	/^def prepare(**kwargs):$/;"	f
+prepare	eos_hdf5_table.py	/^def prepare(**kwargs):$/;"	f
+prepare	eos_mhd.py	/^def prepare(**kwargs):$/;"	f
+prepare	eos_riemann.py	/^def prepare(**kwargs):$/;"	f
+prepare	eos_table_test.py	/^def prepare(**kwargs):$/;"	f
+run	eos_comparison.py	/^def run(**kwargs):$/;"	f
+run	eos_hdf5_table.py	/^def run(**kwargs):$/;"	f
+run	eos_mhd.py	/^def run(**kwargs):$/;"	f
+run	eos_riemann.py	/^def run(**kwargs):$/;"	f
+run	eos_table_test.py	/^def run(**kwargs):$/;"	f
+tmp	eos_riemann.py	/^tmp = ['dl', 'ul', 'Tl', 'dr', 'ur', 'Tr']$/;"	v
+tmp	eos_riemann.py	/^tmp = ['problem\/' + i for i in tmp] + ['time\/tlim']$/;"	v
+wave_speeds	eos_mhd.py	/^wave_speeds = [-0.8236630408305421, 0.15084012571797972, 0.29445281898990067,$/;"	v

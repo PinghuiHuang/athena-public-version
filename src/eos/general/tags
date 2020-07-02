@@ -1,0 +1,47 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ApplyPrimitiveConservedFloors	general_hydro.cpp	/^void EquationOfState::ApplyPrimitiveConservedFloors( AthenaArray<Real> &prim,$/;"	f	class:EquationOfState
+ApplyPrimitiveConservedFloors	general_mhd.cpp	/^void EquationOfState::ApplyPrimitiveConservedFloors($/;"	f	class:EquationOfState
+ApplyPrimitiveFloors	general_hydro.cpp	/^void EquationOfState::ApplyPrimitiveFloors(AthenaArray<Real> &prim, int k, int j, int i) {$/;"	f	class:EquationOfState
+ApplyPrimitiveFloors	general_mhd.cpp	/^void EquationOfState::ApplyPrimitiveFloors(AthenaArray<Real> &prim, int k, int j, int i) {$/;"	f	class:EquationOfState
+AsqFromRhoP	eos_table.cpp	/^Real EquationOfState::AsqFromRhoP(Real rho, Real pres) {$/;"	f	class:EquationOfState
+AsqFromRhoP	hydrogen.cpp	/^Real EquationOfState::AsqFromRhoP(Real rho, Real pres) {$/;"	f	class:EquationOfState
+AsqFromRhoP	ideal.cpp	/^Real EquationOfState::AsqFromRhoP(Real rho, Real pres) {$/;"	f	class:EquationOfState
+AsqFromRhoP	noop.cpp	/^Real EquationOfState::AsqFromRhoP(Real rho, Real pres) {$/;"	f	class:EquationOfState
+ConservedToPrimitive	general_hydro.cpp	/^void EquationOfState::ConservedToPrimitive($/;"	f	class:EquationOfState
+ConservedToPrimitive	general_mhd.cpp	/^void EquationOfState::ConservedToPrimitive($/;"	f	class:EquationOfState
+EgasFromRhoP	eos_table.cpp	/^Real EquationOfState::EgasFromRhoP(Real rho, Real pres) {$/;"	f	class:EquationOfState
+EgasFromRhoP	hydrogen.cpp	/^Real EquationOfState::EgasFromRhoP(Real rho, Real pres) {$/;"	f	class:EquationOfState
+EgasFromRhoP	ideal.cpp	/^Real EquationOfState::EgasFromRhoP(Real rho, Real pres) {$/;"	f	class:EquationOfState
+EgasFromRhoP	noop.cpp	/^Real EquationOfState::EgasFromRhoP(Real rho, Real pres) {$/;"	f	class:EquationOfState
+EquationOfState	general_hydro.cpp	/^EquationOfState::EquationOfState(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:EquationOfState
+EquationOfState	general_mhd.cpp	/^EquationOfState::EquationOfState(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:EquationOfState
+FastMagnetosonicSpeed	general_mhd.cpp	/^Real EquationOfState::FastMagnetosonicSpeed(const Real prim[(NWAVE)], const Real bx) {$/;"	f	class:EquationOfState
+GetEosData	eos_table.cpp	/^inline Real GetEosData(EosTable *ptable, int kOut, Real var, Real rho) {$/;"	f	namespace:__anon2
+GetGamma	general_hydro.cpp	/^Real EquationOfState::GetGamma() {$/;"	f	class:EquationOfState
+GetGamma	general_mhd.cpp	/^Real EquationOfState::GetGamma() {$/;"	f	class:EquationOfState
+InitEosConstants	eos_table.cpp	/^void EquationOfState::InitEosConstants(ParameterInput* pin) {$/;"	f	class:EquationOfState
+InitEosConstants	hydrogen.cpp	/^void EquationOfState::InitEosConstants(ParameterInput* pin) {$/;"	f	class:EquationOfState
+InitEosConstants	ideal.cpp	/^void EquationOfState::InitEosConstants(ParameterInput *pin) {$/;"	f	class:EquationOfState
+InitEosConstants	noop.cpp	/^void EquationOfState::InitEosConstants(ParameterInput *pin) {$/;"	f	class:EquationOfState
+P_of_rho_T	hydrogen.cpp	/^Real P_of_rho_T(Real rho, Real T) {$/;"	f	namespace:__anon1
+PresFromRhoEg	eos_table.cpp	/^Real EquationOfState::PresFromRhoEg(Real rho, Real egas) {$/;"	f	class:EquationOfState
+PresFromRhoEg	hydrogen.cpp	/^Real EquationOfState::PresFromRhoEg(Real rho, Real egas) {$/;"	f	class:EquationOfState
+PresFromRhoEg	ideal.cpp	/^Real EquationOfState::PresFromRhoEg(Real rho, Real egas) {$/;"	f	class:EquationOfState
+PresFromRhoEg	noop.cpp	/^Real EquationOfState::PresFromRhoEg(Real rho, Real egas) {$/;"	f	class:EquationOfState
+PrimitiveToConserved	general_hydro.cpp	/^void EquationOfState::PrimitiveToConserved($/;"	f	class:EquationOfState
+PrimitiveToConserved	general_mhd.cpp	/^void EquationOfState::PrimitiveToConserved($/;"	f	class:EquationOfState
+SoundSpeed	general_hydro.cpp	/^Real EquationOfState::SoundSpeed(const Real prim[NHYDRO]) {$/;"	f	class:EquationOfState
+SoundSpeed	general_mhd.cpp	/^Real EquationOfState::SoundSpeed(const Real prim[NHYDRO]) {$/;"	f	class:EquationOfState
+asq_	hydrogen.cpp	/^Real asq_(Real rho, Real T) {$/;"	f	namespace:__anon1
+dens_pow	eos_table.cpp	/^Real dens_pow = -1.0;$/;"	m	namespace:__anon2	file:
+e_of_rho_T	hydrogen.cpp	/^Real e_of_rho_T(Real rho, Real T) {$/;"	f	namespace:__anon1
+float_1pe	hydrogen.cpp	/^const Real float_1pe = 1.0 + float_eps;$/;"	m	namespace:__anon1	file:
+float_eps	hydrogen.cpp	/^const Real float_eps = std::numeric_limits<float>::epsilon();$/;"	m	namespace:__anon1	file:
+invert	hydrogen.cpp	/^Real invert(Real(*f) (Real, Real), Real rho, Real sol, Real Ta, Real Tb) {$/;"	f	namespace:__anon1
+prec	hydrogen.cpp	/^Real prec = 1e-12;$/;"	m	namespace:__anon1	file:
+x_	hydrogen.cpp	/^Real x_(Real rho, Real T) {$/;"	f	namespace:__anon1

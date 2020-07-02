@@ -1,0 +1,174 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+FFT_DATA	fft_2d.h	/^typedef fftw_complex FFT_DATA;$/;"	t
+FFT_DATA	fft_3d.h	/^typedef fftw_complex FFT_DATA;$/;"	t
+FFT_PRECISION	fft_2d.h	26;"	d
+FFT_PRECISION	fft_3d.h	26;"	d
+MAX	fft_2d.cpp	27;"	d	file:
+MAX	fft_3d.cpp	30;"	d	file:
+MAX	remap_2d.cpp	24;"	d	file:
+MAX	remap_3d.cpp	24;"	d	file:
+MIN	fft_2d.cpp	26;"	d	file:
+MIN	fft_3d.cpp	29;"	d	file:
+MIN	remap_2d.cpp	23;"	d	file:
+MIN	remap_3d.cpp	23;"	d	file:
+PACK_ARRAY	pack_2d.cpp	18;"	d	file:
+PACK_ARRAY	pack_3d.cpp	18;"	d	file:
+PLIMPTON_FFT_2D	fft_2d.h	2;"	d
+PLIMPTON_FFT_3D	fft_3d.h	2;"	d
+PLIMPTON_PACK_3D	pack_2d.h	2;"	d
+PLIMPTON_PACK_3D	pack_3d.h	2;"	d
+PLIMPTON_REMAP_2D	remap_2d.h	2;"	d
+PLIMPTON_REMAP_3D	remap_3d.h	2;"	d
+bifactor	factor.cpp	/^void bifactor(int n, int *factor1, int *factor2)$/;"	f
+comm	remap_2d.h	/^  MPI_Comm comm;                    \/* group of procs performing remap *\/$/;"	m	struct:remap_plan_2d
+comm	remap_3d.h	/^  MPI_Comm comm;                    \/* group of procs performing remap *\/$/;"	m	struct:remap_plan_3d
+copy	fft_2d.h	/^  FFT_DATA *copy;                   \/* memory for remap results (if needed) *\/$/;"	m	struct:fft_plan_2d
+copy	fft_3d.h	/^  FFT_DATA *copy;                   \/* memory for remap results (if needed) *\/$/;"	m	struct:fft_plan_3d
+extent_2d	remap_2d.h	/^struct extent_2d {$/;"	s
+extent_3d	remap_3d.h	/^struct extent_3d {$/;"	s
+factor	factor.cpp	/^void factor(int n, int *num, int *list)$/;"	f
+fft_2d	fft_2d.cpp	/^void fft_2d(FFT_DATA *in, FFT_DATA *out, int flag, struct fft_plan_2d *plan)$/;"	f
+fft_2d_create_plan	fft_2d.cpp	/^struct fft_plan_2d *fft_2d_create_plan($/;"	f
+fft_2d_destroy_plan	fft_2d.cpp	/^void fft_2d_destroy_plan(struct fft_plan_2d *plan)$/;"	f
+fft_3d	fft_3d.cpp	/^void fft_3d(FFT_DATA *in, FFT_DATA *out, int flag, struct fft_plan_3d *plan)$/;"	f
+fft_3d_create_plan	fft_3d.cpp	/^struct fft_plan_3d *fft_3d_create_plan($/;"	f
+fft_3d_destroy_plan	fft_3d.cpp	/^void fft_3d_destroy_plan(struct fft_plan_3d *plan)$/;"	f
+fft_plan_2d	fft_2d.h	/^struct fft_plan_2d {$/;"	s
+fft_plan_3d	fft_3d.h	/^struct fft_plan_3d {$/;"	s
+ihi	remap_2d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_2d
+ihi	remap_3d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_3d
+ilo	remap_2d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_2d
+ilo	remap_3d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_3d
+isize	remap_2d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_2d
+isize	remap_3d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_3d
+jhi	remap_2d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_2d
+jhi	remap_3d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_3d
+jlo	remap_2d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_2d
+jlo	remap_3d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_3d
+jsize	remap_2d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_2d
+jsize	remap_3d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_3d
+khi	remap_3d.h	/^  int klo,khi,ksize;$/;"	m	struct:extent_3d
+klo	remap_3d.h	/^  int klo,khi,ksize;$/;"	m	struct:extent_3d
+ksize	remap_3d.h	/^  int klo,khi,ksize;$/;"	m	struct:extent_3d
+length1	fft_2d.h	/^  int length1,length2;              \/* length of 1st and 2nd FFTs *\/$/;"	m	struct:fft_plan_2d
+length1	fft_3d.h	/^  int length1,length2,length3;      \/* length of 1st,2nd,3rd FFTs *\/$/;"	m	struct:fft_plan_3d
+length2	fft_2d.h	/^  int length1,length2;              \/* length of 1st and 2nd FFTs *\/$/;"	m	struct:fft_plan_2d
+length2	fft_3d.h	/^  int length1,length2,length3;      \/* length of 1st,2nd,3rd FFTs *\/$/;"	m	struct:fft_plan_3d
+length3	fft_3d.h	/^  int length1,length2,length3;      \/* length of 1st,2nd,3rd FFTs *\/$/;"	m	struct:fft_plan_3d
+memory	remap_2d.h	/^  int memory;                       \/* user provides scratch space or not *\/$/;"	m	struct:remap_plan_2d
+memory	remap_3d.h	/^  int memory;                       \/* user provides scratch space or not *\/$/;"	m	struct:remap_plan_3d
+mid1_plan	fft_3d.h	/^  struct remap_plan_3d *mid1_plan;      \/* remap from 1st -> 2nd FFTs *\/$/;"	m	struct:fft_plan_3d	typeref:struct:fft_plan_3d::remap_plan_3d
+mid1_target	fft_3d.h	/^  int mid1_target,mid2_target;$/;"	m	struct:fft_plan_3d
+mid2_plan	fft_3d.h	/^  struct remap_plan_3d *mid2_plan;      \/* remap from 2nd -> 3rd FFTs *\/$/;"	m	struct:fft_plan_3d	typeref:struct:fft_plan_3d::remap_plan_3d
+mid2_target	fft_3d.h	/^  int mid1_target,mid2_target;$/;"	m	struct:fft_plan_3d
+mid_plan	fft_2d.h	/^  struct remap_plan_2d *mid_plan;       \/* remap from 1st -> 2nd FFTs *\/$/;"	m	struct:fft_plan_2d	typeref:struct:fft_plan_2d::remap_plan_2d
+mid_target	fft_2d.h	/^  int pre_target,mid_target;        \/* where to put remap results *\/$/;"	m	struct:fft_plan_2d
+nfast	pack_2d.h	/^  int nfast;                 \/* # of elements in fast index *\/$/;"	m	struct:pack_plan_2d
+nfast	pack_3d.h	/^  int nfast;                 \/* # of elements in fast index *\/$/;"	m	struct:pack_plan_3d
+nmid	pack_3d.h	/^  int nmid;                  \/* # of elements in mid index *\/$/;"	m	struct:pack_plan_3d
+norm	fft_2d.h	/^  double norm;                      \/* normalization factor for rescaling *\/$/;"	m	struct:fft_plan_2d
+norm	fft_3d.h	/^  double norm;                      \/* normalization factor for rescaling *\/$/;"	m	struct:fft_plan_3d
+normnum	fft_2d.h	/^  int normnum;                      \/* # of values to rescale *\/$/;"	m	struct:fft_plan_2d
+normnum	fft_3d.h	/^  int normnum;                      \/* # of values to rescale *\/$/;"	m	struct:fft_plan_3d
+nqty	pack_2d.h	/^  int nqty;                  \/* # of values\/element *\/$/;"	m	struct:pack_plan_2d
+nqty	pack_3d.h	/^  int nqty;                  \/* # of values\/element *\/$/;"	m	struct:pack_plan_3d
+nrecv	remap_2d.h	/^  int nrecv;                        \/* # of recvs from other procs *\/$/;"	m	struct:remap_plan_2d
+nrecv	remap_3d.h	/^  int nrecv;                        \/* # of recvs from other procs *\/$/;"	m	struct:remap_plan_3d
+nsend	remap_2d.h	/^  int nsend;                        \/* # of sends to other procs *\/$/;"	m	struct:remap_plan_2d
+nsend	remap_3d.h	/^  int nsend;                        \/* # of sends to other procs *\/$/;"	m	struct:remap_plan_3d
+nslow	pack_2d.h	/^  int nslow;                 \/* # of elements in slow index *\/$/;"	m	struct:pack_plan_2d
+nslow	pack_3d.h	/^  int nslow;                 \/* # of elements in slow index *\/$/;"	m	struct:pack_plan_3d
+nstride	pack_2d.h	/^  int nstride;               \/* stride between succesive slow indices *\/$/;"	m	struct:pack_plan_2d
+nstride_line	pack_3d.h	/^  int nstride_line;          \/* stride between successive mid indices *\/$/;"	m	struct:pack_plan_3d
+nstride_plane	pack_3d.h	/^  int nstride_plane;         \/* stride between successive slow indices *\/$/;"	m	struct:pack_plan_3d
+pack	remap_2d.h	/^  void (*pack)(double *, double *, struct pack_plan_2d *);                   \/* which pack function to use *\/$/;"	m	struct:remap_plan_2d
+pack	remap_3d.h	/^  void (*pack)(double *, double *, struct pack_plan_3d *);                   \/* which pack function to use *\/$/;"	m	struct:remap_plan_3d
+pack_2d	pack_2d.cpp	/^void pack_2d(double *data, double *buf, struct pack_plan_2d *plan)$/;"	f
+pack_3d	pack_3d.cpp	/^void pack_3d(double *data, double *buf, struct pack_plan_3d *plan)$/;"	f
+pack_plan_2d	pack_2d.h	/^struct pack_plan_2d {$/;"	s
+pack_plan_3d	pack_3d.h	/^struct pack_plan_3d {$/;"	s
+packplan	remap_2d.h	/^  struct pack_plan_2d *packplan;    \/* pack plan for each send message *\/$/;"	m	struct:remap_plan_2d	typeref:struct:remap_plan_2d::pack_plan_2d
+packplan	remap_3d.h	/^  struct pack_plan_3d *packplan;    \/* pack plan for each send message *\/$/;"	m	struct:remap_plan_3d	typeref:struct:remap_plan_3d::pack_plan_3d
+plan_fast_backward	fft_2d.h	/^  fftw_plan plan_fast_backward;$/;"	m	struct:fft_plan_2d
+plan_fast_backward	fft_3d.h	/^  fftw_plan plan_fast_backward;$/;"	m	struct:fft_plan_3d
+plan_fast_forward	fft_2d.h	/^  fftw_plan plan_fast_forward;$/;"	m	struct:fft_plan_2d
+plan_fast_forward	fft_3d.h	/^  fftw_plan plan_fast_forward;$/;"	m	struct:fft_plan_3d
+plan_mid_backward	fft_3d.h	/^  fftw_plan plan_mid_backward;$/;"	m	struct:fft_plan_3d
+plan_mid_forward	fft_3d.h	/^  fftw_plan plan_mid_forward;$/;"	m	struct:fft_plan_3d
+plan_slow_backward	fft_2d.h	/^  fftw_plan plan_slow_backward;$/;"	m	struct:fft_plan_2d
+plan_slow_backward	fft_3d.h	/^  fftw_plan plan_slow_backward;$/;"	m	struct:fft_plan_3d
+plan_slow_forward	fft_2d.h	/^  fftw_plan plan_slow_forward;$/;"	m	struct:fft_plan_2d
+plan_slow_forward	fft_3d.h	/^  fftw_plan plan_slow_forward;$/;"	m	struct:fft_plan_3d
+post_plan	fft_2d.h	/^  struct remap_plan_2d *post_plan;      \/* remap from 2nd FFTs -> output *\/$/;"	m	struct:fft_plan_2d	typeref:struct:fft_plan_2d::remap_plan_2d
+post_plan	fft_3d.h	/^  struct remap_plan_3d *post_plan;      \/* remap from 3rd FFTs -> output *\/$/;"	m	struct:fft_plan_3d	typeref:struct:fft_plan_3d::remap_plan_3d
+pre_plan	fft_2d.h	/^  struct remap_plan_2d *pre_plan;       \/* remap from input -> 1st FFTs *\/$/;"	m	struct:fft_plan_2d	typeref:struct:fft_plan_2d::remap_plan_2d
+pre_plan	fft_3d.h	/^  struct remap_plan_3d *pre_plan;       \/* remap from input -> 1st FFTs *\/$/;"	m	struct:fft_plan_3d	typeref:struct:fft_plan_3d::remap_plan_3d
+pre_target	fft_2d.h	/^  int pre_target,mid_target;        \/* where to put remap results *\/$/;"	m	struct:fft_plan_2d
+pre_target	fft_3d.h	/^  int pre_target;                   \/* where to put remap results *\/$/;"	m	struct:fft_plan_3d
+recv_bufloc	remap_2d.h	/^  int *recv_bufloc;                 \/* offset in scratch buf for each recv *\/$/;"	m	struct:remap_plan_2d
+recv_bufloc	remap_3d.h	/^  int *recv_bufloc;                 \/* offset in scratch buf for each recv *\/$/;"	m	struct:remap_plan_3d
+recv_offset	remap_2d.h	/^  int *recv_offset;                 \/* insertion loc for each recv *\/$/;"	m	struct:remap_plan_2d
+recv_offset	remap_3d.h	/^  int *recv_offset;                 \/* insertion loc for each recv *\/$/;"	m	struct:remap_plan_3d
+recv_proc	remap_2d.h	/^  int *recv_proc;                   \/* proc to recv each message from *\/$/;"	m	struct:remap_plan_2d
+recv_proc	remap_3d.h	/^  int *recv_proc;                   \/* proc to recv each message from *\/$/;"	m	struct:remap_plan_3d
+recv_size	remap_2d.h	/^  int *recv_size;                   \/* size of each recv message *\/$/;"	m	struct:remap_plan_2d
+recv_size	remap_3d.h	/^  int *recv_size;                   \/* size of each recv message *\/$/;"	m	struct:remap_plan_3d
+remap_2d	remap_2d.cpp	/^void remap_2d(double *in, double *out, double *buf,$/;"	f
+remap_2d_	remap_2d.h	63;"	d
+remap_2d_collide	remap_2d.cpp	/^int remap_2d_collide(struct extent_2d *block1, struct extent_2d *block2,$/;"	f
+remap_2d_create_plan	remap_2d.cpp	/^struct remap_plan_2d *remap_2d_create_plan($/;"	f
+remap_2d_create_plan_	remap_2d.h	64;"	d
+remap_2d_destroy_plan	remap_2d.cpp	/^void remap_2d_destroy_plan(struct remap_plan_2d *plan)$/;"	f
+remap_2d_destroy_plan_	remap_2d.h	65;"	d
+remap_3d	remap_3d.cpp	/^void remap_3d(double *in, double *out, double *buf,$/;"	f
+remap_3d_	remap_3d.h	64;"	d
+remap_3d_collide	remap_3d.cpp	/^int remap_3d_collide(struct extent_3d *block1, struct extent_3d *block2,$/;"	f
+remap_3d_create_plan	remap_3d.cpp	/^struct remap_plan_3d *remap_3d_create_plan($/;"	f
+remap_3d_create_plan_	remap_3d.h	65;"	d
+remap_3d_destroy_plan	remap_3d.cpp	/^void remap_3d_destroy_plan(struct remap_plan_3d *plan)$/;"	f
+remap_3d_destroy_plan_	remap_3d.h	66;"	d
+remap_plan_2d	remap_2d.h	/^struct remap_plan_2d {$/;"	s
+remap_plan_3d	remap_3d.h	/^struct remap_plan_3d {$/;"	s
+request	remap_2d.h	/^  MPI_Request *request;             \/* MPI request for each posted recv *\/$/;"	m	struct:remap_plan_2d
+request	remap_3d.h	/^  MPI_Request *request;             \/* MPI request for each posted recv *\/$/;"	m	struct:remap_plan_3d
+scaled	fft_2d.h	/^  int scaled;                       \/* whether to scale FFT results *\/$/;"	m	struct:fft_plan_2d
+scaled	fft_3d.h	/^  int scaled;                       \/* whether to scale FFT results *\/$/;"	m	struct:fft_plan_3d
+scratch	fft_2d.h	/^  FFT_DATA *scratch;                \/* scratch space for remaps *\/$/;"	m	struct:fft_plan_2d
+scratch	fft_3d.h	/^  FFT_DATA *scratch;                \/* scratch space for remaps *\/$/;"	m	struct:fft_plan_3d
+scratch	remap_2d.h	/^  double *scratch;                  \/* scratch buffer for MPI recvs *\/$/;"	m	struct:remap_plan_2d
+scratch	remap_3d.h	/^  double *scratch;                  \/* scratch buffer for MPI recvs *\/$/;"	m	struct:remap_plan_3d
+self	remap_2d.h	/^  int self;                         \/* whether I send\/recv with myself *\/$/;"	m	struct:remap_plan_2d
+self	remap_3d.h	/^  int self;                         \/* whether I send\/recv with myself *\/$/;"	m	struct:remap_plan_3d
+send_offset	remap_2d.h	/^  int *send_offset;                 \/* extraction loc for each send *\/$/;"	m	struct:remap_plan_2d
+send_offset	remap_3d.h	/^  int *send_offset;                 \/* extraction loc for each send *\/$/;"	m	struct:remap_plan_3d
+send_proc	remap_2d.h	/^  int *send_proc;                   \/* proc to send each message to *\/$/;"	m	struct:remap_plan_2d
+send_proc	remap_3d.h	/^  int *send_proc;                   \/* proc to send each message to *\/$/;"	m	struct:remap_plan_3d
+send_size	remap_2d.h	/^  int *send_size;                   \/* size of each send message *\/$/;"	m	struct:remap_plan_2d
+send_size	remap_3d.h	/^  int *send_size;                   \/* size of each send message *\/$/;"	m	struct:remap_plan_3d
+sendbuf	remap_2d.h	/^  double *sendbuf;                  \/* buffer for MPI sends *\/$/;"	m	struct:remap_plan_2d
+sendbuf	remap_3d.h	/^  double *sendbuf;                  \/* buffer for MPI sends *\/$/;"	m	struct:remap_plan_3d
+total1	fft_2d.h	/^  int total1,total2;                \/* # of 1st and 2nd FFTs (times length) *\/$/;"	m	struct:fft_plan_2d
+total1	fft_3d.h	/^  int total1,total2,total3;         \/* # of 1st,2nd,3rd FFTs (times length) *\/$/;"	m	struct:fft_plan_3d
+total2	fft_2d.h	/^  int total1,total2;                \/* # of 1st and 2nd FFTs (times length) *\/$/;"	m	struct:fft_plan_2d
+total2	fft_3d.h	/^  int total1,total2,total3;         \/* # of 1st,2nd,3rd FFTs (times length) *\/$/;"	m	struct:fft_plan_3d
+total3	fft_3d.h	/^  int total1,total2,total3;         \/* # of 1st,2nd,3rd FFTs (times length) *\/$/;"	m	struct:fft_plan_3d
+unpack	remap_2d.h	/^  void (*unpack)(double *, double *, struct pack_plan_2d *);                 \/* which unpack function to use *\/$/;"	m	struct:remap_plan_2d
+unpack	remap_3d.h	/^  void (*unpack)(double *, double *, struct pack_plan_3d *);                 \/* which unpack function to use *\/$/;"	m	struct:remap_plan_3d
+unpack_2d	pack_2d.cpp	/^void unpack_2d(double *buf, double *data, struct pack_plan_2d *plan)$/;"	f
+unpack_2d_permute_1	pack_2d.cpp	/^void unpack_2d_permute_1(double *buf, double *data, struct pack_plan_2d *plan)$/;"	f
+unpack_2d_permute_2	pack_2d.cpp	/^void unpack_2d_permute_2(double *buf, double *data, struct pack_plan_2d *plan)$/;"	f
+unpack_2d_permute_n	pack_2d.cpp	/^void unpack_2d_permute_n(double *buf, double *data, struct pack_plan_2d *plan)$/;"	f
+unpack_3d	pack_3d.cpp	/^void unpack_3d(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute1_1	pack_3d.cpp	/^void unpack_3d_permute1_1(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute1_2	pack_3d.cpp	/^void unpack_3d_permute1_2(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute1_n	pack_3d.cpp	/^void unpack_3d_permute1_n(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute2_1	pack_3d.cpp	/^void unpack_3d_permute2_1(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute2_2	pack_3d.cpp	/^void unpack_3d_permute2_2(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute2_n	pack_3d.cpp	/^void unpack_3d_permute2_n(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpackplan	remap_2d.h	/^  struct pack_plan_2d *unpackplan;  \/* unpack plan for each recv message *\/$/;"	m	struct:remap_plan_2d	typeref:struct:remap_plan_2d::pack_plan_2d
+unpackplan	remap_3d.h	/^  struct pack_plan_3d *unpackplan;  \/* unpack plan for each recv message *\/$/;"	m	struct:remap_plan_3d	typeref:struct:remap_plan_3d::pack_plan_3d

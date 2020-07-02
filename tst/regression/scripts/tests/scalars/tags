@@ -1,0 +1,51 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+_exec	restart.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_nscalars	restart.py	/^_nscalars = [2]$/;"	v
+analyze	mignone_meridional_1d.py	/^def analyze():$/;"	f
+analyze	mignone_radial_1d.py	/^def analyze():$/;"	f
+analyze	restart.py	/^def analyze():$/;"	f
+base_x1rat	mignone_radial_1d.py	/^base_x1rat = 1.0$/;"	v
+base_x2rat	mignone_meridional_1d.py	/^base_x2rat = 1.0$/;"	v
+cases	mignone_meridional_1d.py	/^cases = {$/;"	v
+cases	mignone_radial_1d.py	/^cases = {$/;"	v
+coords	mignone_radial_1d.py	/^coords = ['cylindrical', 'spherical_polar']$/;"	v
+diff_threshold	mignone_meridional_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
+diff_threshold	mignone_radial_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
+error_formatter	mignone_meridional_1d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+error_formatter	mignone_radial_1d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+iprob	mignone_meridional_1d.py	/^iprob = 2  # 1 = meridional 1D tests, section 5.1.2 from Mignone (2014)$/;"	v
+iprob	mignone_radial_1d.py	/^iprob = 1  # 1 = radial 1D tests, section 5.1.1 from Mignone (2014)$/;"	v
+logger	mignone_meridional_1d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	mignone_radial_1d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	restart.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+mignone_tbl1	mignone_radial_1d.py	/^mignone_tbl1 = {$/;"	v
+mignone_tbl4	mignone_meridional_1d.py	/^mignone_tbl4 = {$/;"	v
+nrows_per_solver	mignone_meridional_1d.py	/^nrows_per_solver = 1*num_nx2 + 2$/;"	v
+nrows_per_solver	mignone_radial_1d.py	/^nrows_per_solver = 1*num_nx1 + 2$/;"	v
+num_nx1	mignone_radial_1d.py	/^num_nx1 = len(resolution_range)$/;"	v
+num_nx2	mignone_meridional_1d.py	/^num_nx2 = len(resolution_range)$/;"	v
+nx1_profile	mignone_radial_1d.py	/^nx1_profile = 64$/;"	v
+nx2_profile	mignone_meridional_1d.py	/^nx2_profile = 64$/;"	v
+percentage_formatter	mignone_meridional_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
+percentage_formatter	mignone_meridional_1d.py	/^    percentage_formatter = lambda x: colored($/;"	v
+percentage_formatter	mignone_radial_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
+percentage_formatter	mignone_radial_1d.py	/^    percentage_formatter = lambda x: colored($/;"	v
+plot_convergence	mignone_meridional_1d.py	/^plot_convergence = False$/;"	v
+plot_convergence	mignone_radial_1d.py	/^plot_convergence = False$/;"	v
+plot_profiles	mignone_meridional_1d.py	/^plot_profiles = False$/;"	v
+plot_profiles	mignone_radial_1d.py	/^plot_profiles = False$/;"	v
+prepare	mignone_meridional_1d.py	/^def prepare(**kwargs):$/;"	f
+prepare	mignone_radial_1d.py	/^def prepare(**kwargs):$/;"	f
+prepare	restart.py	/^def prepare(**kwargs):$/;"	f
+resolution_range	mignone_meridional_1d.py	/^resolution_range = [32, 64, 128, 256, 512, 1024, 2048]$/;"	v
+resolution_range	mignone_radial_1d.py	/^resolution_range = [32, 64, 128, 256, 512, 1024, 2048]$/;"	v
+run	mignone_meridional_1d.py	/^def run(**kwargs):$/;"	f
+run	mignone_radial_1d.py	/^def run(**kwargs):$/;"	f
+run	restart.py	/^def run(**kwargs):$/;"	f
+solvers	mignone_meridional_1d.py	/^solvers = [('rk3', 2), ('rk3', 3), ]$/;"	v
+solvers	mignone_radial_1d.py	/^solvers = [('rk3', 2), ('rk3', 3), ]$/;"	v

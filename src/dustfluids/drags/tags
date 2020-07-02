@@ -1,0 +1,33 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Aerodynamics_Drag	dust_gas_drag.cpp	/^void DustGasDrag::Aerodynamics_Drag(MeshBlock *pmb, const Real dt, const AthenaArray<Real> &stopping_time,$/;"	f	class:DustGasDrag
+DRAG_DUSTGAS_HPP_	dust_gas_drag.hpp	2;"	d
+Determinant	LU_decompose.cpp	/^Real DustGasDrag::Determinant()$/;"	f	class:DustGasDrag
+DustFeedback_Flag_	dust_gas_drag.hpp	/^    bool DustFeedback_Flag_;           \/\/ true or false, the flag of dust feedback term$/;"	m	class:DustGasDrag
+DustGasDrag	dust_gas_drag.cpp	/^DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :$/;"	f	class:DustGasDrag
+DustGasDrag	dust_gas_drag.hpp	/^class DustGasDrag {$/;"	c
+InverseMatrix	LU_decompose.cpp	/^AthenaArray<Real> DustGasDrag::InverseMatrix(AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
+IterativeImprove	LU_decompose.cpp	/^void DustGasDrag::IterativeImprove(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector)$/;"	f	class:DustGasDrag
+LUdecompose	LU_decompose.cpp	/^void DustGasDrag::LUdecompose(const AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
+SolveLinearEquation	LU_decompose.cpp	/^void DustGasDrag::SolveLinearEquation(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector)$/;"	f	class:DustGasDrag
+SolveMultipleLinearEquation	LU_decompose.cpp	/^void DustGasDrag::SolveMultipleLinearEquation(AthenaArray<Real> &b_matrix, AthenaArray<Real> &x_matrix)$/;"	f	class:DustGasDrag
+Update_Multiple_Dust_Feedback	solve_drags_matrix.cpp	/^void DustGasDrag::Update_Multiple_Dust_Feedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+Update_Multiple_Dust_NoFeedback	solve_drags_matrix.cpp	/^void DustGasDrag::Update_Multiple_Dust_NoFeedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+Update_Single_Dust_Feedback	solve_drags_matrix.cpp	/^void DustGasDrag::Update_Single_Dust_Feedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+Update_Single_Dust_NoFeedback	solve_drags_matrix.cpp	/^void DustGasDrag::Update_Single_Dust_NoFeedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+aref_matrix	dust_gas_drag.hpp	/^    AthenaArray<Real> aref_matrix;$/;"	m	class:DustGasDrag
+det	dust_gas_drag.hpp	/^    Real det;                       \/\/ The determinant of the matrix of drags$/;"	m	class:DustGasDrag
+drags_matrix	dust_gas_drag.hpp	/^    AthenaArray<Real> drags_matrix; \/\/ The matrix of drags between dust and gas$/;"	m	class:DustGasDrag
+hydro_gamma_	dust_gas_drag.hpp	/^    Real        hydro_gamma_;$/;"	m	class:DustGasDrag
+indx_array	dust_gas_drag.hpp	/^    AthenaArray<int>  indx_array;   \/\/ Stores the permutation.$/;"	m	class:DustGasDrag
+lu_matrix	dust_gas_drag.hpp	/^    AthenaArray<Real> lu_matrix;    \/\/ Stores the decomposition.$/;"	m	class:DustGasDrag
+num_species	dust_gas_drag.cpp	/^  indx_array(num_species),                \/\/ Stores the permutation$/;"	v
+num_species	dust_gas_drag.hpp	/^    const int num_species = NDUSTFLUIDS + 1;$/;"	m	class:DustGasDrag
+pco_	dust_gas_drag.hpp	/^    Coordinates *pco_;            \/\/ ptr to coordinates class$/;"	m	class:DustGasDrag
+pmb_	dust_gas_drag.hpp	/^    MeshBlock   *pmb_;            \/\/ ptr to meshblock containing this DustGasDrag$/;"	m	class:DustGasDrag
+pmy_dustfluids_	dust_gas_drag.hpp	/^    DustFluids  *pmy_dustfluids_; \/\/ ptr to DustFluids containing this DustGasDrag$/;"	m	class:DustGasDrag
+scale_vector	dust_gas_drag.hpp	/^    AthenaArray<Real> scale_vector; \/\/ scale_vector stores the implicit scaling of each row$/;"	m	class:DustGasDrag

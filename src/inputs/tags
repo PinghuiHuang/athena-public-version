@@ -1,0 +1,15 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ASCIITableLoader	ascii_table_reader.cpp	/^void ASCIITableLoader(const char *filename, InterpTable2D &table,$/;"	f
+H5T_REAL	hdf5_reader.cpp	34;"	d	file:
+H5T_REAL	hdf5_reader.cpp	36;"	d	file:
+HDF5ReadRealArray	hdf5_reader.cpp	/^void HDF5ReadRealArray(const char *filename, const char *dataset_name, int rank_file,$/;"	f
+HDF5TableLoader	hdf5_reader.cpp	/^void HDF5TableLoader(const char *filename, InterpTable2D* ptable, const int nvar,$/;"	f
+INPUTS_ASCII_TABLE_READER_HPP_	ascii_table_reader.hpp	2;"	d
+INPUTS_HDF5_READER_HPP_	hdf5_reader.hpp	2;"	d
+MAX_RANK_FILE	hdf5_reader.hpp	24;"	d
+MAX_RANK_MEM	hdf5_reader.hpp	22;"	d

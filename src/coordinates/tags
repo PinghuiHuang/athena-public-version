@@ -1,0 +1,472 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AddCoordTermsDivergence	coordinates.cpp	/^void Coordinates::AddCoordTermsDivergence($/;"	f	class:Coordinates
+AddCoordTermsDivergence	cylindrical.cpp	/^void Cylindrical::AddCoordTermsDivergence($/;"	f	class:Cylindrical
+AddCoordTermsDivergence	gr_user.cpp	/^void GRUser::AddCoordTermsDivergence(const Real dt, const AthenaArray<Real> *flux,$/;"	f	class:GRUser
+AddCoordTermsDivergence	kerr-schild.cpp	/^void KerrSchild::AddCoordTermsDivergence($/;"	f	class:KerrSchild
+AddCoordTermsDivergence	schwarzschild.cpp	/^void Schwarzschild::AddCoordTermsDivergence($/;"	f	class:Schwarzschild
+AddCoordTermsDivergence	spherical_polar.cpp	/^void SphericalPolar::AddCoordTermsDivergence(const Real dt, const AthenaArray<Real> *flux,$/;"	f	class:SphericalPolar
+AddCoordTermsDivergence_DustFluids	coordinates.cpp	/^void Coordinates::AddCoordTermsDivergence_DustFluids($/;"	f	class:Coordinates
+AddCoordTermsDivergence_DustFluids	cylindrical.cpp	/^void Cylindrical::AddCoordTermsDivergence_DustFluids($/;"	f	class:Cylindrical
+AddCoordTermsDivergence_DustFluids	spherical_polar.cpp	/^void SphericalPolar::AddCoordTermsDivergence_DustFluids(const Real dt, const AthenaArray<Real> *df_flx,$/;"	f	class:SphericalPolar
+COORDINATES_COORDINATES_HPP_	coordinates.hpp	2;"	d
+CalculateTransformation	gr_user.cpp	/^void CalculateTransformation($/;"	f	namespace:__anon2
+Cartesian	cartesian.cpp	/^Cartesian::Cartesian(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:Cartesian
+Cartesian	coordinates.hpp	/^class Cartesian : public Coordinates {$/;"	c
+CellMetric	coordinates.hpp	/^  virtual void CellMetric(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+CellMetric	gr_user.cpp	/^void GRUser::CellMetric(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+CellMetric	kerr-schild.cpp	/^void KerrSchild::CellMetric(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+CellMetric	minkowski.cpp	/^void Minkowski::CellMetric(const int k, const int j, const int il, const int iu,$/;"	f	class:Minkowski
+CellMetric	schwarzschild.cpp	/^void Schwarzschild::CellMetric(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+CellVolume	coordinates.cpp	/^void Coordinates::CellVolume(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+CellVolume	cylindrical.cpp	/^void Cylindrical::CellVolume(const int k, const int j, const int il, const int iu,$/;"	f	class:Cylindrical
+CellVolume	gr_user.cpp	/^void GRUser::CellVolume(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+CellVolume	kerr-schild.cpp	/^void KerrSchild::CellVolume(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+CellVolume	schwarzschild.cpp	/^void Schwarzschild::CellVolume(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+CellVolume	spherical_polar.cpp	/^void SphericalPolar::CellVolume(const int k, const int j, const int il, const int iu,$/;"	f	class:SphericalPolar
+CenterWidth1	coordinates.cpp	/^void Coordinates::CenterWidth1(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+CenterWidth1	gr_user.cpp	/^void GRUser::CenterWidth1(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+CenterWidth1	kerr-schild.cpp	/^void KerrSchild::CenterWidth1(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+CenterWidth1	schwarzschild.cpp	/^void Schwarzschild::CenterWidth1(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+CenterWidth2	coordinates.cpp	/^void Coordinates::CenterWidth2(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+CenterWidth2	cylindrical.cpp	/^void Cylindrical::CenterWidth2(const int k, const int j, const int il, const int iu,$/;"	f	class:Cylindrical
+CenterWidth2	gr_user.cpp	/^void GRUser::CenterWidth2(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+CenterWidth2	kerr-schild.cpp	/^void KerrSchild::CenterWidth2(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+CenterWidth2	schwarzschild.cpp	/^void Schwarzschild::CenterWidth2(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+CenterWidth2	spherical_polar.cpp	/^void SphericalPolar::CenterWidth2(const int k, const int j, const int il, const int iu,$/;"	f	class:SphericalPolar
+CenterWidth3	coordinates.cpp	/^void Coordinates::CenterWidth3(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+CenterWidth3	gr_user.cpp	/^void GRUser::CenterWidth3(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+CenterWidth3	kerr-schild.cpp	/^void KerrSchild::CenterWidth3(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+CenterWidth3	schwarzschild.cpp	/^void Schwarzschild::CenterWidth3(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+CenterWidth3	spherical_polar.cpp	/^void SphericalPolar::CenterWidth3(const int k, const int j, const int il, const int iu,$/;"	f	class:SphericalPolar
+Coordinates	coordinates.cpp	/^Coordinates::Coordinates(MeshBlock *pmb, ParameterInput *pin, bool flag) :$/;"	f	class:Coordinates
+Coordinates	coordinates.hpp	/^class Coordinates {$/;"	c
+Cylindrical	coordinates.hpp	/^class Cylindrical : public Coordinates {$/;"	c
+Cylindrical	cylindrical.cpp	/^Cylindrical::Cylindrical(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:Cylindrical
+Determinant	gr_user.cpp	/^Real Determinant(Real a11, Real a12, Real a13, Real a21, Real a22, Real a23,$/;"	f	namespace:__anon2
+Determinant	gr_user.cpp	/^Real Determinant(Real a11, Real a12, Real a21, Real a22) {$/;"	f	namespace:__anon2
+Determinant	gr_user.cpp	/^Real Determinant(const AthenaArray<Real> &g) {$/;"	f	namespace:__anon2
+Edge1Length	coordinates.cpp	/^void Coordinates::Edge1Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+Edge1Length	gr_user.cpp	/^void GRUser::Edge1Length(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+Edge1Length	kerr-schild.cpp	/^void KerrSchild::Edge1Length(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+Edge1Length	schwarzschild.cpp	/^void Schwarzschild::Edge1Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+Edge2Length	coordinates.cpp	/^void Coordinates::Edge2Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+Edge2Length	cylindrical.cpp	/^void Cylindrical::Edge2Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Cylindrical
+Edge2Length	gr_user.cpp	/^void GRUser::Edge2Length(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+Edge2Length	kerr-schild.cpp	/^void KerrSchild::Edge2Length(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+Edge2Length	schwarzschild.cpp	/^void Schwarzschild::Edge2Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+Edge2Length	spherical_polar.cpp	/^void SphericalPolar::Edge2Length(const int k, const int j, const int il, const int iu,$/;"	f	class:SphericalPolar
+Edge3Length	coordinates.cpp	/^void Coordinates::Edge3Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+Edge3Length	gr_user.cpp	/^void GRUser::Edge3Length(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+Edge3Length	kerr-schild.cpp	/^void KerrSchild::Edge3Length(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+Edge3Length	schwarzschild.cpp	/^void Schwarzschild::Edge3Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+Edge3Length	spherical_polar.cpp	/^void SphericalPolar::Edge3Length(const int k, const int j, const int il, const int iu,$/;"	f	class:SphericalPolar
+Face1Area	coordinates.cpp	/^void Coordinates::Face1Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+Face1Area	cylindrical.cpp	/^void Cylindrical::Face1Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Cylindrical
+Face1Area	gr_user.cpp	/^void GRUser::Face1Area(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+Face1Area	kerr-schild.cpp	/^void KerrSchild::Face1Area(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+Face1Area	schwarzschild.cpp	/^void Schwarzschild::Face1Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+Face1Area	spherical_polar.cpp	/^void SphericalPolar::Face1Area(const int k, const int j, const int il, const int iu,$/;"	f	class:SphericalPolar
+Face1Metric	coordinates.hpp	/^  virtual void Face1Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+Face1Metric	gr_user.cpp	/^void GRUser::Face1Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+Face1Metric	kerr-schild.cpp	/^void KerrSchild::Face1Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+Face1Metric	minkowski.cpp	/^void Minkowski::Face1Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:Minkowski
+Face1Metric	schwarzschild.cpp	/^void Schwarzschild::Face1Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+Face2Area	coordinates.cpp	/^void Coordinates::Face2Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+Face2Area	gr_user.cpp	/^void GRUser::Face2Area(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+Face2Area	kerr-schild.cpp	/^void KerrSchild::Face2Area(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+Face2Area	schwarzschild.cpp	/^void Schwarzschild::Face2Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+Face2Area	spherical_polar.cpp	/^void SphericalPolar::Face2Area(const int k, const int j, const int il, const int iu,$/;"	f	class:SphericalPolar
+Face2Metric	coordinates.hpp	/^  virtual void Face2Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+Face2Metric	gr_user.cpp	/^void GRUser::Face2Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+Face2Metric	kerr-schild.cpp	/^void KerrSchild::Face2Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+Face2Metric	minkowski.cpp	/^void Minkowski::Face2Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:Minkowski
+Face2Metric	schwarzschild.cpp	/^void Schwarzschild::Face2Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+Face3Area	coordinates.cpp	/^void Coordinates::Face3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+Face3Area	cylindrical.cpp	/^void Cylindrical::Face3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Cylindrical
+Face3Area	gr_user.cpp	/^void GRUser::Face3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+Face3Area	kerr-schild.cpp	/^void KerrSchild::Face3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+Face3Area	schwarzschild.cpp	/^void Schwarzschild::Face3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+Face3Area	spherical_polar.cpp	/^void SphericalPolar::Face3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:SphericalPolar
+Face3Metric	coordinates.hpp	/^  virtual void Face3Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+Face3Metric	gr_user.cpp	/^void GRUser::Face3Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:GRUser
+Face3Metric	kerr-schild.cpp	/^void KerrSchild::Face3Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:KerrSchild
+Face3Metric	minkowski.cpp	/^void Minkowski::Face3Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:Minkowski
+Face3Metric	schwarzschild.cpp	/^void Schwarzschild::Face3Metric(const int k, const int j, const int il, const int iu,$/;"	f	class:Schwarzschild
+FluxToGlobal1	coordinates.hpp	/^  virtual void FluxToGlobal1($/;"	f	class:Coordinates
+FluxToGlobal1	gr_user.cpp	/^void GRUser::FluxToGlobal1($/;"	f	class:GRUser
+FluxToGlobal1	kerr-schild.cpp	/^void KerrSchild::FluxToGlobal1($/;"	f	class:KerrSchild
+FluxToGlobal1	minkowski.cpp	/^void Minkowski::FluxToGlobal1($/;"	f	class:Minkowski
+FluxToGlobal1	schwarzschild.cpp	/^void Schwarzschild::FluxToGlobal1($/;"	f	class:Schwarzschild
+FluxToGlobal2	coordinates.hpp	/^  virtual void FluxToGlobal2($/;"	f	class:Coordinates
+FluxToGlobal2	gr_user.cpp	/^void GRUser::FluxToGlobal2($/;"	f	class:GRUser
+FluxToGlobal2	kerr-schild.cpp	/^void KerrSchild::FluxToGlobal2($/;"	f	class:KerrSchild
+FluxToGlobal2	minkowski.cpp	/^void Minkowski::FluxToGlobal2($/;"	f	class:Minkowski
+FluxToGlobal2	schwarzschild.cpp	/^void Schwarzschild::FluxToGlobal2($/;"	f	class:Schwarzschild
+FluxToGlobal3	coordinates.hpp	/^  virtual void FluxToGlobal3($/;"	f	class:Coordinates
+FluxToGlobal3	gr_user.cpp	/^void GRUser::FluxToGlobal3($/;"	f	class:GRUser
+FluxToGlobal3	kerr-schild.cpp	/^void KerrSchild::FluxToGlobal3($/;"	f	class:KerrSchild
+FluxToGlobal3	minkowski.cpp	/^void Minkowski::FluxToGlobal3($/;"	f	class:Minkowski
+FluxToGlobal3	schwarzschild.cpp	/^void Schwarzschild::FluxToGlobal3($/;"	f	class:Schwarzschild
+GRUser	coordinates.hpp	/^class GRUser : public Coordinates {$/;"	c
+GRUser	gr_user.cpp	/^GRUser::GRUser(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:GRUser
+GetCellVolume	coordinates.cpp	/^Real Coordinates::GetCellVolume(const int k, const int j, const int i) {$/;"	f	class:Coordinates
+GetCellVolume	cylindrical.cpp	/^Real Cylindrical::GetCellVolume(const int k, const int j, const int i) {$/;"	f	class:Cylindrical
+GetCellVolume	gr_user.cpp	/^Real GRUser::GetCellVolume(const int k, const int j, const int i) {$/;"	f	class:GRUser
+GetCellVolume	kerr-schild.cpp	/^Real KerrSchild::GetCellVolume(const int k, const int j, const int i) {$/;"	f	class:KerrSchild
+GetCellVolume	schwarzschild.cpp	/^Real Schwarzschild::GetCellVolume(const int k, const int j, const int i) {$/;"	f	class:Schwarzschild
+GetCellVolume	spherical_polar.cpp	/^Real SphericalPolar::GetCellVolume(const int k, const int j, const int i) {$/;"	f	class:SphericalPolar
+GetEdge1Length	coordinates.cpp	/^Real Coordinates::GetEdge1Length(const int k, const int j, const int i) {$/;"	f	class:Coordinates
+GetEdge1Length	gr_user.cpp	/^Real GRUser::GetEdge1Length(const int k, const int j, const int i) {$/;"	f	class:GRUser
+GetEdge1Length	kerr-schild.cpp	/^Real KerrSchild::GetEdge1Length(const int k, const int j, const int i) {$/;"	f	class:KerrSchild
+GetEdge1Length	schwarzschild.cpp	/^Real Schwarzschild::GetEdge1Length(const int k, const int j, const int i) {$/;"	f	class:Schwarzschild
+GetEdge2Length	coordinates.cpp	/^Real Coordinates::GetEdge2Length(const int k, const int j, const int i) {$/;"	f	class:Coordinates
+GetEdge2Length	cylindrical.cpp	/^Real Cylindrical::GetEdge2Length(const int k, const int j, const int i) {$/;"	f	class:Cylindrical
+GetEdge2Length	gr_user.cpp	/^Real GRUser::GetEdge2Length(const int k, const int j, const int i) {$/;"	f	class:GRUser
+GetEdge2Length	kerr-schild.cpp	/^Real KerrSchild::GetEdge2Length(const int k, const int j, const int i) {$/;"	f	class:KerrSchild
+GetEdge2Length	schwarzschild.cpp	/^Real Schwarzschild::GetEdge2Length(const int k, const int j, const int i) {$/;"	f	class:Schwarzschild
+GetEdge2Length	spherical_polar.cpp	/^Real SphericalPolar::GetEdge2Length(const int k, const int j, const int i) {$/;"	f	class:SphericalPolar
+GetEdge3Length	coordinates.cpp	/^Real Coordinates::GetEdge3Length(const int k, const int j, const int i) {$/;"	f	class:Coordinates
+GetEdge3Length	gr_user.cpp	/^Real GRUser::GetEdge3Length(const int k, const int j, const int i) {$/;"	f	class:GRUser
+GetEdge3Length	kerr-schild.cpp	/^Real KerrSchild::GetEdge3Length(const int k, const int j, const int i) {$/;"	f	class:KerrSchild
+GetEdge3Length	schwarzschild.cpp	/^Real Schwarzschild::GetEdge3Length(const int k, const int j, const int i) {$/;"	f	class:Schwarzschild
+GetEdge3Length	spherical_polar.cpp	/^Real SphericalPolar::GetEdge3Length(const int k, const int j, const int i) {$/;"	f	class:SphericalPolar
+GetFace1Area	coordinates.cpp	/^Real Coordinates::GetFace1Area(const int k, const int j, const int i) {$/;"	f	class:Coordinates
+GetFace1Area	cylindrical.cpp	/^Real Cylindrical::GetFace1Area(const int k, const int j, const int i) {$/;"	f	class:Cylindrical
+GetFace1Area	gr_user.cpp	/^Real GRUser::GetFace1Area(const int k, const int j, const int i) {$/;"	f	class:GRUser
+GetFace1Area	kerr-schild.cpp	/^Real KerrSchild::GetFace1Area(const int k, const int j, const int i) {$/;"	f	class:KerrSchild
+GetFace1Area	schwarzschild.cpp	/^Real Schwarzschild::GetFace1Area(const int k, const int j, const int i) {$/;"	f	class:Schwarzschild
+GetFace1Area	spherical_polar.cpp	/^Real SphericalPolar::GetFace1Area(const int k, const int j, const int i) {$/;"	f	class:SphericalPolar
+GetFace2Area	coordinates.cpp	/^Real Coordinates::GetFace2Area(const int k, const int j, const int i) {$/;"	f	class:Coordinates
+GetFace2Area	gr_user.cpp	/^Real GRUser::GetFace2Area(const int k, const int j, const int i) {$/;"	f	class:GRUser
+GetFace2Area	kerr-schild.cpp	/^Real KerrSchild::GetFace2Area(const int k, const int j, const int i) {$/;"	f	class:KerrSchild
+GetFace2Area	schwarzschild.cpp	/^Real Schwarzschild::GetFace2Area(const int k, const int j, const int i) {$/;"	f	class:Schwarzschild
+GetFace2Area	spherical_polar.cpp	/^Real SphericalPolar::GetFace2Area(const int k, const int j, const int i) {$/;"	f	class:SphericalPolar
+GetFace3Area	coordinates.cpp	/^Real Coordinates::GetFace3Area(const int k, const int j, const int i) {$/;"	f	class:Coordinates
+GetFace3Area	cylindrical.cpp	/^Real Cylindrical::GetFace3Area(const int k, const int j, const int i) {$/;"	f	class:Cylindrical
+GetFace3Area	gr_user.cpp	/^Real GRUser::GetFace3Area(const int k, const int j, const int i) {$/;"	f	class:GRUser
+GetFace3Area	kerr-schild.cpp	/^Real KerrSchild::GetFace3Area(const int k, const int j, const int i) {$/;"	f	class:KerrSchild
+GetFace3Area	schwarzschild.cpp	/^Real Schwarzschild::GetFace3Area(const int k, const int j, const int i) {$/;"	f	class:Schwarzschild
+GetFace3Area	spherical_polar.cpp	/^Real SphericalPolar::GetFace3Area(const int k, const int j, const int i) {$/;"	f	class:SphericalPolar
+GetMass	coordinates.hpp	/^  Real GetMass() const {return bh_mass_;}$/;"	f	class:Coordinates
+GetSpin	coordinates.hpp	/^  Real GetSpin() const {return bh_spin_;}$/;"	f	class:Coordinates
+IsPole	coordinates.cpp	/^bool Coordinates::IsPole(int j) {$/;"	f	class:Coordinates
+KerrSchild	coordinates.hpp	/^class KerrSchild : public Coordinates {$/;"	c
+KerrSchild	kerr-schild.cpp	/^KerrSchild::KerrSchild(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:KerrSchild
+Laplacian	coordinates.cpp	/^void Coordinates::Laplacian(const AthenaArray<Real> &s, AthenaArray<Real> &delta_s,$/;"	f	class:Coordinates
+LaplacianX1	coordinates.cpp	/^void Coordinates::LaplacianX1(const AthenaArray<Real> &s, AthenaArray<Real> &delta_s,$/;"	f	class:Coordinates
+LaplacianX1All	coordinates.cpp	/^void Coordinates::LaplacianX1All(const AthenaArray<Real> &s, AthenaArray<Real> &delta_s,$/;"	f	class:Coordinates
+LaplacianX2	coordinates.cpp	/^void Coordinates::LaplacianX2(const AthenaArray<Real> &s, AthenaArray<Real> &delta_s,$/;"	f	class:Coordinates
+LaplacianX2All	coordinates.cpp	/^void Coordinates::LaplacianX2All(const AthenaArray<Real> &s, AthenaArray<Real> &delta_s,$/;"	f	class:Coordinates
+LaplacianX3	coordinates.cpp	/^void Coordinates::LaplacianX3(const AthenaArray<Real> &s, AthenaArray<Real> &delta_s,$/;"	f	class:Coordinates
+LaplacianX3All	coordinates.cpp	/^void Coordinates::LaplacianX3All(const AthenaArray<Real> &s, AthenaArray<Real> &delta_s,$/;"	f	class:Coordinates
+LowerVectorCell	coordinates.hpp	/^  virtual void LowerVectorCell(Real a0, Real a1, Real a2, Real a3, int k, int j, int i,$/;"	f	class:Coordinates
+LowerVectorCell	gr_user.cpp	/^void GRUser::LowerVectorCell(Real a0, Real a1, Real a2, Real a3, int k, int j, int i,$/;"	f	class:GRUser
+LowerVectorCell	kerr-schild.cpp	/^void KerrSchild::LowerVectorCell(Real a0, Real a1, Real a2, Real a3, int k, int j, int i,$/;"	f	class:KerrSchild
+LowerVectorCell	minkowski.cpp	/^void Minkowski::LowerVectorCell(Real a0, Real a1, Real a2, Real a3, int k, int j,$/;"	f	class:Minkowski
+LowerVectorCell	schwarzschild.cpp	/^void Schwarzschild::LowerVectorCell($/;"	f	class:Schwarzschild
+Metric	coordinates.cpp	/^void Coordinates::Metric($/;"	f	class:Coordinates
+Minkowski	coordinates.hpp	/^class Minkowski : public Coordinates {$/;"	c
+Minkowski	minkowski.cpp	/^Minkowski::Minkowski(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:Minkowski
+PrimToLocal1	coordinates.hpp	/^  virtual void PrimToLocal1($/;"	f	class:Coordinates
+PrimToLocal1	gr_user.cpp	/^void GRUser::PrimToLocal1($/;"	f	class:GRUser
+PrimToLocal1	kerr-schild.cpp	/^void KerrSchild::PrimToLocal1($/;"	f	class:KerrSchild
+PrimToLocal1	minkowski.cpp	/^void Minkowski::PrimToLocal1($/;"	f	class:Minkowski
+PrimToLocal1	schwarzschild.cpp	/^void Schwarzschild::PrimToLocal1($/;"	f	class:Schwarzschild
+PrimToLocal2	coordinates.hpp	/^  virtual void PrimToLocal2($/;"	f	class:Coordinates
+PrimToLocal2	gr_user.cpp	/^void GRUser::PrimToLocal2($/;"	f	class:GRUser
+PrimToLocal2	kerr-schild.cpp	/^void KerrSchild::PrimToLocal2($/;"	f	class:KerrSchild
+PrimToLocal2	minkowski.cpp	/^void Minkowski::PrimToLocal2($/;"	f	class:Minkowski
+PrimToLocal2	schwarzschild.cpp	/^void Schwarzschild::PrimToLocal2($/;"	f	class:Schwarzschild
+PrimToLocal3	coordinates.hpp	/^  virtual void PrimToLocal3($/;"	f	class:Coordinates
+PrimToLocal3	gr_user.cpp	/^void GRUser::PrimToLocal3($/;"	f	class:GRUser
+PrimToLocal3	kerr-schild.cpp	/^void KerrSchild::PrimToLocal3($/;"	f	class:KerrSchild
+PrimToLocal3	minkowski.cpp	/^void Minkowski::PrimToLocal3($/;"	f	class:Minkowski
+PrimToLocal3	schwarzschild.cpp	/^void Schwarzschild::PrimToLocal3($/;"	f	class:Schwarzschild
+RaiseVectorCell	coordinates.hpp	/^  virtual void RaiseVectorCell(Real a_0, Real a_1, Real a_2, Real a_3, int k, int j,$/;"	f	class:Coordinates
+RaiseVectorCell	gr_user.cpp	/^void GRUser::RaiseVectorCell(Real a_0, Real a_1, Real a_2, Real a_3, int k, int j, int i,$/;"	f	class:GRUser
+RaiseVectorCell	kerr-schild.cpp	/^void KerrSchild::RaiseVectorCell(Real a_0, Real a_1, Real a_2, Real a_3, int k, int j,$/;"	f	class:KerrSchild
+RaiseVectorCell	minkowski.cpp	/^void Minkowski::RaiseVectorCell(Real a_0, Real a_1, Real a_2, Real a_3, int k, int j,$/;"	f	class:Minkowski
+RaiseVectorCell	schwarzschild.cpp	/^void Schwarzschild::RaiseVectorCell(Real a_0, Real a_1, Real a_2, Real a_3, int k, int j,$/;"	f	class:Schwarzschild
+Schwarzschild	coordinates.hpp	/^class Schwarzschild : public Coordinates {$/;"	c
+Schwarzschild	schwarzschild.cpp	/^Schwarzschild::Schwarzschild(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:Schwarzschild
+SphericalPolar	coordinates.hpp	/^class SphericalPolar : public Coordinates {$/;"	c
+SphericalPolar	spherical_polar.cpp	/^SphericalPolar::SphericalPolar(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:SphericalPolar
+VolCenter1Length	coordinates.cpp	/^void Coordinates::VolCenter1Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+VolCenter2Length	coordinates.cpp	/^void Coordinates::VolCenter2Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+VolCenter2Length	cylindrical.cpp	/^void Cylindrical::VolCenter2Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Cylindrical
+VolCenter2Length	spherical_polar.cpp	/^void SphericalPolar::VolCenter2Length(const int k, const int j, const int il,$/;"	f	class:SphericalPolar
+VolCenter3Length	coordinates.cpp	/^void Coordinates::VolCenter3Length(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+VolCenter3Length	spherical_polar.cpp	/^void SphericalPolar::VolCenter3Length(const int k, const int j, const int il,$/;"	f	class:SphericalPolar
+VolCenterFace1Area	coordinates.cpp	/^void Coordinates::VolCenterFace1Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+VolCenterFace1Area	cylindrical.cpp	/^void Cylindrical::VolCenterFace1Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Cylindrical
+VolCenterFace1Area	spherical_polar.cpp	/^void SphericalPolar::VolCenterFace1Area(const int k, const int j, const int il,$/;"	f	class:SphericalPolar
+VolCenterFace2Area	coordinates.cpp	/^void Coordinates::VolCenterFace2Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+VolCenterFace2Area	spherical_polar.cpp	/^void SphericalPolar::VolCenterFace2Area(const int k, const int j, const int il,$/;"	f	class:SphericalPolar
+VolCenterFace3Area	coordinates.cpp	/^void Coordinates::VolCenterFace3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
+VolCenterFace3Area	cylindrical.cpp	/^void Cylindrical::VolCenterFace3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Cylindrical
+VolCenterFace3Area	spherical_polar.cpp	/^void SphericalPolar::VolCenterFace3Area(const int k, const int j, const int il,$/;"	f	class:SphericalPolar
+bh_mass_	coordinates.hpp	/^  Real bh_mass_;$/;"	m	class:Coordinates
+bh_spin_	coordinates.hpp	/^  Real bh_spin_;$/;"	m	class:Coordinates
+coarse_flag	coordinates.hpp	/^  bool coarse_flag;  \/\/ true if this coordinate object is parent (coarse) mesh in AMR$/;"	m	class:Coordinates
+coord_area1_i1_	coordinates.hpp	/^  AthenaArray<Real> coord_area1_i_, coord_area1_i1_;$/;"	m	class:Coordinates
+coord_area1_i_	coordinates.hpp	/^  AthenaArray<Real> coord_area1_i_, coord_area1_i1_;$/;"	m	class:Coordinates
+coord_area1_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_area1_j_, coord_area1_j1_, coord_area1_j2_;$/;"	m	class:Coordinates
+coord_area1_j2_	coordinates.hpp	/^  AthenaArray<Real> coord_area1_j_, coord_area1_j1_, coord_area1_j2_;$/;"	m	class:Coordinates
+coord_area1_j_	coordinates.hpp	/^  AthenaArray<Real> coord_area1_j_, coord_area1_j1_, coord_area1_j2_;$/;"	m	class:Coordinates
+coord_area1_k1_	coordinates.hpp	/^  AthenaArray<Real> coord_area1_k1_;$/;"	m	class:Coordinates
+coord_area1_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_area1_kji_;$/;"	m	class:Coordinates
+coord_area1vc_i_	coordinates.hpp	/^  AthenaArray<Real> coord_area1vc_i_,coord_area1vc_j_; \/\/nonidealmhd additions$/;"	m	class:Coordinates
+coord_area1vc_j_	coordinates.hpp	/^  AthenaArray<Real> coord_area1vc_i_,coord_area1vc_j_; \/\/nonidealmhd additions$/;"	m	class:Coordinates
+coord_area2_i1_	coordinates.hpp	/^  AthenaArray<Real> coord_area2_i_, coord_area2_i1_, coord_area2_i2_;$/;"	m	class:Coordinates
+coord_area2_i2_	coordinates.hpp	/^  AthenaArray<Real> coord_area2_i_, coord_area2_i1_, coord_area2_i2_;$/;"	m	class:Coordinates
+coord_area2_i_	coordinates.hpp	/^  AthenaArray<Real> coord_area2_i_, coord_area2_i1_, coord_area2_i2_;$/;"	m	class:Coordinates
+coord_area2_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_area2_j_, coord_area2_j1_, coord_area2_j2_;$/;"	m	class:Coordinates
+coord_area2_j2_	coordinates.hpp	/^  AthenaArray<Real> coord_area2_j_, coord_area2_j1_, coord_area2_j2_;$/;"	m	class:Coordinates
+coord_area2_j_	coordinates.hpp	/^  AthenaArray<Real> coord_area2_j_, coord_area2_j1_, coord_area2_j2_;$/;"	m	class:Coordinates
+coord_area2_k1_	coordinates.hpp	/^  AthenaArray<Real> coord_area2_k1_;$/;"	m	class:Coordinates
+coord_area2_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_area2_kji_;$/;"	m	class:Coordinates
+coord_area2vc_i_	coordinates.hpp	/^  AthenaArray<Real> coord_area2vc_i_,coord_area2vc_j_; \/\/nonidealmhd additions$/;"	m	class:Coordinates
+coord_area2vc_j_	coordinates.hpp	/^  AthenaArray<Real> coord_area2vc_i_,coord_area2vc_j_; \/\/nonidealmhd additions$/;"	m	class:Coordinates
+coord_area3_i1_	coordinates.hpp	/^  AthenaArray<Real> coord_area3_i_, coord_area3_i1_, coord_area3_i2_;$/;"	m	class:Coordinates
+coord_area3_i2_	coordinates.hpp	/^  AthenaArray<Real> coord_area3_i_, coord_area3_i1_, coord_area3_i2_;$/;"	m	class:Coordinates
+coord_area3_i_	coordinates.hpp	/^  AthenaArray<Real> coord_area3_i_, coord_area3_i1_, coord_area3_i2_;$/;"	m	class:Coordinates
+coord_area3_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_area3_j1_, coord_area3_j2_;$/;"	m	class:Coordinates
+coord_area3_j2_	coordinates.hpp	/^  AthenaArray<Real> coord_area3_j1_, coord_area3_j2_;$/;"	m	class:Coordinates
+coord_area3_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_area3_kji_;$/;"	m	class:Coordinates
+coord_area3vc_i_	coordinates.hpp	/^  AthenaArray<Real> coord_area3vc_i_; \/\/nonidealmhd addition$/;"	m	class:Coordinates
+coord_len1_i1_	coordinates.hpp	/^  AthenaArray<Real> coord_len1_i1_, coord_len1_i2_;$/;"	m	class:Coordinates
+coord_len1_i2_	coordinates.hpp	/^  AthenaArray<Real> coord_len1_i1_, coord_len1_i2_;$/;"	m	class:Coordinates
+coord_len1_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_len1_j1_, coord_len1_j2_;$/;"	m	class:Coordinates
+coord_len1_j2_	coordinates.hpp	/^  AthenaArray<Real> coord_len1_j1_, coord_len1_j2_;$/;"	m	class:Coordinates
+coord_len1_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_len1_kji_;$/;"	m	class:Coordinates
+coord_len2_i1_	coordinates.hpp	/^  AthenaArray<Real> coord_len2_i1_;$/;"	m	class:Coordinates
+coord_len2_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_len2_j1_, coord_len2_j2_;$/;"	m	class:Coordinates
+coord_len2_j2_	coordinates.hpp	/^  AthenaArray<Real> coord_len2_j1_, coord_len2_j2_;$/;"	m	class:Coordinates
+coord_len2_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_len2_kji_;$/;"	m	class:Coordinates
+coord_len3_i1_	coordinates.hpp	/^  AthenaArray<Real> coord_len3_i1_;$/;"	m	class:Coordinates
+coord_len3_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_len3_j1_, coord_len3_j2_;$/;"	m	class:Coordinates
+coord_len3_j2_	coordinates.hpp	/^  AthenaArray<Real> coord_len3_j1_, coord_len3_j2_;$/;"	m	class:Coordinates
+coord_len3_k1_	coordinates.hpp	/^  AthenaArray<Real> coord_len3_k1_;$/;"	m	class:Coordinates
+coord_len3_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_len3_kji_;$/;"	m	class:Coordinates
+coord_src1_i_	coordinates.hpp	/^  AthenaArray<Real> coord_src1_i_;$/;"	m	class:Coordinates
+coord_src1_j_	coordinates.hpp	/^  AthenaArray<Real> coord_src1_j_;$/;"	m	class:Coordinates
+coord_src2_i_	coordinates.hpp	/^  AthenaArray<Real> coord_src2_i_;$/;"	m	class:Coordinates
+coord_src2_j_	coordinates.hpp	/^  AthenaArray<Real> coord_src2_j_;$/;"	m	class:Coordinates
+coord_src3_j_	coordinates.hpp	/^  AthenaArray<Real> coord_src3_j_;$/;"	m	class:Coordinates
+coord_src_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_src_j1_, coord_src_j2_;$/;"	m	class:Coordinates
+coord_src_j2_	coordinates.hpp	/^  AthenaArray<Real> coord_src_j1_, coord_src_j2_;$/;"	m	class:Coordinates
+coord_src_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_src_kji_;$/;"	m	class:Coordinates
+coord_vol_i1_	coordinates.hpp	/^  AthenaArray<Real> coord_vol_i_, coord_vol_i1_, coord_vol_i2_;$/;"	m	class:Coordinates
+coord_vol_i2_	coordinates.hpp	/^  AthenaArray<Real> coord_vol_i_, coord_vol_i1_, coord_vol_i2_;$/;"	m	class:Coordinates
+coord_vol_i_	coordinates.hpp	/^  AthenaArray<Real> coord_vol_i_, coord_vol_i1_, coord_vol_i2_;$/;"	m	class:Coordinates
+coord_vol_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_vol_j_, coord_vol_j1_, coord_vol_j2_;$/;"	m	class:Coordinates
+coord_vol_j2_	coordinates.hpp	/^  AthenaArray<Real> coord_vol_j_, coord_vol_j1_, coord_vol_j2_;$/;"	m	class:Coordinates
+coord_vol_j_	coordinates.hpp	/^  AthenaArray<Real> coord_vol_j_, coord_vol_j1_, coord_vol_j2_;$/;"	m	class:Coordinates
+coord_vol_k1_	coordinates.hpp	/^  AthenaArray<Real> coord_vol_k1_;$/;"	m	class:Coordinates
+coord_vol_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_vol_kji_;$/;"	m	class:Coordinates
+coord_width1_i1_	coordinates.hpp	/^  AthenaArray<Real> coord_width1_i1_;$/;"	m	class:Coordinates
+coord_width1_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_width1_kji_;$/;"	m	class:Coordinates
+coord_width2_i1_	coordinates.hpp	/^  AthenaArray<Real> coord_width2_i1_;$/;"	m	class:Coordinates
+coord_width2_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_width2_j1_;$/;"	m	class:Coordinates
+coord_width2_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_width2_kji_;$/;"	m	class:Coordinates
+coord_width3_j1_	coordinates.hpp	/^  AthenaArray<Real> coord_width3_j1_, coord_width3_j2_, coord_width3_j3_;$/;"	m	class:Coordinates
+coord_width3_j2_	coordinates.hpp	/^  AthenaArray<Real> coord_width3_j1_, coord_width3_j2_, coord_width3_j3_;$/;"	m	class:Coordinates
+coord_width3_j3_	coordinates.hpp	/^  AthenaArray<Real> coord_width3_j1_, coord_width3_j2_, coord_width3_j3_;$/;"	m	class:Coordinates
+coord_width3_ji1_	coordinates.hpp	/^  AthenaArray<Real> coord_width3_ji1_;$/;"	m	class:Coordinates
+coord_width3_k1_	coordinates.hpp	/^  AthenaArray<Real> coord_width3_k1_;$/;"	m	class:Coordinates
+coord_width3_kji_	coordinates.hpp	/^  AthenaArray<Real> coord_width3_kji_;$/;"	m	class:Coordinates
+dh2fd1	coordinates.hpp	/^  AthenaArray<Real> h2f, dh2fd1, h31f, h32f, dh31fd1, dh32fd2;$/;"	m	class:Coordinates
+dh2vd1	coordinates.hpp	/^  AthenaArray<Real> h2v, dh2vd1, h31v, h32v, dh31vd1, dh32vd2;$/;"	m	class:Coordinates
+dh31fd1	coordinates.hpp	/^  AthenaArray<Real> h2f, dh2fd1, h31f, h32f, dh31fd1, dh32fd2;$/;"	m	class:Coordinates
+dh31vd1	coordinates.hpp	/^  AthenaArray<Real> h2v, dh2vd1, h31v, h32v, dh31vd1, dh32vd2;$/;"	m	class:Coordinates
+dh32fd2	coordinates.hpp	/^  AthenaArray<Real> h2f, dh2fd1, h31f, h32f, dh31fd1, dh32fd2;$/;"	m	class:Coordinates
+dh32vd2	coordinates.hpp	/^  AthenaArray<Real> h2v, dh2vd1, h31v, h32v, dh31vd1, dh32vd2;$/;"	m	class:Coordinates
+dx1f	coordinates.hpp	/^  AthenaArray<Real> dx1f, dx2f, dx3f, x1f, x2f, x3f;    \/\/ face   spacing and positions$/;"	m	class:Coordinates
+dx1v	coordinates.hpp	/^  AthenaArray<Real> dx1v, dx2v, dx3v, x1v, x2v, x3v;    \/\/ volume spacing and positions$/;"	m	class:Coordinates
+dx2f	coordinates.hpp	/^  AthenaArray<Real> dx1f, dx2f, dx3f, x1f, x2f, x3f;    \/\/ face   spacing and positions$/;"	m	class:Coordinates
+dx2v	coordinates.hpp	/^  AthenaArray<Real> dx1v, dx2v, dx3v, x1v, x2v, x3v;    \/\/ volume spacing and positions$/;"	m	class:Coordinates
+dx3f	coordinates.hpp	/^  AthenaArray<Real> dx1f, dx2f, dx3f, x1f, x2f, x3f;    \/\/ face   spacing and positions$/;"	m	class:Coordinates
+dx3v	coordinates.hpp	/^  AthenaArray<Real> dx1v, dx2v, dx3v, x1v, x2v, x3v;    \/\/ volume spacing and positions$/;"	m	class:Coordinates
+final	coordinates.hpp	/^                          AthenaArray<Real> &area) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^                          AthenaArray<Real> &area) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^                        AthenaArray<Real> &len) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^                        AthenaArray<Real> &len) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^                       Real *pa0, Real *pa1, Real *pa2, Real *pa3) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                       Real *pa0, Real *pa1, Real *pa2, Real *pa3) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                       Real *pa0, Real *pa1, Real *pa2, Real *pa3) final;$/;"	m	class:Minkowski
+final	coordinates.hpp	/^                       Real *pa0, Real *pa1, Real *pa2, Real *pa3) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                       Real *pa_0, Real *pa_1, Real *pa_2, Real *pa_3) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                       Real *pa_0, Real *pa_1, Real *pa_2, Real *pa_3) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                       Real *pa_0, Real *pa_1, Real *pa_2, Real *pa_3) final;$/;"	m	class:Minkowski
+final	coordinates.hpp	/^                       Real *pa_0, Real *pa_1, Real *pa_2, Real *pa_3) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                     AthenaArray<Real> &u) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^                     AthenaArray<Real> &u) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                     AthenaArray<Real> &u) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                     AthenaArray<Real> &u) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                     AthenaArray<Real> &u) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^                     const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^                     const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx1) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx1) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx1) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx2) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx2) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx2) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx2) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx2) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx3) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx3) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx3) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                    AthenaArray<Real> &dx3) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^                    AthenaArray<Real> &prim_right, AthenaArray<Real> &bx) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                    AthenaArray<Real> &prim_right, AthenaArray<Real> &bx) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                    AthenaArray<Real> &prim_right, AthenaArray<Real> &bx) final;$/;"	m	class:Minkowski
+final	coordinates.hpp	/^                    AthenaArray<Real> &prim_right, AthenaArray<Real> &bx) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                   AthenaArray<Real> &g, AthenaArray<Real> &g_inv) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                   AthenaArray<Real> &g, AthenaArray<Real> &g_inv) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                   AthenaArray<Real> &g, AthenaArray<Real> &g_inv) final;$/;"	m	class:Minkowski
+final	coordinates.hpp	/^                   AthenaArray<Real> &g, AthenaArray<Real> &g_inv) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                   AthenaArray<Real> &len) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^                   AthenaArray<Real> &len) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                   AthenaArray<Real> &len) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                   AthenaArray<Real> &len) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                   AthenaArray<Real> &len) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^                  AthenaArray<Real> &g, AthenaArray<Real> &gi) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                  AthenaArray<Real> &g, AthenaArray<Real> &gi) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                  AthenaArray<Real> &g, AthenaArray<Real> &gi) final;$/;"	m	class:Minkowski
+final	coordinates.hpp	/^                  AthenaArray<Real> &g, AthenaArray<Real> &gi) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                  AthenaArray<Real> &vol) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^                  AthenaArray<Real> &vol) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                  AthenaArray<Real> &vol) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                  AthenaArray<Real> &vol) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                  AthenaArray<Real> &vol) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^                 AthenaArray<Real> &area) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^                 AthenaArray<Real> &area) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^                 AthenaArray<Real> &area) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^                 AthenaArray<Real> &area) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^                 AthenaArray<Real> &area) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^      AthenaArray<Real> &flux, AthenaArray<Real> &ey, AthenaArray<Real> &ez) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^      AthenaArray<Real> &flux, AthenaArray<Real> &ey, AthenaArray<Real> &ez) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^      AthenaArray<Real> &flux, AthenaArray<Real> &ey, AthenaArray<Real> &ez) final;$/;"	m	class:Minkowski
+final	coordinates.hpp	/^      AthenaArray<Real> &flux, AthenaArray<Real> &ey, AthenaArray<Real> &ez) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^  Real GetCellVolume(const int k, const int j, const int i) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^  Real GetCellVolume(const int k, const int j, const int i) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^  Real GetCellVolume(const int k, const int j, const int i) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^  Real GetCellVolume(const int k, const int j, const int i) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^  Real GetCellVolume(const int k, const int j, const int i) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^  Real GetEdge1Length(const int k, const int j, const int i) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^  Real GetEdge1Length(const int k, const int j, const int i) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^  Real GetEdge1Length(const int k, const int j, const int i) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^  Real GetEdge2Length(const int k, const int j, const int i) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^  Real GetEdge2Length(const int k, const int j, const int i) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^  Real GetEdge2Length(const int k, const int j, const int i) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^  Real GetEdge2Length(const int k, const int j, const int i) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^  Real GetEdge2Length(const int k, const int j, const int i) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^  Real GetEdge3Length(const int k, const int j, const int i) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^  Real GetEdge3Length(const int k, const int j, const int i) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^  Real GetEdge3Length(const int k, const int j, const int i) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^  Real GetEdge3Length(const int k, const int j, const int i) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^  Real GetFace1Area(const int k, const int j, const int i) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^  Real GetFace1Area(const int k, const int j, const int i) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^  Real GetFace1Area(const int k, const int j, const int i) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^  Real GetFace1Area(const int k, const int j, const int i) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^  Real GetFace1Area(const int k, const int j, const int i) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^  Real GetFace2Area(const int k, const int j, const int i) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^  Real GetFace2Area(const int k, const int j, const int i) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^  Real GetFace2Area(const int k, const int j, const int i) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^  Real GetFace2Area(const int k, const int j, const int i) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^  Real GetFace3Area(const int k, const int j, const int i) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^  Real GetFace3Area(const int k, const int j, const int i) final;$/;"	m	class:GRUser
+final	coordinates.hpp	/^  Real GetFace3Area(const int k, const int j, const int i) final;$/;"	m	class:KerrSchild
+final	coordinates.hpp	/^  Real GetFace3Area(const int k, const int j, const int i) final;$/;"	m	class:Schwarzschild
+final	coordinates.hpp	/^  Real GetFace3Area(const int k, const int j, const int i) final;$/;"	m	class:SphericalPolar
+g_	coordinates.hpp	/^  AthenaArray<Real> g_, gi_;$/;"	m	class:Coordinates
+gi_	coordinates.hpp	/^  AthenaArray<Real> g_, gi_;$/;"	m	class:Coordinates
+h2f	coordinates.hpp	/^  AthenaArray<Real> h2f, dh2fd1, h31f, h32f, dh31fd1, dh32fd2;$/;"	m	class:Coordinates
+h2v	coordinates.hpp	/^  AthenaArray<Real> h2v, dh2vd1, h31v, h32v, dh31vd1, dh32vd2;$/;"	m	class:Coordinates
+h31f	coordinates.hpp	/^  AthenaArray<Real> h2f, dh2fd1, h31f, h32f, dh31fd1, dh32fd2;$/;"	m	class:Coordinates
+h31v	coordinates.hpp	/^  AthenaArray<Real> h2v, dh2vd1, h31v, h32v, dh31vd1, dh32vd2;$/;"	m	class:Coordinates
+h32f	coordinates.hpp	/^  AthenaArray<Real> h2f, dh2fd1, h31f, h32f, dh31fd1, dh32fd2;$/;"	m	class:Coordinates
+h32v	coordinates.hpp	/^  AthenaArray<Real> h2v, dh2vd1, h31v, h32v, dh31vd1, dh32vd2;$/;"	m	class:Coordinates
+il	coordinates.hpp	/^  int il, iu, jl, ju, kl, ku, ng;  \/\/ limits of indices of arrays (normal or coarse)$/;"	m	class:Coordinates
+iu	coordinates.hpp	/^  int il, iu, jl, ju, kl, ku, ng;  \/\/ limits of indices of arrays (normal or coarse)$/;"	m	class:Coordinates
+jl	coordinates.hpp	/^  int il, iu, jl, ju, kl, ku, ng;  \/\/ limits of indices of arrays (normal or coarse)$/;"	m	class:Coordinates
+ju	coordinates.hpp	/^  int il, iu, jl, ju, kl, ku, ng;  \/\/ limits of indices of arrays (normal or coarse)$/;"	m	class:Coordinates
+kl	coordinates.hpp	/^  int il, iu, jl, ju, kl, ku, ng;  \/\/ limits of indices of arrays (normal or coarse)$/;"	m	class:Coordinates
+ku	coordinates.hpp	/^  int il, iu, jl, ju, kl, ku, ng;  \/\/ limits of indices of arrays (normal or coarse)$/;"	m	class:Coordinates
+metric_cell_i1_	coordinates.hpp	/^  AthenaArray<Real> metric_cell_i1_, metric_cell_i2_;$/;"	m	class:Coordinates
+metric_cell_i2_	coordinates.hpp	/^  AthenaArray<Real> metric_cell_i1_, metric_cell_i2_;$/;"	m	class:Coordinates
+metric_cell_j1_	coordinates.hpp	/^  AthenaArray<Real> metric_cell_j1_, metric_cell_j2_;$/;"	m	class:Coordinates
+metric_cell_j2_	coordinates.hpp	/^  AthenaArray<Real> metric_cell_j1_, metric_cell_j2_;$/;"	m	class:Coordinates
+metric_cell_kji_	coordinates.hpp	/^  AthenaArray<Real> metric_cell_kji_;$/;"	m	class:Coordinates
+metric_face1_i1_	coordinates.hpp	/^  AthenaArray<Real> metric_face1_i1_, metric_face1_i2_;$/;"	m	class:Coordinates
+metric_face1_i2_	coordinates.hpp	/^  AthenaArray<Real> metric_face1_i1_, metric_face1_i2_;$/;"	m	class:Coordinates
+metric_face1_j1_	coordinates.hpp	/^  AthenaArray<Real> metric_face1_j1_, metric_face1_j2_;$/;"	m	class:Coordinates
+metric_face1_j2_	coordinates.hpp	/^  AthenaArray<Real> metric_face1_j1_, metric_face1_j2_;$/;"	m	class:Coordinates
+metric_face1_kji_	coordinates.hpp	/^  AthenaArray<Real> metric_face1_kji_;$/;"	m	class:Coordinates
+metric_face2_i1_	coordinates.hpp	/^  AthenaArray<Real> metric_face2_i1_, metric_face2_i2_;$/;"	m	class:Coordinates
+metric_face2_i2_	coordinates.hpp	/^  AthenaArray<Real> metric_face2_i1_, metric_face2_i2_;$/;"	m	class:Coordinates
+metric_face2_j1_	coordinates.hpp	/^  AthenaArray<Real> metric_face2_j1_, metric_face2_j2_;$/;"	m	class:Coordinates
+metric_face2_j2_	coordinates.hpp	/^  AthenaArray<Real> metric_face2_j1_, metric_face2_j2_;$/;"	m	class:Coordinates
+metric_face2_kji_	coordinates.hpp	/^  AthenaArray<Real> metric_face2_kji_;$/;"	m	class:Coordinates
+metric_face3_i1_	coordinates.hpp	/^  AthenaArray<Real> metric_face3_i1_, metric_face3_i2_;$/;"	m	class:Coordinates
+metric_face3_i2_	coordinates.hpp	/^  AthenaArray<Real> metric_face3_i1_, metric_face3_i2_;$/;"	m	class:Coordinates
+metric_face3_j1_	coordinates.hpp	/^  AthenaArray<Real> metric_face3_j1_, metric_face3_j2_;$/;"	m	class:Coordinates
+metric_face3_j2_	coordinates.hpp	/^  AthenaArray<Real> metric_face3_j1_, metric_face3_j2_;$/;"	m	class:Coordinates
+metric_face3_kji_	coordinates.hpp	/^  AthenaArray<Real> metric_face3_kji_;$/;"	m	class:Coordinates
+nc1	coordinates.hpp	/^  int nc1, nc2, nc3;               \/\/ # cells in each dir of arrays (normal or coarse)$/;"	m	class:Coordinates
+nc2	coordinates.hpp	/^  int nc1, nc2, nc3;               \/\/ # cells in each dir of arrays (normal or coarse)$/;"	m	class:Coordinates
+nc3	coordinates.hpp	/^  int nc1, nc2, nc3;               \/\/ # cells in each dir of arrays (normal or coarse)$/;"	m	class:Coordinates
+ng	coordinates.hpp	/^  int il, iu, jl, ju, kl, ku, ng;  \/\/ limits of indices of arrays (normal or coarse)$/;"	m	class:Coordinates
+phy_src1_i_	coordinates.hpp	/^  AthenaArray<Real> phy_src1_i_, phy_src2_i_;$/;"	m	class:Coordinates
+phy_src2_i_	coordinates.hpp	/^  AthenaArray<Real> phy_src1_i_, phy_src2_i_;$/;"	m	class:Coordinates
+pm	coordinates.hpp	/^  Mesh *pm;$/;"	m	class:Coordinates
+pmy_block	coordinates.hpp	/^  MeshBlock *pmy_block;  \/\/ ptr to MeshBlock containing this Coordinates$/;"	m	class:Coordinates
+trans_face1_i1_	coordinates.hpp	/^  AthenaArray<Real> trans_face1_i1_, trans_face1_i2_;$/;"	m	class:Coordinates
+trans_face1_i2_	coordinates.hpp	/^  AthenaArray<Real> trans_face1_i1_, trans_face1_i2_;$/;"	m	class:Coordinates
+trans_face1_j1_	coordinates.hpp	/^  AthenaArray<Real> trans_face1_j1_;$/;"	m	class:Coordinates
+trans_face1_ji1_	coordinates.hpp	/^  AthenaArray<Real> trans_face1_ji1_, trans_face1_ji2_, trans_face1_ji3_,$/;"	m	class:Coordinates
+trans_face1_ji2_	coordinates.hpp	/^  AthenaArray<Real> trans_face1_ji1_, trans_face1_ji2_, trans_face1_ji3_,$/;"	m	class:Coordinates
+trans_face1_ji3_	coordinates.hpp	/^  AthenaArray<Real> trans_face1_ji1_, trans_face1_ji2_, trans_face1_ji3_,$/;"	m	class:Coordinates
+trans_face1_ji4_	coordinates.hpp	/^    trans_face1_ji4_, trans_face1_ji5_, trans_face1_ji6_, trans_face1_ji7_;$/;"	m	class:Coordinates
+trans_face1_ji5_	coordinates.hpp	/^    trans_face1_ji4_, trans_face1_ji5_, trans_face1_ji6_, trans_face1_ji7_;$/;"	m	class:Coordinates
+trans_face1_ji6_	coordinates.hpp	/^    trans_face1_ji4_, trans_face1_ji5_, trans_face1_ji6_, trans_face1_ji7_;$/;"	m	class:Coordinates
+trans_face1_ji7_	coordinates.hpp	/^    trans_face1_ji4_, trans_face1_ji5_, trans_face1_ji6_, trans_face1_ji7_;$/;"	m	class:Coordinates
+trans_face1_kji_	coordinates.hpp	/^  AthenaArray<Real> trans_face1_kji_;$/;"	m	class:Coordinates
+trans_face2_i1_	coordinates.hpp	/^  AthenaArray<Real> trans_face2_i1_, trans_face2_i2_;$/;"	m	class:Coordinates
+trans_face2_i2_	coordinates.hpp	/^  AthenaArray<Real> trans_face2_i1_, trans_face2_i2_;$/;"	m	class:Coordinates
+trans_face2_j1_	coordinates.hpp	/^  AthenaArray<Real> trans_face2_j1_;$/;"	m	class:Coordinates
+trans_face2_ji1_	coordinates.hpp	/^  AthenaArray<Real> trans_face2_ji1_, trans_face2_ji2_, trans_face2_ji3_,$/;"	m	class:Coordinates
+trans_face2_ji2_	coordinates.hpp	/^  AthenaArray<Real> trans_face2_ji1_, trans_face2_ji2_, trans_face2_ji3_,$/;"	m	class:Coordinates
+trans_face2_ji3_	coordinates.hpp	/^  AthenaArray<Real> trans_face2_ji1_, trans_face2_ji2_, trans_face2_ji3_,$/;"	m	class:Coordinates
+trans_face2_ji4_	coordinates.hpp	/^    trans_face2_ji4_, trans_face2_ji5_, trans_face2_ji6_;$/;"	m	class:Coordinates
+trans_face2_ji5_	coordinates.hpp	/^    trans_face2_ji4_, trans_face2_ji5_, trans_face2_ji6_;$/;"	m	class:Coordinates
+trans_face2_ji6_	coordinates.hpp	/^    trans_face2_ji4_, trans_face2_ji5_, trans_face2_ji6_;$/;"	m	class:Coordinates
+trans_face2_kji_	coordinates.hpp	/^  AthenaArray<Real> trans_face2_kji_;$/;"	m	class:Coordinates
+trans_face3_i1_	coordinates.hpp	/^  AthenaArray<Real> trans_face3_i1_, trans_face3_i2_;$/;"	m	class:Coordinates
+trans_face3_i2_	coordinates.hpp	/^  AthenaArray<Real> trans_face3_i1_, trans_face3_i2_;$/;"	m	class:Coordinates
+trans_face3_j1_	coordinates.hpp	/^  AthenaArray<Real> trans_face3_j1_;$/;"	m	class:Coordinates
+trans_face3_ji1_	coordinates.hpp	/^  AthenaArray<Real> trans_face3_ji1_, trans_face3_ji2_, trans_face3_ji3_,$/;"	m	class:Coordinates
+trans_face3_ji2_	coordinates.hpp	/^  AthenaArray<Real> trans_face3_ji1_, trans_face3_ji2_, trans_face3_ji3_,$/;"	m	class:Coordinates
+trans_face3_ji3_	coordinates.hpp	/^  AthenaArray<Real> trans_face3_ji1_, trans_face3_ji2_, trans_face3_ji3_,$/;"	m	class:Coordinates
+trans_face3_ji4_	coordinates.hpp	/^    trans_face3_ji4_, trans_face3_ji5_, trans_face3_ji6_;$/;"	m	class:Coordinates
+trans_face3_ji5_	coordinates.hpp	/^    trans_face3_ji4_, trans_face3_ji5_, trans_face3_ji6_;$/;"	m	class:Coordinates
+trans_face3_ji6_	coordinates.hpp	/^    trans_face3_ji4_, trans_face3_ji5_, trans_face3_ji6_;$/;"	m	class:Coordinates
+trans_face3_kji_	coordinates.hpp	/^  AthenaArray<Real> trans_face3_kji_;$/;"	m	class:Coordinates
+x1f	coordinates.hpp	/^  AthenaArray<Real> dx1f, dx2f, dx3f, x1f, x2f, x3f;    \/\/ face   spacing and positions$/;"	m	class:Coordinates
+x1s2	coordinates.hpp	/^  AthenaArray<Real> x1s2, x1s3, x2s1, x2s3, x3s1, x3s2; \/\/ area averaged positions for AMR$/;"	m	class:Coordinates
+x1s3	coordinates.hpp	/^  AthenaArray<Real> x1s2, x1s3, x2s1, x2s3, x3s1, x3s2; \/\/ area averaged positions for AMR$/;"	m	class:Coordinates
+x1v	coordinates.hpp	/^  AthenaArray<Real> dx1v, dx2v, dx3v, x1v, x2v, x3v;    \/\/ volume spacing and positions$/;"	m	class:Coordinates
+x2f	coordinates.hpp	/^  AthenaArray<Real> dx1f, dx2f, dx3f, x1f, x2f, x3f;    \/\/ face   spacing and positions$/;"	m	class:Coordinates
+x2s1	coordinates.hpp	/^  AthenaArray<Real> x1s2, x1s3, x2s1, x2s3, x3s1, x3s2; \/\/ area averaged positions for AMR$/;"	m	class:Coordinates
+x2s3	coordinates.hpp	/^  AthenaArray<Real> x1s2, x1s3, x2s1, x2s3, x3s1, x3s2; \/\/ area averaged positions for AMR$/;"	m	class:Coordinates
+x2v	coordinates.hpp	/^  AthenaArray<Real> dx1v, dx2v, dx3v, x1v, x2v, x3v;    \/\/ volume spacing and positions$/;"	m	class:Coordinates
+x3f	coordinates.hpp	/^  AthenaArray<Real> dx1f, dx2f, dx3f, x1f, x2f, x3f;    \/\/ face   spacing and positions$/;"	m	class:Coordinates
+x3s1	coordinates.hpp	/^  AthenaArray<Real> x1s2, x1s3, x2s1, x2s3, x3s1, x3s2; \/\/ area averaged positions for AMR$/;"	m	class:Coordinates
+x3s2	coordinates.hpp	/^  AthenaArray<Real> x1s2, x1s3, x2s1, x2s3, x3s1, x3s2; \/\/ area averaged positions for AMR$/;"	m	class:Coordinates
+x3v	coordinates.hpp	/^  AthenaArray<Real> dx1v, dx2v, dx3v, x1v, x2v, x3v;    \/\/ volume spacing and positions$/;"	m	class:Coordinates

@@ -1,0 +1,47 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Domain_s	join_vtk++.c	/^typedef struct Domain_s{$/;"	s	file:
+IsBigEndian	join_vtk++.c	/^int IsBigEndian(void)$/;"	f
+NGrid_x	join_vtk++.c	/^static int NGrid_x, NGrid_y, NGrid_z;$/;"	v	file:
+NGrid_y	join_vtk++.c	/^static int NGrid_x, NGrid_y, NGrid_z;$/;"	v	file:
+NGrid_z	join_vtk++.c	/^static int NGrid_x, NGrid_y, NGrid_z;$/;"	v	file:
+Nx	join_vtk++.c	/^  int Nx, Ny, Nz;    \/* Grid dimensions *\/$/;"	m	struct:Domain_s	file:
+Ny	join_vtk++.c	/^  int Nx, Ny, Nz;    \/* Grid dimensions *\/$/;"	m	struct:Domain_s	file:
+Nz	join_vtk++.c	/^  int Nx, Ny, Nz;    \/* Grid dimensions *\/$/;"	m	struct:Domain_s	file:
+Swap4Bytes	join_vtk++.c	/^static inline void Swap4Bytes(void *vdat) {$/;"	f	file:
+VTK_Domain	join_vtk++.c	/^}VTK_Domain;$/;"	t	typeref:struct:Domain_s	file:
+X	join_vtk++.c	/^  float *X, *Y, *Z; \/* X,Y,Z coordinates*\/$/;"	m	struct:Domain_s	file:
+Y	join_vtk++.c	/^  float *X, *Y, *Z; \/* X,Y,Z coordinates*\/$/;"	m	struct:Domain_s	file:
+Z	join_vtk++.c	/^  float *X, *Y, *Z; \/* X,Y,Z coordinates*\/$/;"	m	struct:Domain_s	file:
+calloc_3d_array	join_vtk++.c	/^static void*** calloc_3d_array(size_t nt, size_t nr, size_t nc, size_t size){$/;"	f	file:
+comment	join_vtk++.c	/^  char *comment;$/;"	m	struct:Domain_s	file:
+compare_ox	join_vtk++.c	/^static int compare_ox(const void *p1, const void *p2){$/;"	f	file:
+compare_oy	join_vtk++.c	/^static int compare_oy(const void *p1, const void *p2){$/;"	f	file:
+compare_oz	join_vtk++.c	/^static int compare_oz(const void *p1, const void *p2){$/;"	f	file:
+domain_1d	join_vtk++.c	/^static VTK_Domain *domain_1d;$/;"	v	file:
+domain_3d	join_vtk++.c	/^static VTK_Domain ***domain_3d=NULL;$/;"	v	file:
+dx	join_vtk++.c	/^  double dx, dy, dz; \/* grid cell size *\/$/;"	m	struct:Domain_s	file:
+dy	join_vtk++.c	/^  double dx, dy, dz; \/* grid cell size *\/$/;"	m	struct:Domain_s	file:
+dz	join_vtk++.c	/^  double dx, dy, dz; \/* grid cell size *\/$/;"	m	struct:Domain_s	file:
+file_count	join_vtk++.c	/^static int file_count; \/* Number of input vtk files *\/$/;"	v	file:
+fname	join_vtk++.c	/^  char *fname;$/;"	m	struct:Domain_s	file:
+fp	join_vtk++.c	/^  FILE *fp;$/;"	m	struct:Domain_s	file:
+free_3d_array	join_vtk++.c	/^static void free_3d_array(void ***array){$/;"	f	file:
+grid_version	join_vtk++.c	/^static int grid_version; \/* fixed or flexible grids *\/$/;"	v	file:
+init_domain_1d	join_vtk++.c	/^static void init_domain_1d(void){$/;"	f	file:
+join_error	join_vtk++.c	/^static void join_error(const char *fmt, ...){$/;"	f	file:
+main	join_vtk++.c	/^int main(int argc, char* argv[]){$/;"	f
+my_strdup	join_vtk++.c	/^static char *my_strdup(const char *in){$/;"	f	file:
+ox	join_vtk++.c	/^  double ox, oy, oz; \/* Origin of this particular domain *\/$/;"	m	struct:Domain_s	file:
+oy	join_vtk++.c	/^  double ox, oy, oz; \/* Origin of this particular domain *\/$/;"	m	struct:Domain_s	file:
+oz	join_vtk++.c	/^  double ox, oy, oz; \/* Origin of this particular domain *\/$/;"	m	struct:Domain_s	file:
+read_write_scalar	join_vtk++.c	/^static void read_write_scalar(FILE *fp_out){$/;"	f	file:
+read_write_tensor	join_vtk++.c	/^static void read_write_tensor(FILE *fp_out){$/;"	f	file:
+read_write_vector	join_vtk++.c	/^static void read_write_vector(FILE *fp_out){$/;"	f	file:
+sort_domain_1d	join_vtk++.c	/^static void sort_domain_1d(void){$/;"	f	file:
+strip_trail_white	join_vtk++.c	/^static void strip_trail_white(char *pc){$/;"	f	file:
+write_joined_vtk	join_vtk++.c	/^static void write_joined_vtk(const char *out_name){$/;"	f	file:

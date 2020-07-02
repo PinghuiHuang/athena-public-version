@@ -1,0 +1,419 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+_Lx1	diffusion/resistive_diffusion.py	/^_Lx1 = 8.0$/;"	v
+_Lx1	diffusion/viscous_diffusion.py	/^_Lx1 = 8.0$/;"	v
+_amp	diffusion/resistive_diffusion.py	/^_amp = 1.e-6$/;"	v
+_amp	diffusion/viscous_diffusion.py	/^_amp = 1.e-6$/;"	v
+_c_s	diffusion/linear_wave3d.py	/^_c_s = 0.5  # slow mode wave speed of Athena++ linear wave configuration$/;"	v
+_eta	diffusion/linear_wave3d.py	/^_eta = _kappa$/;"	v
+_eta	diffusion/resistive_diffusion.py	/^_eta = 0.4$/;"	v
+_exec	eos/eos_riemann.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	hydro/hydro_linwave.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	hydro/sod_shock.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	mhd/mhd_linwave.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	mhd/rj2a_shock.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	scalars/restart.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_fluxes	eos/eos_riemann.py	/^_fluxes = ['hlle', 'hllc']$/;"	v
+_fluxes	hydro/hydro_linwave.py	/^_fluxes = ['hlle', 'hllc', 'roe']$/;"	v
+_fluxes	hydro/sod_shock.py	/^_fluxes = ['hlle', 'hllc', 'roe']$/;"	v
+_fluxes	mhd/mhd_linwave.py	/^_fluxes = ['hlld', 'roe']$/;"	v
+_fluxes	mhd/rj2a_shock.py	/^_fluxes = ['hlld', 'roe']$/;"	v
+_gammas	eos/eos_comparison.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
+_gammas	eos/eos_hdf5_table.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
+_gammas	eos/eos_table_test.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
+_kappa	diffusion/linear_wave3d.py	/^_kappa = _nu*2.0$/;"	v
+_kappa	diffusion/thermal_attenuation.py	/^_kappa = 0.04$/;"	v
+_mag_list	eos/eos_mhd.py	/^_mag_list = [str(i) for i in [1e-5, 1e-4, 1e-3]]$/;"	v
+_mhd_states	eos/eos_mhd.py	/^_mhd_states = _states + len(_mag_list) * [_states[0]]$/;"	v
+_mhd_tests	eos/eos_mhd.py	/^_mhd_tests = _tests + len(_mag_list) * [_tests[0]]$/;"	v
+_mhd_thresh	eos/eos_mhd.py	/^_mhd_thresh = _thresh + len(_mag_list) * [_thresh[0]]$/;"	v
+_nscalars	scalars/restart.py	/^_nscalars = [2]$/;"	v
+_nu	diffusion/linear_wave3d.py	/^_nu = 0.01$/;"	v
+_nu	diffusion/viscous_diffusion.py	/^_nu = 0.25$/;"	v
+_nxs	hydro/sod_shock.py	/^_nxs = [128, 256]  # resolutions to test (ascending)$/;"	v
+_nxs	mhd/rj2a_shock.py	/^_nxs = [256, 512]  # resolutions to test (ascending)$/;"	v
+_states	eos/eos_riemann.py	/^_states = [dict(zip(tmp, i[:-1])) for i in _tests]$/;"	v
+_t0	diffusion/resistive_diffusion.py	/^_t0 = 0.5$/;"	v
+_t0	diffusion/viscous_diffusion.py	/^_t0 = 0.5$/;"	v
+_tests	eos/eos_riemann.py	/^_tests = [[1e-07, 0.00, 0.150, 1.25e-8, 0., 0.062, .25],$/;"	v
+_tests	eos/eos_riemann.py	/^_tests = [dict(zip(tmp, i)) for i in _tests]$/;"	v
+_thresh	eos/eos_riemann.py	/^_thresh = [[5.1e-10, 6.5e-11, 0.0039],$/;"	v
+_thresh	eos/eos_riemann.py	/^_thresh = [dict(zip(['rho', 'press', 'vel'], i)) for i in _thresh]$/;"	v
+_xdirs	hydro/sod_shock.py	/^_xdirs = [1, 2, 3]$/;"	v
+_xdirs	mhd/rj2a_shock.py	/^_xdirs = [1, 2, 3]$/;"	v
+amp	sr/hydro_convergence.py	/^amp = 1.0e-6$/;"	v
+amp	sr/mhd_convergence.py	/^amp = 1.0e-6$/;"	v
+analyze	amr/amr_linwave.py	/^def analyze():$/;"	f
+analyze	curvilinear/blast_cyl.py	/^def analyze():$/;"	f
+analyze	curvilinear/blast_sph.py	/^def analyze():$/;"	f
+analyze	diffusion/linear_wave3d.py	/^def analyze():$/;"	f
+analyze	diffusion/linear_wave3d_sts.py	/^def analyze():$/;"	f
+analyze	diffusion/resistive_diffusion.py	/^def analyze():$/;"	f
+analyze	diffusion/resistive_diffusion_sts.py	/^def analyze():$/;"	f
+analyze	diffusion/thermal_attenuation.py	/^def analyze():$/;"	f
+analyze	diffusion/thermal_attenuation_sts.py	/^def analyze():$/;"	f
+analyze	diffusion/viscous_diffusion.py	/^def analyze():$/;"	f
+analyze	diffusion/viscous_diffusion_sts.py	/^def analyze():$/;"	f
+analyze	eos/eos_comparison.py	/^def analyze():$/;"	f
+analyze	eos/eos_hdf5_table.py	/^def analyze():$/;"	f
+analyze	eos/eos_mhd.py	/^def analyze():$/;"	f
+analyze	eos/eos_riemann.py	/^def analyze():$/;"	f
+analyze	eos/eos_table_test.py	/^def analyze():$/;"	f
+analyze	example.py	/^def analyze():$/;"	f
+analyze	gr/compile_kerr-schild.py	/^def analyze():$/;"	f
+analyze	gr/compile_minkowski.py	/^def analyze():$/;"	f
+analyze	gr/compile_schwarzschild.py	/^def analyze():$/;"	f
+analyze	gr/hydro_shocks_hllc.py	/^def analyze():$/;"	f
+analyze	gr/hydro_shocks_hlle.py	/^def analyze():$/;"	f
+analyze	gr/hydro_shocks_hlle_no_transform.py	/^def analyze():$/;"	f
+analyze	gr/hydro_shocks_llf.py	/^def analyze():$/;"	f
+analyze	gr/hydro_shocks_llf_no_transform.py	/^def analyze():$/;"	f
+analyze	gr/mhd_shocks_hlld.py	/^def analyze():$/;"	f
+analyze	gr/mhd_shocks_hlle.py	/^def analyze():$/;"	f
+analyze	gr/mhd_shocks_llf.py	/^def analyze():$/;"	f
+analyze	grav/jeans_3d.py	/^def analyze():$/;"	f
+analyze	grav/unstable_jeans_3d_fft.py	/^def analyze():$/;"	f
+analyze	grav/unstable_jeans_3d_mg.py	/^def analyze():$/;"	f
+analyze	hybrid/hybrid_linwave.py	/^def analyze():$/;"	f
+analyze	hydro/hydro_linwave.py	/^def analyze():$/;"	f
+analyze	hydro/sod_shock.py	/^def analyze():$/;"	f
+analyze	hydro4/hydro_linwave_2d.py	/^def analyze():$/;"	f
+analyze	hydro4/hydro_linwave_3d.py	/^def analyze():$/;"	f
+analyze	mhd/cpaw.py	/^def analyze():$/;"	f
+analyze	mhd/mhd_linwave.py	/^def analyze():$/;"	f
+analyze	mhd/rj2a_shock.py	/^def analyze():$/;"	f
+analyze	mpi/mpi_linwave.py	/^def analyze():$/;"	f
+analyze	omp/omp_linwave.py	/^def analyze():$/;"	f
+analyze	outputs/all_outputs.py	/^def analyze():$/;"	f
+analyze	pgen/hdf5_reader_parallel.py	/^def analyze():$/;"	f
+analyze	pgen/hdf5_reader_serial.py	/^def analyze():$/;"	f
+analyze	pgen/pgen_compile.py	/^def analyze():$/;"	f
+analyze	scalars/mignone_meridional_1d.py	/^def analyze():$/;"	f
+analyze	scalars/mignone_radial_1d.py	/^def analyze():$/;"	f
+analyze	scalars/restart.py	/^def analyze():$/;"	f
+analyze	shearingbox/mri2d.py	/^def analyze():$/;"	f
+analyze	shearingbox/mri3d.py	/^def analyze():$/;"	f
+analyze	sr/hydro_convergence.py	/^def analyze():$/;"	f
+analyze	sr/hydro_shocks_hllc.py	/^def analyze():$/;"	f
+analyze	sr/hydro_shocks_hlle.py	/^def analyze():$/;"	f
+analyze	sr/hydro_shocks_llf.py	/^def analyze():$/;"	f
+analyze	sr/mhd_convergence.py	/^def analyze():$/;"	f
+analyze	sr/mhd_shocks_hlld.py	/^def analyze():$/;"	f
+analyze	sr/mhd_shocks_hlle.py	/^def analyze():$/;"	f
+analyze	sr/mhd_shocks_llf.py	/^def analyze():$/;"	f
+analyze	sr/sr_mhd_linwave.py	/^def analyze():$/;"	f
+analyze	symmetry/hydro_linwave_aligned.py	/^def analyze():$/;"	f
+analyze	turb/turb_3d.py	/^def analyze():$/;"	f
+arg_res	grav/unstable_jeans_3d_fft.py	/^    def arg_res(res):$/;"	f	function:run
+arg_res	grav/unstable_jeans_3d_mg.py	/^    def arg_res(res):$/;"	f	function:run
+base_x1rat	scalars/mignone_radial_1d.py	/^base_x1rat = 1.0$/;"	v
+base_x2rat	scalars/mignone_meridional_1d.py	/^base_x2rat = 1.0$/;"	v
+bx	sr/mhd_convergence.py	/^bx = 2.5$/;"	v
+by	sr/mhd_convergence.py	/^by = 1.8$/;"	v
+bz	sr/mhd_convergence.py	/^bz = -1.2$/;"	v
+calculate_wavespeed	sr/sr_mhd_linwave.py	/^def calculate_wavespeed(rho, pgas, vx, vy, vz, bx, by, bz, gamma_adi, wave_flag):$/;"	f
+cases	scalars/mignone_meridional_1d.py	/^cases = {$/;"	v
+cases	scalars/mignone_radial_1d.py	/^cases = {$/;"	v
+coords	scalars/mignone_radial_1d.py	/^coords = ['cylindrical', 'spherical_polar']$/;"	v
+current_dir	pgen/pgen_compile.py	/^current_dir = os.getcwd()$/;"	v
+cutoff	sr/hydro_convergence.py	/^cutoff = 1.8$/;"	v
+cutoff	sr/mhd_convergence.py	/^cutoff = 1.8$/;"	v
+dataset_b1	pgen/hdf5_reader_parallel.py	/^dataset_b1 = 'b1'$/;"	v
+dataset_b1	pgen/hdf5_reader_serial.py	/^dataset_b1 = 'b1'$/;"	v
+dataset_b2	pgen/hdf5_reader_parallel.py	/^dataset_b2 = 'b2'$/;"	v
+dataset_b2	pgen/hdf5_reader_serial.py	/^dataset_b2 = 'b2'$/;"	v
+dataset_b3	pgen/hdf5_reader_parallel.py	/^dataset_b3 = 'b3'$/;"	v
+dataset_b3	pgen/hdf5_reader_serial.py	/^dataset_b3 = 'b3'$/;"	v
+dataset_cons	pgen/hdf5_reader_parallel.py	/^dataset_cons = 'cons'$/;"	v
+dataset_cons	pgen/hdf5_reader_serial.py	/^dataset_cons = 'cons'$/;"	v
+diff_threshold	scalars/mignone_meridional_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
+diff_threshold	scalars/mignone_radial_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
+eos_rj2a	eos/eos_mhd.py	/^eos_rj2a = [[1.08, 1.2, 1.0e-2, 0.5, 1.0155412503859613, 0.5641895835477563, 0.95],$/;"	v
+eos_rj2a	eos/eos_mhd.py	/^eos_rj2a = np.array(eos_rj2a)$/;"	v
+error_formatter	hydro4/hydro_linwave_2d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+error_formatter	hydro4/hydro_linwave_3d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+error_formatter	scalars/mignone_meridional_1d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+error_formatter	scalars/mignone_radial_1d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+error_rel_tols	diffusion/linear_wave3d.py	/^error_rel_tols = [0.22, 0.05]$/;"	v
+error_rel_tols	diffusion/thermal_attenuation.py	/^error_rel_tols = [0.38, 0.10]$/;"	v
+error_tols	hydro4/hydro_linwave_2d.py	/^error_tols = [((1.4e-7, 4.6e-8, 1.1e-8, 2.5e-9), (1.1e-7, 3.7e-8, 9.3e-9, 2.2e-9)),$/;"	v
+error_tols	hydro4/hydro_linwave_3d.py	/^error_tols = [((5.6e-9, 3.6e-10), (4.05e-9, 2.65e-10)),$/;"	v
+filename_input	pgen/hdf5_reader_parallel.py	/^filename_input = 'initial_data.hdf5'$/;"	v
+filename_input	pgen/hdf5_reader_serial.py	/^filename_input = 'initial_data.hdf5'$/;"	v
+filename_output	pgen/hdf5_reader_parallel.py	/^filename_output = 'from_array.cons.00000.athdf'$/;"	v
+filename_output	pgen/hdf5_reader_serial.py	/^filename_output = 'from_array.cons.00000.athdf'$/;"	v
+gamma	pgen/hdf5_reader_parallel.py	/^gamma = 5.0\/3.0$/;"	v
+gamma	pgen/hdf5_reader_serial.py	/^gamma = 5.0\/3.0$/;"	v
+gamma_adi	sr/hydro_convergence.py	/^gamma_adi = 4.0\/3.0$/;"	v
+gamma_adi	sr/mhd_convergence.py	/^gamma_adi = 4.0\/3.0$/;"	v
+gr_probs	pgen/pgen_compile.py	/^gr_probs = set([pgen for pgen in pgen_choices if pgen[0:3] == 'gr_'])$/;"	v
+hydro_args	pgen/pgen_compile.py	/^hydro_args = []$/;"	v
+hydro_probs	pgen/pgen_compile.py	/^hydro_probs = pgen_choices - gr_probs - mhd_probs - shear_probs$/;"	v
+iprob	scalars/mignone_meridional_1d.py	/^iprob = 2  # 1 = meridional 1D tests, section 5.1.2 from Mignone (2014)$/;"	v
+iprob	scalars/mignone_radial_1d.py	/^iprob = 1  # 1 = radial 1D tests, section 5.1.1 from Mignone (2014)$/;"	v
+logger	amr/amr_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	curvilinear/blast_cyl.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	curvilinear/blast_sph.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	diffusion/linear_wave3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	diffusion/resistive_diffusion.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	diffusion/thermal_attenuation.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	diffusion/viscous_diffusion.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	eos/eos_comparison.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	eos/eos_hdf5_table.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	eos/eos_mhd.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	eos/eos_riemann.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/compile_kerr-schild.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/compile_minkowski.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/compile_schwarzschild.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/hydro_shocks_hllc.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/hydro_shocks_hlle.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/hydro_shocks_hlle_no_transform.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/hydro_shocks_llf.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/hydro_shocks_llf_no_transform.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/mhd_shocks_hlld.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/mhd_shocks_hlle.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	gr/mhd_shocks_llf.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	grav/jeans_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	grav/unstable_jeans_3d_fft.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	grav/unstable_jeans_3d_mg.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	hybrid/hybrid_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	hydro/hydro_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	hydro/sod_shock.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	hydro4/hydro_linwave_2d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	hydro4/hydro_linwave_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	mhd/cpaw.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	mhd/mhd_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	mhd/rj2a_shock.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	mpi/mpi_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	omp/omp_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	outputs/all_outputs.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	pgen/hdf5_reader_parallel.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	pgen/hdf5_reader_serial.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	pgen/pgen_compile.py	/^logger = logging.getLogger('athena' + __name__[7:])$/;"	v
+logger	scalars/mignone_meridional_1d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	scalars/mignone_radial_1d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	scalars/restart.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	shearingbox/mri2d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	shearingbox/mri3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	sr/hydro_convergence.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	sr/hydro_shocks_hllc.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	sr/hydro_shocks_hlle.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	sr/hydro_shocks_llf.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	sr/mhd_convergence.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	sr/mhd_shocks_hlld.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	sr/mhd_shocks_hlle.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	sr/mhd_shocks_llf.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	sr/sr_mhd_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	symmetry/hydro_linwave_aligned.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	turb/turb_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+method	diffusion/linear_wave3d.py	/^method = 'Explicit'$/;"	v
+method	diffusion/resistive_diffusion.py	/^method = 'Explicit'$/;"	v
+method	diffusion/thermal_attenuation.py	/^method = 'Explicit'$/;"	v
+method	diffusion/viscous_diffusion.py	/^method = 'Explicit'$/;"	v
+mhd_args	pgen/pgen_compile.py	/^mhd_args = ['b']$/;"	v
+mhd_probs	pgen/pgen_compile.py	/^mhd_probs = set(['cpaw', 'field_loop', 'orszag_tang', 'rotor', 'resist', 'magnoh'])$/;"	v
+mignone_tbl1	scalars/mignone_radial_1d.py	/^mignone_tbl1 = {$/;"	v
+mignone_tbl4	scalars/mignone_meridional_1d.py	/^mignone_tbl4 = {$/;"	v
+nb1	pgen/hdf5_reader_parallel.py	/^nb1 = 4$/;"	v
+nb1	pgen/hdf5_reader_serial.py	/^nb1 = 4$/;"	v
+nrows_per_solver	hydro4/hydro_linwave_2d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
+nrows_per_solver	hydro4/hydro_linwave_3d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
+nrows_per_solver	scalars/mignone_meridional_1d.py	/^nrows_per_solver = 1*num_nx2 + 2$/;"	v
+nrows_per_solver	scalars/mignone_radial_1d.py	/^nrows_per_solver = 1*num_nx1 + 2$/;"	v
+nrows_per_solver	symmetry/hydro_linwave_aligned.py	/^nrows_per_solver = 3*num_nx1$/;"	v
+num_nx1	hydro4/hydro_linwave_2d.py	/^num_nx1 = len(resolution_range)$/;"	v
+num_nx1	hydro4/hydro_linwave_3d.py	/^num_nx1 = len(resolution_range)$/;"	v
+num_nx1	scalars/mignone_radial_1d.py	/^num_nx1 = len(resolution_range)$/;"	v
+num_nx1	symmetry/hydro_linwave_aligned.py	/^num_nx1 = len(resolution_range)$/;"	v
+num_nx2	scalars/mignone_meridional_1d.py	/^num_nx2 = len(resolution_range)$/;"	v
+num_ranks	pgen/hdf5_reader_parallel.py	/^num_ranks = 3$/;"	v
+nx1	pgen/hdf5_reader_parallel.py	/^nx1 = 4$/;"	v
+nx1	pgen/hdf5_reader_serial.py	/^nx1 = 4$/;"	v
+nx1_profile	scalars/mignone_radial_1d.py	/^nx1_profile = 64$/;"	v
+nx2	pgen/hdf5_reader_parallel.py	/^nx2 = 6$/;"	v
+nx2	pgen/hdf5_reader_serial.py	/^nx2 = 6$/;"	v
+nx2_profile	scalars/mignone_meridional_1d.py	/^nx2_profile = 64$/;"	v
+nx3	pgen/hdf5_reader_parallel.py	/^nx3 = 4$/;"	v
+nx3	pgen/hdf5_reader_serial.py	/^nx3 = 4$/;"	v
+percentage_formatter	scalars/mignone_meridional_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
+percentage_formatter	scalars/mignone_meridional_1d.py	/^    percentage_formatter = lambda x: colored($/;"	v
+percentage_formatter	scalars/mignone_radial_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
+percentage_formatter	scalars/mignone_radial_1d.py	/^    percentage_formatter = lambda x: colored($/;"	v
+pgas	sr/hydro_convergence.py	/^pgas = 1.0$/;"	v
+pgas	sr/mhd_convergence.py	/^pgas = 1.0$/;"	v
+pgen_choices	pgen/pgen_compile.py	/^pgen_choices = glob.glob(pgen_directory + '*.cpp')$/;"	v
+pgen_choices	pgen/pgen_compile.py	/^pgen_choices = set([choice[len(pgen_directory):-4] for choice in pgen_choices])$/;"	v
+pgen_directory	pgen/pgen_compile.py	/^pgen_directory = test + 'src\/pgen\/'$/;"	v
+plot_convergence	scalars/mignone_meridional_1d.py	/^plot_convergence = False$/;"	v
+plot_convergence	scalars/mignone_radial_1d.py	/^plot_convergence = False$/;"	v
+plot_profiles	scalars/mignone_meridional_1d.py	/^plot_profiles = False$/;"	v
+plot_profiles	scalars/mignone_radial_1d.py	/^plot_profiles = False$/;"	v
+prepare	amr/amr_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	curvilinear/blast_cyl.py	/^def prepare(**kwargs):$/;"	f
+prepare	curvilinear/blast_sph.py	/^def prepare(**kwargs):$/;"	f
+prepare	diffusion/linear_wave3d.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	diffusion/linear_wave3d_sts.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	diffusion/resistive_diffusion.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	diffusion/resistive_diffusion_sts.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	diffusion/thermal_attenuation.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	diffusion/thermal_attenuation_sts.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	diffusion/viscous_diffusion.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	diffusion/viscous_diffusion_sts.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	eos/eos_comparison.py	/^def prepare(**kwargs):$/;"	f
+prepare	eos/eos_hdf5_table.py	/^def prepare(**kwargs):$/;"	f
+prepare	eos/eos_mhd.py	/^def prepare(**kwargs):$/;"	f
+prepare	eos/eos_riemann.py	/^def prepare(**kwargs):$/;"	f
+prepare	eos/eos_table_test.py	/^def prepare(**kwargs):$/;"	f
+prepare	example.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/compile_kerr-schild.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/compile_minkowski.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/compile_schwarzschild.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/hydro_shocks_hllc.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/hydro_shocks_hlle.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/hydro_shocks_hlle_no_transform.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/hydro_shocks_llf.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/hydro_shocks_llf_no_transform.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/mhd_shocks_hlld.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/mhd_shocks_hlle.py	/^def prepare(**kwargs):$/;"	f
+prepare	gr/mhd_shocks_llf.py	/^def prepare(**kwargs):$/;"	f
+prepare	grav/jeans_3d.py	/^def prepare(**kwargs):$/;"	f
+prepare	grav/unstable_jeans_3d_fft.py	/^def prepare(**kwargs):$/;"	f
+prepare	grav/unstable_jeans_3d_mg.py	/^def prepare(**kwargs):$/;"	f
+prepare	hybrid/hybrid_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	hydro/hydro_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	hydro/sod_shock.py	/^def prepare(**kwargs):$/;"	f
+prepare	hydro4/hydro_linwave_2d.py	/^def prepare(**kwargs):$/;"	f
+prepare	hydro4/hydro_linwave_3d.py	/^def prepare(**kwargs):$/;"	f
+prepare	mhd/cpaw.py	/^def prepare(**kwargs):$/;"	f
+prepare	mhd/mhd_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	mhd/rj2a_shock.py	/^def prepare(**kwargs):$/;"	f
+prepare	mpi/mpi_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	omp/omp_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	outputs/all_outputs.py	/^def prepare(**kwargs):$/;"	f
+prepare	pgen/hdf5_reader_parallel.py	/^def prepare(**kwargs):$/;"	f
+prepare	pgen/hdf5_reader_serial.py	/^def prepare(**kwargs):$/;"	f
+prepare	pgen/pgen_compile.py	/^def prepare(**kwargs):$/;"	f
+prepare	scalars/mignone_meridional_1d.py	/^def prepare(**kwargs):$/;"	f
+prepare	scalars/mignone_radial_1d.py	/^def prepare(**kwargs):$/;"	f
+prepare	scalars/restart.py	/^def prepare(**kwargs):$/;"	f
+prepare	shearingbox/mri2d.py	/^def prepare(**kwargs):$/;"	f
+prepare	shearingbox/mri3d.py	/^def prepare(**kwargs):$/;"	f
+prepare	sr/hydro_convergence.py	/^def prepare(**kwargs):$/;"	f
+prepare	sr/hydro_shocks_hllc.py	/^def prepare(**kwargs):$/;"	f
+prepare	sr/hydro_shocks_hlle.py	/^def prepare(**kwargs):$/;"	f
+prepare	sr/hydro_shocks_llf.py	/^def prepare(**kwargs):$/;"	f
+prepare	sr/mhd_convergence.py	/^def prepare(**kwargs):$/;"	f
+prepare	sr/mhd_shocks_hlld.py	/^def prepare(**kwargs):$/;"	f
+prepare	sr/mhd_shocks_hlle.py	/^def prepare(**kwargs):$/;"	f
+prepare	sr/mhd_shocks_llf.py	/^def prepare(**kwargs):$/;"	f
+prepare	sr/sr_mhd_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	symmetry/hydro_linwave_aligned.py	/^def prepare(**kwargs):$/;"	f
+prepare	turb/turb_3d.py	/^def prepare(**kwargs):$/;"	f
+rate_formatter	hydro4/hydro_linwave_2d.py	/^rate_formatter = lambda x: "{:.2f}".format(x)$/;"	v
+rate_formatter	hydro4/hydro_linwave_3d.py	/^rate_formatter = lambda x: "{:.2f}".format(x)$/;"	v
+rate_tols	diffusion/linear_wave3d.py	/^rate_tols = [2.0]  # convergence rate > 3.0 for this particular resolution, sovler$/;"	v
+rate_tols	diffusion/resistive_diffusion.py	/^rate_tols = [-1.99]$/;"	v
+rate_tols	diffusion/viscous_diffusion.py	/^rate_tols = [-1.99]$/;"	v
+rate_tols	hydro4/hydro_linwave_2d.py	/^rate_tols = [(2.0, 1.9), (2.0, 2.0), (1.95, 1.85),$/;"	v
+rate_tols	hydro4/hydro_linwave_3d.py	/^rate_tols = [(3.95, 3.94),  (3.95, 3.94)]$/;"	v
+res_high	sr/hydro_convergence.py	/^res_high = 512$/;"	v
+res_high	sr/mhd_convergence.py	/^res_high = 512$/;"	v
+res_low	sr/hydro_convergence.py	/^res_low = 64$/;"	v
+res_low	sr/mhd_convergence.py	/^res_low = 64$/;"	v
+resolution_range	diffusion/linear_wave3d.py	/^resolution_range = [32, 64]$/;"	v
+resolution_range	diffusion/resistive_diffusion.py	/^resolution_range = [64, 128]$/;"	v
+resolution_range	diffusion/thermal_attenuation.py	/^resolution_range = [32, 64]$/;"	v
+resolution_range	diffusion/viscous_diffusion.py	/^resolution_range = [64, 128]$/;"	v
+resolution_range	hydro4/hydro_linwave_2d.py	/^resolution_range = [16, 32, 64, 128, 256]  # , 512]$/;"	v
+resolution_range	hydro4/hydro_linwave_3d.py	/^resolution_range = [16, 32, 64]$/;"	v
+resolution_range	scalars/mignone_meridional_1d.py	/^resolution_range = [32, 64, 128, 256, 512, 1024, 2048]$/;"	v
+resolution_range	scalars/mignone_radial_1d.py	/^resolution_range = [32, 64, 128, 256, 512, 1024, 2048]$/;"	v
+resolution_range	symmetry/hydro_linwave_aligned.py	/^resolution_range = [32]$/;"	v
+rho	sr/hydro_convergence.py	/^rho = 4.0$/;"	v
+rho	sr/mhd_convergence.py	/^rho = 4.0$/;"	v
+run	amr/amr_linwave.py	/^def run(**kwargs):$/;"	f
+run	curvilinear/blast_cyl.py	/^def run(**kwargs):$/;"	f
+run	curvilinear/blast_sph.py	/^def run(**kwargs):$/;"	f
+run	diffusion/linear_wave3d.py	/^def run(**kwargs):$/;"	f
+run	diffusion/linear_wave3d_sts.py	/^def run(**kwargs):$/;"	f
+run	diffusion/resistive_diffusion.py	/^def run(**kwargs):$/;"	f
+run	diffusion/resistive_diffusion_sts.py	/^def run(**kwargs):$/;"	f
+run	diffusion/thermal_attenuation.py	/^def run(**kwargs):$/;"	f
+run	diffusion/thermal_attenuation_sts.py	/^def run(**kwargs):$/;"	f
+run	diffusion/viscous_diffusion.py	/^def run(**kwargs):$/;"	f
+run	diffusion/viscous_diffusion_sts.py	/^def run(**kwargs):$/;"	f
+run	eos/eos_comparison.py	/^def run(**kwargs):$/;"	f
+run	eos/eos_hdf5_table.py	/^def run(**kwargs):$/;"	f
+run	eos/eos_mhd.py	/^def run(**kwargs):$/;"	f
+run	eos/eos_riemann.py	/^def run(**kwargs):$/;"	f
+run	eos/eos_table_test.py	/^def run(**kwargs):$/;"	f
+run	example.py	/^def run(**kwargs):$/;"	f
+run	gr/compile_kerr-schild.py	/^def run(**kwargs):$/;"	f
+run	gr/compile_minkowski.py	/^def run(**kwargs):$/;"	f
+run	gr/compile_schwarzschild.py	/^def run(**kwargs):$/;"	f
+run	gr/hydro_shocks_hllc.py	/^def run(**kwargs):$/;"	f
+run	gr/hydro_shocks_hlle.py	/^def run(**kwargs):$/;"	f
+run	gr/hydro_shocks_hlle_no_transform.py	/^def run(**kwargs):$/;"	f
+run	gr/hydro_shocks_llf.py	/^def run(**kwargs):$/;"	f
+run	gr/hydro_shocks_llf_no_transform.py	/^def run(**kwargs):$/;"	f
+run	gr/mhd_shocks_hlld.py	/^def run(**kwargs):$/;"	f
+run	gr/mhd_shocks_hlle.py	/^def run(**kwargs):$/;"	f
+run	gr/mhd_shocks_llf.py	/^def run(**kwargs):$/;"	f
+run	grav/jeans_3d.py	/^def run(**kwargs):$/;"	f
+run	grav/unstable_jeans_3d_fft.py	/^def run(**kwargs):$/;"	f
+run	grav/unstable_jeans_3d_mg.py	/^def run(**kwargs):$/;"	f
+run	hybrid/hybrid_linwave.py	/^def run(**kwargs):$/;"	f
+run	hydro/hydro_linwave.py	/^def run(**kwargs):$/;"	f
+run	hydro/sod_shock.py	/^def run(**kwargs):$/;"	f
+run	hydro4/hydro_linwave_2d.py	/^def run(**kwargs):$/;"	f
+run	hydro4/hydro_linwave_3d.py	/^def run(**kwargs):$/;"	f
+run	mhd/cpaw.py	/^def run(**kwargs):$/;"	f
+run	mhd/mhd_linwave.py	/^def run(**kwargs):$/;"	f
+run	mhd/rj2a_shock.py	/^def run(**kwargs):$/;"	f
+run	mpi/mpi_linwave.py	/^def run(**kwargs):$/;"	f
+run	omp/omp_linwave.py	/^def run(**kwargs):$/;"	f
+run	outputs/all_outputs.py	/^def run(**kwargs):$/;"	f
+run	pgen/hdf5_reader_parallel.py	/^def run(**kwargs):$/;"	f
+run	pgen/hdf5_reader_serial.py	/^def run(**kwargs):$/;"	f
+run	pgen/pgen_compile.py	/^def run(**kwargs):$/;"	f
+run	scalars/mignone_meridional_1d.py	/^def run(**kwargs):$/;"	f
+run	scalars/mignone_radial_1d.py	/^def run(**kwargs):$/;"	f
+run	scalars/restart.py	/^def run(**kwargs):$/;"	f
+run	shearingbox/mri2d.py	/^def run(**kwargs):$/;"	f
+run	shearingbox/mri3d.py	/^def run(**kwargs):$/;"	f
+run	sr/hydro_convergence.py	/^def run(**kwargs):$/;"	f
+run	sr/hydro_shocks_hllc.py	/^def run(**kwargs):$/;"	f
+run	sr/hydro_shocks_hlle.py	/^def run(**kwargs):$/;"	f
+run	sr/hydro_shocks_llf.py	/^def run(**kwargs):$/;"	f
+run	sr/mhd_convergence.py	/^def run(**kwargs):$/;"	f
+run	sr/mhd_shocks_hlld.py	/^def run(**kwargs):$/;"	f
+run	sr/mhd_shocks_hlle.py	/^def run(**kwargs):$/;"	f
+run	sr/mhd_shocks_llf.py	/^def run(**kwargs):$/;"	f
+run	sr/sr_mhd_linwave.py	/^def run(**kwargs):$/;"	f
+run	symmetry/hydro_linwave_aligned.py	/^def run(**kwargs):$/;"	f
+run	turb/turb_3d.py	/^def run(**kwargs):$/;"	f
+shear_args	pgen/pgen_compile.py	/^shear_args = ['b', 'shear']$/;"	v
+shear_probs	pgen/pgen_compile.py	/^shear_probs = set(['hb3', 'hgb', 'ssheet', 'strat'])$/;"	v
+solvers	hydro4/hydro_linwave_2d.py	/^solvers = [('vl2', '2c'), ('vl2', '3'), ('rk2', '3c'),$/;"	v
+solvers	hydro4/hydro_linwave_3d.py	/^solvers = [('rk4', '4c'), ('ssprk5_4', '4')]$/;"	v
+solvers	scalars/mignone_meridional_1d.py	/^solvers = [('rk3', 2), ('rk3', 3), ]$/;"	v
+solvers	scalars/mignone_radial_1d.py	/^solvers = [('rk3', 2), ('rk3', 3), ]$/;"	v
+solvers	symmetry/hydro_linwave_aligned.py	/^solvers = [('vl2', '2'), ('rk3', '4c'), ('ssprk5_4', '4')]$/;"	v
+test	pgen/pgen_compile.py	/^test = current_dir[0:(len(current_dir) - 14)]$/;"	v
+tmp	eos/eos_riemann.py	/^tmp = ['dl', 'ul', 'Tl', 'dr', 'ur', 'Tr']$/;"	v
+tmp	eos/eos_riemann.py	/^tmp = ['problem\/' + i for i in tmp] + ['time\/tlim']$/;"	v
+vx	sr/hydro_convergence.py	/^vx = 0.1$/;"	v
+vx	sr/mhd_convergence.py	/^vx = 0.1$/;"	v
+vy	sr/hydro_convergence.py	/^vy = 0.3$/;"	v
+vy	sr/mhd_convergence.py	/^vy = 0.3$/;"	v
+vz	sr/hydro_convergence.py	/^vz = -0.05$/;"	v
+vz	sr/mhd_convergence.py	/^vz = -0.05$/;"	v
+wave_flags	sr/hydro_convergence.py	/^wave_flags = range(5)$/;"	v
+wave_flags	sr/mhd_convergence.py	/^wave_flags = range(7)$/;"	v
+wave_speeds	eos/eos_mhd.py	/^wave_speeds = [-0.8236630408305421, 0.15084012571797972, 0.29445281898990067,$/;"	v
+wavespeeds_hydro	sr/hydro_convergence.py	/^def wavespeeds_hydro():$/;"	f
+wavespeeds_mhd	sr/mhd_convergence.py	/^def wavespeeds_mhd():$/;"	f

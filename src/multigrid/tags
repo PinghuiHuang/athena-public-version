@@ -1,0 +1,98 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CalculateDefectNorm	multigrid.cpp	/^Real Multigrid::CalculateDefectNorm(int n, int nrm) {$/;"	f	class:Multigrid
+CalculateDefectNorm	multigrid_driver.cpp	/^Real MultigridDriver::CalculateDefectNorm(int n, int nrm) {$/;"	f	class:MultigridDriver
+CalculateTotal	multigrid.cpp	/^Real Multigrid::CalculateTotal(int type, int n) {$/;"	f	class:Multigrid
+FMGProlongate	multigrid.cpp	/^void Multigrid::FMGProlongate() {$/;"	f	class:Multigrid
+FMGProlongate	multigrid_driver.cpp	/^void MultigridDriver::FMGProlongate() {$/;"	f	class:MultigridDriver
+FillRootGridSource	multigrid_driver.cpp	/^void MultigridDriver::FillRootGridSource() {$/;"	f	class:MultigridDriver
+FindMultigrid	multigrid_driver.cpp	/^Multigrid* MultigridDriver::FindMultigrid(int tgid) {$/;"	f	class:MultigridDriver
+GetCurrentData	multigrid.hpp	/^  AthenaArray<Real>& GetCurrentData() { return u_[current_level_]; }$/;"	f	class:Multigrid
+GetCurrentLevel	multigrid.hpp	/^  int GetCurrentLevel() { return current_level_; }$/;"	f	class:Multigrid
+GetCurrentNumberOfCells	multigrid.hpp	/^  int GetCurrentNumberOfCells() { return 1<<current_level_; }$/;"	f	class:Multigrid
+GetCurrentSource	multigrid.hpp	/^  AthenaArray<Real>& GetCurrentSource() { return src_[current_level_]; }$/;"	f	class:Multigrid
+GetNumMultigrids	multigrid.hpp	/^  int GetNumMultigrids() { return nblist_[Globals::my_rank]; }$/;"	f	class:MultigridDriver
+GetNumberOfLevels	multigrid.hpp	/^  int GetNumberOfLevels() { return nlevel_; }$/;"	f	class:Multigrid
+GetRootSource	multigrid.hpp	/^  Real GetRootSource(int n) { return src_[0](n,ngh_,ngh_,ngh_); }$/;"	f	class:Multigrid
+LoadFinestData	multigrid.cpp	/^void Multigrid::LoadFinestData(const AthenaArray<Real> &src, int ns, int ngh) {$/;"	f	class:Multigrid
+LoadSource	multigrid.cpp	/^void Multigrid::LoadSource(const AthenaArray<Real> &src, int ns, int ngh, Real fac) {$/;"	f	class:Multigrid
+MGBoundaryFunction_	multigrid.hpp	/^  MGBoundaryFunc MGBoundaryFunction_[6];$/;"	m	class:MultigridDriver
+MGPeriodicInnerX1	multigrid.cpp	/^void MGPeriodicInnerX1(AthenaArray<Real> &dst,Real time, int nvar,$/;"	f
+MGPeriodicInnerX2	multigrid.cpp	/^void MGPeriodicInnerX2(AthenaArray<Real> &dst,Real time, int nvar,$/;"	f
+MGPeriodicInnerX3	multigrid.cpp	/^void MGPeriodicInnerX3(AthenaArray<Real> &dst,Real time, int nvar,$/;"	f
+MGPeriodicOuterX1	multigrid.cpp	/^void MGPeriodicOuterX1(AthenaArray<Real> &dst,Real time, int nvar,$/;"	f
+MGPeriodicOuterX2	multigrid.cpp	/^void MGPeriodicOuterX2(AthenaArray<Real> &dst,Real time, int nvar,$/;"	f
+MGPeriodicOuterX3	multigrid.cpp	/^void MGPeriodicOuterX3(AthenaArray<Real> &dst,Real time, int nvar,$/;"	f
+MPI_COMM_MULTIGRID	multigrid.hpp	/^  MPI_Comm MPI_COMM_MULTIGRID;$/;"	m	class:MultigridDriver
+MULTIGRID_MULTIGRID_HPP_	multigrid.hpp	2;"	d
+Multigrid	multigrid.cpp	/^Multigrid::Multigrid(MultigridDriver *pmd, MeshBlock *pmb, int invar, int nghost) {$/;"	f	class:Multigrid
+Multigrid	multigrid.hpp	/^class Multigrid {$/;"	c
+MultigridDriver	multigrid.hpp	/^class MultigridDriver {$/;"	c
+MultigridDriver	multigrid_driver.cpp	/^MultigridDriver::MultigridDriver(Mesh *pm, MGBoundaryFunc *MGBoundary, int invar) :$/;"	f	class:MultigridDriver
+OneStepToCoarser	multigrid_driver.cpp	/^void MultigridDriver::OneStepToCoarser(int nsmooth) {$/;"	f	class:MultigridDriver
+OneStepToFiner	multigrid_driver.cpp	/^void MultigridDriver::OneStepToFiner(int nsmooth) {$/;"	f	class:MultigridDriver
+ProlongateAndCorrect	multigrid.cpp	/^void Multigrid::ProlongateAndCorrect() {$/;"	f	class:Multigrid
+Restrict	multigrid.cpp	/^void Multigrid::Restrict() {$/;"	f	class:Multigrid
+RestrictFMGSource	multigrid.cpp	/^void Multigrid::RestrictFMGSource() {$/;"	f	class:Multigrid
+RetrieveResult	multigrid.cpp	/^void Multigrid::RetrieveResult(AthenaArray<Real> &dst, int ns, int ngh) {$/;"	f	class:Multigrid
+SetFromRootGrid	multigrid.cpp	/^void Multigrid::SetFromRootGrid(AthenaArray<Real> &src, int ci, int cj, int ck) {$/;"	f	class:Multigrid
+SetupMultigrid	multigrid_driver.cpp	/^void MultigridDriver::SetupMultigrid() {$/;"	f	class:MultigridDriver
+SolveCoarsestGrid	multigrid_driver.cpp	/^void MultigridDriver::SolveCoarsestGrid() {$/;"	f	class:MultigridDriver
+SolveFCycle	multigrid_driver.cpp	/^void MultigridDriver::SolveFCycle(int npresmooth, int npostsmooth) {$/;"	f	class:MultigridDriver
+SolveFMGCycle	multigrid_driver.cpp	/^void MultigridDriver::SolveFMGCycle() {$/;"	f	class:MultigridDriver
+SolveIterative	multigrid_driver.cpp	/^void MultigridDriver::SolveIterative() {$/;"	f	class:MultigridDriver
+SolveVCycle	multigrid_driver.cpp	/^void MultigridDriver::SolveVCycle(int npresmooth, int npostsmooth) {$/;"	f	class:MultigridDriver
+SubtractAverage	multigrid.cpp	/^void Multigrid::SubtractAverage(int type, int n, Real ave) {$/;"	f	class:Multigrid
+SubtractAverage	multigrid_driver.cpp	/^void MultigridDriver::SubtractAverage(int type) {$/;"	f	class:MultigridDriver
+TransferFromRootToBlocks	multigrid_driver.cpp	/^void MultigridDriver::TransferFromRootToBlocks() {$/;"	f	class:MultigridDriver
+ZeroClearData	multigrid.cpp	/^void Multigrid::ZeroClearData() {$/;"	f	class:Multigrid
+btype	multigrid.hpp	/^  BoundaryQuantity btype, btypef;$/;"	m	class:Multigrid
+btypef	multigrid.hpp	/^  BoundaryQuantity btype, btypef;$/;"	m	class:Multigrid
+current_level_	multigrid.hpp	/^  int current_level_;$/;"	m	class:MultigridDriver
+current_level_	multigrid.hpp	/^  int gid_, nlevel_, ngh_, nvar_, current_level_;$/;"	m	class:Multigrid
+def_	multigrid.hpp	/^  AthenaArray<Real> *u_, *def_, *src_;$/;"	m	class:Multigrid
+eps_	multigrid.hpp	/^  Real eps_;$/;"	m	class:MultigridDriver
+fperiodic_	multigrid.hpp	/^  bool fperiodic_;$/;"	m	class:MultigridDriver
+gid_	multigrid.hpp	/^  int gid_, nlevel_, ngh_, nvar_, current_level_;$/;"	m	class:Multigrid
+last_ave_	multigrid.hpp	/^  Real last_ave_;$/;"	m	class:MultigridDriver
+loc_	multigrid.hpp	/^  LogicalLocation loc_;$/;"	m	class:Multigrid
+mg_phys_id_	multigrid.hpp	/^  int mg_phys_id_;$/;"	m	class:MultigridDriver
+mgroot_	multigrid.hpp	/^  Multigrid *mgroot_;$/;"	m	class:MultigridDriver
+mgtlist_	multigrid.hpp	/^  MultigridTaskList *mgtlist_;$/;"	m	class:MultigridDriver
+mode_	multigrid.hpp	/^  int nranks_, nvar_, nrootlevel_, nmblevel_, ntotallevel_, mode_;$/;"	m	class:MultigridDriver
+nblist_	multigrid.hpp	/^  int *nslist_, *nblist_, *nvlist_, *nvslist_, *ranklist_;$/;"	m	class:MultigridDriver
+ngh_	multigrid.hpp	/^  int gid_, nlevel_, ngh_, nvar_, current_level_;$/;"	m	class:Multigrid
+nlevel_	multigrid.hpp	/^  int gid_, nlevel_, ngh_, nvar_, current_level_;$/;"	m	class:Multigrid
+nmblevel_	multigrid.hpp	/^  int nranks_, nvar_, nrootlevel_, nmblevel_, ntotallevel_, mode_;$/;"	m	class:MultigridDriver
+nranks_	multigrid.hpp	/^  int nranks_, nvar_, nrootlevel_, nmblevel_, ntotallevel_, mode_;$/;"	m	class:MultigridDriver
+nrbx1_	multigrid.hpp	/^  int nrbx1_, nrbx2_, nrbx3_;$/;"	m	class:MultigridDriver
+nrbx2_	multigrid.hpp	/^  int nrbx1_, nrbx2_, nrbx3_;$/;"	m	class:MultigridDriver
+nrbx3_	multigrid.hpp	/^  int nrbx1_, nrbx2_, nrbx3_;$/;"	m	class:MultigridDriver
+nrootlevel_	multigrid.hpp	/^  int nranks_, nvar_, nrootlevel_, nmblevel_, ntotallevel_, mode_;$/;"	m	class:MultigridDriver
+nslist_	multigrid.hpp	/^  int *nslist_, *nblist_, *nvlist_, *nvslist_, *ranklist_;$/;"	m	class:MultigridDriver
+ntotallevel_	multigrid.hpp	/^  int nranks_, nvar_, nrootlevel_, nmblevel_, ntotallevel_, mode_;$/;"	m	class:MultigridDriver
+nvar_	multigrid.hpp	/^  int gid_, nlevel_, ngh_, nvar_, current_level_;$/;"	m	class:Multigrid
+nvar_	multigrid.hpp	/^  int nranks_, nvar_, nrootlevel_, nmblevel_, ntotallevel_, mode_;$/;"	m	class:MultigridDriver
+nvlist_	multigrid.hpp	/^  int *nslist_, *nblist_, *nvlist_, *nvslist_, *ranklist_;$/;"	m	class:MultigridDriver
+nvslist_	multigrid.hpp	/^  int *nslist_, *nblist_, *nvlist_, *nvslist_, *ranklist_;$/;"	m	class:MultigridDriver
+pmgbval	multigrid.hpp	/^  MGBoundaryValues *pmgbval;$/;"	m	class:Multigrid
+pmy_block_	multigrid.hpp	/^  MeshBlock *pmy_block_;$/;"	m	class:Multigrid
+pmy_driver_	multigrid.hpp	/^  MultigridDriver *pmy_driver_;$/;"	m	class:Multigrid
+pmy_mesh_	multigrid.hpp	/^  Mesh *pmy_mesh_;$/;"	m	class:MultigridDriver
+ranklist_	multigrid.hpp	/^  int *nslist_, *nblist_, *nvlist_, *nvslist_, *ranklist_;$/;"	m	class:MultigridDriver
+rdx_	multigrid.hpp	/^  Real rdx_, rdy_, rdz_;$/;"	m	class:Multigrid
+rdy_	multigrid.hpp	/^  Real rdx_, rdy_, rdz_;$/;"	m	class:Multigrid
+rdz_	multigrid.hpp	/^  Real rdx_, rdy_, rdz_;$/;"	m	class:Multigrid
+rootbuf_	multigrid.hpp	/^  Real *rootbuf_;$/;"	m	class:MultigridDriver
+rootsrc_	multigrid.hpp	/^  AthenaArray<Real> rootsrc_;$/;"	m	class:MultigridDriver
+size_	multigrid.hpp	/^  RegionSize size_;$/;"	m	class:Multigrid
+src_	multigrid.hpp	/^  AthenaArray<Real> *u_, *def_, *src_;$/;"	m	class:Multigrid
+ts_	multigrid.hpp	/^  TaskStates ts_;$/;"	m	class:Multigrid
+u_	multigrid.hpp	/^  AthenaArray<Real> *u_, *def_, *src_;$/;"	m	class:Multigrid
+vmg_	multigrid.hpp	/^  std::vector<Multigrid*> vmg_;$/;"	m	class:MultigridDriver
+~Multigrid	multigrid.cpp	/^Multigrid::~Multigrid() {$/;"	f	class:Multigrid
+~MultigridDriver	multigrid_driver.cpp	/^MultigridDriver::~MultigridDriver() {$/;"	f	class:MultigridDriver

@@ -1,0 +1,25 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ApplyPhysicalBoundaries	bvals_mg.cpp	/^void MGBoundaryValues::ApplyPhysicalBoundaries() {$/;"	f	class:MGBoundaryValues
+BVALS_CC_MG_BVALS_MG_HPP_	bvals_mg.hpp	2;"	d
+ClearBoundaryMultigrid	bvals_mg.cpp	/^void MGBoundaryValues::ClearBoundaryMultigrid(BoundaryQuantity type) {$/;"	f	class:MGBoundaryValues
+CopyNeighborInfoFromMeshBlock	bvals_mg.cpp	/^void MGBoundaryValues::CopyNeighborInfoFromMeshBlock() {$/;"	f	class:MGBoundaryValues
+DestroyBoundaryData	bvals_mg.cpp	/^void MGBoundaryValues::DestroyBoundaryData(BoundaryData<> &bd) {$/;"	f	class:MGBoundaryValues
+InitBoundaryData	bvals_mg.cpp	/^void MGBoundaryValues::InitBoundaryData(BoundaryData<> &bd, BoundaryQuantity type) {$/;"	f	class:MGBoundaryValues
+LoadMultigridBoundaryBufferSameLevel	bvals_mg.cpp	/^int MGBoundaryValues::LoadMultigridBoundaryBufferSameLevel($/;"	f	class:MGBoundaryValues
+MGBoundaryFunction_	bvals_mg.hpp	/^  MGBoundaryFunc MGBoundaryFunction_[6];$/;"	m	class:MGBoundaryValues
+MGBoundaryValues	bvals_mg.cpp	/^MGBoundaryValues::MGBoundaryValues(Multigrid *pmg, BoundaryFlag *input_bcs)$/;"	f	class:MGBoundaryValues
+MGBoundaryValues	bvals_mg.hpp	/^class MGBoundaryValues : public BoundaryBase {$/;"	c
+ReceiveMultigridBoundaryBuffers	bvals_mg.cpp	/^bool MGBoundaryValues::ReceiveMultigridBoundaryBuffers(AthenaArray<Real> &dst,$/;"	f	class:MGBoundaryValues
+SendMultigridBoundaryBuffers	bvals_mg.cpp	/^bool MGBoundaryValues::SendMultigridBoundaryBuffers(AthenaArray<Real> &src,$/;"	f	class:MGBoundaryValues
+SetMultigridBoundarySameLevel	bvals_mg.cpp	/^void MGBoundaryValues::SetMultigridBoundarySameLevel($/;"	f	class:MGBoundaryValues
+StartReceivingMultigrid	bvals_mg.cpp	/^void MGBoundaryValues::StartReceivingMultigrid(int nc, BoundaryQuantity type) {$/;"	f	class:MGBoundaryValues
+bd_mggrav_	bvals_mg.hpp	/^  BoundaryData<> bd_mggrav_;$/;"	m	class:MGBoundaryValues
+mg_grav_phys_id_	bvals_mg.hpp	/^  int mg_grav_phys_id_; \/\/ for now, MPI assumes MGGravityDriver is associated driver$/;"	m	class:MGBoundaryValues
+mgcomm_	bvals_mg.hpp	/^  MPI_Comm mgcomm_;$/;"	m	class:MGBoundaryValues
+pmy_mg_	bvals_mg.hpp	/^  Multigrid *pmy_mg_;$/;"	m	class:MGBoundaryValues
+~MGBoundaryValues	bvals_mg.cpp	/^MGBoundaryValues::~MGBoundaryValues() {$/;"	f	class:MGBoundaryValues

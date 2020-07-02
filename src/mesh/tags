@@ -1,0 +1,280 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AMRFlag_	mesh.hpp	/^  AMRFlagFunc AMRFlag_;$/;"	m	class:Mesh
+AMRFlag_	mesh_refinement.hpp	/^  AMRFlagFunc AMRFlag_; \/\/ duplicate of Mesh class member$/;"	m	class:MeshRefinement
+AddMeshBlock	meshblock_tree.cpp	/^void MeshBlockTree::AddMeshBlock(LogicalLocation rloc, int &nnew) {$/;"	f	class:MeshBlockTree
+AddMeshBlockWithoutRefine	meshblock_tree.cpp	/^void MeshBlockTree::AddMeshBlockWithoutRefine(LogicalLocation rloc) {$/;"	f	class:MeshBlockTree
+AddToRefinement	mesh_refinement.cpp	/^int MeshRefinement::AddToRefinement(AthenaArray<Real> *pvar_cc,$/;"	f	class:MeshRefinement
+AddToRefinement	mesh_refinement.cpp	/^int MeshRefinement::AddToRefinement(FaceField *pvar_fc, FaceField *pcoarse_fc) {$/;"	f	class:MeshRefinement
+AllocateIntUserMeshBlockDataField	meshblock.cpp	/^void MeshBlock::AllocateIntUserMeshBlockDataField(int n) {$/;"	f	class:MeshBlock
+AllocateIntUserMeshDataField	mesh.cpp	/^void Mesh::AllocateIntUserMeshDataField(int n) {$/;"	f	class:Mesh
+AllocateRealUserMeshBlockDataField	meshblock.cpp	/^void MeshBlock::AllocateRealUserMeshBlockDataField(int n) {$/;"	f	class:MeshBlock
+AllocateRealUserMeshDataField	mesh.cpp	/^void Mesh::AllocateRealUserMeshDataField(int n) {$/;"	f	class:Mesh
+AllocateUserHistoryOutput	mesh.cpp	/^void Mesh::AllocateUserHistoryOutput(int n) {$/;"	f	class:Mesh
+AllocateUserOutputVariables	meshblock.cpp	/^void MeshBlock::AllocateUserOutputVariables(int n) {$/;"	f	class:MeshBlock
+ApplyUserWorkBeforeOutput	mesh.cpp	/^void Mesh::ApplyUserWorkBeforeOutput(ParameterInput *pin) {$/;"	f	class:Mesh
+BoundaryFunction_	mesh.hpp	/^  BValFunc BoundaryFunction_[6];$/;"	m	class:Mesh
+CalculateLoadBalance	amr_loadbalance.cpp	/^void Mesh::CalculateLoadBalance(double *clist, int *rlist, int *slist, int *nlist,$/;"	f	class:Mesh
+CheckRefinementCondition	mesh_refinement.cpp	/^void MeshRefinement::CheckRefinementCondition() {$/;"	f	class:MeshRefinement
+ComputeMeshGeneratorX	mesh.hpp	/^inline Real ComputeMeshGeneratorX(std::int64_t index, std::int64_t nrange,$/;"	f
+ConductionCoeff_	mesh.hpp	/^  ConductionCoeffFunc ConductionCoeff_;$/;"	m	class:Mesh
+CorrectMidpointInitialCondition	mesh.cpp	/^void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, int nmb) {$/;"	f	class:Mesh
+CountMeshBlock	meshblock_tree.cpp	/^void MeshBlockTree::CountMeshBlock(int& count) {$/;"	f	class:MeshBlockTree
+CreateAMRMPITag	amr_loadbalance.cpp	/^int Mesh::CreateAMRMPITag(int lid, int ox1, int ox2, int ox3) {$/;"	f	class:Mesh
+CreateRootGrid	meshblock_tree.cpp	/^void MeshBlockTree::CreateRootGrid() {$/;"	f	class:MeshBlockTree
+DefaultMeshGeneratorX1	mesh.hpp	/^inline Real DefaultMeshGeneratorX1(Real x, RegionSize rs) {$/;"	f
+DefaultMeshGeneratorX2	mesh.hpp	/^inline Real DefaultMeshGeneratorX2(Real x, RegionSize rs) {$/;"	f
+DefaultMeshGeneratorX3	mesh.hpp	/^inline Real DefaultMeshGeneratorX3(Real x, RegionSize rs) {$/;"	f
+Derefine	meshblock_tree.cpp	/^void MeshBlockTree::Derefine(int &ndel) {$/;"	f	class:MeshBlockTree
+EnrollConductionCoefficient	mesh.cpp	/^void Mesh::EnrollConductionCoefficient(ConductionCoeffFunc my_func) {$/;"	f	class:Mesh
+EnrollFieldDiffusivity	mesh.cpp	/^void Mesh::EnrollFieldDiffusivity(FieldDiffusionCoeffFunc my_func) {$/;"	f	class:Mesh
+EnrollUserBoundaryFunction	mesh.cpp	/^void Mesh::EnrollUserBoundaryFunction(BoundaryFace dir, BValFunc my_bc) {$/;"	f	class:Mesh
+EnrollUserBoundaryFunction	mesh.cpp	/^void Mesh::EnrollUserBoundaryFunction(int dir, BValFunc my_bc) {$/;"	f	class:Mesh
+EnrollUserExplicitSourceFunction	mesh.cpp	/^void Mesh::EnrollUserExplicitSourceFunction(SrcTermFunc my_func) {$/;"	f	class:Mesh
+EnrollUserHistoryOutput	mesh.cpp	/^void Mesh::EnrollUserHistoryOutput(int i, HistoryOutputFunc my_func, const char *name,$/;"	f	class:Mesh
+EnrollUserMGGravityBoundaryFunction	mesh.cpp	/^void Mesh::EnrollUserMGGravityBoundaryFunction(BoundaryFace dir, MGBoundaryFunc my_bc) {$/;"	f	class:Mesh
+EnrollUserMGGravityBoundaryFunction	mesh.cpp	/^void Mesh::EnrollUserMGGravityBoundaryFunction(int dir, MGBoundaryFunc my_bc) {$/;"	f	class:Mesh
+EnrollUserMeshGenerator	mesh.cpp	/^void Mesh::EnrollUserMeshGenerator(CoordinateDirection dir, MeshGenFunc my_mg) {$/;"	f	class:Mesh
+EnrollUserMetric	mesh.cpp	/^void Mesh::EnrollUserMetric(MetricFunc my_func) {$/;"	f	class:Mesh
+EnrollUserRefinementCondition	mesh.cpp	/^void Mesh::EnrollUserRefinementCondition(AMRFlagFunc amrflag) {$/;"	f	class:Mesh
+EnrollUserTimeStepFunction	mesh.cpp	/^void Mesh::EnrollUserTimeStepFunction(TimeStepFunc my_func) {$/;"	f	class:Mesh
+EnrollViscosityCoefficient	mesh.cpp	/^void Mesh::EnrollViscosityCoefficient(ViscosityCoeffFunc my_func) {$/;"	f	class:Mesh
+FieldDiffusivity_	mesh.hpp	/^  FieldDiffusionCoeffFunc FieldDiffusivity_;$/;"	m	class:Mesh
+FillSameRankCoarseToFineAMR	amr_loadbalance.cpp	/^void Mesh::FillSameRankCoarseToFineAMR(MeshBlock* pob, MeshBlock* pmb,$/;"	f	class:Mesh
+FillSameRankFineToCoarseAMR	amr_loadbalance.cpp	/^void Mesh::FillSameRankFineToCoarseAMR(MeshBlock* pob, MeshBlock* pmb,$/;"	f	class:Mesh
+FindMeshBlock	mesh.cpp	/^MeshBlock* Mesh::FindMeshBlock(int tgid) {$/;"	f	class:Mesh
+FindMeshBlock	meshblock_tree.cpp	/^MeshBlockTree* MeshBlockTree::FindMeshBlock(LogicalLocation tloc) {$/;"	f	class:MeshBlockTree
+FindNeighbor	meshblock_tree.cpp	/^MeshBlockTree* MeshBlockTree::FindNeighbor(LogicalLocation myloc,$/;"	f	class:MeshBlockTree
+FinishRecvCoarseToFineAMR	amr_loadbalance.cpp	/^void Mesh::FinishRecvCoarseToFineAMR(MeshBlock *pb, Real *recvbuf) {$/;"	f	class:Mesh
+FinishRecvFineToCoarseAMR	amr_loadbalance.cpp	/^void Mesh::FinishRecvFineToCoarseAMR(MeshBlock *pb, Real *recvbuf,$/;"	f	class:Mesh
+FinishRecvSameLevel	amr_loadbalance.cpp	/^void Mesh::FinishRecvSameLevel(MeshBlock *pb, Real *recvbuf) {$/;"	f	class:Mesh
+GatherCostListAndCheckBalance	amr_loadbalance.cpp	/^bool Mesh::GatherCostListAndCheckBalance() {$/;"	f	class:Mesh
+GetBlockSizeInBytes	meshblock.cpp	/^std::size_t MeshBlock::GetBlockSizeInBytes() {$/;"	f	class:MeshBlock
+GetFluidFormulation	mesh.cpp	/^FluidFormulation GetFluidFormulation(const std::string& input_string) {$/;"	f
+GetLeaf	meshblock_tree.hpp	/^  MeshBlockTree* GetLeaf(int ox1, int ox2, int ox3)$/;"	f	class:MeshBlockTree
+GetMeshBlockList	meshblock_tree.cpp	/^void MeshBlockTree::GetMeshBlockList(LogicalLocation *list, int *pglist, int& count) {$/;"	f	class:MeshBlockTree
+GetNumMeshBlocksThisRank	mesh.hpp	/^  int GetNumMeshBlocksThisRank(int my_rank) {return nblist[my_rank];}$/;"	f	class:Mesh
+GetNumMeshThreads	mesh.hpp	/^  int GetNumMeshThreads() const {return num_mesh_threads_;}$/;"	f	class:Mesh
+GetNumberOfMeshBlockCells	mesh.hpp	/^  int GetNumberOfMeshBlockCells() {$/;"	f	class:MeshBlock
+GetTotalCells	mesh.hpp	/^  std::int64_t GetTotalCells() {return static_cast<std::int64_t> (nbtotal)*$/;"	f	class:Mesh
+Initialize	mesh.cpp	/^void Mesh::Initialize(int res_flag, ParameterInput *pin) {$/;"	f	class:Mesh
+LoadBalancingAndAdaptiveMeshRefinement	amr_loadbalance.cpp	/^void Mesh::LoadBalancingAndAdaptiveMeshRefinement(ParameterInput *pin) {$/;"	f	class:Mesh
+MESH_MESHBLOCK_TREE_HPP_	meshblock_tree.hpp	2;"	d
+MESH_MESH_HPP_	mesh.hpp	2;"	d
+MESH_MESH_REFINEMENT_HPP_	mesh_refinement.hpp	2;"	d
+MGGravityBoundaryFunction_	mesh.hpp	/^  MGBoundaryFunc MGGravityBoundaryFunction_[6];$/;"	m	class:Mesh
+Mesh	mesh.cpp	/^Mesh::Mesh(ParameterInput *pin, IOWrapper& resfile, int mesh_test) :$/;"	f	class:Mesh
+Mesh	mesh.cpp	/^Mesh::Mesh(ParameterInput *pin, int mesh_test) :$/;"	f	class:Mesh
+Mesh	mesh.hpp	/^class Mesh {$/;"	c
+MeshBlock	mesh.hpp	/^class MeshBlock {$/;"	c
+MeshBlock	meshblock.cpp	/^MeshBlock::MeshBlock(int igid, int ilid, LogicalLocation iloc, RegionSize input_block,$/;"	f	class:MeshBlock
+MeshBlock	meshblock.cpp	/^MeshBlock::MeshBlock(int igid, int ilid, Mesh *pm, ParameterInput *pin,$/;"	f	class:MeshBlock
+MeshBlockTree	meshblock_tree.cpp	/^MeshBlockTree::MeshBlockTree(Mesh* pmesh) : pleaf_(nullptr), gid_(-1) {$/;"	f	class:MeshBlockTree
+MeshBlockTree	meshblock_tree.cpp	/^MeshBlockTree::MeshBlockTree(MeshBlockTree *parent, int ox1, int ox2, int ox3)$/;"	f	class:MeshBlockTree
+MeshBlockTree	meshblock_tree.hpp	/^class MeshBlockTree {$/;"	c
+MeshGenerator_	mesh.hpp	/^  MeshGenFunc MeshGenerator_[3];$/;"	m	class:Mesh
+MeshRefinement	mesh_refinement.cpp	/^MeshRefinement::MeshRefinement(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:MeshRefinement
+MeshRefinement	mesh_refinement.hpp	/^class MeshRefinement {$/;"	c
+NewTimeStep	mesh.cpp	/^void Mesh::NewTimeStep() {$/;"	f	class:Mesh
+OutputCycleDiagnostics	mesh.cpp	/^void Mesh::OutputCycleDiagnostics() {$/;"	f	class:Mesh
+OutputMeshStructure	mesh.cpp	/^void Mesh::OutputMeshStructure(int ndim) {$/;"	f	class:Mesh
+PrepareSendCoarseToFineAMR	amr_loadbalance.cpp	/^void Mesh::PrepareSendCoarseToFineAMR(MeshBlock* pb, Real *sendbuf,$/;"	f	class:Mesh
+PrepareSendFineToCoarseAMR	amr_loadbalance.cpp	/^void Mesh::PrepareSendFineToCoarseAMR(MeshBlock* pb, Real *sendbuf) {$/;"	f	class:Mesh
+PrepareSendSameLevel	amr_loadbalance.cpp	/^void Mesh::PrepareSendSameLevel(MeshBlock* pb, Real *sendbuf) {$/;"	f	class:Mesh
+ProlongateCellCenteredValues	mesh_refinement.cpp	/^void MeshRefinement::ProlongateCellCenteredValues($/;"	f	class:MeshRefinement
+ProlongateInternalField	mesh_refinement.cpp	/^void MeshRefinement::ProlongateInternalField($/;"	f	class:MeshRefinement
+ProlongateSharedFieldX1	mesh_refinement.cpp	/^void MeshRefinement::ProlongateSharedFieldX1($/;"	f	class:MeshRefinement
+ProlongateSharedFieldX2	mesh_refinement.cpp	/^void MeshRefinement::ProlongateSharedFieldX2($/;"	f	class:MeshRefinement
+ProlongateSharedFieldX3	mesh_refinement.cpp	/^void MeshRefinement::ProlongateSharedFieldX3($/;"	f	class:MeshRefinement
+RedistributeAndRefineMeshBlocks	amr_loadbalance.cpp	/^void Mesh::RedistributeAndRefineMeshBlocks(ParameterInput *pin, int ntot) {$/;"	f	class:Mesh
+Refine	meshblock_tree.cpp	/^void MeshBlockTree::Refine(int &nnew) {$/;"	f	class:MeshBlockTree
+RegisterMeshBlockData	meshblock.cpp	/^void MeshBlock::RegisterMeshBlockData(AthenaArray<Real> &pvar_cc) {$/;"	f	class:MeshBlock
+RegisterMeshBlockData	meshblock.cpp	/^void MeshBlock::RegisterMeshBlockData(FaceField &pvar_fc) {$/;"	f	class:MeshBlock
+ReserveMeshBlockPhysIDs	mesh.cpp	/^void Mesh::ReserveMeshBlockPhysIDs() {$/;"	f	class:Mesh
+ReserveTagPhysIDs	mesh.cpp	/^int Mesh::ReserveTagPhysIDs(int num_phys) {$/;"	f	class:Mesh
+ResetLoadBalanceVariables	amr_loadbalance.cpp	/^void Mesh::ResetLoadBalanceVariables() {$/;"	f	class:Mesh
+ResetTimeMeasurement	meshblock.cpp	/^void MeshBlock::ResetTimeMeasurement() {$/;"	f	class:MeshBlock
+RestrictCellCenteredValues	mesh_refinement.cpp	/^void MeshRefinement::RestrictCellCenteredValues($/;"	f	class:MeshRefinement
+RestrictFieldX1	mesh_refinement.cpp	/^void MeshRefinement::RestrictFieldX1($/;"	f	class:MeshRefinement
+RestrictFieldX2	mesh_refinement.cpp	/^void MeshRefinement::RestrictFieldX2($/;"	f	class:MeshRefinement
+RestrictFieldX3	mesh_refinement.cpp	/^void MeshRefinement::RestrictFieldX3($/;"	f	class:MeshRefinement
+SetBlockSizeAndBoundaries	mesh.cpp	/^void Mesh::SetBlockSizeAndBoundaries(LogicalLocation loc, RegionSize &block_size,$/;"	f	class:Mesh
+SetCostForLoadBalancing	meshblock.cpp	/^void MeshBlock::SetCostForLoadBalancing(double cost) {$/;"	f	class:MeshBlock
+SetFourPiG	mesh.hpp	/^  void SetFourPiG(Real fpg) { four_pi_G_=fpg; }$/;"	f	class:Mesh
+SetGravitationalConstant	mesh.hpp	/^  void SetGravitationalConstant(Real g) { four_pi_G_=4.0*PI*g; }$/;"	f	class:Mesh
+SetGravityThreshold	mesh.hpp	/^  void SetGravityThreshold(Real eps) { grav_eps_=eps; }$/;"	f	class:Mesh
+SetHydroRefinement	mesh_refinement.cpp	/^void MeshRefinement::SetHydroRefinement(HydroBoundaryQuantity hydro_type) {$/;"	f	class:MeshRefinement
+SetMeanDensity	mesh.hpp	/^  void SetMeanDensity(Real d0) { grav_mean_rho_=d0; }$/;"	f	class:Mesh
+SetUserOutputVariableName	meshblock.cpp	/^void MeshBlock::SetUserOutputVariableName(int n, const char *name) {$/;"	f	class:MeshBlock
+StartTimeMeasurement	meshblock.cpp	/^void MeshBlock::StartTimeMeasurement() {$/;"	f	class:MeshBlock
+StopTimeMeasurement	meshblock.cpp	/^void MeshBlock::StopTimeMeasurement() {$/;"	f	class:MeshBlock
+UniformMeshGeneratorX1	mesh.hpp	/^inline Real UniformMeshGeneratorX1(Real x, RegionSize rs) {$/;"	f
+UniformMeshGeneratorX2	mesh.hpp	/^inline Real UniformMeshGeneratorX2(Real x, RegionSize rs) {$/;"	f
+UniformMeshGeneratorX3	mesh.hpp	/^inline Real UniformMeshGeneratorX3(Real x, RegionSize rs) {$/;"	f
+UpdateCostList	amr_loadbalance.cpp	/^void Mesh::UpdateCostList() {$/;"	f	class:Mesh
+UpdateMeshBlockTree	amr_loadbalance.cpp	/^void Mesh::UpdateMeshBlockTree(int &nnew, int &ndel) {$/;"	f	class:Mesh
+UserMetric_	mesh.hpp	/^  MetricFunc UserMetric_;$/;"	m	class:Mesh
+UserSourceTerm_	mesh.hpp	/^  SrcTermFunc UserSourceTerm_;$/;"	m	class:Mesh
+UserTimeStep_	mesh.hpp	/^  TimeStepFunc UserTimeStep_;$/;"	m	class:Mesh
+ViscosityCoeff_	mesh.hpp	/^  ViscosityCoeffFunc ViscosityCoeff_;$/;"	m	class:Mesh
+WeightedAve	weighted_ave.cpp	/^void MeshBlock::WeightedAve(AthenaArray<Real> &u_out, AthenaArray<Real> &u_in1,$/;"	f	class:MeshBlock
+WeightedAve	weighted_ave.cpp	/^void MeshBlock::WeightedAve(FaceField &b_out, FaceField &b_in1, FaceField &b_in2,$/;"	f	class:MeshBlock
+adaptive	mesh.hpp	/^  const bool adaptive, multilevel;$/;"	m	class:Mesh
+bddisp	mesh.hpp	/^  int *brdisp, *bddisp;$/;"	m	class:Mesh
+block_size	mesh.hpp	/^  RegionSize block_size;$/;"	m	class:MeshBlock
+bnderef	mesh.hpp	/^  int *bnref, *bnderef;$/;"	m	class:Mesh
+bnref	mesh.hpp	/^  int *bnref, *bnderef;$/;"	m	class:Mesh
+brdisp	mesh.hpp	/^  int *brdisp, *bddisp;$/;"	m	class:Mesh
+cfl_number	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
+cie	mesh.hpp	/^  int cis, cie, cjs, cje, cks, cke, cnghost;$/;"	m	class:MeshBlock
+cis	mesh.hpp	/^  int cis, cie, cjs, cje, cks, cke, cnghost;$/;"	m	class:MeshBlock
+cje	mesh.hpp	/^  int cis, cie, cjs, cje, cks, cke, cnghost;$/;"	m	class:MeshBlock
+cjs	mesh.hpp	/^  int cis, cie, cjs, cje, cks, cke, cnghost;$/;"	m	class:MeshBlock
+cke	mesh.hpp	/^  int cis, cie, cjs, cje, cks, cke, cnghost;$/;"	m	class:MeshBlock
+cks	mesh.hpp	/^  int cis, cie, cjs, cje, cks, cke, cnghost;$/;"	m	class:MeshBlock
+cnghost	mesh.hpp	/^  int cis, cie, cjs, cje, cks, cke, cnghost;$/;"	m	class:MeshBlock
+cost_	mesh.hpp	/^  double cost_, lb_time_;$/;"	m	class:MeshBlock
+cost_	meshblock.cpp	/^    nreal_user_meshblock_data_(), nint_user_meshblock_data_(), cost_(icost) {$/;"	f
+costlist	mesh.hpp	/^  double *costlist;$/;"	m	class:Mesh
+current_level	mesh.hpp	/^  int root_level, max_level, current_level;$/;"	m	class:Mesh
+ddisp	mesh.hpp	/^  int *rdisp, *ddisp;$/;"	m	class:Mesh
+deref_count_	mesh_refinement.hpp	/^  int refine_flag_, neighbor_rflag_, deref_count_, deref_threshold_;$/;"	m	class:MeshRefinement
+deref_threshold_	mesh_refinement.hpp	/^  int refine_flag_, neighbor_rflag_, deref_count_, deref_threshold_;$/;"	m	class:MeshRefinement
+dt	mesh.cpp	/^    dt_hyperbolic(dt), dt_parabolic(dt), dt_user(dt),$/;"	v
+dt	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
+dt_diagnostics	mesh.hpp	/^  int nlim, ncycle, ncycle_out, dt_diagnostics;$/;"	m	class:Mesh
+dt_hyperbolic	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
+dt_parabolic	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
+dt_user	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
+f2	mesh.hpp	/^  const bool f2, f3; \/\/ flags indicating (at least) 2D or 3D Mesh$/;"	m	class:Mesh
+f3	mesh.hpp	/^  const bool f2, f3; \/\/ flags indicating (at least) 2D or 3D Mesh$/;"	m	class:Mesh
+fluid_setup	mesh.hpp	/^  const FluidFormulation fluid_setup;$/;"	m	class:Mesh
+four_pi_G_	mesh.hpp	/^  Real four_pi_G_, grav_eps_, grav_mean_rho_;$/;"	m	class:Mesh
+fvol_	mesh_refinement.hpp	/^  AthenaArray<Real> fvol_[2][2], sarea_x1_[2][2], sarea_x2_[2][3], sarea_x3_[3][2];$/;"	m	class:MeshRefinement
+gflag	mesh.hpp	/^  int gflag;$/;"	m	class:Mesh
+gflag	mesh.hpp	/^  int gflag;$/;"	m	class:MeshBlock
+gid	mesh.hpp	/^  int gid, lid;$/;"	m	class:MeshBlock
+gid_	meshblock_tree.hpp	/^  int gid_;$/;"	m	class:MeshBlockTree
+grav_eps_	mesh.hpp	/^  Real four_pi_G_, grav_eps_, grav_mean_rho_;$/;"	m	class:Mesh
+grav_mean_rho_	mesh.hpp	/^  Real four_pi_G_, grav_eps_, grav_mean_rho_;$/;"	m	class:Mesh
+ie	mesh.hpp	/^  int is, ie, js, je, ks, ke;$/;"	m	class:MeshBlock
+is	mesh.hpp	/^  int is, ie, js, je, ks, ke;$/;"	m	class:MeshBlock
+iuser_mesh_data	mesh.hpp	/^  AthenaArray<int> *iuser_mesh_data;$/;"	m	class:Mesh
+iuser_meshblock_data	mesh.hpp	/^  AthenaArray<int> *iuser_meshblock_data;$/;"	m	class:MeshBlock
+je	mesh.hpp	/^  int is, ie, js, je, ks, ke;$/;"	m	class:MeshBlock
+js	mesh.hpp	/^  int is, ie, js, je, ks, ke;$/;"	m	class:MeshBlock
+ke	mesh.hpp	/^  int is, ie, js, je, ks, ke;$/;"	m	class:MeshBlock
+ks	mesh.hpp	/^  int is, ie, js, je, ks, ke;$/;"	m	class:MeshBlock
+lb_automatic_	mesh.hpp	/^  bool lb_flag_, lb_automatic_, lb_manual_;$/;"	m	class:Mesh
+lb_flag_	mesh.hpp	/^  bool lb_flag_, lb_automatic_, lb_manual_;$/;"	m	class:Mesh
+lb_interval_	mesh.hpp	/^  int lb_interval_;$/;"	m	class:Mesh
+lb_manual_	mesh.hpp	/^  bool lb_flag_, lb_automatic_, lb_manual_;$/;"	m	class:Mesh
+lb_time_	mesh.hpp	/^  double cost_, lb_time_;$/;"	m	class:MeshBlock
+lb_tolerance_	mesh.hpp	/^  double lb_tolerance_;$/;"	m	class:Mesh
+lid	mesh.hpp	/^  int gid, lid;$/;"	m	class:MeshBlock
+loc	mesh.hpp	/^  LogicalLocation loc;$/;"	m	class:MeshBlock
+loc_	meshblock_tree.hpp	/^  LogicalLocation loc_;$/;"	m	class:MeshBlockTree
+loclist	mesh.hpp	/^  LogicalLocation *loclist;$/;"	m	class:Mesh
+max_level	mesh.hpp	/^  int root_level, max_level, current_level;$/;"	m	class:Mesh
+mesh_bcs	mesh.hpp	/^  BoundaryFlag mesh_bcs[6];$/;"	m	class:Mesh
+mesh_size	mesh.hpp	/^  RegionSize mesh_size;$/;"	m	class:Mesh
+muj	mesh.hpp	/^  Real muj, nuj, muj_tilde;$/;"	m	class:Mesh
+muj_tilde	mesh.hpp	/^  Real muj, nuj, muj_tilde;$/;"	m	class:Mesh
+multilevel	mesh.hpp	/^  const bool adaptive, multilevel;$/;"	m	class:Mesh
+nbdel	mesh.hpp	/^  int nbtotal, nbnew, nbdel;$/;"	m	class:Mesh
+nblist	mesh.hpp	/^  int *nslist, *ranklist, *nblist;$/;"	m	class:Mesh
+nbnew	mesh.hpp	/^  int nbtotal, nbnew, nbdel;$/;"	m	class:Mesh
+nbtotal	mesh.hpp	/^  int nbtotal, nbnew, nbdel;$/;"	m	class:Mesh
+ncc1	mesh.hpp	/^  int ncc1, ncc2, ncc3;$/;"	m	class:MeshBlock
+ncc2	mesh.hpp	/^  int ncc1, ncc2, ncc3;$/;"	m	class:MeshBlock
+ncc3	mesh.hpp	/^  int ncc1, ncc2, ncc3;$/;"	m	class:MeshBlock
+ncells1	mesh.hpp	/^  int ncells1, ncells2, ncells3;$/;"	m	class:MeshBlock
+ncells2	mesh.hpp	/^  int ncells1, ncells2, ncells3;$/;"	m	class:MeshBlock
+ncells3	mesh.hpp	/^  int ncells1, ncells2, ncells3;$/;"	m	class:MeshBlock
+ncycle	mesh.hpp	/^  int nlim, ncycle, ncycle_out, dt_diagnostics;$/;"	m	class:Mesh
+ncycle_out	mesh.hpp	/^  int nlim, ncycle, ncycle_out, dt_diagnostics;$/;"	m	class:Mesh
+nderef	mesh.hpp	/^  int *nref, *nderef;$/;"	m	class:Mesh
+ndim	mesh.hpp	/^  const int ndim;     \/\/ number of dimensions$/;"	m	class:Mesh
+neighbor_rflag_	mesh_refinement.hpp	/^  int refine_flag_, neighbor_rflag_, deref_count_, deref_threshold_;$/;"	m	class:MeshRefinement
+new_block_dt_	mesh.hpp	/^  Real new_block_dt_, new_block_dt_hyperbolic_, new_block_dt_parabolic_,$/;"	m	class:MeshBlock
+new_block_dt_hyperbolic_	mesh.hpp	/^  Real new_block_dt_, new_block_dt_hyperbolic_, new_block_dt_parabolic_,$/;"	m	class:MeshBlock
+new_block_dt_parabolic_	mesh.hpp	/^  Real new_block_dt_, new_block_dt_hyperbolic_, new_block_dt_parabolic_,$/;"	m	class:MeshBlock
+new_block_dt_user_	mesh.hpp	/^    new_block_dt_user_;$/;"	m	class:MeshBlock
+next	mesh.hpp	/^  MeshBlock *prev, *next;$/;"	m	class:MeshBlock
+next_phys_id_	mesh.hpp	/^  int next_phys_id_; \/\/ next unused value for encoding final component of MPI tag bitfield$/;"	m	class:Mesh
+nint_user_mesh_data_	mesh.hpp	/^  int nreal_user_mesh_data_, nint_user_mesh_data_;$/;"	m	class:Mesh
+nint_user_meshblock_data_	mesh.hpp	/^  int nreal_user_meshblock_data_, nint_user_meshblock_data_;$/;"	m	class:MeshBlock
+nleaf_	meshblock_tree.cpp	/^int MeshBlockTree::nleaf_;$/;"	m	class:MeshBlockTree	file:
+nleaf_	meshblock_tree.hpp	/^  static int nleaf_;$/;"	m	class:MeshBlockTree
+nlim	mesh.hpp	/^  int nlim, ncycle, ncycle_out, dt_diagnostics;$/;"	m	class:Mesh
+nrbx1	mesh.hpp	/^  int nrbx1, nrbx2, nrbx3;$/;"	m	class:Mesh
+nrbx2	mesh.hpp	/^  int nrbx1, nrbx2, nrbx3;$/;"	m	class:Mesh
+nrbx3	mesh.hpp	/^  int nrbx1, nrbx2, nrbx3;$/;"	m	class:Mesh
+nreal_user_mesh_data_	mesh.hpp	/^  int nreal_user_mesh_data_, nint_user_mesh_data_;$/;"	m	class:Mesh
+nreal_user_meshblock_data_	mesh.hpp	/^  int nreal_user_meshblock_data_, nint_user_meshblock_data_;$/;"	m	class:MeshBlock
+nref	mesh.hpp	/^  int *nref, *nderef;$/;"	m	class:Mesh
+nslist	mesh.hpp	/^  int *nslist, *ranklist, *nblist;$/;"	m	class:Mesh
+nuj	mesh.hpp	/^  Real muj, nuj, muj_tilde;$/;"	m	class:Mesh
+num_mesh_threads_	mesh.hpp	/^  int num_mesh_threads_;$/;"	m	class:Mesh
+nuser_history_output_	mesh.hpp	/^  int nuser_history_output_;$/;"	m	class:Mesh
+nuser_out_var	mesh.hpp	/^  int nuser_out_var;$/;"	m	class:MeshBlock
+pblock	mesh.hpp	/^  MeshBlock *pblock;$/;"	m	class:Mesh
+pbval	mesh.hpp	/^  BoundaryValues *pbval;$/;"	m	class:MeshBlock
+pcoarsec	mesh_refinement.hpp	/^  Coordinates *pcoarsec;$/;"	m	class:MeshRefinement
+pcoord	mesh.hpp	/^  Coordinates *pcoord;$/;"	m	class:MeshBlock
+pdustfluids	mesh.hpp	/^  DustFluids *pdustfluids;$/;"	m	class:MeshBlock
+peos	mesh.hpp	/^  EquationOfState *peos;$/;"	m	class:MeshBlock
+peos_table	mesh.hpp	/^  EosTable *peos_table;$/;"	m	class:Mesh
+pfgrd	mesh.hpp	/^  FFTGravityDriver *pfgrd;$/;"	m	class:Mesh
+pfield	mesh.hpp	/^  Field *pfield;$/;"	m	class:MeshBlock
+pgrav	mesh.hpp	/^  Gravity *pgrav;$/;"	m	class:MeshBlock
+phydro	mesh.hpp	/^  Hydro *phydro;$/;"	m	class:MeshBlock
+pleaf_	meshblock_tree.hpp	/^  MeshBlockTree** pleaf_;$/;"	m	class:MeshBlockTree
+pmesh_	meshblock_tree.cpp	/^Mesh* pmesh_;$/;"	v
+pmg	mesh.hpp	/^  MGGravity* pmg;$/;"	m	class:MeshBlock
+pmgrd	mesh.hpp	/^  MGGravityDriver *pmgrd;$/;"	m	class:Mesh
+pmr	mesh.hpp	/^  MeshRefinement *pmr;$/;"	m	class:MeshBlock
+pmy_block_	mesh_refinement.hpp	/^  MeshBlock *pmy_block_;$/;"	m	class:MeshRefinement
+pmy_mesh	mesh.hpp	/^  Mesh *pmy_mesh;  \/\/ ptr to Mesh containing this MeshBlock$/;"	m	class:MeshBlock
+precon	mesh.hpp	/^  Reconstruction *precon;$/;"	m	class:MeshBlock
+prev	mesh.hpp	/^  MeshBlock *prev, *next;$/;"	m	class:MeshBlock
+proot_	meshblock_tree.cpp	/^MeshBlockTree* MeshBlockTree::proot_;$/;"	m	class:MeshBlockTree	file:
+proot_	meshblock_tree.hpp	/^  static MeshBlockTree* proot_;$/;"	m	class:MeshBlockTree
+ptrbd	mesh.hpp	/^  TurbulenceDriver *ptrbd;$/;"	m	class:Mesh
+pvars_cc_	mesh_refinement.hpp	/^  std::vector<std::tuple<AthenaArray<Real> *, AthenaArray<Real> *>> pvars_cc_;$/;"	m	class:MeshRefinement
+pvars_fc_	mesh_refinement.hpp	/^  std::vector<std::tuple<FaceField *, FaceField *>> pvars_fc_;$/;"	m	class:MeshRefinement
+ranklist	mesh.hpp	/^  int *nslist, *ranklist, *nblist;$/;"	m	class:Mesh
+rdisp	mesh.hpp	/^  int *rdisp, *ddisp;$/;"	m	class:Mesh
+refine_flag_	mesh_refinement.hpp	/^  int refine_flag_, neighbor_rflag_, deref_count_, deref_threshold_;$/;"	m	class:MeshRefinement
+root_level	mesh.hpp	/^  int root_level, max_level, current_level;$/;"	m	class:Mesh
+ruser_mesh_data	mesh.hpp	/^  AthenaArray<Real> *ruser_mesh_data;$/;"	m	class:Mesh
+ruser_meshblock_data	mesh.hpp	/^  AthenaArray<Real> *ruser_meshblock_data;$/;"	m	class:MeshBlock
+sarea_x1_	mesh_refinement.hpp	/^  AthenaArray<Real> fvol_[2][2], sarea_x1_[2][2], sarea_x2_[2][3], sarea_x3_[3][2];$/;"	m	class:MeshRefinement
+sarea_x2_	mesh_refinement.hpp	/^  AthenaArray<Real> fvol_[2][2], sarea_x1_[2][2], sarea_x2_[2][3], sarea_x3_[3][2];$/;"	m	class:MeshRefinement
+sarea_x3_	mesh_refinement.hpp	/^  AthenaArray<Real> fvol_[2][2], sarea_x1_[2][2], sarea_x2_[2][3], sarea_x3_[3][2];$/;"	m	class:MeshRefinement
+stage_abscissae	mesh.hpp	/^  Real stage_abscissae[MAX_NSTAGE+1][MAX_NREGISTER];$/;"	m	class:MeshBlock
+start_time	mesh.cpp	/^    start_time(pin->GetOrAddReal("time", "start_time", 0.0)), time(start_time),$/;"	v
+start_time	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
+step_since_lb	mesh.hpp	/^  int step_since_lb;$/;"	m	class:Mesh
+tasks	mesh.hpp	/^  TaskStates tasks;$/;"	m	class:MeshBlock
+time	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
+tlim	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
+tree	mesh.hpp	/^  MeshBlockTree tree;$/;"	m	class:Mesh
+true	mesh.cpp	/^    lb_flag_(true), lb_automatic_(), lb_manual_(),$/;"	v
+turb_flag	mesh.hpp	/^  int turb_flag; \/\/ turbulence flag$/;"	m	class:Mesh
+use_uniform_meshgen_fn_	mesh.hpp	/^  bool use_uniform_meshgen_fn_[3];$/;"	m	class:Mesh
+user_history_func_	mesh.hpp	/^  HistoryOutputFunc *user_history_func_;$/;"	m	class:Mesh
+user_history_ops_	mesh.hpp	/^  UserHistoryOperation *user_history_ops_;$/;"	m	class:Mesh
+user_history_output_names_	mesh.hpp	/^  std::string *user_history_output_names_;$/;"	m	class:Mesh
+user_out_var	mesh.hpp	/^  AthenaArray<Real> user_out_var;$/;"	m	class:MeshBlock
+user_out_var_names_	mesh.hpp	/^  std::string *user_out_var_names_;$/;"	m	class:MeshBlock
+vars_cc_	mesh.hpp	/^  std::vector<std::reference_wrapper<AthenaArray<Real>>> vars_cc_;$/;"	m	class:MeshBlock
+vars_fc_	mesh.hpp	/^  std::vector<std::reference_wrapper<FaceField>> vars_fc_;$/;"	m	class:MeshBlock
+~Mesh	mesh.cpp	/^Mesh::~Mesh() {$/;"	f	class:Mesh
+~MeshBlock	meshblock.cpp	/^MeshBlock::~MeshBlock() {$/;"	f	class:MeshBlock
+~MeshBlockTree	meshblock_tree.cpp	/^MeshBlockTree::~MeshBlockTree() {$/;"	f	class:MeshBlockTree
+~MeshRefinement	mesh_refinement.cpp	/^MeshRefinement::~MeshRefinement() {$/;"	f	class:MeshRefinement

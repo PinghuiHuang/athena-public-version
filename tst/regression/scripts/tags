@@ -1,0 +1,614 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AthenaError	utils/athena.py	/^class AthenaError(RuntimeError):$/;"	c
+AthenaTable	utils/EquationOfState/eos.py	/^class AthenaTable(EOS):$/;"	c
+EOS	utils/EquationOfState/eos.py	/^class EOS(object):$/;"	c
+EvolvedCosineProfile	utils/plot_mignone/section_5_1_2.py	/^def EvolvedCosineProfile(x2, a, b, t):$/;"	f
+EvolvedGaussianProfile	utils/plot_mignone/section_5_1_1.py	/^def EvolvedGaussianProfile(x1, a, b, m, t):$/;"	f
+Ideal	utils/EquationOfState/eos.py	/^class Ideal(EOS):$/;"	c
+InitialCosineProfile	utils/plot_mignone/section_5_1_2.py	/^def InitialCosineProfile(x2, a, b):$/;"	f
+InitialGaussianProfile	utils/plot_mignone/section_5_1_1.py	/^def InitialGaussianProfile(x1, a, b):$/;"	f
+LogPipe	utils/log_pipe.py	/^class LogPipe(threading.Thread):$/;"	c
+RareInt	utils/RiemannSolver/riemann.py	/^class RareInt(object):$/;"	c
+RiemannSol	utils/RiemannSolver/riemann.py	/^class RiemannSol(object):$/;"	c
+SimpleHydrogen	utils/EquationOfState/eos.py	/^class SimpleHydrogen(EOS):$/;"	c
+StateVector	utils/RiemannSolver/riemann.py	/^class StateVector(object):$/;"	c
+T_of_rho_ei	utils/EquationOfState/eos.py	/^    def T_of_rho_ei(self, rho, ei):$/;"	m	class:Ideal
+T_of_rho_p	utils/EquationOfState/eos.py	/^    def T_of_rho_p(self, rho, p):$/;"	m	class:Ideal
+TestIdeal	utils/EquationOfState/eos.py	/^class TestIdeal(Ideal):$/;"	c
+_Lx1	tests/diffusion/resistive_diffusion.py	/^_Lx1 = 8.0$/;"	v
+_Lx1	tests/diffusion/viscous_diffusion.py	/^_Lx1 = 8.0$/;"	v
+_T_of_rho_ei	utils/EquationOfState/eos.py	/^    def _T_of_rho_ei(self, rho, ei):$/;"	m	class:SimpleHydrogen
+_T_of_rho_h	utils/EquationOfState/eos.py	/^    def _T_of_rho_h(self, rho, h):$/;"	m	class:SimpleHydrogen
+_T_of_rho_p	utils/EquationOfState/eos.py	/^    def _T_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
+__call__	utils/RiemannSolver/riemann.py	/^    def __call__(self, p):$/;"	m	class:RareInt	file:
+__getitem__	utils/RiemannSolver/riemann.py	/^    def __getitem__(self, item):$/;"	m	class:StateVector	file:
+__init__	utils/EquationOfState/eos.py	/^    def __init__(self):$/;"	m	class:EOS
+__init__	utils/EquationOfState/eos.py	/^    def __init__(self):$/;"	m	class:SimpleHydrogen
+__init__	utils/EquationOfState/eos.py	/^    def __init__(self, data, lrho, le, ratios=None, indep=None, dens_pow=-1, fn=None,$/;"	m	class:AthenaTable
+__init__	utils/EquationOfState/eos.py	/^    def __init__(self, gamma, R=1):$/;"	m	class:Ideal
+__init__	utils/EquationOfState/eos.py	/^    def __init__(self, gamma, R=1):$/;"	m	class:TestIdeal
+__init__	utils/RiemannSolver/riemann.py	/^    def __init__(self, left, right, eos):$/;"	m	class:RiemannSol
+__init__	utils/RiemannSolver/riemann.py	/^    def __init__(self, owner, edge, sign=None, slow=False):$/;"	m	class:RareInt
+__init__	utils/RiemannSolver/riemann.py	/^    def __init__(self, p=None, rho=None, d=None, T=None, ei=None, u=None, eos=None):$/;"	m	class:StateVector
+__init__	utils/log_pipe.py	/^    def __init__(self, logger, level):$/;"	m	class:LogPipe
+__repr__	utils/RiemannSolver/riemann.py	/^    def __repr__(self):$/;"	m	class:StateVector	file:
+_amp	tests/diffusion/resistive_diffusion.py	/^_amp = 1.e-6$/;"	v
+_amp	tests/diffusion/viscous_diffusion.py	/^_amp = 1.e-6$/;"	v
+_b	utils/EquationOfState/eos.py	/^    def _b(self, rho, T):$/;"	m	class:SimpleHydrogen
+_c_s	tests/diffusion/linear_wave3d.py	/^_c_s = 0.5  # slow mode wave speed of Athena++ linear wave configuration$/;"	v
+_du	utils/RiemannSolver/riemann.py	/^    def _du(self, pmult):$/;"	m	class:RiemannSol
+_eta	tests/diffusion/linear_wave3d.py	/^_eta = _kappa$/;"	v
+_eta	tests/diffusion/resistive_diffusion.py	/^_eta = 0.4$/;"	v
+_exec	tests/eos/eos_riemann.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	tests/hydro/hydro_linwave.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	tests/hydro/sod_shock.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	tests/mhd/mhd_linwave.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	tests/mhd/rj2a_shock.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_exec	tests/scalars/restart.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
+_fluxes	tests/eos/eos_riemann.py	/^_fluxes = ['hlle', 'hllc']$/;"	v
+_fluxes	tests/hydro/hydro_linwave.py	/^_fluxes = ['hlle', 'hllc', 'roe']$/;"	v
+_fluxes	tests/hydro/sod_shock.py	/^_fluxes = ['hlle', 'hllc', 'roe']$/;"	v
+_fluxes	tests/mhd/mhd_linwave.py	/^_fluxes = ['hlld', 'roe']$/;"	v
+_fluxes	tests/mhd/rj2a_shock.py	/^_fluxes = ['hlld', 'roe']$/;"	v
+_gammas	tests/eos/eos_comparison.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
+_gammas	tests/eos/eos_hdf5_table.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
+_gammas	tests/eos/eos_table_test.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
+_get_mids	utils/RiemannSolver/riemann.py	/^    def _get_mids(self, p):$/;"	m	class:RiemannSol
+_interp	utils/EquationOfState/eos.py	/^    def _interp(self, rho, e, var):$/;"	m	class:AthenaTable
+_kappa	tests/diffusion/linear_wave3d.py	/^_kappa = _nu*2.0$/;"	v
+_kappa	tests/diffusion/thermal_attenuation.py	/^_kappa = 0.04$/;"	v
+_mag_list	tests/eos/eos_mhd.py	/^_mag_list = [str(i) for i in [1e-5, 1e-4, 1e-3]]$/;"	v
+_mhd_states	tests/eos/eos_mhd.py	/^_mhd_states = _states + len(_mag_list) * [_states[0]]$/;"	v
+_mhd_tests	tests/eos/eos_mhd.py	/^_mhd_tests = _tests + len(_mag_list) * [_tests[0]]$/;"	v
+_mhd_thresh	tests/eos/eos_mhd.py	/^_mhd_thresh = _thresh + len(_mag_list) * [_thresh[0]]$/;"	v
+_nscalars	tests/scalars/restart.py	/^_nscalars = [2]$/;"	v
+_nu	tests/diffusion/linear_wave3d.py	/^_nu = 0.01$/;"	v
+_nu	tests/diffusion/viscous_diffusion.py	/^_nu = 0.25$/;"	v
+_nxs	tests/hydro/sod_shock.py	/^_nxs = [128, 256]  # resolutions to test (ascending)$/;"	v
+_nxs	tests/mhd/rj2a_shock.py	/^_nxs = [256, 512]  # resolutions to test (ascending)$/;"	v
+_phi	utils/EquationOfState/eos.py	/^    def _phi(self, T):$/;"	m	class:SimpleHydrogen
+_rare_ode	utils/RiemannSolver/riemann.py	/^    def _rare_ode(self, y, p):$/;"	m	class:RareInt
+_shock_jump	utils/RiemannSolver/riemann.py	/^    def _shock_jump(self, edge, mid):$/;"	m	class:RiemannSol
+_states	tests/eos/eos_riemann.py	/^_states = [dict(zip(tmp, i[:-1])) for i in _tests]$/;"	v
+_t0	tests/diffusion/resistive_diffusion.py	/^_t0 = 0.5$/;"	v
+_t0	tests/diffusion/viscous_diffusion.py	/^_t0 = 0.5$/;"	v
+_tests	tests/eos/eos_riemann.py	/^_tests = [[1e-07, 0.00, 0.150, 1.25e-8, 0., 0.062, .25],$/;"	v
+_tests	tests/eos/eos_riemann.py	/^_tests = [dict(zip(tmp, i)) for i in _tests]$/;"	v
+_thresh	tests/eos/eos_riemann.py	/^_thresh = [[5.1e-10, 6.5e-11, 0.0039],$/;"	v
+_thresh	tests/eos/eos_riemann.py	/^_thresh = [dict(zip(['rho', 'press', 'vel'], i)) for i in _thresh]$/;"	v
+_x	utils/EquationOfState/eos.py	/^    def _x(self, rho, T):$/;"	m	class:SimpleHydrogen
+_x_T	utils/EquationOfState/eos.py	/^    def _x_T(self, rho, T):$/;"	m	class:SimpleHydrogen
+_xdirs	tests/hydro/sod_shock.py	/^_xdirs = [1, 2, 3]$/;"	v
+_xdirs	tests/mhd/rj2a_shock.py	/^_xdirs = [1, 2, 3]$/;"	v
+a	utils/RiemannSolver/riemann.py	/^    def a(self):$/;"	m	class:StateVector
+a_params	utils/plot_mignone/section_5_1_1.py	/^a_params = [10.0, 16.0]$/;"	v
+a_params	utils/plot_mignone/section_5_1_2.py	/^a_params = [10.0, 16.0]$/;"	v
+alpha	utils/plot_mignone/section_5_1_1.py	/^alpha = 1$/;"	v
+alpha	utils/plot_mignone/section_5_1_2.py	/^alpha = 1$/;"	v
+amp	tests/sr/hydro_convergence.py	/^amp = 1.0e-6$/;"	v
+amp	tests/sr/mhd_convergence.py	/^amp = 1.0e-6$/;"	v
+analyze	tests/amr/amr_linwave.py	/^def analyze():$/;"	f
+analyze	tests/curvilinear/blast_cyl.py	/^def analyze():$/;"	f
+analyze	tests/curvilinear/blast_sph.py	/^def analyze():$/;"	f
+analyze	tests/diffusion/linear_wave3d.py	/^def analyze():$/;"	f
+analyze	tests/diffusion/linear_wave3d_sts.py	/^def analyze():$/;"	f
+analyze	tests/diffusion/resistive_diffusion.py	/^def analyze():$/;"	f
+analyze	tests/diffusion/resistive_diffusion_sts.py	/^def analyze():$/;"	f
+analyze	tests/diffusion/thermal_attenuation.py	/^def analyze():$/;"	f
+analyze	tests/diffusion/thermal_attenuation_sts.py	/^def analyze():$/;"	f
+analyze	tests/diffusion/viscous_diffusion.py	/^def analyze():$/;"	f
+analyze	tests/diffusion/viscous_diffusion_sts.py	/^def analyze():$/;"	f
+analyze	tests/eos/eos_comparison.py	/^def analyze():$/;"	f
+analyze	tests/eos/eos_hdf5_table.py	/^def analyze():$/;"	f
+analyze	tests/eos/eos_mhd.py	/^def analyze():$/;"	f
+analyze	tests/eos/eos_riemann.py	/^def analyze():$/;"	f
+analyze	tests/eos/eos_table_test.py	/^def analyze():$/;"	f
+analyze	tests/example.py	/^def analyze():$/;"	f
+analyze	tests/gr/compile_kerr-schild.py	/^def analyze():$/;"	f
+analyze	tests/gr/compile_minkowski.py	/^def analyze():$/;"	f
+analyze	tests/gr/compile_schwarzschild.py	/^def analyze():$/;"	f
+analyze	tests/gr/hydro_shocks_hllc.py	/^def analyze():$/;"	f
+analyze	tests/gr/hydro_shocks_hlle.py	/^def analyze():$/;"	f
+analyze	tests/gr/hydro_shocks_hlle_no_transform.py	/^def analyze():$/;"	f
+analyze	tests/gr/hydro_shocks_llf.py	/^def analyze():$/;"	f
+analyze	tests/gr/hydro_shocks_llf_no_transform.py	/^def analyze():$/;"	f
+analyze	tests/gr/mhd_shocks_hlld.py	/^def analyze():$/;"	f
+analyze	tests/gr/mhd_shocks_hlle.py	/^def analyze():$/;"	f
+analyze	tests/gr/mhd_shocks_llf.py	/^def analyze():$/;"	f
+analyze	tests/grav/jeans_3d.py	/^def analyze():$/;"	f
+analyze	tests/grav/unstable_jeans_3d_fft.py	/^def analyze():$/;"	f
+analyze	tests/grav/unstable_jeans_3d_mg.py	/^def analyze():$/;"	f
+analyze	tests/hybrid/hybrid_linwave.py	/^def analyze():$/;"	f
+analyze	tests/hydro/hydro_linwave.py	/^def analyze():$/;"	f
+analyze	tests/hydro/sod_shock.py	/^def analyze():$/;"	f
+analyze	tests/hydro4/hydro_linwave_2d.py	/^def analyze():$/;"	f
+analyze	tests/hydro4/hydro_linwave_3d.py	/^def analyze():$/;"	f
+analyze	tests/mhd/cpaw.py	/^def analyze():$/;"	f
+analyze	tests/mhd/mhd_linwave.py	/^def analyze():$/;"	f
+analyze	tests/mhd/rj2a_shock.py	/^def analyze():$/;"	f
+analyze	tests/mpi/mpi_linwave.py	/^def analyze():$/;"	f
+analyze	tests/omp/omp_linwave.py	/^def analyze():$/;"	f
+analyze	tests/outputs/all_outputs.py	/^def analyze():$/;"	f
+analyze	tests/pgen/hdf5_reader_parallel.py	/^def analyze():$/;"	f
+analyze	tests/pgen/hdf5_reader_serial.py	/^def analyze():$/;"	f
+analyze	tests/pgen/pgen_compile.py	/^def analyze():$/;"	f
+analyze	tests/scalars/mignone_meridional_1d.py	/^def analyze():$/;"	f
+analyze	tests/scalars/mignone_radial_1d.py	/^def analyze():$/;"	f
+analyze	tests/scalars/restart.py	/^def analyze():$/;"	f
+analyze	tests/shearingbox/mri2d.py	/^def analyze():$/;"	f
+analyze	tests/shearingbox/mri3d.py	/^def analyze():$/;"	f
+analyze	tests/sr/hydro_convergence.py	/^def analyze():$/;"	f
+analyze	tests/sr/hydro_shocks_hllc.py	/^def analyze():$/;"	f
+analyze	tests/sr/hydro_shocks_hlle.py	/^def analyze():$/;"	f
+analyze	tests/sr/hydro_shocks_llf.py	/^def analyze():$/;"	f
+analyze	tests/sr/mhd_convergence.py	/^def analyze():$/;"	f
+analyze	tests/sr/mhd_shocks_hlld.py	/^def analyze():$/;"	f
+analyze	tests/sr/mhd_shocks_hlle.py	/^def analyze():$/;"	f
+analyze	tests/sr/mhd_shocks_llf.py	/^def analyze():$/;"	f
+analyze	tests/sr/sr_mhd_linwave.py	/^def analyze():$/;"	f
+analyze	tests/symmetry/hydro_linwave_aligned.py	/^def analyze():$/;"	f
+analyze	tests/turb/turb_3d.py	/^def analyze():$/;"	f
+analyze_code_coverage	utils/athena.py	/^def analyze_code_coverage(test_name, lcov_test_suffix=None):$/;"	f
+arg_res	tests/grav/unstable_jeans_3d_fft.py	/^    def arg_res(res):$/;"	f	function:run
+arg_res	tests/grav/unstable_jeans_3d_mg.py	/^    def arg_res(res):$/;"	f	function:run
+asq_of_rho_T	utils/EquationOfState/eos.py	/^    def asq_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
+asq_of_rho_h	utils/EquationOfState/eos.py	/^    def asq_of_rho_h(self, rho, h):$/;"	m	class:SimpleHydrogen
+asq_of_rho_p	utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:AthenaTable
+asq_of_rho_p	utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:EOS
+asq_of_rho_p	utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:Ideal
+asq_of_rho_p	utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
+athena_rel_path	utils/athena.py	/^athena_rel_path = '..\/..\/'$/;"	v
+athinput2riemann	utils/RiemannSolver/AthenaWrapper.py	/^def athinput2riemann(athinput, eos=None):$/;"	f
+b_params	utils/plot_mignone/section_5_1_1.py	/^b_params = [0.0, 0.5]$/;"	v
+b_params	utils/plot_mignone/section_5_1_2.py	/^b_params = [0.0, 0.196349540849362077]$/;"	v
+base_x1rat	tests/scalars/mignone_radial_1d.py	/^base_x1rat = 1.0$/;"	v
+base_x2rat	tests/scalars/mignone_meridional_1d.py	/^base_x2rat = 1.0$/;"	v
+brent_opt	utils/EquationOfState/__init__.py	/^brent_opt = dict(full_output=True, disp=True)$/;"	v
+brent_opt	utils/RiemannSolver/__init__.py	/^brent_opt = dict(full_output=True, disp=True)  # Set options for scipy.optimize.brentq$/;"	v
+bx	tests/sr/mhd_convergence.py	/^bx = 2.5$/;"	v
+by	tests/sr/mhd_convergence.py	/^by = 1.8$/;"	v
+bz	tests/sr/mhd_convergence.py	/^bz = -1.2$/;"	v
+calculate_wavespeed	tests/sr/sr_mhd_linwave.py	/^def calculate_wavespeed(rho, pgas, vx, vy, vz, bx, by, bz, gamma_adi, wave_flag):$/;"	f
+case_xlims	utils/plot_mignone/section_5_1_1.py	/^case_xlims = [$/;"	v
+case_xlims	utils/plot_mignone/section_5_1_2.py	/^case_xlims = [$/;"	v
+cases	tests/scalars/mignone_meridional_1d.py	/^cases = {$/;"	v
+cases	tests/scalars/mignone_radial_1d.py	/^cases = {$/;"	v
+cases	utils/plot_mignone/section_5_1_1.py	/^cases = ['A', 'B']$/;"	v
+cases	utils/plot_mignone/section_5_1_2.py	/^cases = ['A', 'B']$/;"	v
+characteristic	utils/RiemannSolver/riemann.py	/^    def characteristic(self, xi):$/;"	m	class:RareInt
+close	utils/log_pipe.py	/^    def close(self):$/;"	m	class:LogPipe
+complete	utils/RiemannSolver/riemann.py	/^    def complete(self, ignore_u=False):$/;"	m	class:StateVector
+configure	utils/athena.py	/^def configure(*args, **kwargs):$/;"	f
+convergence_y0	utils/plot_mignone/section_5_1_1.py	/^convergence_y0 = [$/;"	v
+convergence_y0	utils/plot_mignone/section_5_1_2.py	/^convergence_y0 = [$/;"	v
+coord_m	utils/plot_mignone/section_5_1_1.py	/^coord_m = [1, 2]$/;"	v
+coord_ylims	utils/plot_mignone/section_5_1_1.py	/^coord_ylims = [$/;"	v
+coords	tests/scalars/mignone_radial_1d.py	/^coords = ['cylindrical', 'spherical_polar']$/;"	v
+coords	utils/plot_mignone/section_5_1_1.py	/^coords = ['cylindrical', 'spherical_polar']$/;"	v
+current_dir	tests/pgen/pgen_compile.py	/^current_dir = os.getcwd()$/;"	v
+cutoff	tests/sr/hydro_convergence.py	/^cutoff = 1.8$/;"	v
+cutoff	tests/sr/mhd_convergence.py	/^cutoff = 1.8$/;"	v
+d	utils/RiemannSolver/riemann.py	/^    def d(self):$/;"	m	class:StateVector
+data_array	utils/RiemannSolver/riemann.py	/^    def data_array(self, xi, add_var=None):$/;"	m	class:RiemannSol
+dataset_b1	tests/pgen/hdf5_reader_parallel.py	/^dataset_b1 = 'b1'$/;"	v
+dataset_b1	tests/pgen/hdf5_reader_serial.py	/^dataset_b1 = 'b1'$/;"	v
+dataset_b2	tests/pgen/hdf5_reader_parallel.py	/^dataset_b2 = 'b2'$/;"	v
+dataset_b2	tests/pgen/hdf5_reader_serial.py	/^dataset_b2 = 'b2'$/;"	v
+dataset_b3	tests/pgen/hdf5_reader_parallel.py	/^dataset_b3 = 'b3'$/;"	v
+dataset_b3	tests/pgen/hdf5_reader_serial.py	/^dataset_b3 = 'b3'$/;"	v
+dataset_cons	tests/pgen/hdf5_reader_parallel.py	/^dataset_cons = 'cons'$/;"	v
+dataset_cons	tests/pgen/hdf5_reader_serial.py	/^dataset_cons = 'cons'$/;"	v
+default_names	utils/EquationOfState/writeEOS.py	/^default_names = ['p\/e(e\/rho,rho)', 'e\/p(p\/rho,rho)', 'asq*rho\/p(p\/rho,rho)']$/;"	v
+diff_threshold	tests/scalars/mignone_meridional_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
+diff_threshold	tests/scalars/mignone_radial_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
+dpi_global	utils/plot_mignone/section_5_1_1.py	/^dpi_global = 300$/;"	v
+dpi_global	utils/plot_mignone/section_5_1_2.py	/^dpi_global = 300$/;"	v
+ei_of_rho_T	utils/EquationOfState/eos.py	/^    def ei_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
+ei_of_rho_p	utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:AthenaTable
+ei_of_rho_p	utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:EOS
+ei_of_rho_p	utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:Ideal
+ei_of_rho_p	utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
+eos_eval	utils/RiemannSolver/riemann.py	/^    def eos_eval(self, func):$/;"	m	class:StateVector
+eos_rj2a	tests/eos/eos_mhd.py	/^eos_rj2a = [[1.08, 1.2, 1.0e-2, 0.5, 1.0155412503859613, 0.5641895835477563, 0.95],$/;"	v
+eos_rj2a	tests/eos/eos_mhd.py	/^eos_rj2a = np.array(eos_rj2a)$/;"	v
+eos_test	utils/RiemannSolver/tests.py	/^def eos_test(plot=True):$/;"	f
+error_formatter	tests/hydro4/hydro_linwave_2d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+error_formatter	tests/hydro4/hydro_linwave_3d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+error_formatter	tests/scalars/mignone_meridional_1d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+error_formatter	tests/scalars/mignone_radial_1d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
+error_rel_tols	tests/diffusion/linear_wave3d.py	/^error_rel_tols = [0.22, 0.05]$/;"	v
+error_rel_tols	tests/diffusion/thermal_attenuation.py	/^error_rel_tols = [0.38, 0.10]$/;"	v
+error_tols	tests/hydro4/hydro_linwave_2d.py	/^error_tols = [((1.4e-7, 4.6e-8, 1.1e-8, 2.5e-9), (1.1e-7, 3.7e-8, 9.3e-9, 2.2e-9)),$/;"	v
+error_tols	tests/hydro4/hydro_linwave_3d.py	/^error_tols = [((5.6e-9, 3.6e-10), (4.05e-9, 2.65e-10)),$/;"	v
+es	utils/RiemannSolver/riemann.py	/^    def es(self):$/;"	m	class:StateVector
+es_of_rho_p	utils/EquationOfState/eos.py	/^    def es_of_rho_p(self, rho, p):$/;"	m	class:AthenaTable
+es_of_rho_p	utils/EquationOfState/eos.py	/^    def es_of_rho_p(self, rho, p):$/;"	m	class:EOS
+f	utils/EquationOfState/eos.py	/^        def f(y):   # function to find root of$/;"	f	function:SimpleHydrogen._T_of_rho_ei
+f	utils/EquationOfState/eos.py	/^        def f(y):  # function to find root of$/;"	f	function:SimpleHydrogen._T_of_rho_p
+f	utils/EquationOfState/eos.py	/^        def f(y):$/;"	f	function:SimpleHydrogen._T_of_rho_h
+f	utils/RiemannSolver/riemann.py	/^                def f(y):$/;"	f	function:StateVector.complete
+f	utils/RiemannSolver/riemann.py	/^            def f(fm):$/;"	f	function:RiemannSol._shock_jump
+f	utils/RiemannSolver/riemann.py	/^            def f(p):$/;"	f	function:RareInt.init_data
+f	utils/RiemannSolver/riemann.py	/^        def f(p):$/;"	f	function:RareInt.characteristic
+fan_plot	utils/RiemannSolver/riemann.py	/^    def fan_plot(self, xlim=None, ylim=None, fig=True):$/;"	m	class:RiemannSol
+figsize	utils/plot_mignone/section_5_1_1.py	/^figsize = (12.8, 9.6)$/;"	v
+figsize	utils/plot_mignone/section_5_1_2.py	/^figsize = (12.8, 9.6)$/;"	v
+figure2_profiles	utils/plot_mignone/section_5_1_1.py	/^def figure2_profiles():$/;"	f
+figure3_convergence	utils/plot_mignone/section_5_1_1.py	/^def figure3_convergence():$/;"	f
+figure4_convergence	utils/plot_mignone/section_5_1_2.py	/^def figure4_convergence():$/;"	f
+filename_input	tests/pgen/hdf5_reader_parallel.py	/^filename_input = 'initial_data.hdf5'$/;"	v
+filename_input	tests/pgen/hdf5_reader_serial.py	/^filename_input = 'initial_data.hdf5'$/;"	v
+filename_output	tests/pgen/hdf5_reader_parallel.py	/^filename_output = 'from_array.cons.00000.athdf'$/;"	v
+filename_output	tests/pgen/hdf5_reader_serial.py	/^filename_output = 'from_array.cons.00000.athdf'$/;"	v
+fileno	utils/log_pipe.py	/^    def fileno(self):$/;"	m	class:LogPipe
+fill_to_refined	utils/comparison.py	/^    def fill_to_refined(faces, vals, faces_refined):$/;"	f	function:l1_diff
+flux	utils/RiemannSolver/riemann.py	/^    def flux(self):$/;"	m	class:StateVector
+gamma	tests/pgen/hdf5_reader_parallel.py	/^gamma = 5.0\/3.0$/;"	v
+gamma	tests/pgen/hdf5_reader_serial.py	/^gamma = 5.0\/3.0$/;"	v
+gamma	utils/EquationOfState/eos.py	/^    def gamma(self):$/;"	m	class:Ideal
+gamma1	utils/EquationOfState/eos.py	/^    def gamma1(self, rho, T):$/;"	m	class:SimpleHydrogen
+gamma_adi	tests/sr/hydro_convergence.py	/^gamma_adi = 4.0\/3.0$/;"	v
+gamma_adi	tests/sr/mhd_convergence.py	/^gamma_adi = 4.0\/3.0$/;"	v
+gen_sol	utils/RiemannSolver/riemann.py	/^    def gen_sol(self):$/;"	m	class:RiemannSol
+get_state	utils/RiemannSolver/riemann.py	/^    def get_state(self, xi):$/;"	m	class:RiemannSol
+global_config_args	utils/athena.py	/^global_config_args = []$/;"	v
+global_coverage_cmd	utils/athena.py	/^global_coverage_cmd = None$/;"	v
+global_run_args	utils/athena.py	/^global_run_args = []$/;"	v
+global_silent	utils/athena.py	/^global_silent = False$/;"	v
+global_test_name	utils/athena.py	/^global_test_name = None$/;"	v
+gr_probs	tests/pgen/pgen_compile.py	/^gr_probs = set([pgen for pgen in pgen_choices if pgen[0:3] == 'gr_'])$/;"	v
+hydro_args	tests/pgen/pgen_compile.py	/^hydro_args = []$/;"	v
+hydro_probs	tests/pgen/pgen_compile.py	/^hydro_probs = pgen_choices - gr_probs - mhd_probs - shear_probs$/;"	v
+ic	utils/RiemannSolver/riemann.py	/^    def ic(self):$/;"	m	class:RiemannSol
+init_data	utils/RiemannSolver/riemann.py	/^    def init_data(self, pmin, pmax, bp=12):$/;"	m	class:RareInt
+integrator	utils/plot_mignone/section_5_1_1.py	/^integrator = 'rk3'$/;"	v
+integrator	utils/plot_mignone/section_5_1_2.py	/^integrator = 'rk3'$/;"	v
+iprob	tests/scalars/mignone_meridional_1d.py	/^iprob = 2  # 1 = meridional 1D tests, section 5.1.2 from Mignone (2014)$/;"	v
+iprob	tests/scalars/mignone_radial_1d.py	/^iprob = 1  # 1 = radial 1D tests, section 5.1.1 from Mignone (2014)$/;"	v
+iprob	utils/plot_mignone/section_5_1_1.py	/^iprob = 1$/;"	v
+iprob	utils/plot_mignone/section_5_1_2.py	/^iprob = 2$/;"	v
+l1_diff	utils/comparison.py	/^def l1_diff(faces_1, vals_1, faces_2, vals_2):$/;"	f
+l1_norm	utils/comparison.py	/^def l1_norm(faces, vals):$/;"	f
+legend_handles	utils/plot_mignone/section_5_1_1.py	/^legend_handles = [$/;"	v
+legend_handles	utils/plot_mignone/section_5_1_2.py	/^legend_handles = [$/;"	v
+logger	tests/amr/amr_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/curvilinear/blast_cyl.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/curvilinear/blast_sph.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/diffusion/linear_wave3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/diffusion/resistive_diffusion.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/diffusion/thermal_attenuation.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/diffusion/viscous_diffusion.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/eos/eos_comparison.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/eos/eos_hdf5_table.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/eos/eos_mhd.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/eos/eos_riemann.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/compile_kerr-schild.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/compile_minkowski.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/compile_schwarzschild.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/hydro_shocks_hllc.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/hydro_shocks_hlle.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/hydro_shocks_hlle_no_transform.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/hydro_shocks_llf.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/hydro_shocks_llf_no_transform.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/mhd_shocks_hlld.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/mhd_shocks_hlle.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/gr/mhd_shocks_llf.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/grav/jeans_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/grav/unstable_jeans_3d_fft.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/grav/unstable_jeans_3d_mg.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/hybrid/hybrid_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/hydro/hydro_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/hydro/sod_shock.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/hydro4/hydro_linwave_2d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/hydro4/hydro_linwave_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/mhd/cpaw.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/mhd/mhd_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/mhd/rj2a_shock.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/mpi/mpi_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/omp/omp_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/outputs/all_outputs.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/pgen/hdf5_reader_parallel.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/pgen/hdf5_reader_serial.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/pgen/pgen_compile.py	/^logger = logging.getLogger('athena' + __name__[7:])$/;"	v
+logger	tests/scalars/mignone_meridional_1d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/scalars/mignone_radial_1d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/scalars/restart.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/shearingbox/mri2d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/shearingbox/mri3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/sr/hydro_convergence.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/sr/hydro_shocks_hllc.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/sr/hydro_shocks_hlle.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/sr/hydro_shocks_llf.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/sr/mhd_convergence.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/sr/mhd_shocks_hlld.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/sr/mhd_shocks_hlle.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/sr/mhd_shocks_llf.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/sr/sr_mhd_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/symmetry/hydro_linwave_aligned.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logger	tests/turb/turb_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+major_yticks	utils/plot_mignone/section_5_1_1.py	/^major_yticks = [$/;"	v
+major_yticks	utils/plot_mignone/section_5_1_2.py	/^major_yticks = [$/;"	v
+make	utils/athena.py	/^def make(clean_first=True, obj_only=False):$/;"	f
+markeredgecolor	utils/plot_mignone/section_5_1_1.py	/^           markeredgecolor=xorder_colors[xorder_],$/;"	v
+markeredgecolor	utils/plot_mignone/section_5_1_2.py	/^           markeredgecolor=xorder_colors[xorder_],$/;"	v
+method	tests/diffusion/linear_wave3d.py	/^method = 'Explicit'$/;"	v
+method	tests/diffusion/resistive_diffusion.py	/^method = 'Explicit'$/;"	v
+method	tests/diffusion/thermal_attenuation.py	/^method = 'Explicit'$/;"	v
+method	tests/diffusion/viscous_diffusion.py	/^method = 'Explicit'$/;"	v
+mhd_args	tests/pgen/pgen_compile.py	/^mhd_args = ['b']$/;"	v
+mhd_probs	tests/pgen/pgen_compile.py	/^mhd_probs = set(['cpaw', 'field_loop', 'orszag_tang', 'rotor', 'resist', 'magnoh'])$/;"	v
+mignone_tbl1	tests/scalars/mignone_radial_1d.py	/^mignone_tbl1 = {$/;"	v
+mignone_tbl4	tests/scalars/mignone_meridional_1d.py	/^mignone_tbl4 = {$/;"	v
+minor_yticks	utils/plot_mignone/section_5_1_1.py	/^minor_yticks = [$/;"	v
+minor_yticks	utils/plot_mignone/section_5_1_2.py	/^minor_yticks = [$/;"	v
+minor_yticks_auto	utils/plot_mignone/section_5_1_1.py	/^minor_yticks_auto = [$/;"	v
+minor_yticks_auto	utils/plot_mignone/section_5_1_2.py	/^minor_yticks_auto = [$/;"	v
+mk_ideal	utils/EquationOfState/writeEOS.py	/^def mk_ideal(gamma=5.\/3., n=2, fn=None, out_type=None):$/;"	f
+mpirun	utils/athena.py	/^def mpirun(mpirun_cmd, mpirun_opts, nproc, input_filename, arguments,$/;"	f
+mpl_logger	utils/plot_mignone/section_5_1_1.py	/^mpl_logger = logging.getLogger('matplotlib')$/;"	v
+mpl_logger	utils/plot_mignone/section_5_1_2.py	/^mpl_logger = logging.getLogger('matplotlib')$/;"	v
+n2_xrange	utils/plot_mignone/section_5_1_1.py	/^n2_xrange = np.array([70., 300.])$/;"	v
+n2_xrange	utils/plot_mignone/section_5_1_2.py	/^n2_xrange = np.array([70., 300.])$/;"	v
+n3_xrange	utils/plot_mignone/section_5_1_1.py	/^n3_xrange = np.array([32., 110.])$/;"	v
+n3_xrange	utils/plot_mignone/section_5_1_2.py	/^n3_xrange = np.array([32., 110.])$/;"	v
+nb1	tests/pgen/hdf5_reader_parallel.py	/^nb1 = 4$/;"	v
+nb1	tests/pgen/hdf5_reader_serial.py	/^nb1 = 4$/;"	v
+nrows_per_solver	tests/hydro4/hydro_linwave_2d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
+nrows_per_solver	tests/hydro4/hydro_linwave_3d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
+nrows_per_solver	tests/scalars/mignone_meridional_1d.py	/^nrows_per_solver = 1*num_nx2 + 2$/;"	v
+nrows_per_solver	tests/scalars/mignone_radial_1d.py	/^nrows_per_solver = 1*num_nx1 + 2$/;"	v
+nrows_per_solver	tests/symmetry/hydro_linwave_aligned.py	/^nrows_per_solver = 3*num_nx1$/;"	v
+nsamples	utils/plot_mignone/section_5_1_1.py	/^nsamples = 1000    # x1 samples for analytic solution$/;"	v
+nsamples	utils/plot_mignone/section_5_1_2.py	/^nsamples = 1000    # x2 samples for analytic solution$/;"	v
+num_nx1	tests/hydro4/hydro_linwave_2d.py	/^num_nx1 = len(resolution_range)$/;"	v
+num_nx1	tests/hydro4/hydro_linwave_3d.py	/^num_nx1 = len(resolution_range)$/;"	v
+num_nx1	tests/scalars/mignone_radial_1d.py	/^num_nx1 = len(resolution_range)$/;"	v
+num_nx1	tests/symmetry/hydro_linwave_aligned.py	/^num_nx1 = len(resolution_range)$/;"	v
+num_nx2	tests/scalars/mignone_meridional_1d.py	/^num_nx2 = len(resolution_range)$/;"	v
+num_ranks	tests/pgen/hdf5_reader_parallel.py	/^num_ranks = 3$/;"	v
+nx1	tests/pgen/hdf5_reader_parallel.py	/^nx1 = 4$/;"	v
+nx1	tests/pgen/hdf5_reader_serial.py	/^nx1 = 4$/;"	v
+nx1_profile	tests/scalars/mignone_radial_1d.py	/^nx1_profile = 64$/;"	v
+nx1_profile	utils/plot_mignone/section_5_1_1.py	/^nx1_profile = 64   # resolution of Athena++ output to compare w\/ analytic solution$/;"	v
+nx2	tests/pgen/hdf5_reader_parallel.py	/^nx2 = 6$/;"	v
+nx2	tests/pgen/hdf5_reader_serial.py	/^nx2 = 6$/;"	v
+nx2_profile	tests/scalars/mignone_meridional_1d.py	/^nx2_profile = 64$/;"	v
+nx2_profile	utils/plot_mignone/section_5_1_2.py	/^nx2_profile = 64   # resolution of Athena++ output to compare w\/ analytic solution$/;"	v
+nx3	tests/pgen/hdf5_reader_parallel.py	/^nx3 = 4$/;"	v
+nx3	tests/pgen/hdf5_reader_serial.py	/^nx3 = 4$/;"	v
+ode_opt	utils/EquationOfState/__init__.py	/^ode_opt = dict(mxstep=5000000, rtol=1e-15, atol=1e-13)$/;"	v
+ode_opt	utils/RiemannSolver/__init__.py	/^ode_opt = dict(mxstep=5000000, rtol=1e-15, atol=1e-13)  # Set options for odeint$/;"	v
+p_min	utils/RiemannSolver/riemann.py	/^    def p_min(self):$/;"	m	class:StateVector
+p_of_rho_T	utils/EquationOfState/eos.py	/^    def p_of_rho_T(self, rho, T):$/;"	m	class:Ideal
+p_of_rho_T	utils/EquationOfState/eos.py	/^    def p_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
+p_of_rho_ei	utils/EquationOfState/eos.py	/^    def p_of_rho_ei(self, rho, ei):$/;"	m	class:AthenaTable
+p_of_rho_ei	utils/EquationOfState/eos.py	/^    def p_of_rho_ei(self, rho, ei):$/;"	m	class:Ideal
+p_of_rho_es	utils/EquationOfState/eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:AthenaTable
+p_of_rho_es	utils/EquationOfState/eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:EOS
+p_of_rho_es	utils/EquationOfState/eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:Ideal
+p_of_rho_es	utils/EquationOfState/eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:SimpleHydrogen
+parse_eos	utils/EquationOfState/eos.py	/^def parse_eos(eos):$/;"	f
+percentage_formatter	tests/scalars/mignone_meridional_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
+percentage_formatter	tests/scalars/mignone_meridional_1d.py	/^    percentage_formatter = lambda x: colored($/;"	v
+percentage_formatter	tests/scalars/mignone_radial_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
+percentage_formatter	tests/scalars/mignone_radial_1d.py	/^    percentage_formatter = lambda x: colored($/;"	v
+pgas	tests/sr/hydro_convergence.py	/^pgas = 1.0$/;"	v
+pgas	tests/sr/mhd_convergence.py	/^pgas = 1.0$/;"	v
+pgen_choices	tests/pgen/pgen_compile.py	/^pgen_choices = glob.glob(pgen_directory + '*.cpp')$/;"	v
+pgen_choices	tests/pgen/pgen_compile.py	/^pgen_choices = set([choice[len(pgen_directory):-4] for choice in pgen_choices])$/;"	v
+pgen_directory	tests/pgen/pgen_compile.py	/^pgen_directory = test + 'src\/pgen\/'$/;"	v
+plot_convergence	tests/scalars/mignone_meridional_1d.py	/^plot_convergence = False$/;"	v
+plot_convergence	tests/scalars/mignone_radial_1d.py	/^plot_convergence = False$/;"	v
+plot_profiles	tests/scalars/mignone_meridional_1d.py	/^plot_profiles = False$/;"	v
+plot_profiles	tests/scalars/mignone_radial_1d.py	/^plot_profiles = False$/;"	v
+plot_profiles	utils/plot_mignone/section_5_1_2.py	/^def plot_profiles():$/;"	f
+plot_sol	utils/RiemannSolver/riemann.py	/^    def plot_sol(self, var=None, xi_min=None, xi_max=None, nsimp=100, speeds=True,$/;"	m	class:RiemannSol
+prepare	tests/amr/amr_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/curvilinear/blast_cyl.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/curvilinear/blast_sph.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/diffusion/linear_wave3d.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	tests/diffusion/linear_wave3d_sts.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	tests/diffusion/resistive_diffusion.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	tests/diffusion/resistive_diffusion_sts.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	tests/diffusion/thermal_attenuation.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	tests/diffusion/thermal_attenuation_sts.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	tests/diffusion/viscous_diffusion.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	tests/diffusion/viscous_diffusion_sts.py	/^def prepare(*args, **kwargs):$/;"	f
+prepare	tests/eos/eos_comparison.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/eos/eos_hdf5_table.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/eos/eos_mhd.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/eos/eos_riemann.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/eos/eos_table_test.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/example.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/compile_kerr-schild.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/compile_minkowski.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/compile_schwarzschild.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/hydro_shocks_hllc.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/hydro_shocks_hlle.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/hydro_shocks_hlle_no_transform.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/hydro_shocks_llf.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/hydro_shocks_llf_no_transform.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/mhd_shocks_hlld.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/mhd_shocks_hlle.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/gr/mhd_shocks_llf.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/grav/jeans_3d.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/grav/unstable_jeans_3d_fft.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/grav/unstable_jeans_3d_mg.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/hybrid/hybrid_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/hydro/hydro_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/hydro/sod_shock.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/hydro4/hydro_linwave_2d.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/hydro4/hydro_linwave_3d.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/mhd/cpaw.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/mhd/mhd_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/mhd/rj2a_shock.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/mpi/mpi_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/omp/omp_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/outputs/all_outputs.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/pgen/hdf5_reader_parallel.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/pgen/hdf5_reader_serial.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/pgen/pgen_compile.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/scalars/mignone_meridional_1d.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/scalars/mignone_radial_1d.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/scalars/restart.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/shearingbox/mri2d.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/shearingbox/mri3d.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/sr/hydro_convergence.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/sr/hydro_shocks_hllc.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/sr/hydro_shocks_hlle.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/sr/hydro_shocks_llf.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/sr/mhd_convergence.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/sr/mhd_shocks_hlld.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/sr/mhd_shocks_hlle.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/sr/mhd_shocks_llf.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/sr/sr_mhd_linwave.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/symmetry/hydro_linwave_aligned.py	/^def prepare(**kwargs):$/;"	f
+prepare	tests/turb/turb_3d.py	/^def prepare(**kwargs):$/;"	f
+print_waves	utils/RiemannSolver/riemann.py	/^    def print_waves(self):$/;"	m	class:RiemannSol
+profile_legend_handles	utils/plot_mignone/section_5_1_1.py	/^profile_legend_handles = [$/;"	v
+profile_legend_handles	utils/plot_mignone/section_5_1_2.py	/^profile_legend_handles = [$/;"	v
+ram	utils/RiemannSolver/riemann.py	/^    def ram(self):$/;"	m	class:StateVector
+rare_sol	utils/RiemannSolver/riemann.py	/^    def rare_sol(self):$/;"	m	class:RiemannSol
+rate_formatter	tests/hydro4/hydro_linwave_2d.py	/^rate_formatter = lambda x: "{:.2f}".format(x)$/;"	v
+rate_formatter	tests/hydro4/hydro_linwave_3d.py	/^rate_formatter = lambda x: "{:.2f}".format(x)$/;"	v
+rate_tols	tests/diffusion/linear_wave3d.py	/^rate_tols = [2.0]  # convergence rate > 3.0 for this particular resolution, sovler$/;"	v
+rate_tols	tests/diffusion/resistive_diffusion.py	/^rate_tols = [-1.99]$/;"	v
+rate_tols	tests/diffusion/viscous_diffusion.py	/^rate_tols = [-1.99]$/;"	v
+rate_tols	tests/hydro4/hydro_linwave_2d.py	/^rate_tols = [(2.0, 1.9), (2.0, 2.0), (1.95, 1.85),$/;"	v
+rate_tols	tests/hydro4/hydro_linwave_3d.py	/^rate_tols = [(3.95, 3.94),  (3.95, 3.94)]$/;"	v
+res_high	tests/sr/hydro_convergence.py	/^res_high = 512$/;"	v
+res_high	tests/sr/mhd_convergence.py	/^res_high = 512$/;"	v
+res_low	tests/sr/hydro_convergence.py	/^res_low = 64$/;"	v
+res_low	tests/sr/mhd_convergence.py	/^res_low = 64$/;"	v
+resolution_range	tests/diffusion/linear_wave3d.py	/^resolution_range = [32, 64]$/;"	v
+resolution_range	tests/diffusion/resistive_diffusion.py	/^resolution_range = [64, 128]$/;"	v
+resolution_range	tests/diffusion/thermal_attenuation.py	/^resolution_range = [32, 64]$/;"	v
+resolution_range	tests/diffusion/viscous_diffusion.py	/^resolution_range = [64, 128]$/;"	v
+resolution_range	tests/hydro4/hydro_linwave_2d.py	/^resolution_range = [16, 32, 64, 128, 256]  # , 512]$/;"	v
+resolution_range	tests/hydro4/hydro_linwave_3d.py	/^resolution_range = [16, 32, 64]$/;"	v
+resolution_range	tests/scalars/mignone_meridional_1d.py	/^resolution_range = [32, 64, 128, 256, 512, 1024, 2048]$/;"	v
+resolution_range	tests/scalars/mignone_radial_1d.py	/^resolution_range = [32, 64, 128, 256, 512, 1024, 2048]$/;"	v
+resolution_range	tests/symmetry/hydro_linwave_aligned.py	/^resolution_range = [32]$/;"	v
+restart	utils/athena.py	/^def restart(input_filename, arguments):$/;"	f
+restore_files	utils/athena.py	/^def restore_files():$/;"	f
+rho	tests/sr/hydro_convergence.py	/^rho = 4.0$/;"	v
+rho	tests/sr/mhd_convergence.py	/^rho = 4.0$/;"	v
+rho	utils/RiemannSolver/riemann.py	/^            def rho(p):$/;"	f	function:RareInt.__init__
+riemann_problem	utils/RiemannSolver/riemann.py	/^def riemann_problem(states, eos):$/;"	f
+run	tests/amr/amr_linwave.py	/^def run(**kwargs):$/;"	f
+run	tests/curvilinear/blast_cyl.py	/^def run(**kwargs):$/;"	f
+run	tests/curvilinear/blast_sph.py	/^def run(**kwargs):$/;"	f
+run	tests/diffusion/linear_wave3d.py	/^def run(**kwargs):$/;"	f
+run	tests/diffusion/linear_wave3d_sts.py	/^def run(**kwargs):$/;"	f
+run	tests/diffusion/resistive_diffusion.py	/^def run(**kwargs):$/;"	f
+run	tests/diffusion/resistive_diffusion_sts.py	/^def run(**kwargs):$/;"	f
+run	tests/diffusion/thermal_attenuation.py	/^def run(**kwargs):$/;"	f
+run	tests/diffusion/thermal_attenuation_sts.py	/^def run(**kwargs):$/;"	f
+run	tests/diffusion/viscous_diffusion.py	/^def run(**kwargs):$/;"	f
+run	tests/diffusion/viscous_diffusion_sts.py	/^def run(**kwargs):$/;"	f
+run	tests/eos/eos_comparison.py	/^def run(**kwargs):$/;"	f
+run	tests/eos/eos_hdf5_table.py	/^def run(**kwargs):$/;"	f
+run	tests/eos/eos_mhd.py	/^def run(**kwargs):$/;"	f
+run	tests/eos/eos_riemann.py	/^def run(**kwargs):$/;"	f
+run	tests/eos/eos_table_test.py	/^def run(**kwargs):$/;"	f
+run	tests/example.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/compile_kerr-schild.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/compile_minkowski.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/compile_schwarzschild.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/hydro_shocks_hllc.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/hydro_shocks_hlle.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/hydro_shocks_hlle_no_transform.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/hydro_shocks_llf.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/hydro_shocks_llf_no_transform.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/mhd_shocks_hlld.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/mhd_shocks_hlle.py	/^def run(**kwargs):$/;"	f
+run	tests/gr/mhd_shocks_llf.py	/^def run(**kwargs):$/;"	f
+run	tests/grav/jeans_3d.py	/^def run(**kwargs):$/;"	f
+run	tests/grav/unstable_jeans_3d_fft.py	/^def run(**kwargs):$/;"	f
+run	tests/grav/unstable_jeans_3d_mg.py	/^def run(**kwargs):$/;"	f
+run	tests/hybrid/hybrid_linwave.py	/^def run(**kwargs):$/;"	f
+run	tests/hydro/hydro_linwave.py	/^def run(**kwargs):$/;"	f
+run	tests/hydro/sod_shock.py	/^def run(**kwargs):$/;"	f
+run	tests/hydro4/hydro_linwave_2d.py	/^def run(**kwargs):$/;"	f
+run	tests/hydro4/hydro_linwave_3d.py	/^def run(**kwargs):$/;"	f
+run	tests/mhd/cpaw.py	/^def run(**kwargs):$/;"	f
+run	tests/mhd/mhd_linwave.py	/^def run(**kwargs):$/;"	f
+run	tests/mhd/rj2a_shock.py	/^def run(**kwargs):$/;"	f
+run	tests/mpi/mpi_linwave.py	/^def run(**kwargs):$/;"	f
+run	tests/omp/omp_linwave.py	/^def run(**kwargs):$/;"	f
+run	tests/outputs/all_outputs.py	/^def run(**kwargs):$/;"	f
+run	tests/pgen/hdf5_reader_parallel.py	/^def run(**kwargs):$/;"	f
+run	tests/pgen/hdf5_reader_serial.py	/^def run(**kwargs):$/;"	f
+run	tests/pgen/pgen_compile.py	/^def run(**kwargs):$/;"	f
+run	tests/scalars/mignone_meridional_1d.py	/^def run(**kwargs):$/;"	f
+run	tests/scalars/mignone_radial_1d.py	/^def run(**kwargs):$/;"	f
+run	tests/scalars/restart.py	/^def run(**kwargs):$/;"	f
+run	tests/shearingbox/mri2d.py	/^def run(**kwargs):$/;"	f
+run	tests/shearingbox/mri3d.py	/^def run(**kwargs):$/;"	f
+run	tests/sr/hydro_convergence.py	/^def run(**kwargs):$/;"	f
+run	tests/sr/hydro_shocks_hllc.py	/^def run(**kwargs):$/;"	f
+run	tests/sr/hydro_shocks_hlle.py	/^def run(**kwargs):$/;"	f
+run	tests/sr/hydro_shocks_llf.py	/^def run(**kwargs):$/;"	f
+run	tests/sr/mhd_convergence.py	/^def run(**kwargs):$/;"	f
+run	tests/sr/mhd_shocks_hlld.py	/^def run(**kwargs):$/;"	f
+run	tests/sr/mhd_shocks_hlle.py	/^def run(**kwargs):$/;"	f
+run	tests/sr/mhd_shocks_llf.py	/^def run(**kwargs):$/;"	f
+run	tests/sr/sr_mhd_linwave.py	/^def run(**kwargs):$/;"	f
+run	tests/symmetry/hydro_linwave_aligned.py	/^def run(**kwargs):$/;"	f
+run	tests/turb/turb_3d.py	/^def run(**kwargs):$/;"	f
+run	utils/athena.py	/^def run(input_filename, arguments, lcov_test_suffix=None):$/;"	f
+run	utils/log_pipe.py	/^    def run(self):$/;"	m	class:LogPipe
+sanitize_lbl	utils/RiemannSolver/riemann.py	/^def sanitize_lbl(label):$/;"	f
+save_files	utils/athena.py	/^def save_files():$/;"	f
+saved_filenames	utils/athena.py	/^saved_filenames = ['src\/defs.hpp', 'Makefile']$/;"	v
+saved_files	utils/athena.py	/^saved_files = []$/;"	v
+shear_args	tests/pgen/pgen_compile.py	/^shear_args = ['b', 'shear']$/;"	v
+shear_probs	tests/pgen/pgen_compile.py	/^shear_probs = set(['hb3', 'hgb', 'ssheet', 'strat'])$/;"	v
+show	utils/RiemannSolver/riemann.py	/^    def show(self):$/;"	m	class:StateVector
+sod_test	utils/RiemannSolver/tests.py	/^def sod_test(eos=None, gamma=None, plot=True):$/;"	f
+solve_plot	utils/RiemannSolver/riemann.py	/^    def solve_plot(self, ax=None, popt=None):$/;"	m	class:RiemannSol
+solvers	tests/hydro4/hydro_linwave_2d.py	/^solvers = [('vl2', '2c'), ('vl2', '3'), ('rk2', '3c'),$/;"	v
+solvers	tests/hydro4/hydro_linwave_3d.py	/^solvers = [('rk4', '4c'), ('ssprk5_4', '4')]$/;"	v
+solvers	tests/scalars/mignone_meridional_1d.py	/^solvers = [('rk3', 2), ('rk3', 3), ]$/;"	v
+solvers	tests/scalars/mignone_radial_1d.py	/^solvers = [('rk3', 2), ('rk3', 3), ]$/;"	v
+solvers	tests/symmetry/hydro_linwave_aligned.py	/^solvers = [('vl2', '2'), ('rk3', '4c'), ('ssprk5_4', '4')]$/;"	v
+speed_row	utils/RiemannSolver/riemann.py	/^    def speed_row(self, sep=None, fmt='.7e'):$/;"	m	class:RiemannSol
+speeds	utils/RiemannSolver/riemann.py	/^    def speeds(self):$/;"	m	class:RiemannSol
+state_tbl	utils/RiemannSolver/riemann.py	/^    def state_tbl(self, row_sep=None, col_sep=None, eol='', fmt='.7e', speeds=False):$/;"	m	class:RiemannSol
+states	utils/RiemannSolver/riemann.py	/^    def states(self):$/;"	m	class:RiemannSol
+test	tests/pgen/pgen_compile.py	/^test = current_dir[0:(len(current_dir) - 14)]$/;"	v
+tmp	tests/eos/eos_riemann.py	/^tmp = ['dl', 'ul', 'Tl', 'dr', 'ur', 'Tr']$/;"	v
+tmp	tests/eos/eos_riemann.py	/^tmp = ['problem\/' + i for i in tmp] + ['time\/tlim']$/;"	v
+tmp	utils/RiemannSolver/riemann.py	/^            def tmp(p):$/;"	f	function:RareInt.__init__
+u	utils/RiemannSolver/riemann.py	/^            def u(p):$/;"	f	function:RareInt.__init__
+valid	utils/EquationOfState/eos.py	/^    def valid(self):$/;"	m	class:EOS
+vector_get_state	utils/RiemannSolver/riemann.py	/^    def vector_get_state(self, xi, add_var=None, inc_xi=False):$/;"	m	class:RiemannSol
+vector_state_names	utils/RiemannSolver/riemann.py	/^vector_state_names = ['rho', 'p', 'u']$/;"	v
+vx	tests/sr/hydro_convergence.py	/^vx = 0.1$/;"	v
+vx	tests/sr/mhd_convergence.py	/^vx = 0.1$/;"	v
+vy	tests/sr/hydro_convergence.py	/^vy = 0.3$/;"	v
+vy	tests/sr/mhd_convergence.py	/^vy = 0.3$/;"	v
+vz	tests/sr/hydro_convergence.py	/^vz = -0.05$/;"	v
+vz	tests/sr/mhd_convergence.py	/^vz = -0.05$/;"	v
+wave_flags	tests/sr/hydro_convergence.py	/^wave_flags = range(5)$/;"	v
+wave_flags	tests/sr/mhd_convergence.py	/^wave_flags = range(7)$/;"	v
+wave_speeds	tests/eos/eos_mhd.py	/^wave_speeds = [-0.8236630408305421, 0.15084012571797972, 0.29445281898990067,$/;"	v
+wavespeeds_hydro	tests/sr/hydro_convergence.py	/^def wavespeeds_hydro():$/;"	f
+wavespeeds_mhd	tests/sr/mhd_convergence.py	/^def wavespeeds_mhd():$/;"	f
+write_H	utils/EquationOfState/writeEOS.py	/^def write_H(nEspec=256, nRho=64, logEspecLim=None, logRhoLim=None, eOp=1.5,$/;"	f
+write_varlist	utils/EquationOfState/writeEOS.py	/^def write_varlist(dlim, elim, varlist, fn=None, out_type=None, eOp=1.5,$/;"	f
+xorder_colors	utils/plot_mignone/section_5_1_1.py	/^xorder_colors = {$/;"	v
+xorder_colors	utils/plot_mignone/section_5_1_2.py	/^xorder_colors = {$/;"	v
+xorder_strs	utils/plot_mignone/section_5_1_1.py	/^xorder_strs = ['PLM', r'$\\mathrm{PPM}_{4}$']$/;"	v
+xorder_strs	utils/plot_mignone/section_5_1_2.py	/^xorder_strs = ['PLM', r'$\\mathrm{PPM}_{4}$']$/;"	v
+xorder_symbols	utils/plot_mignone/section_5_1_1.py	/^xorder_symbols = {$/;"	v
+xorder_symbols	utils/plot_mignone/section_5_1_2.py	/^xorder_symbols = {$/;"	v
+xorders	utils/plot_mignone/section_5_1_1.py	/^xorders = [2, 3]$/;"	v
+xorders	utils/plot_mignone/section_5_1_2.py	/^xorders = [2, 3]$/;"	v
+ylims	utils/plot_mignone/section_5_1_1.py	/^ylims = [$/;"	v
+ylims	utils/plot_mignone/section_5_1_2.py	/^ylims = [$/;"	v

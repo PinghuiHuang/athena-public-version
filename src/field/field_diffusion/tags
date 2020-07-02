@@ -1,0 +1,50 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AddEMF	field_diffusion.cpp	/^void FieldDiffusion::AddEMF(const EdgeField &e_src, EdgeField &e_des) {$/;"	f	class:FieldDiffusion
+AddPoyntingFlux	field_diffusion.cpp	/^void FieldDiffusion::AddPoyntingFlux(FaceField &p_src) {$/;"	f	class:FieldDiffusion
+AmbipolarEMF	diffusivity.cpp	/^void FieldDiffusion::AmbipolarEMF(const FaceField &b, const AthenaArray<Real> &bc,$/;"	f	class:FieldDiffusion
+CalcCurrent	diffusivity.cpp	/^void FieldDiffusion::CalcCurrent(FaceField &b) {$/;"	f	class:FieldDiffusion
+CalcDiffusionEMF	field_diffusion.cpp	/^void FieldDiffusion::CalcDiffusionEMF(FaceField &bi, const AthenaArray<Real> &bc,$/;"	f	class:FieldDiffusion
+CalcMagDiffCoeff_	field_diffusion.hpp	/^  FieldDiffusionCoeffFunc CalcMagDiffCoeff_; \/\/ calculate magnetic diffusivities$/;"	m	class:FieldDiffusion
+ClearEMF	field_diffusion.cpp	/^void FieldDiffusion::ClearEMF(EdgeField &e) {$/;"	f	class:FieldDiffusion
+ConstDiffusivity	diffusivity.cpp	/^void ConstDiffusivity(FieldDiffusion *pfdif, MeshBlock *pmb, const AthenaArray<Real> &w,$/;"	f
+DiffProcess	field_diffusion.hpp	/^  enum DiffProcess {ohmic=0, hall=1, ambipolar=2};$/;"	g	class:FieldDiffusion
+FIELD_FIELD_DIFFUSION_FIELD_DIFFUSION_HPP_	field_diffusion.hpp	2;"	d
+FieldDiffusion	field_diffusion.cpp	/^FieldDiffusion::FieldDiffusion(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:FieldDiffusion
+FieldDiffusion	field_diffusion.hpp	/^class FieldDiffusion {$/;"	c
+NewDiffusionDt	field_diffusion.cpp	/^void FieldDiffusion::NewDiffusionDt(Real &dt_oa, Real &dt_h) {$/;"	f	class:FieldDiffusion
+OhmicEMF	diffusivity.cpp	/^void FieldDiffusion::OhmicEMF(const FaceField &b, const AthenaArray<Real> &bc,$/;"	f	class:FieldDiffusion
+PoyntingFlux	diffusivity.cpp	/^void FieldDiffusion::PoyntingFlux(EdgeField &e, const AthenaArray<Real> &bc) {$/;"	f	class:FieldDiffusion
+SetDiffusivity	field_diffusion.cpp	/^void FieldDiffusion::SetDiffusivity(const AthenaArray<Real> &w,$/;"	f	class:FieldDiffusion
+ambipolar	field_diffusion.hpp	/^  enum DiffProcess {ohmic=0, hall=1, ambipolar=2};$/;"	e	enum:FieldDiffusion::DiffProcess
+bmag_	field_diffusion.hpp	/^  AthenaArray<Real> bmag_; \/\/ B field strength$/;"	m	class:FieldDiffusion
+cell_volume_	field_diffusion.hpp	/^  AthenaArray<Real>  cell_volume_;$/;"	m	class:FieldDiffusion
+dx1_	field_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_, len_;$/;"	m	class:FieldDiffusion
+dx2_	field_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_, len_;$/;"	m	class:FieldDiffusion
+dx3_	field_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_, len_;$/;"	m	class:FieldDiffusion
+e_h	field_diffusion.hpp	/^  EdgeField e_oa, e_h;     \/\/ edge-centered electric field from non-ideal MHD$/;"	m	class:FieldDiffusion
+e_oa	field_diffusion.hpp	/^  EdgeField e_oa, e_h;     \/\/ edge-centered electric field from non-ideal MHD$/;"	m	class:FieldDiffusion
+edge_length_	field_diffusion.hpp	/^  AthenaArray<Real> face_area_, face_area_p1_, edge_length_, edge_length_m1_;$/;"	m	class:FieldDiffusion
+edge_length_m1_	field_diffusion.hpp	/^  AthenaArray<Real> face_area_, face_area_p1_, edge_length_, edge_length_m1_;$/;"	m	class:FieldDiffusion
+etaB	field_diffusion.hpp	/^  AthenaArray<Real> etaB; \/\/ 4-dim array, covering O\/H\/A altogether$/;"	m	class:FieldDiffusion
+eta_ad	field_diffusion.hpp	/^  Real eta_ohm, eta_hall, eta_ad;$/;"	m	class:FieldDiffusion
+eta_hall	field_diffusion.hpp	/^  Real eta_ohm, eta_hall, eta_ad;$/;"	m	class:FieldDiffusion
+eta_ohm	field_diffusion.hpp	/^  Real eta_ohm, eta_hall, eta_ad;$/;"	m	class:FieldDiffusion
+eta_tot_	field_diffusion.hpp	/^  AthenaArray<Real> eta_tot_;$/;"	m	class:FieldDiffusion
+face_area_	field_diffusion.hpp	/^  AthenaArray<Real> face_area_, face_area_p1_, edge_length_, edge_length_m1_;$/;"	m	class:FieldDiffusion
+face_area_p1_	field_diffusion.hpp	/^  AthenaArray<Real> face_area_, face_area_p1_, edge_length_, edge_length_m1_;$/;"	m	class:FieldDiffusion
+field_diffusion_defined	field_diffusion.hpp	/^  bool field_diffusion_defined;$/;"	m	class:FieldDiffusion
+hall	field_diffusion.hpp	/^  enum DiffProcess {ohmic=0, hall=1, ambipolar=2};$/;"	e	enum:FieldDiffusion::DiffProcess
+jcc	field_diffusion.hpp	/^  AthenaArray<Real> jcc;     \/\/ cell-centered current density (for the integrator)$/;"	m	class:FieldDiffusion
+jedge_	field_diffusion.hpp	/^  EdgeField jedge_;       \/\/ curl of B$/;"	m	class:FieldDiffusion
+jfx	field_diffusion.hpp	/^  AthenaArray<Real> jfx, jfy, jfz; \/\/ interface current density (for HLL Riemann solver)$/;"	m	class:FieldDiffusion
+jfy	field_diffusion.hpp	/^  AthenaArray<Real> jfx, jfy, jfz; \/\/ interface current density (for HLL Riemann solver)$/;"	m	class:FieldDiffusion
+jfz	field_diffusion.hpp	/^  AthenaArray<Real> jfx, jfy, jfz; \/\/ interface current density (for HLL Riemann solver)$/;"	m	class:FieldDiffusion
+len_	field_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_, len_;$/;"	m	class:FieldDiffusion
+ohmic	field_diffusion.hpp	/^  enum DiffProcess {ohmic=0, hall=1, ambipolar=2};$/;"	e	enum:FieldDiffusion::DiffProcess
+pflux	field_diffusion.hpp	/^  FaceField pflux;        \/\/ face-centered energy (Poynting) flux$/;"	m	class:FieldDiffusion
+pmy_block	field_diffusion.hpp	/^  MeshBlock* pmy_block;$/;"	m	class:FieldDiffusion

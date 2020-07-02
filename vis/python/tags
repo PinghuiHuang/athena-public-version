@@ -1,0 +1,148 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AthenaError	athena_read.py	/^class AthenaError(RuntimeError):$/;"	c
+AthenaWarning	athena_read.py	/^class AthenaWarning(RuntimeWarning):$/;"	c
+action	plot_lines.py	/^        action='store_true',$/;"	v
+action	plot_slice.py	/^                        action='store_true',$/;"	v
+action	spherical_refinement.py	/^        action='store_true',$/;"	v
+action	uniform.py	/^                        action='store_false',$/;"	v
+action	uniform.py	/^                        action='store_true',$/;"	v
+args	plot_lines.py	/^    args = parser.parse_args()$/;"	v
+args	plot_mesh.py	/^    args = parser.parse_args()$/;"	v
+args	plot_slice.py	/^    args = parser.parse_args()$/;"	v
+args	plot_spherical.py	/^    args = parser.parse_args()$/;"	v
+args	spherical_refinement.py	/^    args = parser.parse_args()$/;"	v
+args	uniform.py	/^    args = parser.parse_args()$/;"	v
+athdf	athena_read.py	/^def athdf(filename, raw=False, data=None, quantities=None, dtype=None, level=None,$/;"	f
+athinput	athena_read.py	/^def athinput(filename):$/;"	f
+center_func_1	athena_read.py	/^                def center_func_1(xm, xp):$/;"	f	function:athdf
+center_func_2	athena_read.py	/^                def center_func_2(xm, xp):$/;"	f	function:athdf
+center_func_3	athena_read.py	/^                def center_func_3(xm, xp):$/;"	f	function:athdf
+check_nan	athena_read.py	/^def check_nan(data):$/;"	f
+check_nan_flag	athena_read.py	/^check_nan_flag = False$/;"	v
+choices	plot_slice.py	/^                        choices=(1, 2, 3),$/;"	v
+choices	spherical_refinement.py	/^                        choices=('schwarzschild', 'boyer-lindquist', 'kerr-schild',),$/;"	v
+default	plot_lines.py	/^      default='-',$/;"	v
+default	plot_mesh.py	/^                        default='mesh_structure.dat',$/;"	v
+default	plot_mesh.py	/^                        default='show',$/;"	v
+default	plot_slice.py	/^                        default=1.0,$/;"	v
+default	plot_slice.py	/^                        default=3,$/;"	v
+default	plot_slice.py	/^                        default=None,$/;"	v
+default	spherical_refinement.py	/^                        default=None,$/;"	v
+default	spherical_refinement.py	/^        default='cool',$/;"	v
+default	spherical_refinement.py	/^        default=0,$/;"	v
+default	spherical_refinement.py	/^        default=1.0,$/;"	v
+default	uniform.py	/^                        default=0,$/;"	v
+error_dat	athena_read.py	/^def error_dat(filename, **kwargs):$/;"	f
+help	plot_lines.py	/^                        help='label to use for x-axis')$/;"	v
+help	plot_lines.py	/^                        help='label to use for y-axis')$/;"	v
+help	plot_lines.py	/^                        help='maximum for x-axis')$/;"	v
+help	plot_lines.py	/^                        help='maximum for y-axis')$/;"	v
+help	plot_lines.py	/^                        help='minimum for x-axis')$/;"	v
+help	plot_lines.py	/^                        help='minimum for y-axis')$/;"	v
+help	plot_lines.py	/^        help='flag indicating x-axis should be log scaled')$/;"	v
+help	plot_lines.py	/^        help='flag indicating y-axis should be log scaled')$/;"	v
+help	plot_lines.py	/^        help=('comma-separated list of abscissas; empty strings repeat previous entries; '$/;"	v
+help	plot_lines.py	/^        help=('comma-separated list of ordinates; empty strings repeat previous entries; '$/;"	v
+help	plot_lines.py	/^        help=('name of output to be (over)written; use "show" to show interactive plot '$/;"	v
+help	plot_lines.py	/^      help=('comma-separated list of color codes, such as "k", "blue", or "#123abc"; '$/;"	v
+help	plot_lines.py	/^      help=('comma-separated list of input files; empty strings repeat previous entries; '$/;"	v
+help	plot_lines.py	/^      help=('comma-separated list of labels for legend; empty strings are not added to '$/;"	v
+help	plot_lines.py	/^      help=('comma-separated list of line or marker styles, such as "-" or "o"; use the '$/;"	v
+help	plot_mesh.py	/^                        help='name of mesh structure file')$/;"	v
+help	plot_mesh.py	/^                        help=('name of output image file to create; omit to '$/;"	v
+help	plot_slice.py	/^                        help='density of stream lines')$/;"	v
+help	plot_slice.py	/^                        help='flag indicating data should be colormapped logarithmically')$/;"	v
+help	plot_slice.py	/^                        help='flag indicating image should fill plot area, even if this '$/;"	v
+help	plot_slice.py	/^                        help='flag indicating stream plot should be averaged in '$/;"	v
+help	plot_slice.py	/^                        help='maximum extent of plot in first plotted direction')$/;"	v
+help	plot_slice.py	/^                        help='maximum extent of plot in second plotted direction')$/;"	v
+help	plot_slice.py	/^                        help='minimum extent of plot in first plotted direction')$/;"	v
+help	plot_slice.py	/^                        help='minimum extent of plot in second plotted direction')$/;"	v
+help	plot_slice.py	/^                        help='name of input file, possibly including path')$/;"	v
+help	plot_slice.py	/^                        help='name of quantity to be plotted')$/;"	v
+help	plot_slice.py	/^                        help='name of vector quantity to use to make stream plot')$/;"	v
+help	plot_slice.py	/^                        help=('coordinate value along which slice is to be taken '$/;"	v
+help	plot_slice.py	/^                        help=('data value to correspond to colormap maximum; use '$/;"	v
+help	plot_slice.py	/^                        help=('data value to correspond to colormap minimum; use '$/;"	v
+help	plot_slice.py	/^                        help=('direction orthogonal to slice for 3D data'))$/;"	v
+help	plot_slice.py	/^                        help=('flag indicating averaging should be done in orthogonal '$/;"	v
+help	plot_slice.py	/^                        help=('flag indicating summation should be done in orthogonal '$/;"	v
+help	plot_slice.py	/^                        help=('name of Matplotlib colormap to use instead of default'))$/;"	v
+help	plot_slice.py	/^                        help=('name of output to be (over)written, possibly including '$/;"	v
+help	plot_slice.py	/^                        help=('refinement level to be used in plotting (default: max '$/;"	v
+help	spherical_refinement.py	/^                        help='maximum number of mesh refinement levels to consider')$/;"	v
+help	spherical_refinement.py	/^                        help='maximum radius')$/;"	v
+help	spherical_refinement.py	/^                        help='metric to assume if in GR')$/;"	v
+help	spherical_refinement.py	/^                        help='minimum radius')$/;"	v
+help	spherical_refinement.py	/^                        help='number of cells in azimuthal direction in one block')$/;"	v
+help	spherical_refinement.py	/^                        help='number of cells in azimuthal direction')$/;"	v
+help	spherical_refinement.py	/^                        help='number of cells in polar direction in one block')$/;"	v
+help	spherical_refinement.py	/^                        help='number of cells in polar direction')$/;"	v
+help	spherical_refinement.py	/^                        help='number of cells in radial direction in one block')$/;"	v
+help	spherical_refinement.py	/^                        help='number of cells in radial direction')$/;"	v
+help	spherical_refinement.py	/^                        help='override for smallest allowed cell width')$/;"	v
+help	spherical_refinement.py	/^        help='flag indicating output image should show radius logarithmically')$/;"	v
+help	spherical_refinement.py	/^        help='maximum refinement level at which grid of block boundaries should be drawn')$/;"	v
+help	spherical_refinement.py	/^        help='name of colormap')$/;"	v
+help	spherical_refinement.py	/^        help='parameter h governing midplane compression of theta-surfaces')$/;"	v
+help	spherical_refinement.py	/^        help='ratio of adjacent separations in radius (optimal value chosen if omitted)')$/;"	v
+help	spherical_refinement.py	/^        help=('minimum polar angle (maximum is assumed to be pi-complement); polar '$/;"	v
+help	spherical_refinement.py	/^        help=('name of image file to write showing grid; use "show" to show interactive '$/;"	v
+help	spherical_refinement.py	/^        help=('parameters (mass M, possibly spin a, 0 <= a < M) to be used if metric is '$/;"	v
+help	uniform.py	/^                        help='base name of files to be converted, including directory')$/;"	v
+help	uniform.py	/^                        help='base name of new files to be saved, including directory')$/;"	v
+help	uniform.py	/^                        help='first file number to be converted')$/;"	v
+help	uniform.py	/^                        help='flag indicating no XDMF file should be written')$/;"	v
+help	uniform.py	/^                        help='flag indicating this is an MPI job')$/;"	v
+help	uniform.py	/^                        help='last file number to be converted')$/;"	v
+help	uniform.py	/^                        help='names of quantities to extract')$/;"	v
+help	uniform.py	/^                        help='refinement level to use, overriding max level present')$/;"	v
+help	uniform.py	/^                        help='stride in file numbers to be converted')$/;"	v
+hst	athena_read.py	/^def hst(filename, raw=False):$/;"	f
+log_ratio	spherical_refinement.py	/^def log_ratio(f, n):$/;"	f
+main	plot_lines.py	/^def main(**kwargs):$/;"	f
+main	plot_mesh.py	/^def main(**kwargs):$/;"	f
+main	plot_slice.py	/^def main(**kwargs):$/;"	f
+main	plot_spherical.py	/^def main(**kwargs):$/;"	f
+main	spherical_refinement.py	/^def main(**kwargs):$/;"	f
+main	uniform.py	/^def main(**kwargs):$/;"	f
+nargs	spherical_refinement.py	/^        nargs='+',$/;"	v
+nargs	uniform.py	/^                        nargs='+',$/;"	v
+parse_line	athena_read.py	/^    def parse_line(line):$/;"	f	function:athinput
+parser	plot_lines.py	/^    parser = argparse.ArgumentParser()$/;"	v
+parser	plot_mesh.py	/^    parser = argparse.ArgumentParser()$/;"	v
+parser	plot_slice.py	/^    parser = argparse.ArgumentParser()$/;"	v
+parser	plot_spherical.py	/^    parser = argparse.ArgumentParser()$/;"	v
+parser	spherical_refinement.py	/^    parser = argparse.ArgumentParser()$/;"	v
+parser	uniform.py	/^    parser = argparse.ArgumentParser()$/;"	v
+plot_grid	spherical_refinement.py	/^def plot_grid(refinement, r_bounds, theta_bounds, output, colormap, grid_refined, log):$/;"	f
+pos_face	spherical_refinement.py	/^def pos_face(x1, x2, ratio, n, n_face):$/;"	f
+read_cell_scalars	athena_read.py	/^    def read_cell_scalars():$/;"	f	function:vtk
+read_cell_vectors	athena_read.py	/^    def read_cell_vectors():$/;"	f	function:vtk
+read_faces	athena_read.py	/^    def read_faces(letter, num_faces):$/;"	f	function:vtk
+res	spherical_refinement.py	/^    def res(ratio): return ($/;"	f	function:log_ratio
+restrict_like	athena_read.py	/^def restrict_like(vals, levels, vols=None):$/;"	f
+skip_string	athena_read.py	/^    def skip_string(expected_string):$/;"	f	function:vtk
+tab	athena_read.py	/^def tab(filename, raw=False, dimensions=None):$/;"	f
+theta_adjust	spherical_refinement.py	/^def theta_adjust(theta_unadjusted, theta_compress):$/;"	f
+theta_func	plot_spherical.py	/^    def theta_func(xmin, xmax, _, nf):$/;"	f	function:main
+type	plot_lines.py	/^                        type=float,$/;"	v
+type	plot_slice.py	/^                        type=float,$/;"	v
+type	plot_slice.py	/^                        type=int,$/;"	v
+type	spherical_refinement.py	/^                        type=float,$/;"	v
+type	spherical_refinement.py	/^                        type=int,$/;"	v
+type	spherical_refinement.py	/^        type=float,$/;"	v
+type	spherical_refinement.py	/^        type=int,$/;"	v
+type	uniform.py	/^                        type=int,$/;"	v
+type	uniform.py	/^                        type=str,$/;"	v
+typecast	athena_read.py	/^    def typecast(x):$/;"	f	function:athinput
+vol_func	athena_read.py	/^                    def vol_func(rm, rp, phim, phip, zm, zp):$/;"	f	function:athdf
+vol_func	athena_read.py	/^                    def vol_func(rm, rp, thetam, thetap, phim, phip):$/;"	f	function:athdf
+vol_func	athena_read.py	/^                    def vol_func(xm, xp, ym, yp, zm, zp):$/;"	f	function:athdf
+vtk	athena_read.py	/^def vtk(filename):$/;"	f
+widths	spherical_refinement.py	/^def widths(r1, r2, theta1, theta2, delta_phi, metric, parameters):$/;"	f

@@ -1,0 +1,268 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AddFilters	cpplint.py	/^    def AddFilters(self, filters):$/;"	m	class:_CppLintState
+AddJUnitFailure	cpplint.py	/^    def AddJUnitFailure(self, filename, linenum, message, category, confidence):$/;"	m	class:_CppLintState
+BackupFilters	cpplint.py	/^    def BackupFilters(self):$/;"	m	class:_CppLintState
+BaseName	cpplint.py	/^    def BaseName(self):$/;"	m	class:FileInfo
+Begin	cpplint.py	/^    def Begin(self, function_name):$/;"	m	class:_FunctionState
+CanonicalizeAlphabeticalOrder	cpplint.py	/^    def CanonicalizeAlphabeticalOrder(self, header_path):$/;"	m	class:_IncludeState
+Check	cpplint.py	/^    def Check(self, error, filename, linenum):$/;"	m	class:_FunctionState
+CheckAltTokens	cpplint.py	/^def CheckAltTokens(filename, clean_lines, linenum, error):$/;"	f
+CheckBegin	cpplint.py	/^    def CheckBegin(self, filename, clean_lines, linenum, error):$/;"	m	class:_BlockInfo
+CheckBegin	cpplint.py	/^    def CheckBegin(self, filename, clean_lines, linenum, error):$/;"	m	class:_ClassInfo
+CheckBraces	cpplint.py	/^def CheckBraces(filename, clean_lines, linenum, error):$/;"	f
+CheckBracesSpacing	cpplint.py	/^def CheckBracesSpacing(filename, clean_lines, linenum, nesting_state, error):$/;"	f
+CheckCStyleCast	cpplint.py	/^def CheckCStyleCast(filename, clean_lines, linenum, cast_type, pattern, error):$/;"	f
+CheckCasts	cpplint.py	/^def CheckCasts(filename, clean_lines, linenum, error):$/;"	f
+CheckCheck	cpplint.py	/^def CheckCheck(filename, clean_lines, linenum, error):$/;"	f
+CheckCommaSpacing	cpplint.py	/^def CheckCommaSpacing(filename, clean_lines, linenum, error):$/;"	f
+CheckComment	cpplint.py	/^def CheckComment(line, filename, linenum, next_line_start, error):$/;"	f
+CheckCompletedBlocks	cpplint.py	/^    def CheckCompletedBlocks(self, filename, error):$/;"	m	class:NestingState
+CheckEmptyBlockBody	cpplint.py	/^def CheckEmptyBlockBody(filename, clean_lines, linenum, error):$/;"	f
+CheckEnd	cpplint.py	/^    def CheckEnd(self, filename, clean_lines, linenum, error):$/;"	m	class:_BlockInfo
+CheckEnd	cpplint.py	/^    def CheckEnd(self, filename, clean_lines, linenum, error):$/;"	m	class:_ClassInfo
+CheckEnd	cpplint.py	/^    def CheckEnd(self, filename, clean_lines, linenum, error):$/;"	m	class:_NamespaceInfo
+CheckForBadCharacters	cpplint.py	/^def CheckForBadCharacters(filename, lines, error):$/;"	f
+CheckForCopyright	cpplint.py	/^def CheckForCopyright(filename, lines, error):$/;"	f
+CheckForFunctionLengths	cpplint.py	/^def CheckForFunctionLengths(filename, clean_lines, linenum,$/;"	f
+CheckForHeaderGuard	cpplint.py	/^def CheckForHeaderGuard(filename, clean_lines, error):$/;"	f
+CheckForIncludeWhatYouUse	cpplint.py	/^def CheckForIncludeWhatYouUse(filename, clean_lines, include_state, error,$/;"	f
+CheckForMultilineCommentsAndStrings	cpplint.py	/^def CheckForMultilineCommentsAndStrings(filename, clean_lines, linenum, error):$/;"	f
+CheckForNamespaceIndentation	cpplint.py	/^def CheckForNamespaceIndentation(filename, nesting_state, clean_lines, line,$/;"	f
+CheckForNewlineAtEOF	cpplint.py	/^def CheckForNewlineAtEOF(filename, lines, error):$/;"	f
+CheckForNonConstReference	cpplint.py	/^def CheckForNonConstReference(filename, clean_lines, linenum,$/;"	f
+CheckForNonStandardConstructs	cpplint.py	/^def CheckForNonStandardConstructs(filename, clean_lines, linenum,$/;"	f
+CheckGlobalStatic	cpplint.py	/^def CheckGlobalStatic(filename, clean_lines, linenum, error):$/;"	f
+CheckHeaderFileIncluded	cpplint.py	/^def CheckHeaderFileIncluded(filename, include_state, error):$/;"	f
+CheckIncludeLine	cpplint.py	/^def CheckIncludeLine(filename, clean_lines, linenum, include_state, error):$/;"	f
+CheckInvalidIncrement	cpplint.py	/^def CheckInvalidIncrement(filename, clean_lines, linenum, error):$/;"	f
+CheckItemIndentationInNamespace	cpplint.py	/^def CheckItemIndentationInNamespace(filename, raw_lines_no_comments, linenum,$/;"	f
+CheckLanguage	cpplint.py	/^def CheckLanguage(filename, clean_lines, linenum, file_extension,$/;"	f
+CheckMakePairUsesDeduction	cpplint.py	/^def CheckMakePairUsesDeduction(filename, clean_lines, linenum, error):$/;"	f
+CheckNextIncludeOrder	cpplint.py	/^    def CheckNextIncludeOrder(self, header_type):$/;"	m	class:_IncludeState
+CheckOperatorSpacing	cpplint.py	/^def CheckOperatorSpacing(filename, clean_lines, linenum, error):$/;"	f
+CheckParenthesisSpacing	cpplint.py	/^def CheckParenthesisSpacing(filename, clean_lines, linenum, error):$/;"	f
+CheckPosixThreading	cpplint.py	/^def CheckPosixThreading(filename, clean_lines, linenum, error):$/;"	f
+CheckPrintf	cpplint.py	/^def CheckPrintf(filename, clean_lines, linenum, error):$/;"	f
+CheckRedundantOverrideOrFinal	cpplint.py	/^def CheckRedundantOverrideOrFinal(filename, clean_lines, linenum, error):$/;"	f
+CheckRedundantVirtual	cpplint.py	/^def CheckRedundantVirtual(filename, clean_lines, linenum, error):$/;"	f
+CheckSectionSpacing	cpplint.py	/^def CheckSectionSpacing(filename, clean_lines, class_info, linenum, error):$/;"	f
+CheckSpacing	cpplint.py	/^def CheckSpacing(filename, clean_lines, linenum, nesting_state, error):$/;"	f
+CheckSpacingForFunctionCall	cpplint.py	/^def CheckSpacingForFunctionCall(filename, clean_lines, linenum, error):$/;"	f
+CheckStyle	cpplint.py	/^def CheckStyle(filename, clean_lines, linenum, file_extension, nesting_state,$/;"	f
+CheckTrailingSemicolon	cpplint.py	/^def CheckTrailingSemicolon(filename, clean_lines, linenum, error):$/;"	f
+CheckVlogArguments	cpplint.py	/^def CheckVlogArguments(filename, clean_lines, linenum, error):$/;"	f
+CleanseComments	cpplint.py	/^def CleanseComments(line):$/;"	f
+CleanseRawStrings	cpplint.py	/^def CleanseRawStrings(raw_lines):$/;"	f
+CleansedLines	cpplint.py	/^class CleansedLines(object):$/;"	c
+CloseExpression	cpplint.py	/^def CloseExpression(clean_lines, linenum, pos):$/;"	f
+Count	cpplint.py	/^    def Count(self):$/;"	m	class:_FunctionState
+End	cpplint.py	/^    def End(self):$/;"	m	class:_FunctionState
+Error	cpplint.py	/^def Error(filename, linenum, category, confidence, message):$/;"	f
+ExpectingFunctionArgs	cpplint.py	/^def ExpectingFunctionArgs(clean_lines, linenum):$/;"	f
+Extension	cpplint.py	/^    def Extension(self):$/;"	m	class:FileInfo
+FileInfo	cpplint.py	/^class FileInfo(object):$/;"	c
+FilesBelongToSameModule	cpplint.py	/^def FilesBelongToSameModule(filename_cc, filename_h):$/;"	f
+FindCheckMacro	cpplint.py	/^def FindCheckMacro(line):$/;"	f
+FindEndOfExpressionInLine	cpplint.py	/^def FindEndOfExpressionInLine(line, startpos, stack):$/;"	f
+FindHeader	cpplint.py	/^    def FindHeader(self, header):$/;"	m	class:_IncludeState
+FindNextMultiLineCommentEnd	cpplint.py	/^def FindNextMultiLineCommentEnd(lines, lineix):$/;"	f
+FindNextMultiLineCommentStart	cpplint.py	/^def FindNextMultiLineCommentStart(lines, lineix):$/;"	f
+FindStartOfExpressionInLine	cpplint.py	/^def FindStartOfExpressionInLine(line, endpos, stack):$/;"	f
+FixupPathFromRoot	cpplint.py	/^    def FixupPathFromRoot():$/;"	f	function:GetHeaderGuardCPPVariable
+FlagCxx11Features	cpplint.py	/^def FlagCxx11Features(filename, clean_lines, linenum, error):$/;"	f
+FlagCxx14Features	cpplint.py	/^def FlagCxx14Features(filename, clean_lines, linenum, error):$/;"	f
+FormatJUnitXML	cpplint.py	/^    def FormatJUnitXML(self):$/;"	m	class:_CppLintState
+FullName	cpplint.py	/^    def FullName(self):$/;"	m	class:FileInfo
+GetAllExtensions	cpplint.py	/^def GetAllExtensions():$/;"	f
+GetHeaderExtensions	cpplint.py	/^def GetHeaderExtensions():$/;"	f
+GetHeaderGuardCPPVariable	cpplint.py	/^def GetHeaderGuardCPPVariable(filename):$/;"	f
+GetIndentLevel	cpplint.py	/^def GetIndentLevel(line):$/;"	f
+GetLineWidth	cpplint.py	/^def GetLineWidth(line):$/;"	f
+GetNonHeaderExtensions	cpplint.py	/^def GetNonHeaderExtensions():$/;"	f
+GetPreviousNonBlankLine	cpplint.py	/^def GetPreviousNonBlankLine(clean_lines, linenum):$/;"	f
+InAsmBlock	cpplint.py	/^    def InAsmBlock(self):$/;"	m	class:NestingState
+InClassDeclaration	cpplint.py	/^    def InClassDeclaration(self):$/;"	m	class:NestingState
+InExternC	cpplint.py	/^    def InExternC(self):$/;"	m	class:NestingState
+InNamespaceBody	cpplint.py	/^    def InNamespaceBody(self):$/;"	m	class:NestingState
+InTemplateArgumentList	cpplint.py	/^    def InTemplateArgumentList(self, clean_lines, linenum, pos):$/;"	m	class:NestingState
+IncrementErrorCount	cpplint.py	/^    def IncrementErrorCount(self, category):$/;"	m	class:_CppLintState
+InnermostClass	cpplint.py	/^    def InnermostClass(self):$/;"	m	class:NestingState
+IsBlankLine	cpplint.py	/^def IsBlankLine(line):$/;"	f
+IsBlockInNameSpace	cpplint.py	/^def IsBlockInNameSpace(nesting_state, is_forward_declaration):$/;"	f
+IsBlockInfo	cpplint.py	/^    def IsBlockInfo(self):$/;"	m	class:_BlockInfo
+IsCppString	cpplint.py	/^def IsCppString(line):$/;"	f
+IsDecltype	cpplint.py	/^def IsDecltype(clean_lines, linenum, column):$/;"	f
+IsDerivedFunction	cpplint.py	/^def IsDerivedFunction(clean_lines, linenum):$/;"	f
+IsErrorSuppressedByNolint	cpplint.py	/^def IsErrorSuppressedByNolint(category, linenum):$/;"	f
+IsForwardClassDeclaration	cpplint.py	/^def IsForwardClassDeclaration(clean_lines, linenum):$/;"	f
+IsHeaderExtension	cpplint.py	/^def IsHeaderExtension(file_extension):$/;"	f
+IsInAlphabeticalOrder	cpplint.py	/^    def IsInAlphabeticalOrder(self, clean_lines, linenum, header_path):$/;"	m	class:_IncludeState
+IsInitializerList	cpplint.py	/^def IsInitializerList(clean_lines, linenum):$/;"	f
+IsMacroDefinition	cpplint.py	/^def IsMacroDefinition(clean_lines, linenum):$/;"	f
+IsOutOfLineMethodDefinition	cpplint.py	/^def IsOutOfLineMethodDefinition(clean_lines, linenum):$/;"	f
+IsSource	cpplint.py	/^    def IsSource(self):$/;"	m	class:FileInfo
+Match	cpplint.py	/^def Match(pattern, s):$/;"	f
+NestingState	cpplint.py	/^class NestingState(object):$/;"	c
+NoExtension	cpplint.py	/^    def NoExtension(self):$/;"	m	class:FileInfo
+NumLines	cpplint.py	/^    def NumLines(self):$/;"	m	class:CleansedLines
+ParseArguments	cpplint.py	/^def ParseArguments(args):$/;"	f
+ParseNolintSuppressions	cpplint.py	/^def ParseNolintSuppressions(filename, raw_line, linenum, error):$/;"	f
+PathSplitToList	cpplint.py	/^def PathSplitToList(path):$/;"	f
+PrintCategories	cpplint.py	/^def PrintCategories():$/;"	f
+PrintError	cpplint.py	/^    def PrintError(self, message):$/;"	m	class:_CppLintState
+PrintErrorCounts	cpplint.py	/^    def PrintErrorCounts(self):$/;"	m	class:_CppLintState
+PrintInfo	cpplint.py	/^    def PrintInfo(self, message):$/;"	m	class:_CppLintState
+PrintUsage	cpplint.py	/^def PrintUsage(message):$/;"	f
+PrintVersion	cpplint.py	/^def PrintVersion():$/;"	f
+ProcessConfigOverrides	cpplint.py	/^def ProcessConfigOverrides(filename):$/;"	f
+ProcessFile	cpplint.py	/^def ProcessFile(filename, vlevel, extra_check_functions=None):$/;"	f
+ProcessFileData	cpplint.py	/^def ProcessFileData(filename, file_extension, lines, error,$/;"	f
+ProcessGlobalSuppresions	cpplint.py	/^def ProcessGlobalSuppresions(lines):$/;"	f
+ProcessHppHeadersOption	cpplint.py	/^def ProcessHppHeadersOption(val):$/;"	f
+ProcessLine	cpplint.py	/^def ProcessLine(filename, file_extension, clean_lines, line,$/;"	f
+RemoveMultiLineComments	cpplint.py	/^def RemoveMultiLineComments(filename, lines, error):$/;"	f
+RemoveMultiLineCommentsFromRange	cpplint.py	/^def RemoveMultiLineCommentsFromRange(lines, begin, end):$/;"	f
+ReplaceAll	cpplint.py	/^def ReplaceAll(pattern, rep, s):$/;"	f
+RepositoryName	cpplint.py	/^    def RepositoryName(self):$/;"	m	class:FileInfo
+ResetErrorCounts	cpplint.py	/^    def ResetErrorCounts(self):$/;"	m	class:_CppLintState
+ResetNolintSuppressions	cpplint.py	/^def ResetNolintSuppressions():$/;"	f
+ResetSection	cpplint.py	/^    def ResetSection(self, directive):$/;"	m	class:_IncludeState
+RestoreFilters	cpplint.py	/^    def RestoreFilters(self):$/;"	m	class:_CppLintState
+ReverseCloseExpression	cpplint.py	/^def ReverseCloseExpression(clean_lines, linenum, pos):$/;"	f
+Search	cpplint.py	/^def Search(pattern, s):$/;"	f
+SeenOpenBrace	cpplint.py	/^    def SeenOpenBrace(self):$/;"	m	class:NestingState
+SetCountingStyle	cpplint.py	/^    def SetCountingStyle(self, counting_style):$/;"	m	class:_CppLintState
+SetFilters	cpplint.py	/^    def SetFilters(self, filters):$/;"	m	class:_CppLintState
+SetLastHeader	cpplint.py	/^    def SetLastHeader(self, header_path):$/;"	m	class:_IncludeState
+SetOutputFormat	cpplint.py	/^    def SetOutputFormat(self, output_format):$/;"	m	class:_CppLintState
+SetQuiet	cpplint.py	/^    def SetQuiet(self, quiet):$/;"	m	class:_CppLintState
+SetVerboseLevel	cpplint.py	/^    def SetVerboseLevel(self, level):$/;"	m	class:_CppLintState
+ShouldCheckNamespaceIndentation	cpplint.py	/^def ShouldCheckNamespaceIndentation(nesting_state, is_namespace_indent_item,$/;"	f
+Split	cpplint.py	/^    def Split(self):$/;"	m	class:FileInfo
+StripListPrefix	cpplint.py	/^        def StripListPrefix(lst, prefix):$/;"	f	function:GetHeaderGuardCPPVariable.FixupPathFromRoot
+Update	cpplint.py	/^    def Update(self, filename, clean_lines, linenum, error):$/;"	m	class:NestingState
+UpdateIncludeState	cpplint.py	/^def UpdateIncludeState(filename, include_dict, io=codecs):$/;"	f
+UpdatePreprocessor	cpplint.py	/^    def UpdatePreprocessor(self, line):$/;"	m	class:NestingState
+_ALT_TOKEN_REPLACEMENT	cpplint.py	/^_ALT_TOKEN_REPLACEMENT = {$/;"	v
+_ALT_TOKEN_REPLACEMENT_PATTERN	cpplint.py	/^_ALT_TOKEN_REPLACEMENT_PATTERN = re.compile($/;"	v
+_AddFilters	cpplint.py	/^def _AddFilters(filters):$/;"	f
+_BLOCK_ASM	cpplint.py	/^_BLOCK_ASM = 3    # The whole block is an inline assembly block$/;"	v
+_BackupFilters	cpplint.py	/^def _BackupFilters():$/;"	f
+_BlockInfo	cpplint.py	/^class _BlockInfo(object):$/;"	c
+_CHECK_MACROS	cpplint.py	/^_CHECK_MACROS = [$/;"	v
+_CHECK_REPLACEMENT	cpplint.py	/^_CHECK_REPLACEMENT = dict([(macro_var, {}) for macro_var in _CHECK_MACROS])$/;"	v
+_CPP_HEADERS	cpplint.py	/^_CPP_HEADERS = frozenset([$/;"	v
+_CPP_SECTION	cpplint.py	/^    _CPP_SECTION = 3$/;"	v	class:_IncludeState
+_CPP_SYS_HEADER	cpplint.py	/^_CPP_SYS_HEADER = 2$/;"	v
+_C_SECTION	cpplint.py	/^    _C_SECTION = 2$/;"	v	class:_IncludeState
+_C_SYS_HEADER	cpplint.py	/^_C_SYS_HEADER = 1$/;"	v
+_ClassInfo	cpplint.py	/^class _ClassInfo(_BlockInfo):$/;"	c
+_ClassifyInclude	cpplint.py	/^def _ClassifyInclude(fileinfo, include, is_system):$/;"	f
+_CollapseStrings	cpplint.py	/^    def _CollapseStrings(elided):$/;"	m	class:CleansedLines
+_CppLintState	cpplint.py	/^class _CppLintState(object):$/;"	c
+_DEFAULT_C_SUPPRESSED_CATEGORIES	cpplint.py	/^_DEFAULT_C_SUPPRESSED_CATEGORIES = [$/;"	v
+_DEFAULT_FILTERS	cpplint.py	/^_DEFAULT_FILTERS = ['-build\/include_alpha']$/;"	v
+_DEFAULT_KERNEL_SUPPRESSED_CATEGORIES	cpplint.py	/^_DEFAULT_KERNEL_SUPPRESSED_CATEGORIES = [$/;"	v
+_DropCommonSuffixes	cpplint.py	/^def _DropCommonSuffixes(filename):$/;"	f
+_EMPTY_CONDITIONAL_BODY_PATTERN	cpplint.py	/^_EMPTY_CONDITIONAL_BODY_PATTERN = re.compile(r'^\\s*$', re.DOTALL)$/;"	v
+_END_ASM	cpplint.py	/^_END_ASM = 2      # Last line of inline assembly block$/;"	v
+_ERROR_CATEGORIES	cpplint.py	/^_ERROR_CATEGORIES = [$/;"	v
+_ExpandDirectories	cpplint.py	/^def _ExpandDirectories(filenames):$/;"	f
+_ExternCInfo	cpplint.py	/^class _ExternCInfo(_BlockInfo):$/;"	c
+_FilterExcludedFiles	cpplint.py	/^def _FilterExcludedFiles(filenames):$/;"	f
+_Filters	cpplint.py	/^def _Filters():$/;"	f
+_FunctionState	cpplint.py	/^class _FunctionState(object):$/;"	c
+_GetTextInside	cpplint.py	/^def _GetTextInside(text, start_pattern):$/;"	f
+_HEADERS_CONTAINING_TEMPLATES	cpplint.py	/^_HEADERS_CONTAINING_TEMPLATES = ($/;"	v
+_HEADERS_MAYBE_TEMPLATES	cpplint.py	/^_HEADERS_MAYBE_TEMPLATES = ($/;"	v
+_INITIAL_SECTION	cpplint.py	/^    _INITIAL_SECTION = 0$/;"	v	class:_IncludeState
+_INSIDE_ASM	cpplint.py	/^_INSIDE_ASM = 1   # Inside inline assembly block$/;"	v
+_IncludeError	cpplint.py	/^class _IncludeError(Exception):$/;"	c
+_IncludeState	cpplint.py	/^class _IncludeState(object):$/;"	c
+_IsSourceExtension	cpplint.py	/^def _IsSourceExtension(s):$/;"	f
+_IsType	cpplint.py	/^def _IsType(clean_lines, nesting_state, expr):$/;"	f
+_LEGACY_ERROR_CATEGORIES	cpplint.py	/^_LEGACY_ERROR_CATEGORIES = [$/;"	v
+_LIKELY_MY_HEADER	cpplint.py	/^_LIKELY_MY_HEADER = 3$/;"	v
+_MATCH_ASM	cpplint.py	/^_MATCH_ASM = re.compile(r'^\\s*(?:asm|_asm|__asm|__asm__)'$/;"	v
+_MY_H_SECTION	cpplint.py	/^    _MY_H_SECTION = 1$/;"	v	class:_IncludeState
+_NORMAL_TRIGGER	cpplint.py	/^    _NORMAL_TRIGGER = 250  # for --v=0, 500 for --v=1, etc.$/;"	v	class:_FunctionState
+_NO_ASM	cpplint.py	/^_NO_ASM = 0       # Outside of inline assembly block$/;"	v
+_NamespaceInfo	cpplint.py	/^class _NamespaceInfo(_BlockInfo):$/;"	c
+_OTHER_HEADER	cpplint.py	/^_OTHER_HEADER = 5$/;"	v
+_OTHER_H_SECTION	cpplint.py	/^    _OTHER_H_SECTION = 4$/;"	v	class:_IncludeState
+_OutputFormat	cpplint.py	/^def _OutputFormat():$/;"	f
+_POSSIBLE_MY_HEADER	cpplint.py	/^_POSSIBLE_MY_HEADER = 4$/;"	v
+_PreprocessorInfo	cpplint.py	/^class _PreprocessorInfo(object):$/;"	c
+_Quiet	cpplint.py	/^def _Quiet():$/;"	f
+_RE_FIRST_COMPONENT	cpplint.py	/^_RE_FIRST_COMPONENT = re.compile(r'^[^-_.]+')$/;"	v
+_RE_PATTERN_CLEANSE_LINE_C_COMMENTS	cpplint.py	/^_RE_PATTERN_CLEANSE_LINE_C_COMMENTS = re.compile($/;"	v
+_RE_PATTERN_CLEANSE_LINE_ESCAPES	cpplint.py	/^_RE_PATTERN_CLEANSE_LINE_ESCAPES = re.compile($/;"	v
+_RE_PATTERN_CONST_REF_PARAM	cpplint.py	/^_RE_PATTERN_CONST_REF_PARAM = ($/;"	v
+_RE_PATTERN_C_COMMENTS	cpplint.py	/^_RE_PATTERN_C_COMMENTS = r'\/\\*(?:[^*]|\\*(?!\/))*\\*\/'$/;"	v
+_RE_PATTERN_EXPLICIT_MAKEPAIR	cpplint.py	/^_RE_PATTERN_EXPLICIT_MAKEPAIR = re.compile(r'\\bmake_pair\\s*<')$/;"	v
+_RE_PATTERN_IDENT	cpplint.py	/^_RE_PATTERN_IDENT = r'[_a-zA-Z]\\w*'  # =~ [[:alpha:]][[:alnum:]]*$/;"	v
+_RE_PATTERN_INCLUDE	cpplint.py	/^_RE_PATTERN_INCLUDE = re.compile(r'^\\s*#\\s*include\\s*([<"])([^>"]*)[>"].*$')$/;"	v
+_RE_PATTERN_INVALID_INCREMENT	cpplint.py	/^_RE_PATTERN_INVALID_INCREMENT = re.compile($/;"	v
+_RE_PATTERN_REF_PARAM	cpplint.py	/^_RE_PATTERN_REF_PARAM = re.compile($/;"	v
+_RE_PATTERN_REF_STREAM_PARAM	cpplint.py	/^_RE_PATTERN_REF_STREAM_PARAM = ($/;"	v
+_RE_PATTERN_STRING	cpplint.py	/^_RE_PATTERN_STRING = re.compile(r'\\bstring\\b')$/;"	v
+_RE_PATTERN_TODO	cpplint.py	/^_RE_PATTERN_TODO = re.compile(r'^\/\/(\\s*)TODO(\\(.+?\\))?:?(\\s|$)?')$/;"	v
+_RE_PATTERN_TYPE	cpplint.py	/^_RE_PATTERN_TYPE = ($/;"	v
+_RestoreFilters	cpplint.py	/^def _RestoreFilters():$/;"	f
+_SEARCH_C_FILE	cpplint.py	/^_SEARCH_C_FILE = re.compile(r'\\b(?:LINT_C_FILE|'$/;"	v
+_SEARCH_KERNEL_FILE	cpplint.py	/^_SEARCH_KERNEL_FILE = re.compile(r'\\b(?:LINT_KERNEL_FILE)')$/;"	v
+_SECTION_NAMES	cpplint.py	/^    _SECTION_NAMES = {$/;"	v	class:_IncludeState
+_SetCountingStyle	cpplint.py	/^def _SetCountingStyle(level):$/;"	f
+_SetFilters	cpplint.py	/^def _SetFilters(filters):$/;"	f
+_SetOutputFormat	cpplint.py	/^def _SetOutputFormat(output_format):$/;"	f
+_SetQuiet	cpplint.py	/^def _SetQuiet(quiet):$/;"	f
+_SetVerboseLevel	cpplint.py	/^def _SetVerboseLevel(level):$/;"	f
+_ShouldPrintError	cpplint.py	/^def _ShouldPrintError(category, confidence, linenum):$/;"	f
+_TEST_FILE_SUFFIX	cpplint.py	/^_TEST_FILE_SUFFIX = '(' + '|'.join(_test_suffixes) + r')$'$/;"	v
+_TEST_TRIGGER	cpplint.py	/^    _TEST_TRIGGER = 400    # about 50% more than _NORMAL_TRIGGER.$/;"	v	class:_FunctionState
+_THIRD_PARTY_HEADERS_PATTERN	cpplint.py	/^_THIRD_PARTY_HEADERS_PATTERN = re.compile($/;"	v
+_THREADING_LIST	cpplint.py	/^_THREADING_LIST = ($/;"	v
+_TYPES	cpplint.py	/^_TYPES = re.compile($/;"	v
+_TYPE_NAMES	cpplint.py	/^    _TYPE_NAMES = {$/;"	v	class:_IncludeState
+_UNSAFE_FUNC_PREFIX	cpplint.py	/^_UNSAFE_FUNC_PREFIX = r'(?:[-+*\/=%^&|(<]\\s*|>\\s+)'$/;"	v
+_VerboseLevel	cpplint.py	/^def _VerboseLevel():$/;"	f
+__VERSION__	cpplint.py	/^__VERSION__ = '1.4.4'$/;"	v
+__init__	cpplint.py	/^    def __init__(self):$/;"	m	class:NestingState
+__init__	cpplint.py	/^    def __init__(self):$/;"	m	class:_CppLintState
+__init__	cpplint.py	/^    def __init__(self):$/;"	m	class:_FunctionState
+__init__	cpplint.py	/^    def __init__(self):$/;"	m	class:_IncludeState
+__init__	cpplint.py	/^    def __init__(self, filename):$/;"	m	class:FileInfo
+__init__	cpplint.py	/^    def __init__(self, linenum):$/;"	m	class:_ExternCInfo
+__init__	cpplint.py	/^    def __init__(self, linenum, seen_open_brace):$/;"	m	class:_BlockInfo
+__init__	cpplint.py	/^    def __init__(self, lines):$/;"	m	class:CleansedLines
+__init__	cpplint.py	/^    def __init__(self, name, class_or_struct, clean_lines, linenum):$/;"	m	class:_ClassInfo
+__init__	cpplint.py	/^    def __init__(self, name, linenum):$/;"	m	class:_NamespaceInfo
+__init__	cpplint.py	/^    def __init__(self, stack_before_if):$/;"	m	class:_PreprocessorInfo
+_cpplint_state	cpplint.py	/^_cpplint_state = _CppLintState()$/;"	v
+_error_suppressions	cpplint.py	/^_error_suppressions = {}$/;"	v
+_excludes	cpplint.py	/^_excludes = None$/;"	v
+_global_error_suppressions	cpplint.py	/^_global_error_suppressions = {}$/;"	v
+_hpp_headers	cpplint.py	/^_hpp_headers = set(['h', 'hh', 'hpp', 'hxx', 'h++', 'cuh'])$/;"	v
+_line_length	cpplint.py	/^_line_length = 80$/;"	v
+_quiet	cpplint.py	/^_quiet = False$/;"	v
+_re_pattern_headers_maybe_templates	cpplint.py	/^_re_pattern_headers_maybe_templates = []$/;"	v
+_re_pattern_templates	cpplint.py	/^_re_pattern_templates = []$/;"	v
+_regexp_compile_cache	cpplint.py	/^_regexp_compile_cache = {}$/;"	v
+_repository	cpplint.py	/^_repository = None$/;"	v
+_root	cpplint.py	/^_root = None$/;"	v
+_root_debug	cpplint.py	/^_root_debug = False$/;"	v
+_test_suffixes	cpplint.py	/^_test_suffixes = ['_test', '_regtest', '_unittest']$/;"	v
+_valid_extensions	cpplint.py	/^_valid_extensions = set([])$/;"	v
+iteritems	cpplint.py	/^    iteritems = dict.items$/;"	v
+iteritems	cpplint.py	/^    iteritems = dict.iteritems$/;"	v
+itervalues	cpplint.py	/^    itervalues = dict.itervalues$/;"	v
+itervalues	cpplint.py	/^    itervalues = dict.values$/;"	v
+long	cpplint.py	/^    long = int$/;"	v
+main	cpplint.py	/^def main():$/;"	f
+unicode_escape_decode	cpplint.py	/^def unicode_escape_decode(x):$/;"	f
+xrange	cpplint.py	/^    xrange = range  # Python 3$/;"	v

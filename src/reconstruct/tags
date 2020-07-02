@@ -1,0 +1,116 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DonorCellX1	dc.cpp	/^void Reconstruction::DonorCellX1(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX1	dc_simple.cpp	/^void Reconstruction::DonorCellX1(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX1_DustFluids	dc_dustFluids.cpp	/^void Reconstruction::DonorCellX1_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX2	dc.cpp	/^void Reconstruction::DonorCellX2(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX2	dc_simple.cpp	/^void Reconstruction::DonorCellX2(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX2_DustFluids	dc_dustFluids.cpp	/^void Reconstruction::DonorCellX2_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX3	dc.cpp	/^void Reconstruction::DonorCellX3(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX3	dc_simple.cpp	/^void Reconstruction::DonorCellX3(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX3_DustFluids	dc_dustFluids.cpp	/^void Reconstruction::DonorCellX3_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DoolittleLUPDecompose	reconstruction.cpp	/^int DoolittleLUPDecompose(Real **a, int n, int *pivot) {$/;"	f	namespace:__anon2
+DoolittleLUPSolve	reconstruction.cpp	/^void DoolittleLUPSolve(Real **lu, int *pivot, Real *b, int n, Real *x) {$/;"	f	namespace:__anon2
+LeftEigenmatrixDotVector	characteristic.cpp	/^void Reconstruction::LeftEigenmatrixDotVector($/;"	f	class:Reconstruction
+PiecewiseLinearX1	plm.cpp	/^void Reconstruction::PiecewiseLinearX1($/;"	f	class:Reconstruction
+PiecewiseLinearX1	plm_simple.cpp	/^void Reconstruction::PiecewiseLinearX1($/;"	f	class:Reconstruction
+PiecewiseLinearX1_DustFluids	plm_dustfluids.cpp	/^void Reconstruction::PiecewiseLinearX1_DustFluids($/;"	f	class:Reconstruction
+PiecewiseLinearX2	plm.cpp	/^void Reconstruction::PiecewiseLinearX2($/;"	f	class:Reconstruction
+PiecewiseLinearX2	plm_simple.cpp	/^void Reconstruction::PiecewiseLinearX2($/;"	f	class:Reconstruction
+PiecewiseLinearX2_DustFluids	plm_dustfluids.cpp	/^void Reconstruction::PiecewiseLinearX2_DustFluids($/;"	f	class:Reconstruction
+PiecewiseLinearX3	plm.cpp	/^void Reconstruction::PiecewiseLinearX3($/;"	f	class:Reconstruction
+PiecewiseLinearX3	plm_simple.cpp	/^void Reconstruction::PiecewiseLinearX3($/;"	f	class:Reconstruction
+PiecewiseLinearX3_DustFluids	plm_dustfluids.cpp	/^void Reconstruction::PiecewiseLinearX3_DustFluids($/;"	f	class:Reconstruction
+PiecewiseParabolicX1	ppm.cpp	/^void Reconstruction::PiecewiseParabolicX1($/;"	f	class:Reconstruction
+PiecewiseParabolicX1	ppm_simple.cpp	/^void Reconstruction::PiecewiseParabolicX1($/;"	f	class:Reconstruction
+PiecewiseParabolicX1_DustFluids	ppm_dustfluids.cpp	/^void Reconstruction::PiecewiseParabolicX1_DustFluids($/;"	f	class:Reconstruction
+PiecewiseParabolicX2	ppm.cpp	/^void Reconstruction::PiecewiseParabolicX2($/;"	f	class:Reconstruction
+PiecewiseParabolicX2	ppm_simple.cpp	/^void Reconstruction::PiecewiseParabolicX2($/;"	f	class:Reconstruction
+PiecewiseParabolicX2_DustFluids	ppm_dustfluids.cpp	/^void Reconstruction::PiecewiseParabolicX2_DustFluids($/;"	f	class:Reconstruction
+PiecewiseParabolicX3	ppm.cpp	/^void Reconstruction::PiecewiseParabolicX3($/;"	f	class:Reconstruction
+PiecewiseParabolicX3	ppm_simple.cpp	/^void Reconstruction::PiecewiseParabolicX3($/;"	f	class:Reconstruction
+PiecewiseParabolicX3_DustFluids	ppm_dustfluids.cpp	/^void Reconstruction::PiecewiseParabolicX3_DustFluids($/;"	f	class:Reconstruction
+RECONSTRUCT_RECONSTRUCTION_HPP_	reconstruction.hpp	2;"	d
+Reconstruction	reconstruction.cpp	/^Reconstruction::Reconstruction(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:Reconstruction
+Reconstruction	reconstruction.hpp	/^class Reconstruction {$/;"	c
+RightEigenmatrixDotVector	characteristic.cpp	/^void Reconstruction::RightEigenmatrixDotVector($/;"	f	class:Reconstruction
+c1i	reconstruction.hpp	/^  AthenaArray<Real> c1i, c2i, c3i, c4i, c5i, c6i;  \/\/ coefficients for PPM in x1$/;"	m	class:Reconstruction
+c1j	reconstruction.hpp	/^  AthenaArray<Real> c1j, c2j, c3j, c4j, c5j, c6j;  \/\/ coefficients for PPM in x2$/;"	m	class:Reconstruction
+c1k	reconstruction.hpp	/^  AthenaArray<Real> c1k, c2k, c3k, c4k, c5k, c6k;  \/\/ coefficients for PPM in x3$/;"	m	class:Reconstruction
+c2i	reconstruction.hpp	/^  AthenaArray<Real> c1i, c2i, c3i, c4i, c5i, c6i;  \/\/ coefficients for PPM in x1$/;"	m	class:Reconstruction
+c2j	reconstruction.hpp	/^  AthenaArray<Real> c1j, c2j, c3j, c4j, c5j, c6j;  \/\/ coefficients for PPM in x2$/;"	m	class:Reconstruction
+c2k	reconstruction.hpp	/^  AthenaArray<Real> c1k, c2k, c3k, c4k, c5k, c6k;  \/\/ coefficients for PPM in x3$/;"	m	class:Reconstruction
+c3i	reconstruction.hpp	/^  AthenaArray<Real> c1i, c2i, c3i, c4i, c5i, c6i;  \/\/ coefficients for PPM in x1$/;"	m	class:Reconstruction
+c3j	reconstruction.hpp	/^  AthenaArray<Real> c1j, c2j, c3j, c4j, c5j, c6j;  \/\/ coefficients for PPM in x2$/;"	m	class:Reconstruction
+c3k	reconstruction.hpp	/^  AthenaArray<Real> c1k, c2k, c3k, c4k, c5k, c6k;  \/\/ coefficients for PPM in x3$/;"	m	class:Reconstruction
+c4i	reconstruction.hpp	/^  AthenaArray<Real> c1i, c2i, c3i, c4i, c5i, c6i;  \/\/ coefficients for PPM in x1$/;"	m	class:Reconstruction
+c4j	reconstruction.hpp	/^  AthenaArray<Real> c1j, c2j, c3j, c4j, c5j, c6j;  \/\/ coefficients for PPM in x2$/;"	m	class:Reconstruction
+c4k	reconstruction.hpp	/^  AthenaArray<Real> c1k, c2k, c3k, c4k, c5k, c6k;  \/\/ coefficients for PPM in x3$/;"	m	class:Reconstruction
+c5i	reconstruction.hpp	/^  AthenaArray<Real> c1i, c2i, c3i, c4i, c5i, c6i;  \/\/ coefficients for PPM in x1$/;"	m	class:Reconstruction
+c5j	reconstruction.hpp	/^  AthenaArray<Real> c1j, c2j, c3j, c4j, c5j, c6j;  \/\/ coefficients for PPM in x2$/;"	m	class:Reconstruction
+c5k	reconstruction.hpp	/^  AthenaArray<Real> c1k, c2k, c3k, c4k, c5k, c6k;  \/\/ coefficients for PPM in x3$/;"	m	class:Reconstruction
+c6i	reconstruction.hpp	/^  AthenaArray<Real> c1i, c2i, c3i, c4i, c5i, c6i;  \/\/ coefficients for PPM in x1$/;"	m	class:Reconstruction
+c6j	reconstruction.hpp	/^  AthenaArray<Real> c1j, c2j, c3j, c4j, c5j, c6j;  \/\/ coefficients for PPM in x2$/;"	m	class:Reconstruction
+c6k	reconstruction.hpp	/^  AthenaArray<Real> c1k, c2k, c3k, c4k, c5k, c6k;  \/\/ coefficients for PPM in x3$/;"	m	class:Reconstruction
+characteristic_projection	reconstruction.hpp	/^  bool characteristic_projection; \/\/ reconstruct on characteristic or primitive hydro vars$/;"	m	class:Reconstruction
+correct_err	reconstruction.hpp	/^  const bool correct_ic, correct_err; \/\/ used in Mesh::Initialize() and ProblemGenerator()$/;"	m	class:Reconstruction
+correct_ic	reconstruction.hpp	/^  const bool correct_ic, correct_err; \/\/ used in Mesh::Initialize() and ProblemGenerator()$/;"	m	class:Reconstruction
+curvilinear	reconstruction.hpp	/^  bool uniform[3], curvilinear[2];$/;"	m	class:Reconstruction
+hminus_ratio_i	reconstruction.hpp	/^  AthenaArray<Real> hplus_ratio_i, hminus_ratio_i; \/\/ for curvilinear PPMx1$/;"	m	class:Reconstruction
+hminus_ratio_j	reconstruction.hpp	/^  AthenaArray<Real> hplus_ratio_j, hminus_ratio_j; \/\/ for curvilinear PPMx2$/;"	m	class:Reconstruction
+hminus_ratio_k	reconstruction.hpp	/^  AthenaArray<Real> hplus_ratio_k, hminus_ratio_k; \/\/ for curvilinear PPMx3$/;"	m	class:Reconstruction
+hplus_ratio_i	reconstruction.hpp	/^  AthenaArray<Real> hplus_ratio_i, hminus_ratio_i; \/\/ for curvilinear PPMx1$/;"	m	class:Reconstruction
+hplus_ratio_j	reconstruction.hpp	/^  AthenaArray<Real> hplus_ratio_j, hminus_ratio_j; \/\/ for curvilinear PPMx2$/;"	m	class:Reconstruction
+hplus_ratio_k	reconstruction.hpp	/^  AthenaArray<Real> hplus_ratio_k, hminus_ratio_k; \/\/ for curvilinear PPMx3$/;"	m	class:Reconstruction
+lu_tol	reconstruction.cpp	/^constexpr Real lu_tol = 3e-16;$/;"	m	namespace:__anon1	file:
+pmy_block_	reconstruction.hpp	/^  MeshBlock* pmy_block_;  \/\/ ptr to MeshBlock containing this Reconstruction$/;"	m	class:Reconstruction
+scr01_i_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_, scr02_i_, scr03_i_, scr04_i_, scr05_i_;$/;"	m	class:Reconstruction
+scr01_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_df_, scr02_i_df_, scr03_i_df_, scr04_i_df_, scr05_i_df_;$/;"	m	class:Reconstruction
+scr02_i_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_, scr02_i_, scr03_i_, scr04_i_, scr05_i_;$/;"	m	class:Reconstruction
+scr02_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_df_, scr02_i_df_, scr03_i_df_, scr04_i_df_, scr05_i_df_;$/;"	m	class:Reconstruction
+scr03_i_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_, scr02_i_, scr03_i_, scr04_i_, scr05_i_;$/;"	m	class:Reconstruction
+scr03_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_df_, scr02_i_df_, scr03_i_df_, scr04_i_df_, scr05_i_df_;$/;"	m	class:Reconstruction
+scr04_i_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_, scr02_i_, scr03_i_, scr04_i_, scr05_i_;$/;"	m	class:Reconstruction
+scr04_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_df_, scr02_i_df_, scr03_i_df_, scr04_i_df_, scr05_i_df_;$/;"	m	class:Reconstruction
+scr05_i_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_, scr02_i_, scr03_i_, scr04_i_, scr05_i_;$/;"	m	class:Reconstruction
+scr05_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr01_i_df_, scr02_i_df_, scr03_i_df_, scr04_i_df_, scr05_i_df_;$/;"	m	class:Reconstruction
+scr06_i_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_, scr07_i_, scr08_i_, scr09_i_, scr10_i_;$/;"	m	class:Reconstruction
+scr06_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_df_, scr07_i_df_, scr08_i_df_, scr09_i_df_, scr10_i_df_;$/;"	m	class:Reconstruction
+scr07_i_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_, scr07_i_, scr08_i_, scr09_i_, scr10_i_;$/;"	m	class:Reconstruction
+scr07_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_df_, scr07_i_df_, scr08_i_df_, scr09_i_df_, scr10_i_df_;$/;"	m	class:Reconstruction
+scr08_i_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_, scr07_i_, scr08_i_, scr09_i_, scr10_i_;$/;"	m	class:Reconstruction
+scr08_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_df_, scr07_i_df_, scr08_i_df_, scr09_i_df_, scr10_i_df_;$/;"	m	class:Reconstruction
+scr09_i_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_, scr07_i_, scr08_i_, scr09_i_, scr10_i_;$/;"	m	class:Reconstruction
+scr09_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_df_, scr07_i_df_, scr08_i_df_, scr09_i_df_, scr10_i_df_;$/;"	m	class:Reconstruction
+scr10_i_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_, scr07_i_, scr08_i_, scr09_i_, scr10_i_;$/;"	m	class:Reconstruction
+scr10_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr06_i_df_, scr07_i_df_, scr08_i_df_, scr09_i_df_, scr10_i_df_;$/;"	m	class:Reconstruction
+scr11_i_	reconstruction.hpp	/^  AthenaArray<Real> scr11_i_, scr12_i_, scr13_i_, scr14_i_;$/;"	m	class:Reconstruction
+scr11_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr11_i_df_, scr12_i_df_, scr13_i_df_, scr14_i_df_;$/;"	m	class:Reconstruction
+scr12_i_	reconstruction.hpp	/^  AthenaArray<Real> scr11_i_, scr12_i_, scr13_i_, scr14_i_;$/;"	m	class:Reconstruction
+scr12_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr11_i_df_, scr12_i_df_, scr13_i_df_, scr14_i_df_;$/;"	m	class:Reconstruction
+scr13_i_	reconstruction.hpp	/^  AthenaArray<Real> scr11_i_, scr12_i_, scr13_i_, scr14_i_;$/;"	m	class:Reconstruction
+scr13_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr11_i_df_, scr12_i_df_, scr13_i_df_, scr14_i_df_;$/;"	m	class:Reconstruction
+scr14_i_	reconstruction.hpp	/^  AthenaArray<Real> scr11_i_, scr12_i_, scr13_i_, scr14_i_;$/;"	m	class:Reconstruction
+scr14_i_df_	reconstruction.hpp	/^  AthenaArray<Real> scr11_i_df_, scr12_i_df_, scr13_i_df_, scr14_i_df_;$/;"	m	class:Reconstruction
+scr1_ni_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_, scr2_ni_, scr3_ni_, scr4_ni_, scr5_ni_;$/;"	m	class:Reconstruction
+scr1_ni_df_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_df_, scr2_ni_df_, scr3_ni_df_, scr4_ni_df_, scr5_ni_df_;$/;"	m	class:Reconstruction
+scr2_ni_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_, scr2_ni_, scr3_ni_, scr4_ni_, scr5_ni_;$/;"	m	class:Reconstruction
+scr2_ni_df_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_df_, scr2_ni_df_, scr3_ni_df_, scr4_ni_df_, scr5_ni_df_;$/;"	m	class:Reconstruction
+scr3_ni_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_, scr2_ni_, scr3_ni_, scr4_ni_, scr5_ni_;$/;"	m	class:Reconstruction
+scr3_ni_df_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_df_, scr2_ni_df_, scr3_ni_df_, scr4_ni_df_, scr5_ni_df_;$/;"	m	class:Reconstruction
+scr4_ni_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_, scr2_ni_, scr3_ni_, scr4_ni_, scr5_ni_;$/;"	m	class:Reconstruction
+scr4_ni_df_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_df_, scr2_ni_df_, scr3_ni_df_, scr4_ni_df_, scr5_ni_df_;$/;"	m	class:Reconstruction
+scr5_ni_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_, scr2_ni_, scr3_ni_, scr4_ni_, scr5_ni_;$/;"	m	class:Reconstruction
+scr5_ni_df_	reconstruction.hpp	/^  AthenaArray<Real> scr1_ni_df_, scr2_ni_df_, scr3_ni_df_, scr4_ni_df_, scr5_ni_df_;$/;"	m	class:Reconstruction
+scr6_ni_	reconstruction.hpp	/^  AthenaArray<Real> scr6_ni_, scr7_ni_, scr8_ni_;$/;"	m	class:Reconstruction
+scr6_ni_df_	reconstruction.hpp	/^  AthenaArray<Real> scr6_ni_df_, scr7_ni_df_, scr8_ni_df_;$/;"	m	class:Reconstruction
+scr7_ni_	reconstruction.hpp	/^  AthenaArray<Real> scr6_ni_, scr7_ni_, scr8_ni_;$/;"	m	class:Reconstruction
+scr7_ni_df_	reconstruction.hpp	/^  AthenaArray<Real> scr6_ni_df_, scr7_ni_df_, scr8_ni_df_;$/;"	m	class:Reconstruction
+scr8_ni_	reconstruction.hpp	/^  AthenaArray<Real> scr6_ni_, scr7_ni_, scr8_ni_;$/;"	m	class:Reconstruction
+scr8_ni_df_	reconstruction.hpp	/^  AthenaArray<Real> scr6_ni_df_, scr7_ni_df_, scr8_ni_df_;$/;"	m	class:Reconstruction
+uniform	reconstruction.hpp	/^  bool uniform[3], curvilinear[2];$/;"	m	class:Reconstruction
+xorder	reconstruction.hpp	/^  int xorder;   \/\/ roughly the formal order of accuracy of overall reconstruction method$/;"	m	class:Reconstruction

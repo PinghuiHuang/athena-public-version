@@ -1,0 +1,328 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ApplyKernel	athena_fft.cpp	/^void FFTBlock::ApplyKernel(int mode) {$/;"	f	class:FFTBlock
+AthenaFFTDirection	athena_fft.hpp	/^  enum class AthenaFFTDirection {forward=-1, backward=1};$/;"	c	class:FFTBlock
+AthenaFFTIndex	athena_fft.cpp	/^AthenaFFTIndex::AthenaFFTIndex(const AthenaFFTIndex *psrc) {$/;"	f	class:AthenaFFTIndex
+AthenaFFTIndex	athena_fft.cpp	/^AthenaFFTIndex::AthenaFFTIndex(int dim, LogicalLocation loc, RegionSize msize,$/;"	f	class:AthenaFFTIndex
+AthenaFFTIndex	athena_fft.hpp	/^class AthenaFFTIndex{$/;"	c
+AthenaFFTPlan	athena_fft.hpp	/^struct AthenaFFTPlan {$/;"	s
+CreatePlan	athena_fft.cpp	/^AthenaFFTPlan *FFTBlock::CreatePlan(int nfast, int nmid, int nslow,$/;"	f	class:FFTBlock
+CreatePlan	athena_fft.cpp	/^AthenaFFTPlan *FFTBlock::CreatePlan(int nfast, int nslow,$/;"	f	class:FFTBlock
+CreatePlan	athena_fft.cpp	/^AthenaFFTPlan *FFTBlock::CreatePlan(int nfast, std::complex<Real> *data,$/;"	f	class:FFTBlock
+DecompositionNames	athena_fft.hpp	/^namespace DecompositionNames{$/;"	n	class:FFTBlock
+DestroyPlan	athena_fft.cpp	/^void FFTBlock::DestroyPlan(AthenaFFTPlan *plan) {$/;"	f	class:FFTBlock
+Driving	turbulence.cpp	/^void TurbulenceDriver::Driving() {$/;"	f	class:TurbulenceDriver
+Execute	athena_fft.cpp	/^void FFTBlock::Execute(AthenaFFTPlan *plan) {$/;"	f	class:FFTBlock
+Execute	athena_fft.cpp	/^void FFTBlock::Execute(AthenaFFTPlan *plan, std::complex<Real> *data) {$/;"	f	class:FFTBlock
+Execute	athena_fft.cpp	/^void FFTBlock::Execute(AthenaFFTPlan *plan, std::complex<Real> *in_data,$/;"	f	class:FFTBlock
+ExecuteBackward	athena_fft.hpp	/^  void ExecuteBackward() {Execute(bplan_);}$/;"	f	class:FFTBlock::AthenaFFTDirection
+ExecuteForward	athena_fft.hpp	/^  void ExecuteForward() {Execute(fplan_);}$/;"	f	class:FFTBlock::AthenaFFTDirection
+FFTBlock	athena_fft.cpp	/^FFTBlock::FFTBlock(FFTDriver *pfd, LogicalLocation iloc, int igid,$/;"	f	class:FFTBlock
+FFTBlock	athena_fft.hpp	/^class FFTBlock {$/;"	c
+FFTDriver	athena_fft.hpp	/^class FFTDriver {$/;"	c	class:FFTBlock
+FFTDriver	fft_driver.cpp	/^FFTDriver::FFTDriver(Mesh *pm, ParameterInput *pin) : nranks_(Globals::nranks),$/;"	f	class:FFTDriver
+FFT_ATHENA_FFT_HPP_	athena_fft.hpp	2;"	d
+FFT_DATA	plimpton/fft_2d.h	/^typedef fftw_complex FFT_DATA;$/;"	t
+FFT_DATA	plimpton/fft_3d.h	/^typedef fftw_complex FFT_DATA;$/;"	t
+FFT_PRECISION	plimpton/fft_2d.h	26;"	d
+FFT_PRECISION	plimpton/fft_3d.h	26;"	d
+FFT_TURBULENCE_HPP_	turbulence.hpp	2;"	d
+Generate	turbulence.cpp	/^void TurbulenceDriver::Generate() {$/;"	f	class:TurbulenceDriver
+GetGlobalIndex	athena_fft.cpp	/^std::int64_t FFTBlock::GetGlobalIndex(const int i, const int j, const int k) {$/;"	f	class:FFTBlock
+GetIndex	athena_fft.cpp	/^std::int64_t FFTBlock::GetIndex(const int i, const int j, const int k) {$/;"	f	class:FFTBlock
+GetIndex	athena_fft.cpp	/^std::int64_t FFTBlock::GetIndex(const int i, const int j, const int k,$/;"	f	class:FFTBlock
+GetKcomp	turbulence.cpp	/^std::int64_t TurbulenceDriver::GetKcomp(int idx, int disp, int Nx) {$/;"	f	class:TurbulenceDriver
+GetNumFFTBlocks	athena_fft.hpp	/^  int GetNumFFTBlocks() { return nblist_[Globals::my_rank]; }$/;"	f	class:FFTBlock::FFTDriver
+InitializeFFTBlock	fft_driver.cpp	/^void FFTDriver::InitializeFFTBlock(bool set_norm) {$/;"	f	class:FFTDriver
+InitializeMPI	athena_fft.cpp	/^void FFTBlock::InitializeMPI() {$/;"	f	class:FFTBlock
+LoadSource	athena_fft.cpp	/^void FFTBlock::LoadSource(const AthenaArray<Real> &src, bool nu, int ngh,$/;"	f	class:FFTBlock
+Lx	athena_fft.hpp	/^  Real Lx[3];$/;"	m	class:AthenaFFTIndex
+MAX	plimpton/fft_2d.cpp	27;"	d	file:
+MAX	plimpton/fft_3d.cpp	30;"	d	file:
+MAX	plimpton/remap_2d.cpp	24;"	d	file:
+MAX	plimpton/remap_3d.cpp	24;"	d	file:
+MIN	plimpton/fft_2d.cpp	26;"	d	file:
+MIN	plimpton/fft_3d.cpp	29;"	d	file:
+MIN	plimpton/remap_2d.cpp	23;"	d	file:
+MIN	plimpton/remap_3d.cpp	23;"	d	file:
+MPI_COMM_FFT	athena_fft.hpp	/^  MPI_Comm MPI_COMM_FFT;$/;"	m	class:FFTBlock::FFTDriver
+Nx	athena_fft.hpp	/^  int Nx[3], nx[3], disp[3];$/;"	m	class:FFTBlock::AthenaFFTDirection
+Nx	athena_fft.hpp	/^  int Nx[3];$/;"	m	class:AthenaFFTIndex
+OUProcess	turbulence.cpp	/^void TurbulenceDriver::OUProcess(Real dt) {$/;"	f	class:TurbulenceDriver
+PACK_ARRAY	plimpton/pack_2d.cpp	18;"	d	file:
+PACK_ARRAY	plimpton/pack_3d.cpp	18;"	d	file:
+PLIMPTON_FFT_2D	plimpton/fft_2d.h	2;"	d
+PLIMPTON_FFT_3D	plimpton/fft_3d.h	2;"	d
+PLIMPTON_PACK_3D	plimpton/pack_2d.h	2;"	d
+PLIMPTON_PACK_3D	plimpton/pack_3d.h	2;"	d
+PLIMPTON_REMAP_2D	plimpton/remap_2d.h	2;"	d
+PLIMPTON_REMAP_3D	plimpton/remap_3d.h	2;"	d
+PermuteAxis	athena_fft.cpp	/^void AthenaFFTIndex::PermuteAxis(int npermute) {$/;"	f	class:AthenaFFTIndex
+PermuteProc	athena_fft.cpp	/^void AthenaFFTIndex::PermuteProc(int npermute) {$/;"	f	class:AthenaFFTIndex
+Permute_	athena_fft.cpp	/^template <typename T> void AthenaFFTIndex::Permute_(T loc[], int npermute) {$/;"	f	class:AthenaFFTIndex
+Perturb	turbulence.cpp	/^void TurbulenceDriver::Perturb(Real dt) {$/;"	f	class:TurbulenceDriver
+PowerSpectrum	turbulence.cpp	/^void TurbulenceDriver::PowerSpectrum(std::complex<Real> *amp) {$/;"	f	class:TurbulenceDriver
+PrintIndex	athena_fft.cpp	/^void AthenaFFTIndex::PrintIndex() {$/;"	f	class:AthenaFFTIndex
+PrintNormFactor	athena_fft.hpp	/^  void PrintNormFactor() {std::cout << norm_factor_ << std::endl;}$/;"	f	class:FFTBlock::AthenaFFTDirection
+PrintSource	athena_fft.cpp	/^void FFTBlock::PrintSource(int in) {$/;"	f	class:FFTBlock
+Project	turbulence.cpp	/^void TurbulenceDriver::Project(std::complex<Real> **fv, Real f_shear) {$/;"	f	class:TurbulenceDriver
+Project	turbulence.cpp	/^void TurbulenceDriver::Project(std::complex<Real> **fv, std::complex<Real> **fv_sh,$/;"	f	class:TurbulenceDriver
+QuickCreatePlan	athena_fft.cpp	/^AthenaFFTPlan *FFTBlock::QuickCreatePlan(std::complex<Real> *data,$/;"	f	class:FFTBlock
+QuickCreatePlan	fft_driver.cpp	/^void FFTDriver::QuickCreatePlan() {$/;"	f	class:FFTDriver
+RetrieveResult	athena_fft.cpp	/^void FFTBlock::RetrieveResult(AthenaArray<Real> &dst, bool nu, int ngh,$/;"	f	class:FFTBlock
+SetLocalIndex	athena_fft.cpp	/^void AthenaFFTIndex::SetLocalIndex() {$/;"	f	class:AthenaFFTIndex
+SetNormFactor	athena_fft.hpp	/^  void SetNormFactor(Real norm) { norm_factor_=norm;}$/;"	f	class:FFTBlock::AthenaFFTDirection
+SwapAxis	athena_fft.cpp	/^void AthenaFFTIndex::SwapAxis(int ref_axis) {$/;"	f	class:AthenaFFTIndex
+SwapProc	athena_fft.cpp	/^void AthenaFFTIndex::SwapProc(int ref_axis) {$/;"	f	class:AthenaFFTIndex
+Swap_	athena_fft.cpp	/^template <typename T> void AthenaFFTIndex::Swap_(T loc[], int ref_axis) {$/;"	f	class:AthenaFFTIndex
+TurbulenceDriver	turbulence.cpp	/^TurbulenceDriver::TurbulenceDriver(Mesh *pm, ParameterInput *pin) :$/;"	f	class:TurbulenceDriver
+TurbulenceDriver	turbulence.hpp	/^class TurbulenceDriver : public FFTDriver{$/;"	c
+b_in_	athena_fft.hpp	/^  AthenaFFTIndex *f_in_, *f_out_, *b_in_, *b_out_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+b_out_	athena_fft.hpp	/^  AthenaFFTIndex *f_in_, *f_out_, *b_in_, *b_out_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+backward	athena_fft.hpp	/^  enum class AthenaFFTDirection {forward=-1, backward=1};$/;"	m	class:FFTBlock::AthenaFFTDirection
+bifactor	plimpton/factor.cpp	/^void bifactor(int n, int *factor1, int *factor2)$/;"	f
+bplan_	athena_fft.hpp	/^  AthenaFFTPlan *fplan_, *bplan_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+bsize_	athena_fft.hpp	/^  RegionSize msize_, bsize_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+cnt_	athena_fft.hpp	/^  std::int64_t cnt_, gcnt_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+comm	plimpton/remap_2d.h	/^  MPI_Comm comm;                    \/* group of procs performing remap *\/$/;"	m	struct:remap_plan_2d
+comm	plimpton/remap_3d.h	/^  MPI_Comm comm;                    \/* group of procs performing remap *\/$/;"	m	struct:remap_plan_3d
+copy	plimpton/fft_2d.h	/^  FFT_DATA *copy;                   \/* memory for remap results (if needed) *\/$/;"	m	struct:fft_plan_2d
+copy	plimpton/fft_3d.h	/^  FFT_DATA *copy;                   \/* memory for remap results (if needed) *\/$/;"	m	struct:fft_plan_3d
+decomp_	athena_fft.hpp	/^  int decomp_, pdim_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+decomp_	athena_fft.hpp	/^  int decomp_, pdim_;$/;"	m	class:FFTBlock::FFTDriver
+dedt	turbulence.hpp	/^  Real expo, dedt, dvol;$/;"	m	class:TurbulenceDriver
+dim	athena_fft.hpp	/^  int dim;$/;"	m	struct:AthenaFFTPlan
+dim_	athena_fft.hpp	/^  const int dim_;$/;"	m	class:FFTBlock::FFTDriver
+dim_	athena_fft.hpp	/^  int dim_;$/;"	m	class:AthenaFFTIndex
+dim_	athena_fft.hpp	/^  int dim_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+dir	athena_fft.hpp	/^  int dir;$/;"	m	struct:AthenaFFTPlan
+disp	athena_fft.hpp	/^  int Nx[3], nx[3], disp[3];$/;"	m	class:FFTBlock::AthenaFFTDirection
+dkx	athena_fft.hpp	/^  Real dkx[3], dx1, dx2, dx3;$/;"	m	class:FFTBlock::AthenaFFTDirection
+dtdrive	turbulence.hpp	/^  Real tdrive, dtdrive, tcorr, f_shear;$/;"	m	class:TurbulenceDriver
+dvol	turbulence.hpp	/^  Real expo, dedt, dvol;$/;"	m	class:TurbulenceDriver
+dx1	athena_fft.hpp	/^  Real dkx[3], dx1, dx2, dx3;$/;"	m	class:FFTBlock::AthenaFFTDirection
+dx2	athena_fft.hpp	/^  Real dkx[3], dx1, dx2, dx3;$/;"	m	class:FFTBlock::AthenaFFTDirection
+dx3	athena_fft.hpp	/^  Real dkx[3], dx1, dx2, dx3;$/;"	m	class:FFTBlock::AthenaFFTDirection
+expo	turbulence.hpp	/^  Real expo, dedt, dvol;$/;"	m	class:TurbulenceDriver
+extent_2d	plimpton/remap_2d.h	/^struct extent_2d {$/;"	s
+extent_3d	plimpton/remap_3d.h	/^struct extent_3d {$/;"	s
+f_in_	athena_fft.hpp	/^  AthenaFFTIndex *f_in_, *f_out_, *b_in_, *b_out_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+f_out_	athena_fft.hpp	/^  AthenaFFTIndex *f_in_, *f_out_, *b_in_, *b_out_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+f_shear	turbulence.hpp	/^  Real tdrive, dtdrive, tcorr, f_shear;$/;"	m	class:TurbulenceDriver
+factor	plimpton/factor.cpp	/^void factor(int n, int *num, int *list)$/;"	f
+fft_2d	plimpton/fft_2d.cpp	/^void fft_2d(FFT_DATA *in, FFT_DATA *out, int flag, struct fft_plan_2d *plan)$/;"	f
+fft_2d_create_plan	plimpton/fft_2d.cpp	/^struct fft_plan_2d *fft_2d_create_plan($/;"	f
+fft_2d_destroy_plan	plimpton/fft_2d.cpp	/^void fft_2d_destroy_plan(struct fft_plan_2d *plan)$/;"	f
+fft_3d	plimpton/fft_3d.cpp	/^void fft_3d(FFT_DATA *in, FFT_DATA *out, int flag, struct fft_plan_3d *plan)$/;"	f
+fft_3d_create_plan	plimpton/fft_3d.cpp	/^struct fft_plan_3d *fft_3d_create_plan($/;"	f
+fft_3d_destroy_plan	plimpton/fft_3d.cpp	/^void fft_3d_destroy_plan(struct fft_plan_3d *plan)$/;"	f
+fft_block_size_	athena_fft.hpp	/^  RegionSize fft_mesh_size_, fft_block_size_;$/;"	m	class:FFTBlock::FFTDriver
+fft_loclist_	athena_fft.hpp	/^  LogicalLocation *fft_loclist_;$/;"	m	class:FFTBlock::FFTDriver
+fft_mesh_size_	athena_fft.hpp	/^  RegionSize fft_mesh_size_, fft_block_size_;$/;"	m	class:FFTBlock::FFTDriver
+fft_plan_2d	plimpton/fft_2d.h	/^struct fft_plan_2d {$/;"	s
+fft_plan_3d	plimpton/fft_3d.h	/^struct fft_plan_3d {$/;"	s
+forward	athena_fft.hpp	/^  enum class AthenaFFTDirection {forward=-1, backward=1};$/;"	m	class:FFTBlock::AthenaFFTDirection
+fplan_	athena_fft.hpp	/^  AthenaFFTPlan *fplan_, *bplan_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+fv_	turbulence.hpp	/^  std::complex<Real> **fv_, **fv_new_;$/;"	m	class:TurbulenceDriver
+fv_co_	turbulence.hpp	/^  std::complex<Real> **fv_sh_, **fv_co_;$/;"	m	class:TurbulenceDriver
+fv_new_	turbulence.hpp	/^  std::complex<Real> **fv_, **fv_new_;$/;"	m	class:TurbulenceDriver
+fv_sh_	turbulence.hpp	/^  std::complex<Real> **fv_sh_, **fv_co_;$/;"	m	class:TurbulenceDriver
+gcnt_	athena_fft.hpp	/^  std::int64_t cnt_, gcnt_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+gcnt_	athena_fft.hpp	/^  std::int64_t gcnt_;$/;"	m	class:FFTBlock::FFTDriver
+gid_	athena_fft.hpp	/^  int gid_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+ie	athena_fft.hpp	/^  int nx[3], is[3], ie[3];$/;"	m	class:AthenaFFTIndex
+ihi	plimpton/remap_2d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_2d
+ihi	plimpton/remap_3d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_3d
+ilo	plimpton/remap_2d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_2d
+ilo	plimpton/remap_3d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_3d
+iloc	athena_fft.cpp	/^    loc_(iloc), msize_(msize), bsize_(bsize),$/;"	v
+iloc	athena_fft.hpp	/^  int iloc[3],ploc[3];$/;"	m	class:AthenaFFTIndex
+in_	athena_fft.hpp	/^  std::complex<Real> *in_, *out_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+initialized_	turbulence.hpp	/^  bool initialized_ = false;$/;"	m	class:TurbulenceDriver
+ip	athena_fft.hpp	/^  int np[3], ip[3];$/;"	m	class:AthenaFFTIndex
+is	athena_fft.hpp	/^  int nx[3], is[3], ie[3];$/;"	m	class:AthenaFFTIndex
+isize	plimpton/remap_2d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_2d
+isize	plimpton/remap_3d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_3d
+jhi	plimpton/remap_2d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_2d
+jhi	plimpton/remap_3d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_3d
+jlo	plimpton/remap_2d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_2d
+jlo	plimpton/remap_3d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_3d
+jsize	plimpton/remap_2d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_2d
+jsize	plimpton/remap_3d.h	/^  int jlo,jhi,jsize;$/;"	m	struct:extent_3d
+kNx	athena_fft.hpp	/^  int kNx[3], knx[3], kdisp[3];$/;"	m	class:FFTBlock::AthenaFFTDirection
+kdisp	athena_fft.hpp	/^  int kNx[3], knx[3], kdisp[3];$/;"	m	class:FFTBlock::AthenaFFTDirection
+khi	plimpton/remap_3d.h	/^  int klo,khi,ksize;$/;"	m	struct:extent_3d
+klo	plimpton/remap_3d.h	/^  int klo,khi,ksize;$/;"	m	struct:extent_3d
+knx	athena_fft.hpp	/^  int kNx[3], knx[3], kdisp[3];$/;"	m	class:FFTBlock::AthenaFFTDirection
+ksize	plimpton/remap_3d.h	/^  int klo,khi,ksize;$/;"	m	struct:extent_3d
+length1	plimpton/fft_2d.h	/^  int length1,length2;              \/* length of 1st and 2nd FFTs *\/$/;"	m	struct:fft_plan_2d
+length1	plimpton/fft_3d.h	/^  int length1,length2,length3;      \/* length of 1st,2nd,3rd FFTs *\/$/;"	m	struct:fft_plan_3d
+length2	plimpton/fft_2d.h	/^  int length1,length2;              \/* length of 1st and 2nd FFTs *\/$/;"	m	struct:fft_plan_2d
+length2	plimpton/fft_3d.h	/^  int length1,length2,length3;      \/* length of 1st,2nd,3rd FFTs *\/$/;"	m	struct:fft_plan_3d
+length3	plimpton/fft_3d.h	/^  int length1,length2,length3;      \/* length of 1st,2nd,3rd FFTs *\/$/;"	m	struct:fft_plan_3d
+loc_	athena_fft.hpp	/^  LogicalLocation loc_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+memory	plimpton/remap_2d.h	/^  int memory;                       \/* user provides scratch space or not *\/$/;"	m	struct:remap_plan_2d
+memory	plimpton/remap_3d.h	/^  int memory;                       \/* user provides scratch space or not *\/$/;"	m	struct:remap_plan_3d
+mid1_plan	plimpton/fft_3d.h	/^  struct remap_plan_3d *mid1_plan;      \/* remap from 1st -> 2nd FFTs *\/$/;"	m	struct:fft_plan_3d	typeref:struct:fft_plan_3d::remap_plan_3d
+mid1_target	plimpton/fft_3d.h	/^  int mid1_target,mid2_target;$/;"	m	struct:fft_plan_3d
+mid2_plan	plimpton/fft_3d.h	/^  struct remap_plan_3d *mid2_plan;      \/* remap from 2nd -> 3rd FFTs *\/$/;"	m	struct:fft_plan_3d	typeref:struct:fft_plan_3d::remap_plan_3d
+mid2_target	plimpton/fft_3d.h	/^  int mid1_target,mid2_target;$/;"	m	struct:fft_plan_3d
+mid_plan	plimpton/fft_2d.h	/^  struct remap_plan_2d *mid_plan;       \/* remap from 1st -> 2nd FFTs *\/$/;"	m	struct:fft_plan_2d	typeref:struct:fft_plan_2d::remap_plan_2d
+mid_target	plimpton/fft_2d.h	/^  int pre_target,mid_target;        \/* where to put remap results *\/$/;"	m	struct:fft_plan_2d
+msize_	athena_fft.hpp	/^  RegionSize msize_, bsize_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+nblist_	athena_fft.hpp	/^  int *ranklist_, *nslist_, *nblist_;$/;"	m	class:FFTBlock::FFTDriver
+nblocks_	athena_fft.hpp	/^  int nranks_, nblocks_;$/;"	m	class:FFTBlock::FFTDriver
+nfast	plimpton/pack_2d.h	/^  int nfast;                 \/* # of elements in fast index *\/$/;"	m	struct:pack_plan_2d
+nfast	plimpton/pack_3d.h	/^  int nfast;                 \/* # of elements in fast index *\/$/;"	m	struct:pack_plan_3d
+nhigh	turbulence.hpp	/^  int nlow, nhigh;$/;"	m	class:TurbulenceDriver
+nlow	turbulence.hpp	/^  int nlow, nhigh;$/;"	m	class:TurbulenceDriver
+nmb	athena_fft.hpp	/^  int npx1, npx2, npx3, nmb;$/;"	m	class:FFTBlock::FFTDriver
+nmid	plimpton/pack_3d.h	/^  int nmid;                  \/* # of elements in mid index *\/$/;"	m	struct:pack_plan_3d
+norm	plimpton/fft_2d.h	/^  double norm;                      \/* normalization factor for rescaling *\/$/;"	m	struct:fft_plan_2d
+norm	plimpton/fft_3d.h	/^  double norm;                      \/* normalization factor for rescaling *\/$/;"	m	struct:fft_plan_3d
+norm_factor_	athena_fft.hpp	/^  Real norm_factor_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+normnum	plimpton/fft_2d.h	/^  int normnum;                      \/* # of values to rescale *\/$/;"	m	struct:fft_plan_2d
+normnum	plimpton/fft_3d.h	/^  int normnum;                      \/* # of values to rescale *\/$/;"	m	struct:fft_plan_3d
+np	athena_fft.hpp	/^  int np[3], ip[3];$/;"	m	class:AthenaFFTIndex
+npermute_	athena_fft.hpp	/^  int npermute_, swap_;$/;"	m	class:AthenaFFTIndex
+npx1	athena_fft.hpp	/^  int npx1, npx2, npx3, nmb;$/;"	m	class:FFTBlock::FFTDriver
+npx2	athena_fft.hpp	/^  int npx1, npx2, npx3, nmb;$/;"	m	class:FFTBlock::FFTDriver
+npx3	athena_fft.hpp	/^  int npx1, npx2, npx3, nmb;$/;"	m	class:FFTBlock::FFTDriver
+nqty	plimpton/pack_2d.h	/^  int nqty;                  \/* # of values\/element *\/$/;"	m	struct:pack_plan_2d
+nqty	plimpton/pack_3d.h	/^  int nqty;                  \/* # of values\/element *\/$/;"	m	struct:pack_plan_3d
+nranks_	athena_fft.hpp	/^  int nranks_, nblocks_;$/;"	m	class:FFTBlock::FFTDriver
+nrecv	plimpton/remap_2d.h	/^  int nrecv;                        \/* # of recvs from other procs *\/$/;"	m	struct:remap_plan_2d
+nrecv	plimpton/remap_3d.h	/^  int nrecv;                        \/* # of recvs from other procs *\/$/;"	m	struct:remap_plan_3d
+nsend	plimpton/remap_2d.h	/^  int nsend;                        \/* # of sends to other procs *\/$/;"	m	struct:remap_plan_2d
+nsend	plimpton/remap_3d.h	/^  int nsend;                        \/* # of sends to other procs *\/$/;"	m	struct:remap_plan_3d
+nslist_	athena_fft.hpp	/^  int *ranklist_, *nslist_, *nblist_;$/;"	m	class:FFTBlock::FFTDriver
+nslow	plimpton/pack_2d.h	/^  int nslow;                 \/* # of elements in slow index *\/$/;"	m	struct:pack_plan_2d
+nslow	plimpton/pack_3d.h	/^  int nslow;                 \/* # of elements in slow index *\/$/;"	m	struct:pack_plan_3d
+nstride	plimpton/pack_2d.h	/^  int nstride;               \/* stride between succesive slow indices *\/$/;"	m	struct:pack_plan_2d
+nstride_line	plimpton/pack_3d.h	/^  int nstride_line;          \/* stride between successive mid indices *\/$/;"	m	struct:pack_plan_3d
+nstride_plane	plimpton/pack_3d.h	/^  int nstride_plane;         \/* stride between successive slow indices *\/$/;"	m	struct:pack_plan_3d
+nx	athena_fft.hpp	/^  int Nx[3], nx[3], disp[3];$/;"	m	class:FFTBlock::AthenaFFTDirection
+nx	athena_fft.hpp	/^  int nx[3], is[3], ie[3];$/;"	m	class:AthenaFFTIndex
+orig_idx_	athena_fft.hpp	/^  AthenaFFTIndex orig_idx_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+out_	athena_fft.hpp	/^  std::complex<Real> *in_, *out_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+pack	plimpton/remap_2d.h	/^  void (*pack)(double *, double *, struct pack_plan_2d *);                   \/* which pack function to use *\/$/;"	m	struct:remap_plan_2d
+pack	plimpton/remap_3d.h	/^  void (*pack)(double *, double *, struct pack_plan_3d *);                   \/* which pack function to use *\/$/;"	m	struct:remap_plan_3d
+pack_2d	plimpton/pack_2d.cpp	/^void pack_2d(double *data, double *buf, struct pack_plan_2d *plan)$/;"	f
+pack_3d	plimpton/pack_3d.cpp	/^void pack_3d(double *data, double *buf, struct pack_plan_3d *plan)$/;"	f
+pack_plan_2d	plimpton/pack_2d.h	/^struct pack_plan_2d {$/;"	s
+pack_plan_3d	plimpton/pack_3d.h	/^struct pack_plan_3d {$/;"	s
+packplan	plimpton/remap_2d.h	/^  struct pack_plan_2d *packplan;    \/* pack plan for each send message *\/$/;"	m	struct:remap_plan_2d	typeref:struct:remap_plan_2d::pack_plan_2d
+packplan	plimpton/remap_3d.h	/^  struct pack_plan_3d *packplan;    \/* pack plan for each send message *\/$/;"	m	struct:remap_plan_3d	typeref:struct:remap_plan_3d::pack_plan_3d
+pdim_	athena_fft.hpp	/^  int decomp_, pdim_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+pdim_	athena_fft.hpp	/^  int decomp_, pdim_;$/;"	m	class:FFTBlock::FFTDriver
+permute0_	athena_fft.hpp	/^  int permute0_, permute1_, permute2_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+permute1_	athena_fft.hpp	/^  int permute0_, permute1_, permute2_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+permute2_	athena_fft.hpp	/^  int permute0_, permute1_, permute2_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+plan	athena_fft.hpp	/^  fftw_plan plan;$/;"	m	struct:AthenaFFTPlan
+plan	athena_fft.hpp	/^  void *plan;$/;"	m	struct:AthenaFFTPlan
+plan2d	athena_fft.hpp	/^  struct fft_plan_2d *plan2d;$/;"	m	struct:AthenaFFTPlan	typeref:struct:AthenaFFTPlan::fft_plan_2d
+plan3d	athena_fft.hpp	/^  struct fft_plan_3d *plan3d;$/;"	m	struct:AthenaFFTPlan	typeref:struct:AthenaFFTPlan::fft_plan_3d
+plan_fast_backward	plimpton/fft_2d.h	/^  fftw_plan plan_fast_backward;$/;"	m	struct:fft_plan_2d
+plan_fast_backward	plimpton/fft_3d.h	/^  fftw_plan plan_fast_backward;$/;"	m	struct:fft_plan_3d
+plan_fast_forward	plimpton/fft_2d.h	/^  fftw_plan plan_fast_forward;$/;"	m	struct:fft_plan_2d
+plan_fast_forward	plimpton/fft_3d.h	/^  fftw_plan plan_fast_forward;$/;"	m	struct:fft_plan_3d
+plan_mid_backward	plimpton/fft_3d.h	/^  fftw_plan plan_mid_backward;$/;"	m	struct:fft_plan_3d
+plan_mid_forward	plimpton/fft_3d.h	/^  fftw_plan plan_mid_forward;$/;"	m	struct:fft_plan_3d
+plan_slow_backward	plimpton/fft_2d.h	/^  fftw_plan plan_slow_backward;$/;"	m	struct:fft_plan_2d
+plan_slow_backward	plimpton/fft_3d.h	/^  fftw_plan plan_slow_backward;$/;"	m	struct:fft_plan_3d
+plan_slow_forward	plimpton/fft_2d.h	/^  fftw_plan plan_slow_forward;$/;"	m	struct:fft_plan_2d
+plan_slow_forward	plimpton/fft_3d.h	/^  fftw_plan plan_slow_forward;$/;"	m	struct:fft_plan_3d
+ploc	athena_fft.hpp	/^  int iloc[3],ploc[3];$/;"	m	class:AthenaFFTIndex
+pmy_driver_	athena_fft.hpp	/^  FFTDriver *pmy_driver_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+pmy_fb	athena_fft.hpp	/^  FFTBlock *pmy_fb;$/;"	m	class:FFTBlock::FFTDriver
+pmy_mesh_	athena_fft.hpp	/^  Mesh *pmy_mesh_;$/;"	m	class:FFTBlock::FFTDriver
+post_plan	plimpton/fft_2d.h	/^  struct remap_plan_2d *post_plan;      \/* remap from 2nd FFTs -> output *\/$/;"	m	struct:fft_plan_2d	typeref:struct:fft_plan_2d::remap_plan_2d
+post_plan	plimpton/fft_3d.h	/^  struct remap_plan_3d *post_plan;      \/* remap from 3rd FFTs -> output *\/$/;"	m	struct:fft_plan_3d	typeref:struct:fft_plan_3d::remap_plan_3d
+pre_plan	plimpton/fft_2d.h	/^  struct remap_plan_2d *pre_plan;       \/* remap from input -> 1st FFTs *\/$/;"	m	struct:fft_plan_2d	typeref:struct:fft_plan_2d::remap_plan_2d
+pre_plan	plimpton/fft_3d.h	/^  struct remap_plan_3d *pre_plan;       \/* remap from input -> 1st FFTs *\/$/;"	m	struct:fft_plan_3d	typeref:struct:fft_plan_3d::remap_plan_3d
+pre_target	plimpton/fft_2d.h	/^  int pre_target,mid_target;        \/* where to put remap results *\/$/;"	m	struct:fft_plan_2d
+pre_target	plimpton/fft_3d.h	/^  int pre_target;                   \/* where to put remap results *\/$/;"	m	struct:fft_plan_3d
+ranklist_	athena_fft.hpp	/^  int *ranklist_, *nslist_, *nblist_;$/;"	m	class:FFTBlock::FFTDriver
+recv_bufloc	plimpton/remap_2d.h	/^  int *recv_bufloc;                 \/* offset in scratch buf for each recv *\/$/;"	m	struct:remap_plan_2d
+recv_bufloc	plimpton/remap_3d.h	/^  int *recv_bufloc;                 \/* offset in scratch buf for each recv *\/$/;"	m	struct:remap_plan_3d
+recv_offset	plimpton/remap_2d.h	/^  int *recv_offset;                 \/* insertion loc for each recv *\/$/;"	m	struct:remap_plan_2d
+recv_offset	plimpton/remap_3d.h	/^  int *recv_offset;                 \/* insertion loc for each recv *\/$/;"	m	struct:remap_plan_3d
+recv_proc	plimpton/remap_2d.h	/^  int *recv_proc;                   \/* proc to recv each message from *\/$/;"	m	struct:remap_plan_2d
+recv_proc	plimpton/remap_3d.h	/^  int *recv_proc;                   \/* proc to recv each message from *\/$/;"	m	struct:remap_plan_3d
+recv_size	plimpton/remap_2d.h	/^  int *recv_size;                   \/* size of each recv message *\/$/;"	m	struct:remap_plan_2d
+recv_size	plimpton/remap_3d.h	/^  int *recv_size;                   \/* size of each recv message *\/$/;"	m	struct:remap_plan_3d
+remap_2d	plimpton/remap_2d.cpp	/^void remap_2d(double *in, double *out, double *buf,$/;"	f
+remap_2d_	plimpton/remap_2d.h	63;"	d
+remap_2d_collide	plimpton/remap_2d.cpp	/^int remap_2d_collide(struct extent_2d *block1, struct extent_2d *block2,$/;"	f
+remap_2d_create_plan	plimpton/remap_2d.cpp	/^struct remap_plan_2d *remap_2d_create_plan($/;"	f
+remap_2d_create_plan_	plimpton/remap_2d.h	64;"	d
+remap_2d_destroy_plan	plimpton/remap_2d.cpp	/^void remap_2d_destroy_plan(struct remap_plan_2d *plan)$/;"	f
+remap_2d_destroy_plan_	plimpton/remap_2d.h	65;"	d
+remap_3d	plimpton/remap_3d.cpp	/^void remap_3d(double *in, double *out, double *buf,$/;"	f
+remap_3d_	plimpton/remap_3d.h	64;"	d
+remap_3d_collide	plimpton/remap_3d.cpp	/^int remap_3d_collide(struct extent_3d *block1, struct extent_3d *block2,$/;"	f
+remap_3d_create_plan	plimpton/remap_3d.cpp	/^struct remap_plan_3d *remap_3d_create_plan($/;"	f
+remap_3d_create_plan_	plimpton/remap_3d.h	65;"	d
+remap_3d_destroy_plan	plimpton/remap_3d.cpp	/^void remap_3d_destroy_plan(struct remap_plan_3d *plan)$/;"	f
+remap_3d_destroy_plan_	plimpton/remap_3d.h	66;"	d
+remap_plan_2d	plimpton/remap_2d.h	/^struct remap_plan_2d {$/;"	s
+remap_plan_3d	plimpton/remap_3d.h	/^struct remap_plan_3d {$/;"	s
+request	plimpton/remap_2d.h	/^  MPI_Request *request;             \/* MPI request for each posted recv *\/$/;"	m	struct:remap_plan_2d
+request	plimpton/remap_3d.h	/^  MPI_Request *request;             \/* MPI request for each posted recv *\/$/;"	m	struct:remap_plan_3d
+rseed	turbulence.hpp	/^  std::int64_t rseed;$/;"	m	class:TurbulenceDriver
+scaled	plimpton/fft_2d.h	/^  int scaled;                       \/* whether to scale FFT results *\/$/;"	m	struct:fft_plan_2d
+scaled	plimpton/fft_3d.h	/^  int scaled;                       \/* whether to scale FFT results *\/$/;"	m	struct:fft_plan_3d
+scratch	plimpton/fft_2d.h	/^  FFT_DATA *scratch;                \/* scratch space for remaps *\/$/;"	m	struct:fft_plan_2d
+scratch	plimpton/fft_3d.h	/^  FFT_DATA *scratch;                \/* scratch space for remaps *\/$/;"	m	struct:fft_plan_3d
+scratch	plimpton/remap_2d.h	/^  double *scratch;                  \/* scratch buffer for MPI recvs *\/$/;"	m	struct:remap_plan_2d
+scratch	plimpton/remap_3d.h	/^  double *scratch;                  \/* scratch buffer for MPI recvs *\/$/;"	m	struct:remap_plan_3d
+self	plimpton/remap_2d.h	/^  int self;                         \/* whether I send\/recv with myself *\/$/;"	m	struct:remap_plan_2d
+self	plimpton/remap_3d.h	/^  int self;                         \/* whether I send\/recv with myself *\/$/;"	m	struct:remap_plan_3d
+send_offset	plimpton/remap_2d.h	/^  int *send_offset;                 \/* extraction loc for each send *\/$/;"	m	struct:remap_plan_2d
+send_offset	plimpton/remap_3d.h	/^  int *send_offset;                 \/* extraction loc for each send *\/$/;"	m	struct:remap_plan_3d
+send_proc	plimpton/remap_2d.h	/^  int *send_proc;                   \/* proc to send each message to *\/$/;"	m	struct:remap_plan_2d
+send_proc	plimpton/remap_3d.h	/^  int *send_proc;                   \/* proc to send each message to *\/$/;"	m	struct:remap_plan_3d
+send_size	plimpton/remap_2d.h	/^  int *send_size;                   \/* size of each send message *\/$/;"	m	struct:remap_plan_2d
+send_size	plimpton/remap_3d.h	/^  int *send_size;                   \/* size of each send message *\/$/;"	m	struct:remap_plan_3d
+sendbuf	plimpton/remap_2d.h	/^  double *sendbuf;                  \/* buffer for MPI sends *\/$/;"	m	struct:remap_plan_2d
+sendbuf	plimpton/remap_3d.h	/^  double *sendbuf;                  \/* buffer for MPI sends *\/$/;"	m	struct:remap_plan_3d
+swap1_	athena_fft.hpp	/^  bool swap1_, swap2_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+swap2_	athena_fft.hpp	/^  bool swap1_, swap2_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+swap_	athena_fft.hpp	/^  int npermute_, swap_;$/;"	m	class:AthenaFFTIndex
+tcorr	turbulence.hpp	/^  Real tdrive, dtdrive, tcorr, f_shear;$/;"	m	class:TurbulenceDriver
+tdrive	turbulence.hpp	/^  Real tdrive, dtdrive, tcorr, f_shear;$/;"	m	class:TurbulenceDriver
+total1	plimpton/fft_2d.h	/^  int total1,total2;                \/* # of 1st and 2nd FFTs (times length) *\/$/;"	m	struct:fft_plan_2d
+total1	plimpton/fft_3d.h	/^  int total1,total2,total3;         \/* # of 1st,2nd,3rd FFTs (times length) *\/$/;"	m	struct:fft_plan_3d
+total2	plimpton/fft_2d.h	/^  int total1,total2;                \/* # of 1st and 2nd FFTs (times length) *\/$/;"	m	struct:fft_plan_2d
+total2	plimpton/fft_3d.h	/^  int total1,total2,total3;         \/* # of 1st,2nd,3rd FFTs (times length) *\/$/;"	m	struct:fft_plan_3d
+total3	plimpton/fft_3d.h	/^  int total1,total2,total3;         \/* # of 1st,2nd,3rd FFTs (times length) *\/$/;"	m	struct:fft_plan_3d
+unpack	plimpton/remap_2d.h	/^  void (*unpack)(double *, double *, struct pack_plan_2d *);                 \/* which unpack function to use *\/$/;"	m	struct:remap_plan_2d
+unpack	plimpton/remap_3d.h	/^  void (*unpack)(double *, double *, struct pack_plan_3d *);                 \/* which unpack function to use *\/$/;"	m	struct:remap_plan_3d
+unpack_2d	plimpton/pack_2d.cpp	/^void unpack_2d(double *buf, double *data, struct pack_plan_2d *plan)$/;"	f
+unpack_2d_permute_1	plimpton/pack_2d.cpp	/^void unpack_2d_permute_1(double *buf, double *data, struct pack_plan_2d *plan)$/;"	f
+unpack_2d_permute_2	plimpton/pack_2d.cpp	/^void unpack_2d_permute_2(double *buf, double *data, struct pack_plan_2d *plan)$/;"	f
+unpack_2d_permute_n	plimpton/pack_2d.cpp	/^void unpack_2d_permute_n(double *buf, double *data, struct pack_plan_2d *plan)$/;"	f
+unpack_3d	plimpton/pack_3d.cpp	/^void unpack_3d(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute1_1	plimpton/pack_3d.cpp	/^void unpack_3d_permute1_1(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute1_2	plimpton/pack_3d.cpp	/^void unpack_3d_permute1_2(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute1_n	plimpton/pack_3d.cpp	/^void unpack_3d_permute1_n(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute2_1	plimpton/pack_3d.cpp	/^void unpack_3d_permute2_1(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute2_2	plimpton/pack_3d.cpp	/^void unpack_3d_permute2_2(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpack_3d_permute2_n	plimpton/pack_3d.cpp	/^void unpack_3d_permute2_n(double *buf, double *data, struct pack_plan_3d *plan)$/;"	f
+unpackplan	plimpton/remap_2d.h	/^  struct pack_plan_2d *unpackplan;  \/* unpack plan for each recv message *\/$/;"	m	struct:remap_plan_2d	typeref:struct:remap_plan_2d::pack_plan_2d
+unpackplan	plimpton/remap_3d.h	/^  struct pack_plan_3d *unpackplan;  \/* unpack plan for each recv message *\/$/;"	m	struct:remap_plan_3d	typeref:struct:remap_plan_3d::pack_plan_3d
+vel	turbulence.hpp	/^  AthenaArray<Real> vel[3];$/;"	m	class:TurbulenceDriver
+x_decomp	athena_fft.hpp	/^const unsigned int x_decomp = 1<<0;$/;"	m	namespace:FFTBlock::DecompositionNames
+xy_decomp	athena_fft.hpp	/^const unsigned int xy_decomp = x_decomp | y_decomp;$/;"	m	namespace:FFTBlock::DecompositionNames
+xyz_decomp	athena_fft.hpp	/^const unsigned int xyz_decomp = x_decomp | y_decomp | z_decomp;$/;"	m	namespace:FFTBlock::DecompositionNames
+xz_decomp	athena_fft.hpp	/^const unsigned int xz_decomp = x_decomp | z_decomp;$/;"	m	namespace:FFTBlock::DecompositionNames
+y_decomp	athena_fft.hpp	/^const unsigned int y_decomp = 1<<1;$/;"	m	namespace:FFTBlock::DecompositionNames
+yz_decomp	athena_fft.hpp	/^const unsigned int yz_decomp = y_decomp | z_decomp;$/;"	m	namespace:FFTBlock::DecompositionNames
+z_decomp	athena_fft.hpp	/^const unsigned int z_decomp = 1<<2;$/;"	m	namespace:FFTBlock::DecompositionNames
+~FFTBlock	athena_fft.cpp	/^FFTBlock::~FFTBlock() {$/;"	f	class:FFTBlock
+~FFTDriver	fft_driver.cpp	/^FFTDriver::~FFTDriver() {$/;"	f	class:FFTDriver
+~TurbulenceDriver	turbulence.cpp	/^TurbulenceDriver::~TurbulenceDriver() {$/;"	f	class:TurbulenceDriver

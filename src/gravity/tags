@@ -1,0 +1,46 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ApplyKernel	fft_gravity.cpp	/^void FFTGravity::ApplyKernel(int mode) {$/;"	f	class:FFTGravity
+CalculateDefect	mg_gravity.cpp	/^void MGGravity::CalculateDefect() {$/;"	f	class:MGGravity
+FFTGravity	fft_gravity.hpp	/^  FFTGravity(FFTDriver *pfd, LogicalLocation iloc, int igid,$/;"	f	class:FFTGravity
+FFTGravity	fft_gravity.hpp	/^class FFTGravity : public FFTBlock {$/;"	c
+FFTGravityDriver	fft_gravity.cpp	/^FFTGravityDriver::FFTGravityDriver(Mesh *pm, ParameterInput *pin)$/;"	f	class:FFTGravityDriver
+FFTGravityDriver	fft_gravity.hpp	/^class FFTGravityDriver : public FFTDriver{$/;"	c
+GRAVITY_FFT_GRAVITY_HPP_	fft_gravity.hpp	2;"	d
+GRAVITY_GRAVITY_HPP_	gravity.hpp	2;"	d
+GRAVITY_MG_GRAVITY_HPP_	mg_gravity.hpp	2;"	d
+Gravity	gravity.cpp	/^Gravity::Gravity(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:Gravity
+Gravity	gravity.hpp	/^class Gravity {$/;"	c
+MGGravity	mg_gravity.hpp	/^  MGGravity(MultigridDriver *pmd, MeshBlock *pmb) : Multigrid(pmd, pmb, 1, 1)$/;"	f	class:MGGravity
+MGGravity	mg_gravity.hpp	/^class MGGravity : public Multigrid {$/;"	c
+MGGravityDriver	mg_gravity.cpp	/^MGGravityDriver::MGGravityDriver(Mesh *pm, ParameterInput *pin)$/;"	f	class:MGGravityDriver
+MGGravityDriver	mg_gravity.hpp	/^class MGGravityDriver : public MultigridDriver{$/;"	c
+Smooth	mg_gravity.cpp	/^void MGGravity::Smooth(int color) {$/;"	f	class:MGGravity
+Solve	fft_gravity.cpp	/^void FFTGravityDriver::Solve(int stage, int mode) {$/;"	f	class:FFTGravityDriver
+Solve	mg_gravity.cpp	/^void MGGravityDriver::Solve(int stage) {$/;"	f	class:MGGravityDriver
+empty_flux	gravity.hpp	/^  AthenaArray<Real> empty_flux[3];$/;"	m	class:Gravity
+final	fft_gravity.hpp	/^  void ApplyKernel(int mode) final;$/;"	m	class:FFTGravity
+final	mg_gravity.hpp	/^  void CalculateDefect() final;$/;"	m	class:MGGravity
+final	mg_gravity.hpp	/^  void Smooth(int color) final;$/;"	m	class:MGGravity
+final	mg_gravity.hpp	/^  void Solve(int stage) final;$/;"	m	class:MGGravityDriver
+four_pi_G	gravity.hpp	/^  Real gconst, four_pi_G;$/;"	m	class:Gravity
+four_pi_G_	fft_gravity.hpp	/^  Real four_pi_G_;$/;"	m	class:FFTGravityDriver
+four_pi_G_	mg_gravity.hpp	/^  Real four_pi_G_;$/;"	m	class:MGGravityDriver
+gbvar	gravity.cpp	/^    gbvar(pmb, &phi, nullptr, empty_flux) {$/;"	f
+gbvar	gravity.hpp	/^  CellCenteredBoundaryVariable gbvar;$/;"	m	class:Gravity
+gconst	gravity.hpp	/^  Real gconst, four_pi_G;$/;"	m	class:Gravity
+grav_mean_rho	gravity.hpp	/^  Real grav_mean_rho;$/;"	m	class:Gravity
+gravity_tensor_energy_	gravity.hpp	/^  bool gravity_tensor_energy_;$/;"	m	class:Gravity
+gravity_tensor_momentum_	gravity.hpp	/^  bool gravity_tensor_momentum_;$/;"	m	class:Gravity
+gtlist_	fft_gravity.hpp	/^  FFTGravitySolverTaskList *gtlist_;$/;"	m	class:FFTGravityDriver
+omega_	mg_gravity.hpp	/^  static constexpr Real omega_ = 1.15;$/;"	m	class:MGGravity
+phi	gravity.hpp	/^  AthenaArray<Real> phi;   \/\/ gravitational potential$/;"	m	class:Gravity
+pmy_block	gravity.hpp	/^  MeshBlock* pmy_block;  \/\/ ptr to MeshBlock containing this Field$/;"	m	class:Gravity
+srcterm	gravity.hpp	/^  bool srcterm;$/;"	m	class:Gravity
+~FFTGravity	fft_gravity.hpp	/^  ~FFTGravity() {}$/;"	f	class:FFTGravity
+~FFTGravityDriver	fft_gravity.cpp	/^FFTGravityDriver::~FFTGravityDriver() {$/;"	f	class:FFTGravityDriver
+~MGGravityDriver	mg_gravity.cpp	/^MGGravityDriver::~MGGravityDriver() {$/;"	f	class:MGGravityDriver

@@ -1,0 +1,60 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AthenaTable	eos.py	/^class AthenaTable(EOS):$/;"	c
+EOS	eos.py	/^class EOS(object):$/;"	c
+Ideal	eos.py	/^class Ideal(EOS):$/;"	c
+SimpleHydrogen	eos.py	/^class SimpleHydrogen(EOS):$/;"	c
+T_of_rho_ei	eos.py	/^    def T_of_rho_ei(self, rho, ei):$/;"	m	class:Ideal
+T_of_rho_p	eos.py	/^    def T_of_rho_p(self, rho, p):$/;"	m	class:Ideal
+TestIdeal	eos.py	/^class TestIdeal(Ideal):$/;"	c
+_T_of_rho_ei	eos.py	/^    def _T_of_rho_ei(self, rho, ei):$/;"	m	class:SimpleHydrogen
+_T_of_rho_h	eos.py	/^    def _T_of_rho_h(self, rho, h):$/;"	m	class:SimpleHydrogen
+_T_of_rho_p	eos.py	/^    def _T_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
+__init__	eos.py	/^    def __init__(self):$/;"	m	class:EOS
+__init__	eos.py	/^    def __init__(self):$/;"	m	class:SimpleHydrogen
+__init__	eos.py	/^    def __init__(self, data, lrho, le, ratios=None, indep=None, dens_pow=-1, fn=None,$/;"	m	class:AthenaTable
+__init__	eos.py	/^    def __init__(self, gamma, R=1):$/;"	m	class:Ideal
+__init__	eos.py	/^    def __init__(self, gamma, R=1):$/;"	m	class:TestIdeal
+_b	eos.py	/^    def _b(self, rho, T):$/;"	m	class:SimpleHydrogen
+_interp	eos.py	/^    def _interp(self, rho, e, var):$/;"	m	class:AthenaTable
+_phi	eos.py	/^    def _phi(self, T):$/;"	m	class:SimpleHydrogen
+_x	eos.py	/^    def _x(self, rho, T):$/;"	m	class:SimpleHydrogen
+_x_T	eos.py	/^    def _x_T(self, rho, T):$/;"	m	class:SimpleHydrogen
+asq_of_rho_T	eos.py	/^    def asq_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
+asq_of_rho_h	eos.py	/^    def asq_of_rho_h(self, rho, h):$/;"	m	class:SimpleHydrogen
+asq_of_rho_p	eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:AthenaTable
+asq_of_rho_p	eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:EOS
+asq_of_rho_p	eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:Ideal
+asq_of_rho_p	eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
+brent_opt	__init__.py	/^brent_opt = dict(full_output=True, disp=True)$/;"	v
+default_names	writeEOS.py	/^default_names = ['p\/e(e\/rho,rho)', 'e\/p(p\/rho,rho)', 'asq*rho\/p(p\/rho,rho)']$/;"	v
+ei_of_rho_T	eos.py	/^    def ei_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
+ei_of_rho_p	eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:AthenaTable
+ei_of_rho_p	eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:EOS
+ei_of_rho_p	eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:Ideal
+ei_of_rho_p	eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
+es_of_rho_p	eos.py	/^    def es_of_rho_p(self, rho, p):$/;"	m	class:AthenaTable
+es_of_rho_p	eos.py	/^    def es_of_rho_p(self, rho, p):$/;"	m	class:EOS
+f	eos.py	/^        def f(y):   # function to find root of$/;"	f	function:SimpleHydrogen._T_of_rho_ei
+f	eos.py	/^        def f(y):  # function to find root of$/;"	f	function:SimpleHydrogen._T_of_rho_p
+f	eos.py	/^        def f(y):$/;"	f	function:SimpleHydrogen._T_of_rho_h
+gamma	eos.py	/^    def gamma(self):$/;"	m	class:Ideal
+gamma1	eos.py	/^    def gamma1(self, rho, T):$/;"	m	class:SimpleHydrogen
+mk_ideal	writeEOS.py	/^def mk_ideal(gamma=5.\/3., n=2, fn=None, out_type=None):$/;"	f
+ode_opt	__init__.py	/^ode_opt = dict(mxstep=5000000, rtol=1e-15, atol=1e-13)$/;"	v
+p_of_rho_T	eos.py	/^    def p_of_rho_T(self, rho, T):$/;"	m	class:Ideal
+p_of_rho_T	eos.py	/^    def p_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
+p_of_rho_ei	eos.py	/^    def p_of_rho_ei(self, rho, ei):$/;"	m	class:AthenaTable
+p_of_rho_ei	eos.py	/^    def p_of_rho_ei(self, rho, ei):$/;"	m	class:Ideal
+p_of_rho_es	eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:AthenaTable
+p_of_rho_es	eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:EOS
+p_of_rho_es	eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:Ideal
+p_of_rho_es	eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:SimpleHydrogen
+parse_eos	eos.py	/^def parse_eos(eos):$/;"	f
+valid	eos.py	/^    def valid(self):$/;"	m	class:EOS
+write_H	writeEOS.py	/^def write_H(nEspec=256, nRho=64, logEspecLim=None, logRhoLim=None, eOp=1.5,$/;"	f
+write_varlist	writeEOS.py	/^def write_varlist(dlim, elim, varlist, fn=None, out_type=None, eOp=1.5,$/;"	f

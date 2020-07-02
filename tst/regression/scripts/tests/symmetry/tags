@@ -1,0 +1,14 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+analyze	hydro_linwave_aligned.py	/^def analyze():$/;"	f
+logger	hydro_linwave_aligned.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+nrows_per_solver	hydro_linwave_aligned.py	/^nrows_per_solver = 3*num_nx1$/;"	v
+num_nx1	hydro_linwave_aligned.py	/^num_nx1 = len(resolution_range)$/;"	v
+prepare	hydro_linwave_aligned.py	/^def prepare(**kwargs):$/;"	f
+resolution_range	hydro_linwave_aligned.py	/^resolution_range = [32]$/;"	v
+run	hydro_linwave_aligned.py	/^def run(**kwargs):$/;"	f
+solvers	hydro_linwave_aligned.py	/^solvers = [('vl2', '2'), ('rk3', '4c'), ('ssprk5_4', '4')]$/;"	v
