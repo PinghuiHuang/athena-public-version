@@ -75,9 +75,13 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   std::string nu_string       = "nu_dust_";
 
   for (int n=0; n<NDUSTFLUIDS; n++){
-    particle_density_(n)    = pin->GetOrAddReal("dust", particle_string + std::to_string(n+1), 1.0);
-    const_stopping_time_(n) = pin->GetOrAddReal("dust", st_time_string  + std::to_string(n+1), 1.0);
-    const_nu_dust_(n)       = pin->GetOrAddReal("dust", nu_string       + std::to_string(n+1), 1e-10);
+    if (ConstStoppingTime_Flag_)
+      const_stopping_time_(n) = pin->GetReal("dust", st_time_string  + std::to_string(n+1));
+    else
+      particle_density_(n) = pin->GetReal("dust", particle_string + std::to_string(n+1));
+
+    if (ConstNu_Flag_)
+      const_nu_dust_(n) = pin->GetReal("dust", nu_string + std::to_string(n+1));
   }
 
   // Allocate optional dustfluids variable memory registers for time-integrator
@@ -141,8 +145,8 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
 void DustFluids::SetDustFluidsProperties(){
   int il = pmy_block->is - NGHOST; int jl = pmy_block->js; int kl = pmy_block->ks;
   int iu = pmy_block->ie + NGHOST; int ju = pmy_block->je; int ku = pmy_block->ke;
-  Hydro *phyd              = pmy_block->phydro;
-  HydroDiffusion &hd       = phyd->hdif;
+  Hydro *phyd        = pmy_block->phydro;
+  HydroDiffusion &hd = phyd->hdif;
 
   if (pmy_block->block_size.nx2 > 1) {
     jl -= NGHOST; ju += NGHOST;

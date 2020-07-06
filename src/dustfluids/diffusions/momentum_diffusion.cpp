@@ -33,7 +33,6 @@ Real DustFluidsDiffusion::Van_leer_limiter(const Real a, const Real b){
   return c > 0.0? (2.0*c)/(a+b): 0.0;
 }
 
-
 void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real> &prim_df,
             const AthenaArray<Real> &w, AthenaArray<Real> *df_diff_flux) {
   DustFluids *pdf = pmb_->pdustfluids;

@@ -54,13 +54,13 @@ DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :
 void DustGasDrag::Aerodynamics_Drag(MeshBlock *pmb, const Real dt, const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df){
-  if ( NDUSTFLUIDS == 1 ) { // If the nudstfluids == 1, updated the cons by analytical formulas, see eq 6&7 in Stone (1997).
+  if ( NDUSTFLUIDS == 1 ) { // If the nudstfluids == 1, update the cons by analytical formulas, see eq 6&7 in Stone (1997).
     if (DustFeedback_Flag_)
       Update_Single_Dust_Feedback(pmb, dt, stopping_time, w, prim_df, u, cons_df);
     else
       Update_Single_Dust_NoFeedback(pmb, dt, stopping_time, w, prim_df, u, cons_df);
   }
-  else {
+  else { // If NDUSTFLUIDS > 1, then LU decompose the drags matrix, see Benitez-Llambay et al. 2019
     if (DustFeedback_Flag_)
       Update_Multiple_Dust_Feedback(pmb, dt, stopping_time, w, prim_df, u, cons_df);
     else

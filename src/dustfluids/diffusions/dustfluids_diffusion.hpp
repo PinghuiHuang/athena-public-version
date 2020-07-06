@@ -49,12 +49,11 @@ class DustFluidsDiffusion {
     // reset the diffusion flux of dust as zero.
     void ClearDustFluidsFlux(AthenaArray<Real> *flux_df);
 
-
-    // calculate the new dt of simulation, make sure it won't conflict the CFL condition
+    // calculate the new parabolic dt, make sure it won't conflict the CFL condition
     Real NewDiffusionDt();
 
     // Other functions
-    Real Van_leer_limiter(const Real a, const Real b); // Van Leer Limiter on the momentum diffusion
+    Real Van_leer_limiter(const Real a, const Real b); // Van Leer Flux Limiter on the momentum diffusion
 
     // Transfer the coordinate into cylindrical, used in disk problem
     void GetCylCoord(Coordinates *pco, Real &rad, Real &phi, Real &z, int i, int j, int k);

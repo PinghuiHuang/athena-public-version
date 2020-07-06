@@ -34,7 +34,6 @@
 
 DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
   r0_{pin->GetOrAddReal("problem", "r0", 1.0)},
-  eddy_timescale_r0{pin->GetOrAddReal("dust", "eddy_time", 1.0)}, // Omega_K^-1 for disk problem
   Momentum_Diffusion_Flag_{pin->GetOrAddBoolean("dust", "Momentum_Diffusion_Flag", false)},
   dustfluids_diffusion_defined(true),
   pmy_dustfluids_(pdf), pmb_(pmy_dustfluids_->pmy_block), pco_(pmb_->pcoord) {
@@ -52,11 +51,16 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
       //jl = js-1, ju = je+1, kl = ks-1, ku = ke+1;
   //}
   //il = is, iu = ie+1;
+  // eddy time is Omega_K^-1 for disk problems, is 1.0 for others
+  if ( std::strcmp(PROBLEM_GENERATOR, "disk") == 0 )
+    eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 2*PI);
+  else
+    eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 1.0);
 
   if (dustfluids_diffusion_defined) {
-    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(num_dust_var, nc3, nc2, nc1+1);
-    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(num_dust_var, nc3, nc2+1, nc1);
-    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(num_dust_var, nc3+1, nc2, nc1);
+    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(num_dust_var, nc3, nc2, nc1+1); // Face centered
+    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(num_dust_var, nc3, nc2+1, nc1); // Face centered
+    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(num_dust_var, nc3+1, nc2, nc1); // Face centered
 
     dx1_.NewAthenaArray(nc1);
     dx2_.NewAthenaArray(nc1);
@@ -83,7 +87,9 @@ void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &p
     // Set the diffusion flux of dust fluids as zero
     ClearDustFluidsFlux(dustfluids_diffusion_flux);
 
+    // Calculate the concentration diffusive flux
     DustFluidsConcentrationDiffusiveFlux(prim_df, phyd->w, dustfluids_diffusion_flux);
+    // Calculate the momentum diffusive flux due to concentration diffusion
     if (Momentum_Diffusion_Flag_)
       DustFluidsMomentumDiffusiveFlux(prim_df, phyd->w, dustfluids_diffusion_flux);
   }
@@ -239,6 +245,7 @@ void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &
       return;
   }
 
+  // In disk problem, and Shakura & Sunyaev (1973) viscoisty profile is used.
   bool alpha_disk_model = ((hd.nu_alpha > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0));
 
   if (alpha_disk_model){
@@ -251,9 +258,9 @@ void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &
             Real rad, phi, z;
             GetCylCoord(pco_, rad, phi, z, i, j, k);
             Real &diffusivity  = dust_diffusivity(dust_id,k,j,i);
-            Real eddy_time     = eddy_timescale_r0*pow(rad/r0_,1.5); // The eddy time is Omega^-1, scaled with r^-1.5
+            Real eddy_time     = eddy_timescale_r0*pow(rad/r0_,1.5); // The eddy time is Omega_K^-1, scaled with r^1.5
             Real Stokes_number = stopping_time(dust_id,k,j,i)/eddy_time;
-            diffusivity        = nu_gas(HydroDiffusion::DiffProcess::alpha,k,j,i)/(1.0 + SQR(Stokes_number));
+            diffusivity        = nu_gas(HydroDiffusion::DiffProcess::alpha,k,j,i)/(1.0 + SQR(Stokes_number)); // Youdin et al. 2007
             Real &soundspeed   = dust_cs(dust_id,k,j,i);
             soundspeed         = std::sqrt(diffusivity/eddy_time);
           }
@@ -273,7 +280,7 @@ void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &
             Real &diffusivity  = dust_diffusivity(dust_id,k,j,i);
             Real eddy_time     = eddy_timescale_r0*pow(rad/r0_,1.5); // The eddy time is Omega^-1, scaled with r^-1.5
             Real Stokes_number = stopping_time(dust_id,k,j,i)/eddy_time;
-            diffusivity        = nu_gas(HydroDiffusion::DiffProcess::iso,k,j,i)/(1.0 + SQR(Stokes_number));
+            diffusivity        = nu_gas(HydroDiffusion::DiffProcess::iso,k,j,i)/(1.0 + SQR(Stokes_number)); // Youdin et al. 2007
             Real &soundspeed   = dust_cs(dust_id,k,j,i);
             soundspeed         = std::sqrt(diffusivity/eddy_time);
           }
@@ -291,7 +298,7 @@ void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &
             Real rad, phi, z;
             GetCylCoord(pco_, rad, phi, z, i, j, k);
             Real &diffusivity  = dust_diffusivity(dust_id,k,j,i);
-            Real eddy_time     = eddy_timescale_r0; // In other problems, fixed the eddy time as constant
+            Real eddy_time     = eddy_timescale_r0; // In other problems, fix the eddy time as constant
             Real Stokes_number = stopping_time(dust_id,k,j,i)/eddy_time;
             diffusivity        = nu_gas(HydroDiffusion::DiffProcess::iso,k,j,i)/(1.0 + SQR(Stokes_number));
             Real &soundspeed   = dust_cs(dust_id,k,j,i);

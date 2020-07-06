@@ -74,11 +74,11 @@ class DustGasDrag {
     void IterativeImprove(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector);
 
   private:
-    const int num_species = NDUSTFLUIDS + 1;
-    DustFluids  *pmy_dustfluids_; // ptr to DustFluids containing this DustGasDrag
-    MeshBlock   *pmb_;            // ptr to meshblock containing this DustGasDrag
-    Coordinates *pco_;            // ptr to coordinates class
-    Real        hydro_gamma_;
+    const int num_species = NDUSTFLUIDS + 1; // gas and n dust fluids
+    DustFluids  *pmy_dustfluids_;            // ptr to DustFluids containing this DustGasDrag
+    MeshBlock   *pmb_;                       // ptr to meshblock containing this DustGasDrag
+    Coordinates *pco_;                       // ptr to coordinates class
+    Real        hydro_gamma_;                // The adiabatic index of gas
 
     // data for LU decomposition
     AthenaArray<Real> drags_matrix; // The matrix of drags between dust and gas

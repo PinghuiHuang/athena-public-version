@@ -382,7 +382,7 @@ void DustFluids::CalculateDustFluidsFluxes_STS() {
 void DustFluids::AddDiffusionFluxes() {
   // add diffusion fluxes
   if (dfdif.dustfluids_diffusion_defined) {
-      dfdif.AddDustFluidsDiffusionFlux(dfdif.dustfluids_diffusion_flux, df_flux);
-    }
+    dfdif.AddDustFluidsDiffusionFlux(dfdif.dustfluids_diffusion_flux, df_flux);
+  }
   return;
 }
