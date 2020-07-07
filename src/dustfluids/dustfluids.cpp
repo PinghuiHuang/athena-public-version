@@ -58,9 +58,9 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   nu_dustfluids_array(NDUSTFLUIDS, pmb->ncells3, pmb->ncells2, pmb->ncells1),
   cs_dustfluids_array(NDUSTFLUIDS, pmb->ncells3, pmb->ncells2, pmb->ncells1),
   dfbvar(pmb, &df_cons, &coarse_df_cons_, df_flux),
-  particle_density_(NDUSTFLUIDS), // normalized particle internal density
-  const_stopping_time_(NDUSTFLUIDS), // Const stopping time
-  const_nu_dust_(NDUSTFLUIDS),
+  particle_density_(NDUSTFLUIDS),    // normalized particle internal density, used in user defined stopping time
+  const_stopping_time_(NDUSTFLUIDS), // const stopping time, used in constant stopping time
+  const_nu_dust_(NDUSTFLUIDS),       // const dust diffusivity, used in constant diffusivity
   dfdrag(this, pin),
   dfdif(this,  pin),
   dfsrc(this,  pin) {
