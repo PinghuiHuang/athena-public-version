@@ -3,8 +3,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file hlle.cpp
-//  \brief HLLE Riemann solver for dust fludis
+//! \file dustfluids_hlle_solver.cpp
+//  \brief spatially isothermal HLLE Riemann solver for dust fludis
 //
 //  Computes 1D df_fluxes using the Harten-Lax-van Leer (HLL) Riemann solver.  This df_flux is
 //  very diffusive, especially for contacts, and so it is not recommended for use in

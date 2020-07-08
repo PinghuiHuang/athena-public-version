@@ -542,14 +542,19 @@ void SphericalPolar::AddCoordTermsDivergence_DustFluids(const Real dt, const Ath
         for (int i=pmy_block->is; i<=pmy_block->ie; ++i) {
           // src_1 = < M_{theta theta} + M_{phi phi} ><1/r>
           Real m_ii = prim_df(rho_id,k,j,i)*(SQR(prim_df(v2_id,k,j,i)) + SQR(prim_df(v3_id,k,j,i)));
-          m_ii += SQR(pdf->cs_dustfluids_array(dust_id,k,j,i)) * prim_df(rho_id,k,j,i);
 
-          if (do_dustfluids_diffusion) {
+          if (pdf->SoundSpeed_Flag_) {
+            m_ii += SQR(pdf->cs_dustfluids_array(dust_id,k,j,i)) * prim_df(rho_id,k,j,i);
+          }
+
+          if (do_dustfluids_diffusion && pdf->dfdif.Momentum_Diffusion_Flag_) {
+            // Dust Momentum diffusion flux
             m_ii += 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j+1,i) +
                 pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j,i));
             m_ii += 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k+1,j,i) +
                 pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k,j,i));
           }
+
 
           cons_df(v1_id,k,j,i) += dt*coord_src1_i_(i)*m_ii;
 
@@ -567,7 +572,7 @@ void SphericalPolar::AddCoordTermsDivergence_DustFluids(const Real dt, const Ath
           Real m_pp = prim_df(rho_id,k,j,i)*SQR(prim_df(v3_id,k,j,i));
           m_pp += SQR(pdf->cs_dustfluids_array(dust_id,k,j,i))*prim_df(rho_id,k,j,i);
 
-          if (do_dustfluids_diffusion)
+          if (do_dustfluids_diffusion && pdf->dfdif.Momentum_Diffusion_Flag_)
             m_pp += 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k+1,j,i) +
                 pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k,j,i));
 
@@ -580,7 +585,7 @@ void SphericalPolar::AddCoordTermsDivergence_DustFluids(const Real dt, const Ath
                             + coord_area2_j_(j+1)*df_flx[X2DIR](v3_id,k,j+1,i));
           } else {
             Real m_ph = prim_df(rho_id,k,j,i) * prim_df(v3_id,k,j,i) * prim_df(v2_id,k,j,i);
-            if (do_dustfluids_diffusion)
+            if (do_dustfluids_diffusion && pdf->dfdif.Momentum_Diffusion_Flag_)
               m_ph += 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v3_id,k,j+1,i) +
                   pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v3_id,k,j,i));
 

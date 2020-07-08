@@ -57,26 +57,27 @@ class DustFluids {
     // concentration)
 
     // storage for mesh refinement, SMR/AMR
-    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_;
+    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; // coarse df_cons and coarse df_prim, used in mesh refinement
     int refinement_idx{-1};
 
-    CellCenteredBoundaryVariable dfbvar;
+    CellCenteredBoundaryVariable dfbvar;  // Cell Centered values
     DustGasDrag                  dfdrag;  // Objects used in calculating the dust-gas drags
     DustFluidsDiffusion          dfdif;   // Objects used in calculating the diffusions of dust
     DustFluidsSourceTerms        dfsrc;   // Objects used in calculating the source terms of dust
 
-    AthenaArray<Real> particle_density_;    // normalized dust particle internal density, used in user defined stopping time
-    AthenaArray<Real> const_stopping_time_; // Constant stopping time
-    AthenaArray<Real> const_nu_dust_;       // Constant concentration diffusivity of dust
     bool ConstStoppingTime_Flag_;           // true or false, the flag of using the constant stopping time of dust
     bool ConstNu_Flag_;                     // true or false, the flag of using the constant diffusivity of dust
     bool SoundSpeed_Flag_;                  // true or false, turn on the sound speed of dust fluids
 
+    AthenaArray<Real> particle_density_;    // normalized dust particle internal density, used in user defined stopping time
+    AthenaArray<Real> const_stopping_time_; // Constant stopping time
+    AthenaArray<Real> const_nu_dust_;       // Constant concentration diffusivity of dust
+
 
     // public functions:
-    void AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> &cons_df);
-    void CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &prim_df);
-    void CalculateDustFluidsFluxes_STS();
+    void AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> &cons_df); // Add flux divergence
+    void CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &prim_df); // Calculate fluxes of dust fluids
+    void CalculateDustFluidsFluxes_STS(); // Calculate fluxes of dust fluids in super time step
 
     // The Riemann Solver for dust fluids
     // HLLE solver without sound speed of dust
@@ -92,7 +93,7 @@ class DustFluids {
     // Computes the new timestep of advection of dust in a meshblock
     Real NewAdvectionDt();
 
-    // Set up stopping time, diffusivity and sound speed of dust
+    // Set up stopping time, diffusivity and sound speed of each dust fluids
     void SetDustFluidsProperties();
 
 
@@ -100,11 +101,11 @@ class DustFluids {
     // scratch space used to compute fluxes
     // 2D scratch arrays
     AthenaArray<Real> dt1_, dt2_, dt3_;                     // scratch arrays used in NewAdvectionDt
-    AthenaArray<Real> df_prim_l_, df_prim_r_, df_prim_lb_;
+    AthenaArray<Real> df_prim_l_, df_prim_r_, df_prim_lb_;  // left and right states in reconstruction
     // 1D scratch arrays
-    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;
+    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_; // face area in x1, x2, x3 directions
     AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;
-    AthenaArray<Real> cell_volume_;
+    AthenaArray<Real> cell_volume_;   // the volume of the cells
     AthenaArray<Real> dflx_;
     //AthenaArray<Real> dx_df_prim_;
 

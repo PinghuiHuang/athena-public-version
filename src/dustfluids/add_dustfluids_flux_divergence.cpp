@@ -31,18 +31,6 @@
 //  \brief Adds flux divergence to weighted average of conservative variables from
 //  previous step(s) of time integrator algorithm
 
-// TODO(felker): after the removal of AddCoordTermsDivergence() fn call from
-// Hydro::AddFluxDivergence(), the 2x fns could be trivially shared if:
-// - flux/df_flux renamed to the same class member name
-// - 7x below references of x1face_area_ ... dflx_ private class members (which are only
-// ever used in this fn and are members to prevent de/allocating each fn call)
-// - NHYDRO/NDUSTFLUIDS is replaced with array_out.GetDim4()
-
-// ----> Hydro should be derived from DustFluids
-
-// TODO(felker): remove the following unnecessary private class member?
-// field_diffusion.cpp:66:    cell_volume_.NewAthenaArray(nc1);
-
 void DustFluids::AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> &cons_df) {
   MeshBlock *pmb = pmy_block;
   AthenaArray<Real> &x1flux = df_flux[X1DIR];

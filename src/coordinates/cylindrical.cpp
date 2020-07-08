@@ -347,28 +347,32 @@ void Cylindrical::AddCoordTermsDivergence_DustFluids(
           Real m_pp = prim_df(rho_id,k,j,i)*prim_df(v2_id,k,j,i)*prim_df(v2_id,k,j,i);
 
           //Sound speed of dust fluids
-          //Real m_pp2 = SQR(pdf->cs_dustfluids_array(dust_id,k,j,i)) * prim_df(rho_id,k,j,i);
-          //m_pp += m_pp2;
+          if (pdf->SoundSpeed_Flag_) {
+            Real m_pp2 = SQR(pdf->cs_dustfluids_array(dust_id,k,j,i)) * prim_df(rho_id,k,j,i);
+            m_pp += m_pp2;
+          }
 
           if (do_dustfluids_diffusion){
             // Dust concentration diffusion flux
             Real m_pp3 = SQR(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](rho_id,k,j+1,i) +
-                pdf->dfdif.dustfluids_diffusion_flux[X2DIR](rho_id,k,j,i))/
-              (0.5*(prim_df(rho_id,k,j+1,i)+prim_df(rho_id,k,j,i)));
+                  pdf->dfdif.dustfluids_diffusion_flux[X2DIR](rho_id,k,j,i))/
+                  (0.5*(prim_df(rho_id,k,j+1,i)+prim_df(rho_id,k,j,i)));
             m_pp += m_pp3;
 
             // Dust momentum diffusion flux
-            //Real m_pp_m1 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v1_id,k,j+1,i) +
-                //pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v1_id,k,j,i));
-            //m_pp += m_pp_m1;
+            if (pdf->dfdif.Momentum_Diffusion_Flag_) {
+              Real m_pp_m1 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v1_id,k,j+1,i) +
+                    pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v1_id,k,j,i));
+              m_pp += m_pp_m1;
 
-            //Real m_pp_m2 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j+1,i) +
-                //pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j,i));
-            //m_pp += m_pp_m2;
+              Real m_pp_m2 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j+1,i) +
+                    pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j,i));
+              m_pp += m_pp_m2;
 
-            //Real m_pp_m3 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v3_id,k,j+1,i) +
-                //pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v3_id,k,j,i));
-            //m_pp += m_pp_m3;
+              Real m_pp_m3 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v3_id,k,j+1,i) +
+                    pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v3_id,k,j,i));
+              m_pp += m_pp_m3;
+            }
           }
 
           //std::cout << "The total m_pp is " << m_pp << std::endl;

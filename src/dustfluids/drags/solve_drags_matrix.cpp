@@ -79,7 +79,7 @@ void DustGasDrag::Update_Single_Dust_NoFeedback(MeshBlock *pmb, const Real dt,
         Real &dust_m3 = cons_df(v3_id, k, j, i);
 
         // Calculate the collisional parameters of dust and gas
-        Real alpha_dg = 1./stopping_time(dust_id,k,j,i);
+        Real alpha_dg = 1.0/stopping_time(dust_id,k,j,i);
         Real alpha_gd = dust_d/gas_d*alpha_dg;
 
         // Update the Momentum of gas and dust
@@ -157,7 +157,7 @@ void DustGasDrag::Update_Single_Dust_Feedback(MeshBlock *pmb, const Real dt,
         Real &dust_m3  = cons_df(v3_id,  k, j, i);
 
         // Calculate the collisional parameters of dust and gas
-        Real alpha_dg = 1./stopping_time(dust_id,k,j,i);
+        Real alpha_dg = 1.0/stopping_time(dust_id,k,j,i);
         Real alpha_gd = dust_d/gas_d*alpha_dg;
 
         // Update the Momentum of gas and dust

@@ -33,6 +33,7 @@ class DustFluidsDiffusion {
 
     // true or false, the bool value of the dust diffusion
     bool dustfluids_diffusion_defined;
+    bool Momentum_Diffusion_Flag_;  // true or false, the flag of momentum diffusion of the dust fluids due to concentration diffusion.
 
     // The flux tensor of dust fluids caused by diffusion
     AthenaArray<Real> dustfluids_diffusion_flux[3];
@@ -102,7 +103,6 @@ class DustFluidsDiffusion {
     //bool ConstStoppingTime_Flag_; // true or false, the flag of using the constant stopping time of dust
     //bool ConstNu_Flag_;           // true or false, the flag of using the constant nu of dust
     Real eddy_timescale_r0;         // The eddy timescale (turn over time of eddy) at r0
-    bool Momentum_Diffusion_Flag_;  // true or false, the flag of momentum diffusion of the dust fluids due to concentration diffusion.
 
     Real r0_;                    // The length unit of radial direction in disk problem
     // functions pointer to calculate spatial dependent coefficients

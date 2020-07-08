@@ -49,11 +49,7 @@ Real DustFluids::NewAdvectionDt() {
   // Note, "dt_hyperbolic" currently refers to the dt limit imposed by evoluiton of the
   // ideal hydro or MHD fluid by the main integrator (even if not strictly hyperbolic)
   Real min_dt_hyperbolic_df  = real_max;
-  // TODO(felker): consider renaming dt_hyperbolic after general execution model is
-  // implemented and flexibility from #247 (zero fluid configurations) is
-  // addressed. dt_hydro, dt_main (inaccurate since "dt" is actually main), dt_MHD?
 
-  // TODO(felker): skip this next loop if pm->fluid_setup == FluidFormulation::disabled
   FluidFormulation fluid_status = pmb->pmy_mesh->fluid_setup;
   for (int n=0; n<num_dust_var; n+=4){
     int dust_id = n/4;
