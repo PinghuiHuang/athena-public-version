@@ -7,5 +7,5 @@ athena
 <!--[![Public GitHub  issues](https://img.shields.io/github/issues/PrincetonUniversity/athena-public-version.svg)](https://github.com/PrincetonUniversity/athena-public-version/issues)
 [![Public GitHub pull requests](https://img.shields.io/github/issues-pr/PrincetonUniversity/athena-public-version.svg)](https://github.com/PrincetonUniversity/athena-public-version/pulls) -->
 
-Athena++ radiation MHD code
-Multiple Dust Fluids version
+Athena++ radiation MHD code, 
+Multiple Dust Fluids, beta version
