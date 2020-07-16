@@ -32,10 +32,11 @@ class DustFluidsDiffusion {
     DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin);
 
     // true or false, the bool value of the dust diffusion
-    bool dustfluids_diffusion_defined;
-    bool Momentum_Diffusion_Flag_;  // true or false, the flag of momentum diffusion of the dust fluids due to concentration diffusion.
+    bool dustfluids_diffusion_defined; // true or false
+    bool ConstNu_Flag;                // true or false, the flag of using the constant diffusivity of dust
+    bool Momentum_Diffusion_Flag;     // true or false, the flag of momentum diffusion of dust fluids due to concentration diffusion.
 
-    // The flux tensor of dust fluids caused by diffusion
+    // The flux tensor of dust fluids caused by diffusions
     AthenaArray<Real> dustfluids_diffusion_flux[3];
 
     // functions
@@ -48,7 +49,7 @@ class DustFluidsDiffusion {
         AthenaArray<Real> *flux_df);
 
     // reset the diffusion flux of dust as zero.
-    void ClearDustFluidsFlux(AthenaArray<Real> *flux_df);
+    void ClearDustFluidsFlux(AthenaArray<Real> *flux_diff);
 
     // calculate the new parabolic dt, make sure it won't conflict the CFL condition
     Real NewDiffusionDt();
@@ -59,26 +60,16 @@ class DustFluidsDiffusion {
     // Transfer the coordinate into cylindrical, used in disk problem
     void GetCylCoord(Coordinates *pco, Real &rad, Real &phi, Real &z, int i, int j, int k);
 
-    // Stopping time
-    // Calculate the stopping time varied with the surface density of gas
-    void User_Defined_StoppingTime(const int kl, const int ku, const int jl, const int ju,
-        const int il, const int iu, const AthenaArray<Real> particle_density,
-        const AthenaArray<Real> &w, AthenaArray<Real> &stopping_time);
-
-    // Set the constant stopping time of dust
-    void ConstStoppingTime(const int kl, const int ku, const int jl, const int ju,
-        const int il, const int iu, AthenaArray<Real> &stopping_time);
-
     // Diffusivity
     // Calculate the dust diffusivity varied with the gas surface density and gas viscosity
-    void User_Defined_DustDiffusivity(const AthenaArray<Real> &nu_gas,
+    void UserDefined_DustDiffusivity(const AthenaArray<Real> &nu_gas,
       const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
       const AthenaArray<Real> &stopping_time,
       AthenaArray<Real> &dust_diffusivity,
       AthenaArray<Real> &dust_cs);
 
     // Set the constant dust diffusivity
-    void ConstDustDiffusivity(const AthenaArray<Real> &nu_gas,
+    void Constant_DustDiffusivity(const AthenaArray<Real> &nu_gas,
       const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
       const AthenaArray<Real> &stopping_time,
       AthenaArray<Real> &dust_diffusivity,
@@ -100,11 +91,9 @@ class DustFluidsDiffusion {
     AthenaArray<Real> dx1_, dx2_, dx3_; // scratch arrays used in NewTimeStep
     AthenaArray<Real> diff_tot_;
 
-    //bool ConstStoppingTime_Flag_; // true or false, the flag of using the constant stopping time of dust
-    //bool ConstNu_Flag_;           // true or false, the flag of using the constant nu of dust
-    Real eddy_timescale_r0;         // The eddy timescale (turn over time of eddy) at r0
-
+    Real eddy_timescale_r0;      // The eddy timescale (turn over time of eddy) at r0
     Real r0_;                    // The length unit of radial direction in disk problem
+
     // functions pointer to calculate spatial dependent coefficients
     //DustFluidsDiffusionCoeffFunc CalcDustFluidsDiffusivityCoeff_;
 

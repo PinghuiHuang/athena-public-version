@@ -29,29 +29,29 @@ class DustGasDrag {
     DustGasDrag(DustFluids *pdf, ParameterInput *pin);
 
     // data
-    bool DustFeedback_Flag_;           // true or false, the flag of dust feedback term
+    bool DustFeedback_Flag;           // true or false, the flag of dust feedback term
 
     // functions
     void Aerodynamics_Drag(MeshBlock *pmb, const Real dt, const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    void Update_Single_Dust_NoFeedback(MeshBlock *pmb, const Real dt,
+    void SingleDust_NoFeedback(MeshBlock *pmb, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    void Update_Single_Dust_Feedback(MeshBlock *pmb, const Real dt,
+    void SingleDust_Feedback(MeshBlock *pmb, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    void Update_Multiple_Dust_NoFeedback(MeshBlock *pmb, const Real dt,
+    void MultipleDust_NoFeedback(MeshBlock *pmb, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    void Update_Multiple_Dust_Feedback(MeshBlock *pmb, const Real dt,
+    void MultipleDust_Feedback(MeshBlock *pmb, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         AthenaArray<Real> &u, AthenaArray<Real> &cons_df);

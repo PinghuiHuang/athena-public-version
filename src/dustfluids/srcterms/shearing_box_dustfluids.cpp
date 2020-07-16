@@ -79,22 +79,22 @@ void DustFluidsSourceTerms::ShearingBoxSourceTerms_DustFluids(const Real dt,
       }
     }
   } else if (pmb->block_size.nx3 == 1 && ShBoxCoord_ == 2) {
-      int ks = pmb->ks;
-      for (int n = 0; n<num_dust_var; n+=4) {
-        int dust_id = n/4;
-        int rho_id  = 4*dust_id;
-        int v1_id   = rho_id + 1;
-        int v2_id   = rho_id + 2;
-        int v3_id   = rho_id + 3;
-        for (int j=pmb->js; j<=pmb->je; ++j) {
-          for (int i=pmb->is; i<=pmb->ie; ++i) {
-            Real den_dust = prim_df(rho_id,ks,j,i);
-            cons_df(v1_id,ks,j,i) += dt*(2.0*qshear_*Omega_0_*Omega_0_*den_dust
-                                    *pmb->pcoord->x1v(i)+2.0*Omega_0_*den_dust*prim_df(v3_id,ks,j,i));
-            cons_df(v3_id,ks,j,i) -= dt*2.0*Omega_0_*den_dust*prim_df(v1_id,ks,j,i);
-          }
+    int ks = pmb->ks;
+    for (int n = 0; n<num_dust_var; n+=4) {
+      int dust_id = n/4;
+      int rho_id  = 4*dust_id;
+      int v1_id   = rho_id + 1;
+      int v2_id   = rho_id + 2;
+      int v3_id   = rho_id + 3;
+      for (int j=pmb->js; j<=pmb->je; ++j) {
+        for (int i=pmb->is; i<=pmb->ie; ++i) {
+          Real den_dust = prim_df(rho_id,ks,j,i);
+          cons_df(v1_id,ks,j,i) += dt*(2.0*qshear_*Omega_0_*Omega_0_*den_dust
+                                  *pmb->pcoord->x1v(i)+2.0*Omega_0_*den_dust*prim_df(v3_id,ks,j,i));
+          cons_df(v3_id,ks,j,i) -= dt*2.0*Omega_0_*den_dust*prim_df(v1_id,ks,j,i);
         }
       }
+    }
   } else {
     std::cout << "[ShearingBoxSourceTerms]: not compatible to 1D !!" << std::endl;
     return;

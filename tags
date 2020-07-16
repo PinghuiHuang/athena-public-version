@@ -343,9 +343,9 @@ ConservedToPrimitiveNormal	src/eos/adiabatic_mhd_gr.cpp	/^bool ConservedToPrimit
 ConstConduction	src/hydro/hydro_diffusion/conduction.cpp	/^void ConstConduction(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,$/;"	f
 ConstDiffusivity	src/field/field_diffusion/diffusivity.cpp	/^void ConstDiffusivity(FieldDiffusion *pfdif, MeshBlock *pmb, const AthenaArray<Real> &w,$/;"	f
 ConstDustDiffusivity	src/dustfluids/diffusions/dustfluids_diffusion.cpp	/^void DustFluidsDiffusion::ConstDustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
-ConstNu_Flag_	src/dustfluids/dustfluids.hpp	/^    bool ConstNu_Flag_;                     \/\/ true or false, the flag of using the constant diffusivity of dust$/;"	m	class:DustFluids
-ConstStoppingTime	src/dustfluids/diffusions/dustfluids_diffusion.cpp	/^void DustFluidsDiffusion::ConstStoppingTime(const int kl, const int ku, const int jl, const int ju,$/;"	f	class:DustFluidsDiffusion
-ConstStoppingTime_Flag_	src/dustfluids/dustfluids.hpp	/^    bool ConstStoppingTime_Flag_;           \/\/ true or false, the flag of using the constant stopping time of dust$/;"	m	class:DustFluids
+ConstNu_Flag	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    bool ConstNu_Flag;                \/\/ true or false, the flag of using the constant diffusivity of dust$/;"	m	class:DustFluidsDiffusion
+ConstStoppingTime	src/dustfluids/dustfluids.cpp	/^void DustFluids::ConstStoppingTime(const int kl, const int ku, const int jl, const int ju,$/;"	f	class:DustFluids
+ConstStoppingTime_Flag	src/dustfluids/dustfluids.hpp	/^    bool ConstStoppingTime_Flag;           \/\/ true or false, the flag of using the constant stopping time of dust$/;"	m	class:DustFluids
 ConstViscosity	src/hydro/hydro_diffusion/viscosity.cpp	/^void ConstViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,$/;"	f
 ConstantAcceleration	src/hydro/srcterms/constant_acc.cpp	/^void HydroSourceTerms::ConstantAcceleration(const Real dt,const AthenaArray<Real> *flux,$/;"	f	class:HydroSourceTerms
 CoordinateDirection	src/athena.hpp	/^enum CoordinateDirection {X1DIR=0, X2DIR=1, X3DIR=2};$/;"	g
@@ -424,7 +424,7 @@ DonorCellX3_DustFluids	src/reconstruct/dc_dustFluids.cpp	/^void Reconstruction::
 DoolittleLUPDecompose	src/reconstruct/reconstruction.cpp	/^int DoolittleLUPDecompose(Real **a, int n, int *pivot) {$/;"	f	namespace:__anon72
 DoolittleLUPSolve	src/reconstruct/reconstruction.cpp	/^void DoolittleLUPSolve(Real **lu, int *pivot, Real *b, int n, Real *x) {$/;"	f	namespace:__anon72
 Driving	src/fft/turbulence.cpp	/^void TurbulenceDriver::Driving() {$/;"	f	class:TurbulenceDriver
-DustFeedback_Flag_	src/dustfluids/drags/dust_gas_drag.hpp	/^    bool DustFeedback_Flag_;           \/\/ true or false, the flag of dust feedback term$/;"	m	class:DustGasDrag
+DustFeedback_Flag	src/dustfluids/drags/dust_gas_drag.hpp	/^    bool DustFeedback_Flag;           \/\/ true or false, the flag of dust feedback term$/;"	m	class:DustGasDrag
 DustFluids	src/dustfluids/dustfluids.cpp	/^DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :$/;"	f	class:DustFluids
 DustFluids	src/dustfluids/dustfluids.hpp	/^class DustFluids {$/;"	c
 DustFluidsConcentrationDiffusiveFlux	src/dustfluids/diffusions/concentration_diffusion.cpp	/^void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray<Real> &prim_df,$/;"	f	class:DustFluidsDiffusion
@@ -1102,7 +1102,7 @@ MetricIndex	src/athena.hpp	/^enum MetricIndex {I00=0, I01=1, I02=2, I03=3, I11=4
 Minkowski	src/coordinates/coordinates.hpp	/^class Minkowski : public Coordinates {$/;"	c
 Minkowski	src/coordinates/minkowski.cpp	/^Minkowski::Minkowski(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:Minkowski
 ModifyFromCmdline	src/parameter_input.cpp	/^void ParameterInput::ModifyFromCmdline(int argc, char *argv[]) {$/;"	f	class:ParameterInput
-Momentum_Diffusion_Flag_	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    bool Momentum_Diffusion_Flag_;  \/\/ true or false, the flag of momentum diffusion of the dust fluids due to concentration diffusion.$/;"	m	class:DustFluidsDiffusion
+Momentum_Diffusion_Flag	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    bool Momentum_Diffusion_Flag;     \/\/ true or false, the flag of momentum diffusion of dust fluids due to concentration diffusion.$/;"	m	class:DustFluidsDiffusion
 Multigrid	src/multigrid/multigrid.cpp	/^Multigrid::Multigrid(MultigridDriver *pmd, MeshBlock *pmb, int invar, int nghost) {$/;"	f	class:Multigrid
 Multigrid	src/multigrid/multigrid.hpp	/^class Multigrid {$/;"	c
 MultigridDriver	src/multigrid/multigrid.hpp	/^class MultigridDriver {$/;"	c
@@ -1110,12 +1110,14 @@ MultigridDriver	src/multigrid/multigrid_driver.cpp	/^MultigridDriver::MultigridD
 MultigridTaskList	src/task_list/mg_task_list.hpp	/^  explicit MultigridTaskList(MultigridDriver *pmd) : ntasks(0), pmy_mgdriver_(pmd),$/;"	f	class:MultigridTaskList
 MultigridTaskList	src/task_list/mg_task_list.hpp	/^class MultigridTaskList {$/;"	c
 MultigridTaskNames	src/task_list/mg_task_list.hpp	/^namespace MultigridTaskNames {$/;"	n
+MultipleDust_Feedback	src/dustfluids/drags/solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_Feedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+MultipleDust_NoFeedback	src/dustfluids/drags/solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_NoFeedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 MySource	src/pgen/disk.cpp	/^void MySource(MeshBlock *pmb, const Real time, const Real dt,$/;"	f	namespace:__anon37
 MyTimeStep	src/pgen/collision_multipledust.cpp	/^Real MyTimeStep(MeshBlock *pmb)$/;"	f	namespace:__anon33
 NDIV	src/utils/ran2.cpp	39;"	d	file:
 NDIV	src/utils/ran2.cpp	93;"	d	file:
 NDUSTFLUIDS	src/defs.hpp	102;"	d
-NDUSTFLUIDS	src/dustfluids/dustfluids.cpp	/^  particle_density_(NDUSTFLUIDS), \/\/ normalized particle internal density$/;"	v
+NDUSTFLUIDS	src/dustfluids/dustfluids.cpp	/^  particle_density_(NDUSTFLUIDS),    \/\/ normalized particle internal density, used in user defined stopping time$/;"	v
 NFIELD	src/defs.hpp	100;"	d
 NGHOST	src/defs.hpp	103;"	d
 NGrid_x	vis/vtk/join_vtk++.c	/^static int NGrid_x, NGrid_y, NGrid_z;$/;"	v	file:
@@ -1360,6 +1362,7 @@ ProblemGenerator	src/pgen/resist.cpp	/^void MeshBlock::ProblemGenerator(Paramete
 ProblemGenerator	src/pgen/rotor.cpp	/^void MeshBlock::ProblemGenerator(ParameterInput *pin) {$/;"	f	class:MeshBlock
 ProblemGenerator	src/pgen/rt.cpp	/^void MeshBlock::ProblemGenerator(ParameterInput *pin) {$/;"	f	class:MeshBlock
 ProblemGenerator	src/pgen/shk_cloud.cpp	/^void MeshBlock::ProblemGenerator(ParameterInput *pin) {$/;"	f	class:MeshBlock
+ProblemGenerator	src/pgen/shock_multipledust.cpp	/^void MeshBlock::ProblemGenerator(ParameterInput *pin) {$/;"	f	class:MeshBlock
 ProblemGenerator	src/pgen/shock_tube.cpp	/^void MeshBlock::ProblemGenerator(ParameterInput *pin) {$/;"	f	class:MeshBlock
 ProblemGenerator	src/pgen/shu_osher.cpp	/^void MeshBlock::ProblemGenerator(ParameterInput *pin) {$/;"	f	class:MeshBlock
 ProblemGenerator	src/pgen/slotted_cylinder.cpp	/^void MeshBlock::ProblemGenerator(ParameterInput *pin) {$/;"	f	class:MeshBlock
@@ -1634,7 +1637,7 @@ SetupPersistentMPI	src/bvals/cc/bvals_cc.cpp	/^void CellCenteredBoundaryVariable
 SetupPersistentMPI	src/bvals/fc/bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::SetupPersistentMPI() {$/;"	f	class:FaceCenteredBoundaryVariable
 ShBoxCoord	src/pgen/hb3.cpp	/^int ShBoxCoord, ipert,ifield; \/\/ initial pattern$/;"	m	namespace:__anon44	file:
 ShBoxCoord_	src/bvals/bvals.hpp	/^  int ShBoxCoord_;              \/\/ shearcoordinate type: 1 = xy (default), 2 = xz$/;"	m	class:BoundaryValues
-ShBoxCoord_	src/dustfluids/srcterms/dustfluids_srcterms.hpp	/^    int  ShBoxCoord_;        \/\/ ShearCoordinate type: 1=xy (default), 2=xz$/;"	m	class:DustFluidsSourceTerms
+ShBoxCoord_	src/dustfluids/srcterms/dustfluids_srcterms.hpp	/^    int  ShBoxCoord_;             \/\/ ShearCoordinate type: 1=xy (default), 2=xz$/;"	m	class:DustFluidsSourceTerms
 ShBoxCoord_	src/hydro/srcterms/hydro_srcterms.hpp	/^  int  ShBoxCoord_;       \/\/ ShearCoordinate type: 1=xy (default), 2=xz$/;"	m	class:HydroSourceTerms
 ShearQuantities	src/bvals/cc/bvals_cc.hpp	/^  virtual void ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) {}$/;"	f	class:CellCenteredBoundaryVariable
 ShearQuantities	src/bvals/cc/hydro/bvals_shear_hydro.cpp	/^void HydroBoundaryVariable::ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) {$/;"	f	class:HydroBoundaryVariable
@@ -1648,6 +1651,8 @@ SignalHandler	src/utils/utils.hpp	/^namespace SignalHandler {$/;"	n
 SignalHandlerInit	src/utils/signal_handler.cpp	/^void SignalHandlerInit() {$/;"	f	namespace:SignalHandler
 SimpleHydrogen	tst/regression/scripts/utils/EquationOfState/eos.py	/^class SimpleHydrogen(EOS):$/;"	c
 SimpleNeighborBlock	src/bvals/bvals_interfaces.hpp	/^struct SimpleNeighborBlock { \/\/ aggregate and POD$/;"	s
+SingleDust_Feedback	src/dustfluids/drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+SingleDust_NoFeedback	src/dustfluids/drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SliceOutputData	src/outputs/outputs.cpp	/^bool OutputType::SliceOutputData(MeshBlock *pmb, int dim) {$/;"	f	class:OutputType
 SlottedCylinderProfile	src/pgen/slotted_cylinder.cpp	/^Real SlottedCylinderProfile(Real x1, Real x2) {$/;"	f	namespace:__anon57
 Smooth	src/gravity/mg_gravity.cpp	/^void MGGravity::Smooth(int color) {$/;"	f	class:MGGravity
@@ -1672,7 +1677,7 @@ SoundSpeed	src/eos/isothermal_mhd.cpp	/^Real EquationOfState::SoundSpeed(const R
 SoundSpeed_DustFluids	src/eos/eos.hpp	/^  Real SoundSpeed_DustFluids(const Real dust_nu, const Real t_eddy) {return 0.0;}$/;"	f	class:EquationOfState
 SoundSpeed_DustFluids	src/eos/eos.hpp	/^  Real SoundSpeed_DustFluids(const Real[]) {return 0.0;}$/;"	f	class:EquationOfState
 SoundSpeed_DustFluids	src/eos/eos_dustfluids.cpp	/^Real EquationOfState::SoundSpeed_DustFluids(const Real prim_df[(4*NDUSTFLUIDS)],$/;"	f	class:EquationOfState
-SoundSpeed_Flag_	src/dustfluids/dustfluids.hpp	/^    bool SoundSpeed_Flag_;                  \/\/ true or false, turn on the sound speed of dust fluids$/;"	m	class:DustFluids
+SoundSpeed_Flag	src/dustfluids/dustfluids.hpp	/^    bool SoundSpeed_Flag;                  \/\/ true or false, turn on the sound speed of dust fluids$/;"	m	class:DustFluids
 SoundSpeedsGR	src/eos/adiabatic_hydro_gr.cpp	/^void EquationOfState::SoundSpeedsGR(Real rho_h, Real pgas, Real u0, Real u1, Real g00,$/;"	f	class:EquationOfState
 SoundSpeedsGR	src/eos/eos.hpp	/^  void SoundSpeedsGR(Real, Real, Real, Real, Real, Real, Real, Real *, Real *)$/;"	f	class:EquationOfState
 SoundSpeedsSR	src/eos/adiabatic_hydro_gr.cpp	/^void EquationOfState::SoundSpeedsSR(Real rho_h, Real pgas, Real vx, Real gamma_lorentz_sq,$/;"	f	class:EquationOfState
@@ -1775,10 +1780,8 @@ UpdateCostList	src/mesh/amr_loadbalance.cpp	/^void Mesh::UpdateCostList() {$/;"	
 UpdateIncludeState	tst/style/cpplint.py	/^def UpdateIncludeState(filename, include_dict, io=codecs):$/;"	f
 UpdateMeshBlockTree	src/mesh/amr_loadbalance.cpp	/^void Mesh::UpdateMeshBlockTree(int &nnew, int &ndel) {$/;"	f	class:Mesh
 UpdatePreprocessor	tst/style/cpplint.py	/^    def UpdatePreprocessor(self, line):$/;"	m	class:NestingState
-Update_Multiple_Dust_Feedback	src/dustfluids/drags/solve_drags_matrix.cpp	/^void DustGasDrag::Update_Multiple_Dust_Feedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
-Update_Multiple_Dust_NoFeedback	src/dustfluids/drags/solve_drags_matrix.cpp	/^void DustGasDrag::Update_Multiple_Dust_NoFeedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
-Update_Single_Dust_Feedback	src/dustfluids/drags/solve_drags_matrix.cpp	/^void DustGasDrag::Update_Single_Dust_Feedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
-Update_Single_Dust_NoFeedback	src/dustfluids/drags/solve_drags_matrix.cpp	/^void DustGasDrag::Update_Single_Dust_NoFeedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+UserDefined_DustDiffusivity	src/dustfluids/diffusions/dustfluids_diffusion.cpp	/^void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
+UserDefined_StoppingTime	src/dustfluids/dustfluids.cpp	/^void DustFluids::UserDefined_StoppingTime(const int kl, const int ku, const int jl, const int ju,$/;"	f	class:DustFluids
 UserHistoryOperation	src/athena.hpp	/^enum class UserHistoryOperation {sum, max, min};$/;"	c
 UserMetric_	src/mesh/mesh.hpp	/^  MetricFunc UserMetric_;$/;"	m	class:Mesh
 UserSourceTerm	src/hydro/srcterms/hydro_srcterms.hpp	/^  SrcTermFunc UserSourceTerm;$/;"	m	class:HydroSourceTerms
@@ -1811,8 +1814,6 @@ UserWorkInLoop	src/pgen/hb3.cpp	/^void MeshBlock::UserWorkInLoop() {$/;"	f	class
 UserWorkInLoop	src/pgen/poisson.cpp	/^void MeshBlock::UserWorkInLoop() {$/;"	f	class:MeshBlock
 UserWorkInLoop	src/pgen/ssheet.cpp	/^void MeshBlock::UserWorkInLoop() {$/;"	f	class:MeshBlock
 UserWorkInLoop	src/pgen/strat.cpp	/^void MeshBlock::UserWorkInLoop() {$/;"	f	class:MeshBlock
-User_Defined_DustDiffusivity	src/dustfluids/diffusions/dustfluids_diffusion.cpp	/^void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
-User_Defined_StoppingTime	src/dustfluids/diffusions/dustfluids_diffusion.cpp	/^void DustFluidsDiffusion::User_Defined_StoppingTime(const int kl, const int ku, const int jl, const int ju,$/;"	f	class:DustFluidsDiffusion
 VPATH	Makefile	/^VPATH := $(SRC_DIRS)$/;"	m
 VTKOutput	src/outputs/outputs.hpp	/^  explicit VTKOutput(OutputParameters oparams) : OutputType(oparams) {}$/;"	f	class:VTKOutput
 VTKOutput	src/outputs/outputs.hpp	/^class VTKOutput : public OutputType {$/;"	c
@@ -1840,10 +1841,10 @@ VolCenterFace2Area	src/coordinates/spherical_polar.cpp	/^void SphericalPolar::Vo
 VolCenterFace3Area	src/coordinates/coordinates.cpp	/^void Coordinates::VolCenterFace3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Coordinates
 VolCenterFace3Area	src/coordinates/cylindrical.cpp	/^void Cylindrical::VolCenterFace3Area(const int k, const int j, const int il, const int iu,$/;"	f	class:Cylindrical
 VolCenterFace3Area	src/coordinates/spherical_polar.cpp	/^void SphericalPolar::VolCenterFace3Area(const int k, const int j, const int il,$/;"	f	class:SphericalPolar
-Vr_interpolate_inner	src/pgen/disk.cpp	/^void Vr_interpolate_inner(const Real r_active, const Real r_ghost, const Real vr_active,$/;"	f	namespace:__anon37
-Vr_interpolate_inner_2	src/pgen/disk.cpp	/^void Vr_interpolate_inner_2(const Real r_active, const Real r_ghost, const Real sigma_active,$/;"	f	namespace:__anon37
-Vr_interpolate_outer	src/pgen/disk.cpp	/^void Vr_interpolate_outer(const Real r_active, const Real r_ghost, const Real vr_active,$/;"	f	namespace:__anon37
-Vr_interpolate_outer_2	src/pgen/disk.cpp	/^void Vr_interpolate_outer_2(const Real r_active, const Real r_ghost, const Real sigma_active,$/;"	f	namespace:__anon37
+Vr_interpolate_inner_nomatter	src/pgen/disk.cpp	/^void Vr_interpolate_inner_nomatter(const Real r_active, const Real r_ghost, const Real sigma_active,$/;"	f	namespace:__anon37
+Vr_interpolate_inner_powerlaw	src/pgen/disk.cpp	/^void Vr_interpolate_inner_powerlaw(const Real r_active, const Real r_ghost, const Real vr_active,$/;"	f	namespace:__anon37
+Vr_interpolate_outer_nomatter	src/pgen/disk.cpp	/^void Vr_interpolate_outer_nomatter(const Real r_active, const Real r_ghost, const Real sigma_active,$/;"	f	namespace:__anon37
+Vr_interpolate_outer_powerlaw	src/pgen/disk.cpp	/^void Vr_interpolate_outer_powerlaw(const Real r_active, const Real r_ghost, const Real vr_active,$/;"	f	namespace:__anon37
 WeightedAve	src/mesh/weighted_ave.cpp	/^void MeshBlock::WeightedAve(AthenaArray<Real> &u_out, AthenaArray<Real> &u_in1,$/;"	f	class:MeshBlock
 WeightedAve	src/mesh/weighted_ave.cpp	/^void MeshBlock::WeightedAve(FaceField &b_out, FaceField &b_in1, FaceField &b_in2,$/;"	f	class:MeshBlock
 Write	src/outputs/io_wrapper.cpp	/^std::size_t IOWrapper::Write(const void *buf, IOWrapperSizeT size, IOWrapperSizeT cnt) {$/;"	f	class:IOWrapper
@@ -2354,7 +2355,7 @@ cc_e_	src/field/field.hpp	/^  AthenaArray<Real> cc_e_;$/;"	m	class:Field
 cc_flcor	src/athena.hpp	/^enum class BoundaryQuantity {cc, fc, cc_flcor, fc_flcor, mggrav, mggrav_f};$/;"	m	class:BoundaryQuantity
 cc_flx_phys_id_	src/bvals/cc/bvals_cc.hpp	/^  int cc_phys_id_, cc_flx_phys_id_;$/;"	m	class:CellCenteredBoundaryVariable
 cc_phys_id_	src/bvals/cc/bvals_cc.hpp	/^  int cc_phys_id_, cc_flx_phys_id_;$/;"	m	class:CellCenteredBoundaryVariable
-cell_volume_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> cell_volume_;$/;"	m	class:DustFluids
+cell_volume_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> cell_volume_;   \/\/ the volume of the cells$/;"	m	class:DustFluids
 cell_volume_	src/field/field_diffusion/field_diffusion.hpp	/^  AthenaArray<Real>  cell_volume_;$/;"	m	class:FieldDiffusion
 cell_volume_	src/hydro/hydro.hpp	/^  AthenaArray<Real> cell_volume_;$/;"	m	class:Hydro
 cen1	src/pgen/visc_dustfluids.cpp	/^Real A0, sig_x1, sig_x2, cen1, cen2;$/;"	m	namespace:__anon50	file:
@@ -2394,8 +2395,8 @@ coarse_bcc_	src/field/field.hpp	/^  AthenaArray<Real> coarse_bcc_;$/;"	m	class:F
 coarse_buf	src/bvals/cc/bvals_cc.hpp	/^  AthenaArray<Real> *coarse_buf;  \/\/ may pass nullptr if mesh refinement is unsupported$/;"	m	class:CellCenteredBoundaryVariable
 coarse_buf	src/bvals/fc/bvals_fc.hpp	/^  FaceField &coarse_buf;$/;"	m	class:FaceCenteredBoundaryVariable
 coarse_cons_	src/hydro/hydro.hpp	/^  AthenaArray<Real> coarse_cons_, coarse_prim_;$/;"	m	class:Hydro
-coarse_df_cons_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_;$/;"	m	class:DustFluids
-coarse_df_prim_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_;$/;"	m	class:DustFluids
+coarse_df_cons_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; \/\/ coarse df_cons and coarse df_prim, used in mesh refinement$/;"	m	class:DustFluids
+coarse_df_prim_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; \/\/ coarse df_cons and coarse df_prim, used in mesh refinement$/;"	m	class:DustFluids
 coarse_flag	src/coordinates/coordinates.hpp	/^  bool coarse_flag;  \/\/ true if this coordinate object is parent (coarse) mesh in AMR$/;"	m	class:Coordinates
 coarse_prim_	src/hydro/hydro.hpp	/^  AthenaArray<Real> coarse_cons_, coarse_prim_;$/;"	m	class:Hydro
 code_time	src/outputs/outputs.hpp	/^  float code_time;                            \/\/ time in code unit for XDMF$/;"	m	class:ATHDF5Output
@@ -2525,6 +2526,7 @@ d0	src/pgen/mignone_advection.cpp	/^constexpr Real d0 = 1.0;$/;"	m	namespace:__a
 d0	src/pgen/slotted_cylinder.cpp	/^constexpr Real d0 = 1.0;$/;"	m	namespace:__anon56	file:
 d_amb	src/pgen/jet.cpp	/^Real d_amb, p_amb, vx_amb, vy_amb, vz_amb, bx_amb, by_amb, bz_amb;$/;"	m	namespace:__anon34	file:
 d_jet	src/pgen/jet.cpp	/^Real r_jet, d_jet, p_jet, vx_jet, vy_jet, vz_jet, bx_jet, by_jet, bz_jet;$/;"	m	namespace:__anon34	file:
+damping_rate	src/pgen/disk.cpp	/^Real x1min, x1max, tau_damping, damping_rate;$/;"	m	namespace:__anon36	file:
 data	src/athena_arrays.hpp	/^  T *data() { return pdata_; }$/;"	f	class:AthenaArray
 data	src/athena_arrays.hpp	/^  const T *data() const { return pdata_; }$/;"	f	class:AthenaArray
 data	src/outputs/outputs.hpp	/^  AthenaArray<Real> data;  \/\/ array containing data (usually shallow copy\/slice)$/;"	m	struct:OutputData
@@ -2606,11 +2608,11 @@ df_prim	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim, df_prim1;
 df_prim1	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim, df_prim1;        \/\/ time-integrator memory register #3$/;"	m	class:DustFluids
 df_prim_cc	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_cons_cc, df_prim_cc;   \/\/ cell-centered approximations$/;"	m	class:DustFluids
 df_prim_l3d_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim_l3d_, df_prim_r3d_;$/;"	m	class:DustFluids
-df_prim_l_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim_l_, df_prim_r_, df_prim_lb_;$/;"	m	class:DustFluids
-df_prim_lb_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim_l_, df_prim_r_, df_prim_lb_;$/;"	m	class:DustFluids
+df_prim_l_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim_l_, df_prim_r_, df_prim_lb_;  \/\/ left and right states in reconstruction$/;"	m	class:DustFluids
+df_prim_lb_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim_l_, df_prim_r_, df_prim_lb_;  \/\/ left and right states in reconstruction$/;"	m	class:DustFluids
 df_prim_r3d_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim_l3d_, df_prim_r3d_;$/;"	m	class:DustFluids
-df_prim_r_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim_l_, df_prim_r_, df_prim_lb_;$/;"	m	class:DustFluids
-dfbvar	src/dustfluids/dustfluids.hpp	/^    CellCenteredBoundaryVariable dfbvar;$/;"	m	class:DustFluids
+df_prim_r_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> df_prim_l_, df_prim_r_, df_prim_lb_;  \/\/ left and right states in reconstruction$/;"	m	class:DustFluids
+dfbvar	src/dustfluids/dustfluids.hpp	/^    CellCenteredBoundaryVariable dfbvar;  \/\/ Cell-Centered variables$/;"	m	class:DustFluids
 dfdif	src/dustfluids/dustfluids.hpp	/^    DustFluidsDiffusion          dfdif;   \/\/ Objects used in calculating the diffusions of dust$/;"	m	class:DustFluids
 dfdrag	src/dustfluids/dustfluids.hpp	/^    DustGasDrag                  dfdrag;  \/\/ Objects used in calculating the dust-gas drags$/;"	m	class:DustFluids
 dfloor	src/pgen/disk.cpp	/^Real gm0, r0, rho0, dslope, p0_over_r0, pslope, gamma_gas, initial_D2G, dfloor;$/;"	m	namespace:__anon36	file:
@@ -2658,7 +2660,7 @@ dt_parabolic	src/mesh/mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperboli
 dt_user	src/mesh/mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
 dtdrive	src/fft/turbulence.hpp	/^  Real tdrive, dtdrive, tcorr, f_shear;$/;"	m	class:TurbulenceDriver
 dust_dens_slope	src/pgen/disk.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon36	file:
-dustfluids_diffusion_defined	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    bool dustfluids_diffusion_defined;$/;"	m	class:DustFluidsDiffusion
+dustfluids_diffusion_defined	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    bool dustfluids_diffusion_defined; \/\/ true or false$/;"	m	class:DustFluidsDiffusion
 dustfluids_diffusion_flux	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    AthenaArray<Real> dustfluids_diffusion_flux[3];$/;"	m	class:DustFluidsDiffusion
 dustfluids_floor_	src/eos/eos.hpp	/^  Real dustfluids_floor_;                \/\/ dimensionless concentration floor$/;"	m	class:EquationOfState
 dustfluids_sourceterms_defined	src/dustfluids/srcterms/dustfluids_srcterms.hpp	/^    bool dustfluids_sourceterms_defined;$/;"	m	class:DustFluidsSourceTerms
@@ -2701,7 +2703,7 @@ eUnit	src/utils/interp_table.hpp	/^  Real rhoUnit, eUnit, hUnit;$/;"	m	class:Eos
 e_h	src/field/field_diffusion/field_diffusion.hpp	/^  EdgeField e_oa, e_h;     \/\/ edge-centered electric field from non-ideal MHD$/;"	m	class:FieldDiffusion
 e_oa	src/field/field_diffusion/field_diffusion.hpp	/^  EdgeField e_oa, e_h;     \/\/ edge-centered electric field from non-ideal MHD$/;"	m	class:FieldDiffusion
 e_of_rho_T	src/eos/general/hydrogen.cpp	/^Real e_of_rho_T(Real rho, Real T) {$/;"	f	namespace:__anon67
-eddy_timescale_r0	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    Real eddy_timescale_r0;         \/\/ The eddy timescale (turn over time of eddy) at r0$/;"	m	class:DustFluidsDiffusion
+eddy_timescale_r0	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    Real eddy_timescale_r0;      \/\/ The eddy timescale (turn over time of eddy) at r0$/;"	m	class:DustFluidsDiffusion
 edge	src/bvals/bvals_interfaces.hpp	/^enum class NeighborConnect {none, face, edge, corner}; \/\/ degenerate\/shared part of block$/;"	m	class:NeighborConnect
 edge_flag_	src/bvals/fc/bvals_fc.hpp	/^  bool edge_flag_[12];$/;"	m	class:FaceCenteredBoundaryVariable
 edge_length_	src/field/field.hpp	/^  AthenaArray<Real> face_area_, edge_length_, edge_length_p1_;$/;"	m	class:Field
@@ -3156,7 +3158,7 @@ hsrc	src/hydro/hydro.hpp	/^  HydroSourceTerms hsrc;$/;"	m	class:Hydro
 hst	vis/python/athena_read.py	/^def hst(filename, raw=False):$/;"	f
 hydro_args	tst/regression/scripts/tests/pgen/pgen_compile.py	/^hydro_args = []$/;"	v
 hydro_diffusion_defined	src/hydro/hydro_diffusion/hydro_diffusion.hpp	/^  bool hydro_diffusion_defined;$/;"	m	class:HydroDiffusion
-hydro_gamma_	src/dustfluids/drags/dust_gas_drag.hpp	/^    Real        hydro_gamma_;$/;"	m	class:DustGasDrag
+hydro_gamma_	src/dustfluids/drags/dust_gas_drag.hpp	/^    Real        hydro_gamma_;                \/\/ The adiabatic index of gas$/;"	m	class:DustGasDrag
 hydro_probs	tst/regression/scripts/tests/pgen/pgen_compile.py	/^hydro_probs = pgen_choices - gr_probs - mhd_probs - shear_probs$/;"	v
 hydro_sourceterms_defined	src/hydro/srcterms/hydro_srcterms.hpp	/^  bool hydro_sourceterms_defined;$/;"	m	class:HydroSourceTerms
 hydro_type_	src/bvals/cc/hydro/bvals_hydro.hpp	/^  HydroBoundaryQuantity hydro_type_;$/;"	m	class:HydroBoundaryVariable
@@ -3180,8 +3182,8 @@ init_domain_1d	vis/vtk/join_vtk++.c	/^static void init_domain_1d(void){$/;"	f	fi
 initial	src/pgen/gr_linear_wave.cpp	/^AthenaArray<Real> initial;    \/\/ initial conditions$/;"	v
 initial_D2G	src/pgen/disk.cpp	/^Real gm0, r0, rho0, dslope, p0_over_r0, pslope, gamma_gas, initial_D2G, dfloor;$/;"	m	namespace:__anon36	file:
 initialized_	src/fft/turbulence.hpp	/^  bool initialized_ = false;$/;"	m	class:TurbulenceDriver
-inner_dampingzone_1	src/pgen/disk.cpp	/^Real inner_dampingzone_1, outer_dampingzone_1, inner_dampingzone_2, outer_dampingzone_2, width_dampingzone;$/;"	m	namespace:__anon36	file:
-inner_dampingzone_2	src/pgen/disk.cpp	/^Real inner_dampingzone_1, outer_dampingzone_1, inner_dampingzone_2, outer_dampingzone_2, width_dampingzone;$/;"	m	namespace:__anon36	file:
+inner_ratio_region	src/pgen/disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon36	file:
+inner_width_damping	src/pgen/disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon36	file:
 inner_x1	src/bvals/bvals_interfaces.hpp	/^enum BoundaryFace {undef=-1, inner_x1=0, outer_x1=1, inner_x2=2, outer_x2=3,$/;"	e	enum:BoundaryFace
 inner_x2	src/bvals/bvals_interfaces.hpp	/^enum BoundaryFace {undef=-1, inner_x1=0, outer_x1=1, inner_x2=2, outer_x2=3,$/;"	e	enum:BoundaryFace
 inner_x3	src/bvals/bvals_interfaces.hpp	/^                   inner_x3=4, outer_x3=5};$/;"	e	enum:BoundaryFace
@@ -3634,8 +3636,7 @@ num_nx1	tst/regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^num_nx1
 num_nx2	tst/regression/scripts/tests/scalars/mignone_meridional_1d.py	/^num_nx2 = len(resolution_range)$/;"	v
 num_ranks	tst/regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^num_ranks = 3$/;"	v
 num_south_polar_blocks_	src/bvals/bvals.hpp	/^  int num_north_polar_blocks_, num_south_polar_blocks_;$/;"	m	class:BoundaryBase
-num_species	src/dustfluids/drags/dust_gas_drag.cpp	/^  indx_array(num_species),                \/\/ Stores the permutation$/;"	v
-num_species	src/dustfluids/drags/dust_gas_drag.hpp	/^    const int num_species = NDUSTFLUIDS + 1;$/;"	m	class:DustGasDrag
+num_species	src/dustfluids/drags/dust_gas_drag.hpp	/^    const int num_species = NDUSTFLUIDS + 1; \/\/ gas and n dust fluids$/;"	m	class:DustGasDrag
 num_tasks_left	src/task_list/task_list.hpp	/^  int indx_first_task, num_tasks_left;$/;"	m	struct:TaskStates
 num_variables	src/outputs/outputs.hpp	/^  int *num_variables;                         \/\/ list of counts of variables per dataset$/;"	m	class:ATHDF5Output
 num_vars_	src/outputs/outputs.hpp	/^  int num_vars_;             \/\/ number of variables in output$/;"	m	class:OutputType
@@ -3711,8 +3712,8 @@ out_je	src/outputs/outputs.hpp	/^  int out_is, out_ie, out_js, out_je, out_ks, o
 out_js	src/outputs/outputs.hpp	/^  int out_is, out_ie, out_js, out_je, out_ks, out_ke;  \/\/ OutputData array start\/end index$/;"	m	class:OutputType
 out_ke	src/outputs/outputs.hpp	/^  int out_is, out_ie, out_js, out_je, out_ks, out_ke;  \/\/ OutputData array start\/end index$/;"	m	class:OutputType
 out_ks	src/outputs/outputs.hpp	/^  int out_is, out_ie, out_js, out_je, out_ks, out_ke;  \/\/ OutputData array start\/end index$/;"	m	class:OutputType
-outer_dampingzone_1	src/pgen/disk.cpp	/^Real inner_dampingzone_1, outer_dampingzone_1, inner_dampingzone_2, outer_dampingzone_2, width_dampingzone;$/;"	m	namespace:__anon36	file:
-outer_dampingzone_2	src/pgen/disk.cpp	/^Real inner_dampingzone_1, outer_dampingzone_1, inner_dampingzone_2, outer_dampingzone_2, width_dampingzone;$/;"	m	namespace:__anon36	file:
+outer_ratio_region	src/pgen/disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon36	file:
+outer_width_damping	src/pgen/disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon36	file:
 outer_x1	src/bvals/bvals_interfaces.hpp	/^enum BoundaryFace {undef=-1, inner_x1=0, outer_x1=1, inner_x2=2, outer_x2=3,$/;"	e	enum:BoundaryFace
 outer_x2	src/bvals/bvals_interfaces.hpp	/^enum BoundaryFace {undef=-1, inner_x1=0, outer_x1=1, inner_x2=2, outer_x2=3,$/;"	e	enum:BoundaryFace
 outer_x3	src/bvals/bvals_interfaces.hpp	/^                   inner_x3=4, outer_x3=5};$/;"	e	enum:BoundaryFace
@@ -3843,7 +3844,8 @@ pblock	src/mesh/mesh.hpp	/^  MeshBlock *pblock;$/;"	m	class:Mesh
 pbval	src/mesh/mesh.hpp	/^  BoundaryValues *pbval;$/;"	m	class:MeshBlock
 pbval_	src/bvals/bvals_interfaces.hpp	/^  BoundaryValues *pbval_;  \/\/ ptr to BoundaryValues that aggregates these$/;"	m	class:BoundaryVariable
 pco_	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    Coordinates *pco_;            \/\/ ptr to coordinates class$/;"	m	class:DustFluidsDiffusion
-pco_	src/dustfluids/drags/dust_gas_drag.hpp	/^    Coordinates *pco_;            \/\/ ptr to coordinates class$/;"	m	class:DustGasDrag
+pco_	src/dustfluids/drags/dust_gas_drag.hpp	/^    Coordinates *pco_;                       \/\/ ptr to coordinates class$/;"	m	class:DustGasDrag
+pco_	src/dustfluids/dustfluids.hpp	/^    Coordinates *pco_;            \/\/ ptr to coordinates class$/;"	m	class:DustFluids
 pco_	src/hydro/hydro_diffusion/hydro_diffusion.hpp	/^  Coordinates *pco_;  \/\/ ptr to coordinates class$/;"	m	class:HydroDiffusion
 pcoarsec	src/mesh/mesh_refinement.hpp	/^  Coordinates *pcoarsec;$/;"	m	class:MeshRefinement
 pcoeff	src/pgen/magnoh.cpp	/^Real alpha, beta, rho0, P0, pcoeff, vr, perturb, mphi;$/;"	m	namespace:__anon35	file:
@@ -3924,7 +3926,7 @@ plot_profiles	tst/regression/scripts/utils/plot_mignone/section_5_1_2.py	/^def p
 plot_sol	tst/regression/scripts/utils/RiemannSolver/riemann.py	/^    def plot_sol(self, var=None, xi_min=None, xi_max=None, nsimp=100, speeds=True,$/;"	m	class:RiemannSol
 pm	src/coordinates/coordinates.hpp	/^  Mesh *pm;$/;"	m	class:Coordinates
 pmb_	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    MeshBlock   *pmb_;            \/\/ ptr to meshblock containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
-pmb_	src/dustfluids/drags/dust_gas_drag.hpp	/^    MeshBlock   *pmb_;            \/\/ ptr to meshblock containing this DustGasDrag$/;"	m	class:DustGasDrag
+pmb_	src/dustfluids/drags/dust_gas_drag.hpp	/^    MeshBlock   *pmb_;                       \/\/ ptr to meshblock containing this DustGasDrag$/;"	m	class:DustGasDrag
 pmb_	src/hydro/hydro_diffusion/hydro_diffusion.hpp	/^  MeshBlock *pmb_;    \/\/ ptr to meshblock containing this HydroDiffusion$/;"	m	class:HydroDiffusion
 pmesh_	src/mesh/meshblock_tree.cpp	/^Mesh* pmesh_;$/;"	v
 pmg	src/mesh/mesh.hpp	/^  MGGravity* pmg;$/;"	m	class:MeshBlock
@@ -3946,7 +3948,7 @@ pmy_block_	src/reconstruct/reconstruction.hpp	/^  MeshBlock* pmy_block_;  \/\/ p
 pmy_driver_	src/fft/athena_fft.hpp	/^  FFTDriver *pmy_driver_;$/;"	m	class:FFTBlock::AthenaFFTDirection
 pmy_driver_	src/multigrid/multigrid.hpp	/^  MultigridDriver *pmy_driver_;$/;"	m	class:Multigrid
 pmy_dustfluids_	src/dustfluids/diffusions/dustfluids_diffusion.hpp	/^    DustFluids  *pmy_dustfluids_; \/\/ ptr to DustFluids containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
-pmy_dustfluids_	src/dustfluids/drags/dust_gas_drag.hpp	/^    DustFluids  *pmy_dustfluids_; \/\/ ptr to DustFluids containing this DustGasDrag$/;"	m	class:DustGasDrag
+pmy_dustfluids_	src/dustfluids/drags/dust_gas_drag.hpp	/^    DustFluids  *pmy_dustfluids_;            \/\/ ptr to DustFluids containing this DustGasDrag$/;"	m	class:DustGasDrag
 pmy_dustfluids_	src/dustfluids/srcterms/dustfluids_srcterms.hpp	/^    DustFluids *pmy_dustfluids_;  \/\/ ptr to DustFluids containing this DustFluidsSourceTerms$/;"	m	class:DustFluidsSourceTerms
 pmy_fb	src/fft/athena_fft.hpp	/^  FFTBlock *pmy_fb;$/;"	m	class:FFTBlock::FFTDriver
 pmy_hydro_	src/hydro/hydro_diffusion/hydro_diffusion.hpp	/^  Hydro *pmy_hydro_;  \/\/ ptr to Hydro containing this HydroDiffusion$/;"	m	class:HydroDiffusion
@@ -4043,6 +4045,7 @@ prepare	tst/regression/scripts/tests/sr/sr_mhd_linwave.py	/^def prepare(**kwargs
 prepare	tst/regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^def prepare(**kwargs):$/;"	f
 prepare	tst/regression/scripts/tests/turb/turb_3d.py	/^def prepare(**kwargs):$/;"	f
 pres	src/pgen/cpaw.cpp	/^Real den, pres, gm1, b_par, b_perp, v_perp, v_par;$/;"	m	namespace:__anon60	file:
+press	src/pgen/shock_multipledust.cpp	/^Real press(Real rho, Real T) {$/;"	f
 press	src/pgen/shock_tube.cpp	/^Real press(Real rho, Real T) {$/;"	f
 pressure_floor_	src/eos/eos.hpp	/^  Real density_floor_, pressure_floor_;  \/\/ density and pressure floors$/;"	m	class:EquationOfState
 prev	src/mesh/mesh.hpp	/^  MeshBlock *prev, *next;$/;"	m	class:MeshBlock
@@ -4078,6 +4081,8 @@ r_min	src/pgen/gr_torus.cpp	/^Real r_min, r_max, theta_min, theta_max;    \/\/ l
 r_peak	src/pgen/gr_torus.cpp	/^Real r_edge, r_peak, l, rho_max;            \/\/ fixed torus parameters$/;"	m	namespace:__anon41	file:
 rad_planet	src/pgen/disk.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon36	file:
 radius	src/pgen/slotted_cylinder.cpp	/^Real radius, omega_x1, omega_x2, omega, iso_cs;$/;"	m	namespace:__anon56	file:
+radius_inner_damping	src/pgen/disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon36	file:
+radius_outer_damping	src/pgen/disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon36	file:
 ram	tst/regression/scripts/utils/RiemannSolver/riemann.py	/^    def ram(self):$/;"	m	class:StateVector
 ran2	src/utils/ran2.cpp	/^double ran2(std::int64_t *idum) {$/;"	f
 rand_amp	src/pgen/disk.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon36	file:
@@ -4419,6 +4424,7 @@ task_id	src/task_list/task_list.hpp	/^  TaskID task_id;    \/\/ encodes task wit
 task_list_	src/task_list/mg_task_list.hpp	/^  MGTask task_list_[64];$/;"	m	class:MultigridTaskList
 task_list_	src/task_list/task_list.hpp	/^  Task task_list_[64*TaskID::kNField_];$/;"	m	class:TaskList
 tasks	src/mesh/mesh.hpp	/^  TaskStates tasks;$/;"	m	class:MeshBlock
+tau_damping	src/pgen/disk.cpp	/^Real x1min, x1max, tau_damping, damping_rate;$/;"	m	namespace:__anon36	file:
 tau_relax	src/pgen/disk.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon36	file:
 tcorr	src/fft/turbulence.hpp	/^  Real tdrive, dtdrive, tcorr, f_shear;$/;"	m	class:TurbulenceDriver
 tdrive	src/fft/turbulence.hpp	/^  Real tdrive, dtdrive, tcorr, f_shear;$/;"	m	class:TurbulenceDriver
@@ -4471,7 +4477,6 @@ trans_face3_ji5_	src/coordinates/coordinates.hpp	/^    trans_face3_ji4_, trans_f
 trans_face3_ji6_	src/coordinates/coordinates.hpp	/^    trans_face3_ji4_, trans_face3_ji5_, trans_face3_ji6_;$/;"	m	class:Coordinates
 trans_face3_kji_	src/coordinates/coordinates.hpp	/^  AthenaArray<Real> trans_face3_kji_;$/;"	m	class:Coordinates
 tree	src/mesh/mesh.hpp	/^  MeshBlockTree tree;$/;"	m	class:Mesh
-true	src/dustfluids/diffusions/dustfluids_diffusion.cpp	/^  dustfluids_diffusion_defined(true),$/;"	v
 true	src/mesh/mesh.cpp	/^    lb_flag_(true), lb_automatic_(), lb_manual_(),$/;"	v
 ts_	src/multigrid/multigrid.hpp	/^  TaskStates ts_;$/;"	m	class:Multigrid
 turb_flag	src/mesh/mesh.hpp	/^  int turb_flag; \/\/ turbulence flag$/;"	m	class:Mesh
@@ -4657,7 +4662,6 @@ weight_n7	src/utils/gl_quadrature.cpp	/^static constexpr Real weight_n7[] = {$/;
 weight_n8	src/utils/gl_quadrature.cpp	/^static constexpr Real weight_n8[] = {$/;"	m	namespace:GaussLegendre	file:
 weight_n9	src/utils/gl_quadrature.cpp	/^static constexpr Real weight_n9[] = {$/;"	m	namespace:GaussLegendre	file:
 wght	src/field/field.hpp	/^  FaceField wght; \/\/ weights used to integrate E to corner using GS algorithm$/;"	m	class:Field
-width_dampingzone	src/pgen/disk.cpp	/^Real inner_dampingzone_1, outer_dampingzone_1, inner_dampingzone_2, outer_dampingzone_2, width_dampingzone;$/;"	m	namespace:__anon36	file:
 widths	vis/python/spherical_refinement.py	/^def widths(r1, r2, theta1, theta2, delta_phi, metric, parameters):$/;"	f
 wl3d_	src/hydro/hydro.hpp	/^  AthenaArray<Real> wl3d_, wr3d_;$/;"	m	class:Hydro
 wl_	src/hydro/hydro.hpp	/^  AthenaArray<Real> wl_, wr_, wlb_;$/;"	m	class:Hydro
@@ -4678,12 +4682,14 @@ x1area_	src/hydro/hydro_diffusion/hydro_diffusion.hpp	/^  AthenaArray<Real> x1ar
 x1e	src/athena.hpp	/^  AthenaArray<Real> x1e, x2e, x3e;$/;"	m	struct:EdgeField
 x1f	src/athena.hpp	/^  AthenaArray<Real> x1f, x2f, x3f;$/;"	m	struct:FaceField
 x1f	src/coordinates/coordinates.hpp	/^  AthenaArray<Real> dx1f, dx2f, dx3f, x1f, x2f, x3f;    \/\/ face   spacing and positions$/;"	m	class:Coordinates
-x1face_area_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;$/;"	m	class:DustFluids
+x1face_area_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_; \/\/ face area in x1, x2, x3 directions$/;"	m	class:DustFluids
 x1face_area_	src/hydro/hydro.hpp	/^  AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;$/;"	m	class:Hydro
 x1flux	src/bvals/cc/bvals_cc.hpp	/^  AthenaArray<Real> &x1flux, &x2flux, &x3flux;$/;"	m	class:CellCenteredBoundaryVariable
 x1max	src/athena.hpp	/^  Real x1max, x2max, x3max;$/;"	m	struct:RegionSize
+x1max	src/pgen/disk.cpp	/^Real x1min, x1max, tau_damping, damping_rate;$/;"	m	namespace:__anon36	file:
 x1max_	src/utils/interp_table.hpp	/^  Real x1max_;$/;"	m	class:InterpTable2D
 x1min	src/athena.hpp	/^  Real x1min, x2min, x3min;$/;"	m	struct:RegionSize
+x1min	src/pgen/disk.cpp	/^Real x1min, x1max, tau_damping, damping_rate;$/;"	m	namespace:__anon36	file:
 x1min_	src/utils/interp_table.hpp	/^  Real x1min_;$/;"	m	class:InterpTable2D
 x1norm_	src/utils/interp_table.hpp	/^  Real x1norm_;$/;"	m	class:InterpTable2D
 x1rat	src/athena.hpp	/^  Real x1rat, x2rat, x3rat; \/\/ ratio of dxf(i)\/dxf(i-1)$/;"	m	struct:RegionSize
@@ -4703,7 +4709,7 @@ x2area_p1_	src/hydro/hydro_diffusion/hydro_diffusion.hpp	/^  AthenaArray<Real> x
 x2e	src/athena.hpp	/^  AthenaArray<Real> x1e, x2e, x3e;$/;"	m	struct:EdgeField
 x2f	src/athena.hpp	/^  AthenaArray<Real> x1f, x2f, x3f;$/;"	m	struct:FaceField
 x2f	src/coordinates/coordinates.hpp	/^  AthenaArray<Real> dx1f, dx2f, dx3f, x1f, x2f, x3f;    \/\/ face   spacing and positions$/;"	m	class:Coordinates
-x2face_area_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;$/;"	m	class:DustFluids
+x2face_area_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_; \/\/ face area in x1, x2, x3 directions$/;"	m	class:DustFluids
 x2face_area_	src/hydro/hydro.hpp	/^  AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;$/;"	m	class:Hydro
 x2face_area_p1_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;$/;"	m	class:DustFluids
 x2face_area_p1_	src/hydro/hydro.hpp	/^  AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;$/;"	m	class:Hydro
@@ -4730,7 +4736,7 @@ x3area_p1_	src/hydro/hydro_diffusion/hydro_diffusion.hpp	/^  AthenaArray<Real> x
 x3e	src/athena.hpp	/^  AthenaArray<Real> x1e, x2e, x3e;$/;"	m	struct:EdgeField
 x3f	src/athena.hpp	/^  AthenaArray<Real> x1f, x2f, x3f;$/;"	m	struct:FaceField
 x3f	src/coordinates/coordinates.hpp	/^  AthenaArray<Real> dx1f, dx2f, dx3f, x1f, x2f, x3f;    \/\/ face   spacing and positions$/;"	m	class:Coordinates
-x3face_area_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;$/;"	m	class:DustFluids
+x3face_area_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_; \/\/ face area in x1, x2, x3 directions$/;"	m	class:DustFluids
 x3face_area_	src/hydro/hydro.hpp	/^  AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;$/;"	m	class:Hydro
 x3face_area_p1_	src/dustfluids/dustfluids.hpp	/^    AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;$/;"	m	class:DustFluids
 x3face_area_p1_	src/hydro/hydro.hpp	/^  AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;$/;"	m	class:Hydro

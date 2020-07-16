@@ -290,10 +290,10 @@ TimeIntegratorTaskList::TimeIntegratorTaskList(ParameterInput *pin, Mesh *pm) {
       AddTask(SEND_DUSTFLUIDS,SRCTERM_DUSTFLUIDS);
       AddTask(RECV_DUSTFLUIDS,NONE);
       AddTask(SETB_DUSTFLUIDS,(RECV_DUSTFLUIDS|SRCTERM_DUSTFLUIDS));
-       if (SHEARING_BOX) {
-         AddTask(SEND_DUSTFLUIDSSH,SETB_DUSTFLUIDS);
-         AddTask(RECV_DUSTFLUIDSSH,SETB_DUSTFLUIDS);
-       }
+      if (SHEARING_BOX) {
+        AddTask(SEND_DUSTFLUIDSSH,SETB_DUSTFLUIDS);
+        AddTask(RECV_DUSTFLUIDSSH,SETB_DUSTFLUIDS);
+      }
     }
 
     if (MAGNETIC_FIELDS_ENABLED) { // MHD
@@ -1219,6 +1219,7 @@ TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsFlux(MeshBlock *pmb, int sta
 
 TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage) {
   DustFluids *pdf = pmb->pdustfluids;
+  Hydro *ph       = pmb->phydro;
   if (stage <= nstages) {
     // This time-integrator-specific averaging operation logic is identical to
     // IntegrateHydro, IntegrateField
@@ -1237,6 +1238,9 @@ TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage
       pmb->WeightedAve(pdf->df_cons, pdf->df_cons1, pdf->df_cons2, ave_wghts);
 
     const Real wght = stage_wghts[stage-1].beta*pmb->pmy_mesh->dt;
+
+    pdf->dfdrag.Aerodynamics_Drag(pmb, wght, pdf->stopping_time_array,
+                                  ph->w, pdf->df_prim, ph->u, pdf->df_cons);
     pdf->AddDustFluidsFluxDivergence(wght, pdf->df_cons);
     pmb->pcoord->AddCoordTermsDivergence_DustFluids(wght, pdf->df_flux, pdf->df_prim, pdf->df_cons);
 
@@ -1305,6 +1309,7 @@ TaskStatus TimeIntegratorTaskList::DiffuseDustFluids(MeshBlock *pmb, int stage) 
   Hydro      *phyd          = pmb->phydro;
   DustFluidsDiffusion dfdif = pdf->dfdif;
 
+  //TODO: Set up the properties of dust fluids
   pdf->SetDustFluidsProperties();
 
   // return if there are no diffusion to be added
@@ -1372,10 +1377,10 @@ TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
   DustFluids *pdf     = pmb->pdustfluids;
   Hydro *ph           = pmb->phydro;
 
-  if (stage <= nstages) {
-    pdf->dfdrag.Aerodynamics_Drag(pmb, pmb->pmy_mesh->dt, pdf->stopping_time_array,
-                                  ph->w, pdf->df_prim, ph->u, pdf->df_cons);
-  }
+  //if (stage <= nstages) {
+    //pdf->dfdrag.Aerodynamics_Drag(pmb, pmb->pmy_mesh->dt, pdf->stopping_time_array,
+                                  //ph->w, pdf->df_prim, ph->u, pdf->df_cons);
+  //}
   return TaskStatus::next;
 }
 //TaskStatus TimeIntegratorTaskList::

@@ -72,10 +72,10 @@ Real DustFluids::NewAdvectionDt() {
             //dt1(i) /= (std::abs(df_prim_i[v1_id]));
             //dt2(i) /= (std::abs(df_prim_i[v2_id]));
             //dt3(i) /= (std::abs(df_prim_i[v3_id]));
-            if ((fluid_status == FluidFormulation::evolve) && SoundSpeed_Flag_) {
-                dt1(i) /= (std::abs(df_prim_i[v1_id]) + cs_dustfluids_array(dust_id,k,j,i));
-                dt2(i) /= (std::abs(df_prim_i[v2_id]) + cs_dustfluids_array(dust_id,k,j,i));
-                dt3(i) /= (std::abs(df_prim_i[v3_id]) + cs_dustfluids_array(dust_id,k,j,i));
+            if ((fluid_status == FluidFormulation::evolve) && SoundSpeed_Flag) {
+              dt1(i) /= (std::abs(df_prim_i[v1_id]) + cs_dustfluids_array(dust_id,k,j,i));
+              dt2(i) /= (std::abs(df_prim_i[v2_id]) + cs_dustfluids_array(dust_id,k,j,i));
+              dt3(i) /= (std::abs(df_prim_i[v3_id]) + cs_dustfluids_array(dust_id,k,j,i));
             } else { // FluidFormulation::background or disabled. Assume scalar advection:
               dt1(i) /= (std::abs(df_prim_i[v1_id]));
               dt2(i) /= (std::abs(df_prim_i[v2_id]));

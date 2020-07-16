@@ -366,7 +366,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               int v1_id = rho_id + 1;
               int v2_id = rho_id + 2;
               int v3_id = rho_id + 3;
-              pdustfluids->df_cons(rho_id,k,j,i) = 0.2*concentration*phydro->u(IDN,k,j,i);
+              pdustfluids->df_cons(rho_id,k,j,i) = concentration*phydro->u(IDN,k,j,i);
               pdustfluids->df_cons(v1_id,k,j,i)  = 0;
               pdustfluids->df_cons(v2_id,k,j,i)  = 0;
               pdustfluids->df_cons(v3_id,k,j,i)  = 0;

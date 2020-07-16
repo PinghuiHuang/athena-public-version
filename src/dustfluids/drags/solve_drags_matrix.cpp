@@ -27,7 +27,7 @@
 #endif
 
 
-void DustGasDrag::Update_Single_Dust_NoFeedback(MeshBlock *pmb, const Real dt,
+void DustGasDrag::SingleDust_NoFeedback(MeshBlock *pmb, const Real dt,
       const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
@@ -99,7 +99,7 @@ void DustGasDrag::Update_Single_Dust_NoFeedback(MeshBlock *pmb, const Real dt,
   return;
 }
 
-void DustGasDrag::Update_Single_Dust_Feedback(MeshBlock *pmb, const Real dt,
+void DustGasDrag::SingleDust_Feedback(MeshBlock *pmb, const Real dt,
       const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
@@ -187,7 +187,7 @@ void DustGasDrag::Update_Single_Dust_Feedback(MeshBlock *pmb, const Real dt,
 }
 
 
-void DustGasDrag::Update_Multiple_Dust_NoFeedback(MeshBlock *pmb, const Real dt,
+void DustGasDrag::MultipleDust_NoFeedback(MeshBlock *pmb, const Real dt,
       const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
@@ -256,12 +256,12 @@ void DustGasDrag::Update_Multiple_Dust_NoFeedback(MeshBlock *pmb, const Real dt,
           b3_vector(n) = prim_df(v3_id,k,j,i);
         }
 
-        //SolveLinearEquation(b1_vector, x1_vector); // b:v^n, x:v^(n+1), along the x1 direction
-        //SolveLinearEquation(b2_vector, x2_vector); // b:v^n, x:v^(n+1), along the x2 direction
-        //SolveLinearEquation(b3_vector, x3_vector); // b:v^n, x:v^(n+1), along the x3 direction
-        IterativeImprove(b1_vector, x1_vector);
-        IterativeImprove(b2_vector, x2_vector);
-        IterativeImprove(b3_vector, x3_vector);
+        SolveLinearEquation(b1_vector, x1_vector); // b:v^n, x:v^(n+1), along the x1 direction
+        SolveLinearEquation(b2_vector, x2_vector); // b:v^n, x:v^(n+1), along the x2 direction
+        SolveLinearEquation(b3_vector, x3_vector); // b:v^n, x:v^(n+1), along the x3 direction
+        //IterativeImprove(b1_vector, x1_vector);
+        //IterativeImprove(b2_vector, x2_vector);
+        //IterativeImprove(b3_vector, x3_vector);
 
         for (int n=1; n<=NDUSTFLUIDS; n++){
           int dust_id  = n-1;
@@ -288,7 +288,7 @@ void DustGasDrag::Update_Multiple_Dust_NoFeedback(MeshBlock *pmb, const Real dt,
 }
 
 
-void DustGasDrag::Update_Multiple_Dust_Feedback(MeshBlock *pmb, const Real dt,
+void DustGasDrag::MultipleDust_Feedback(MeshBlock *pmb, const Real dt,
       const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
@@ -375,6 +375,9 @@ void DustGasDrag::Update_Multiple_Dust_Feedback(MeshBlock *pmb, const Real dt,
         SolveLinearEquation(b1_vector, x1_vector); // b:v^n, x:v^(n+1), along the x1 direction
         SolveLinearEquation(b2_vector, x2_vector); // b:v^n, x:v^(n+1), along the x2 direction
         SolveLinearEquation(b3_vector, x3_vector); // b:v^n, x:v^(n+1), along the x3 direction
+        //IterativeImprove(b1_vector, x1_vector);
+        //IterativeImprove(b2_vector, x2_vector);
+        //IterativeImprove(b3_vector, x3_vector);
 
         // Alias the parameters of gas
         const Real &gas_p = w(IPR, k, j, i);

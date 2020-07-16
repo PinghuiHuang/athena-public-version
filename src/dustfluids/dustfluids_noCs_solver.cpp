@@ -81,17 +81,17 @@ void DustFluids::NoCs_RiemannSolver_DustFluids(const int k, const int j, const i
       Real vxl = df_prim_li[ivx] - bm;
       Real vxr = df_prim_ri[ivx] - bp;
 
-      df_fl[rho_id]  = vxl *df_prim_li[rho_id];
-      df_fr[rho_id]  = vxr *df_prim_ri[rho_id];
+      df_fl[rho_id] = vxl *df_prim_li[rho_id];
+      df_fr[rho_id] = vxr *df_prim_ri[rho_id];
 
-      df_fl[ivx]     = df_prim_li[ivx]*df_fl[rho_id];
-      df_fr[ivx]     = df_prim_ri[ivx]*df_fr[rho_id];
+      df_fl[ivx]    = df_prim_li[ivx]*df_fl[rho_id];
+      df_fr[ivx]    = df_prim_ri[ivx]*df_fr[rho_id];
 
-      df_fl[ivy]     = df_prim_li[ivy]*df_fl[rho_id];
-      df_fr[ivy]     = df_prim_ri[ivy]*df_fr[rho_id];
+      df_fl[ivy]    = df_prim_li[ivy]*df_fl[rho_id];
+      df_fr[ivy]    = df_prim_ri[ivy]*df_fr[rho_id];
 
-      df_fl[ivz]     = df_prim_li[ivz]*df_fl[rho_id];
-      df_fr[ivz]     = df_prim_ri[ivz]*df_fr[rho_id];
+      df_fl[ivz]    = df_prim_li[ivz]*df_fl[rho_id];
+      df_fr[ivz]    = df_prim_ri[ivz]*df_fr[rho_id];
 
       //Compute the HLLE df_flux at interface.
       Real tmp  = 0.0;

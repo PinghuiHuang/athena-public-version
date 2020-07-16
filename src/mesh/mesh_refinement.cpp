@@ -1067,7 +1067,7 @@ int MeshRefinement::AddToRefinement(FaceField *pvar_fc, FaceField *pcoarse_fc) {
 // 2) ability to switch (s, coarse_s) and (r, coarse_r) ptrs in MeshRefinement::bvals_cc_
 
 void MeshRefinement::SetHydroRefinement(HydroBoundaryQuantity hydro_type) {
-  // TODO(felker): make more general so it can be used as SetDustFluidsRefinement()
+  // TODO(PH.): make more general so it can be used as SetDustFluidsRefinement()
   // e.g. refer to "int Hydro::refinement_idx" instead of assuming that the correct tuple
   // is in the first vector entry
   Hydro *ph = pmy_block_->phydro;

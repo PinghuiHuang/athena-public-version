@@ -347,7 +347,7 @@ void Cylindrical::AddCoordTermsDivergence_DustFluids(
           Real m_pp = prim_df(rho_id,k,j,i)*prim_df(v2_id,k,j,i)*prim_df(v2_id,k,j,i);
 
           //Sound speed of dust fluids
-          if (pdf->SoundSpeed_Flag_) {
+          if (pdf->SoundSpeed_Flag) {
             Real m_pp2 = SQR(pdf->cs_dustfluids_array(dust_id,k,j,i)) * prim_df(rho_id,k,j,i);
             m_pp += m_pp2;
           }
@@ -360,7 +360,7 @@ void Cylindrical::AddCoordTermsDivergence_DustFluids(
             m_pp += m_pp3;
 
             // Dust momentum diffusion flux
-            if (pdf->dfdif.Momentum_Diffusion_Flag_) {
+            if (pdf->dfdif.Momentum_Diffusion_Flag) {
               Real m_pp_m1 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v1_id,k,j+1,i) +
                     pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v1_id,k,j,i));
               m_pp += m_pp_m1;

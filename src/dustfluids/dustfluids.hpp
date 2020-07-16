@@ -41,9 +41,9 @@ class DustFluids {
     // Leaving as ctor parameter in case of run-time "ndustfluids" option
 
     // public data:
-    // "conserved vars" = density, momentum of dust fluids
+    // "conservative vars" = density, momentums of dust fluids
     AthenaArray<Real> df_cons, df_cons1, df_cons2;      // time-integrator memory register #1
-    // "primitive vars" = density, velocity of dust fluids
+    // "primitive vars" = density, velocities of dust fluids
     AthenaArray<Real> df_prim, df_prim1;        // time-integrator memory register #3
     AthenaArray<Real> df_flux[3];               // face-averaged flux vector
 
@@ -58,16 +58,15 @@ class DustFluids {
 
     // storage for mesh refinement, SMR/AMR
     AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; // coarse df_cons and coarse df_prim, used in mesh refinement
-    int refinement_idx{-1};
+    int refinement_idx{-1};                             // vector of pointers in MeshRefinement class
 
-    CellCenteredBoundaryVariable dfbvar;  // Cell Centered values
-    DustGasDrag                  dfdrag;  // Objects used in calculating the dust-gas drags
-    DustFluidsDiffusion          dfdif;   // Objects used in calculating the diffusions of dust
-    DustFluidsSourceTerms        dfsrc;   // Objects used in calculating the source terms of dust
+    CellCenteredBoundaryVariable dfbvar;  // Cell-Centered boundary variables
+    DustGasDrag                  dfdrag;  // Object used in calculating the dust-gas drags
+    DustFluidsDiffusion          dfdif;   // Object used in calculating the diffusions of dust
+    DustFluidsSourceTerms        dfsrc;   // Object used in calculating the source terms of dust
 
-    bool ConstStoppingTime_Flag_;           // true or false, the flag of using the constant stopping time of dust
-    bool ConstNu_Flag_;                     // true or false, the flag of using the constant diffusivity of dust
-    bool SoundSpeed_Flag_;                  // true or false, turn on the sound speed of dust fluids
+    bool ConstStoppingTime_Flag;           // true or false, the flag of using the constant stopping time of dust
+    bool SoundSpeed_Flag;                  // true or false, turn on the sound speed of dust fluids
 
     AthenaArray<Real> particle_density_;    // normalized dust particle internal density, used in user defined stopping time
     AthenaArray<Real> const_stopping_time_; // Constant stopping time
@@ -75,6 +74,18 @@ class DustFluids {
 
 
     // public functions:
+
+    // Stopping time
+    // Calculate the user defined stopping time, varied with the properties of gas and dust
+    void UserDefined_StoppingTime(const int kl, const int ku, const int jl, const int ju,
+        const int il, const int iu, const AthenaArray<Real> particle_density,
+        const AthenaArray<Real> &w, AthenaArray<Real> &stopping_time);
+
+    // Set the constant stopping time of dust
+    void Constant_StoppingTime(const int kl, const int ku, const int jl, const int ju,
+        const int il, const int iu, AthenaArray<Real> &stopping_time);
+
+    // Calculate dust fluids flux
     void AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> &cons_df); // Add flux divergence
     void CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &prim_df); // Calculate fluxes of dust fluids
     void CalculateDustFluidsFluxes_STS(); // Calculate fluxes of dust fluids in super time step
@@ -93,11 +104,12 @@ class DustFluids {
     // Computes the new timestep of advection of dust in a meshblock
     Real NewAdvectionDt();
 
-    // Set up stopping time, diffusivity and sound speed of each dust fluids
+    // Set up stopping time, diffusivity and sound speed of dust fluids
     void SetDustFluidsProperties();
 
 
   private:
+    Coordinates *pco_;            // ptr to coordinates class
     // scratch space used to compute fluxes
     // 2D scratch arrays
     AthenaArray<Real> dt1_, dt2_, dt3_;                     // scratch arrays used in NewAdvectionDt

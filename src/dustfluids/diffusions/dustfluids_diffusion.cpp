@@ -35,35 +35,31 @@ class Hydro;
 class HydroDiffusion;
 
 DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
-  r0_{pin->GetOrAddReal("problem", "r0", 1.0)},
-  Momentum_Diffusion_Flag_{pin->GetOrAddBoolean("dust", "Momentum_Diffusion_Flag", false)},
   pmy_dustfluids_(pdf), pmb_(pmy_dustfluids_->pmy_block), pco_(pmb_->pcoord) {
   const int num_dust_var = 4*NDUSTFLUIDS;
   int nc1 = pmb_->ncells1, nc2 = pmb_->ncells2, nc3 = pmb_->ncells3;
-  //int is = pmb_->is; int js = pmb_->js; int ks = pmb_->ks;
-  //int ie = pmb_->ie; int je = pmb_->je; int ke = pmb_->ke;
-  //int il, iu, jl, ju, kl, ku;
-  //jl = js, ju = je, kl = ks, ku = ke;
 
-  //if (pmb_->block_size.nx2 > 1) {
-    //if (pmb_->block_size.nx3 == 1) // 2D
-      //jl = js-1, ju = je+1, kl = ks, ku = ke;
-    //else // 3D
-      //jl = js-1, ju = je+1, kl = ks-1, ku = ke+1;
-  //}
-  //il = is, iu = ie+1;
   Hydro *phyd        = pmb_->phydro;
   HydroDiffusion &hd = phyd->hdif;
 
+  dustfluids_diffusion_defined = false;
+
+  // TODO, set dust fluids as inviscid
+  //ConstNu_Flag            = pin->GetOrAddBoolean("dust", "Const_Nu_Dust_Flag", false);
+  ConstNu_Flag            = pin->GetBoolean("dust", "Const_Nu_Dust_Flag");
+  Momentum_Diffusion_Flag = pin->GetOrAddBoolean("dust", "Momentum_Diffusion_Flag", false);
+
   // Set dust diffusions if the gas diffusion is defined or constant nu diffusion flag is true.
-  if (hd.hydro_diffusion_defined || pmy_dustfluids_->ConstNu_Flag_)
+  if (hd.hydro_diffusion_defined || ConstNu_Flag)
     dustfluids_diffusion_defined = true;
 
   // eddy time is Omega_K^-1 for disk problems, or it is 1.0 for other problems
-  if ( std::strcmp(PROBLEM_GENERATOR, "disk") == 0 )
-    eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 2*PI);
-  else
-    eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 1.0);
+  //if ( std::strcmp(PROBLEM_GENERATOR, "disk") == 0 )
+    //eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 2*PI);
+  //else
+    //eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 1.0);
+  eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 1.0);
+
 
   if (dustfluids_diffusion_defined) {
     dustfluids_diffusion_flux[X1DIR].NewAthenaArray(num_dust_var, nc3, nc2, nc1+1); // Face centered
@@ -83,6 +79,9 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
     vol_.NewAthenaArray(nc1);
   }
 
+  if (std::strcmp(PROBLEM_GENERATOR, "disk") == 0)
+    r0_ = pin->GetOrAddReal("problem", "r0", 1.0);
+
 }
 
 
@@ -98,7 +97,7 @@ void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &p
     // Calculate the concentration diffusive flux
     DustFluidsConcentrationDiffusiveFlux(prim_df, phyd->w, dustfluids_diffusion_flux);
     // Calculate the momentum diffusive flux due to concentration diffusion
-    if (Momentum_Diffusion_Flag_)
+    if (Momentum_Diffusion_Flag)
       DustFluidsMomentumDiffusiveFlux(prim_df, phyd->w, dustfluids_diffusion_flux);
   }
   return;
@@ -212,29 +211,7 @@ Real DustFluidsDiffusion::NewDiffusionDt() {
 }
 
 
-void DustFluidsDiffusion::User_Defined_StoppingTime(const int kl, const int ku, const int jl, const int ju,
-            const int il, const int iu, const AthenaArray<Real> particle_density,
-            const AthenaArray<Real> &w, AthenaArray<Real> &stopping_time){
-  DustFluids *pdf  = pmy_dustfluids_;
-  for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
-    int &dust_id = n;
-    for (int k=kl; k<=ku; ++k) {
-      for (int j=jl; j<=ju; ++j) {
-#pragma omp simd
-        for (int i=il; i<=iu; ++i) { //TODO check the index
-          Real &st_time  = stopping_time(dust_id,k,j,i);
-          const Real &wd = w(IDN,k,j,i);
-          // The stopping time is in inversely proportion to the density of gas, see Takeuchi & Lin, 2001
-          st_time        = particle_density(dust_id)/wd;
-        }
-      }
-    }
-  }
-  return;
-}
-
-
-void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &nu_gas,
+void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &nu_gas,
             const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
             const AthenaArray<Real> &stopping_time,
             AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs){
@@ -243,11 +220,11 @@ void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &
   HydroDiffusion &hd = phyd->hdif;
 
   if (hd.nu_alpha == 0.0 && hd.nu_iso == 0.0 && hd.nu_aniso == 0) {
-      std::stringstream msg;
-      msg << "### FATAL ERROR in the defination of gas viscosity." << std::endl
-          << "The viscosity of gas (nu_alpha or nu_iso or nu_aniso) must be set." << std::endl;
-      ATHENA_ERROR(msg); // No viscoisity in gas
-      return;
+    std::stringstream msg;
+    msg << "### FATAL ERROR in the defination of gas viscosity." << std::endl
+        << "The viscosity of gas (nu_alpha or nu_iso or nu_aniso) must be set." << std::endl;
+    ATHENA_ERROR(msg); // No viscoisity in gas
+    return;
   }
 
   // In disk problem, and Shakura & Sunyaev (1973) viscoisty profile is used.
@@ -303,7 +280,7 @@ void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &
             Real rad, phi, z;
             GetCylCoord(pco_, rad, phi, z, i, j, k);
             Real &diffusivity  = dust_diffusivity(dust_id,k,j,i);
-            Real eddy_time     = eddy_timescale_r0; // In other problems, fix the eddy time as constant
+            Real &eddy_time    = eddy_timescale_r0; // In other problems, fix the eddy time as constant
             Real Stokes_number = stopping_time(dust_id,k,j,i)/eddy_time;
             diffusivity        = nu_gas(HydroDiffusion::DiffProcess::iso,k,j,i)/(1.0 + SQR(Stokes_number));
             Real &soundspeed   = dust_cs(dust_id,k,j,i);
@@ -323,7 +300,7 @@ void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &
             Real rad, phi, z;
             GetCylCoord(pco_, rad, phi, z, i, j, k);
             Real &diffusivity  = dust_diffusivity(dust_id,k,j,i);
-            Real eddy_time     = eddy_timescale_r0; // In other problems, fix the eddy time as constant
+            Real &eddy_time    = eddy_timescale_r0; // In other problems, fix the eddy time as constant
             Real Stokes_number = stopping_time(dust_id,k,j,i)/eddy_time;
             diffusivity        = nu_gas(HydroDiffusion::DiffProcess::aniso,k,j,i)/(1.0 + SQR(Stokes_number));
             Real &soundspeed   = dust_cs(dust_id,k,j,i);
@@ -337,27 +314,7 @@ void DustFluidsDiffusion::User_Defined_DustDiffusivity(const AthenaArray<Real> &
 }
 
 
-void DustFluidsDiffusion::ConstStoppingTime(const int kl, const int ku, const int jl, const int ju,
-              const int il, const int iu, AthenaArray<Real> &stopping_time){
-  for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
-    int &dust_id = n;
-    for (int k=kl; k<=ku; ++k) {
-      for (int j=jl; j<=ju; ++j) {
-#pragma omp simd
-        for (int i=il; i<=iu; ++i) { //TODO check the index
-          Real rad, phi, z;
-          GetCylCoord(pco_, rad, phi, z, i, j, k);
-          Real &st_time  = stopping_time(dust_id,k,j,i);
-          st_time        = pmy_dustfluids_->const_stopping_time_(dust_id);
-        }
-      }
-    }
-  }
-  return;
-}
-
-
-void DustFluidsDiffusion::ConstDustDiffusivity(const AthenaArray<Real> &nu_gas,
+void DustFluidsDiffusion::Constant_DustDiffusivity(const AthenaArray<Real> &nu_gas,
   const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
   const AthenaArray<Real> &stopping_time,
   AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs){

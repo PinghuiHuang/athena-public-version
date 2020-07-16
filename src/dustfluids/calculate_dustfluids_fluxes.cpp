@@ -71,11 +71,8 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
       if (order == 1) {
         pmb->precon->DonorCellX1_DustFluids(k, j, is-1, ie+1, prim_df, df_prim_l_, df_prim_r_);
       } else if (order == 2) {
-        //if (pmb->phydro->u.GetSize() !=0)
         pmb->precon->PiecewiseLinearX1_DustFluids(k, j, is-1, ie+1, prim_df, df_prim_l_, df_prim_r_);
-        //if (pmb->phydro->u.GetSize() ==0)
       } else {
-        //pmb->precon->PiecewiseParabolicX1_DustFluids(k, j, is-1, ie+1, prim_df, df_prim_l_, df_prim_r_);
         pmb->precon->PiecewiseParabolicX1_DustFluids(k, j, is-1, ie+1, prim_df, df_prim_l_, df_prim_r_);
         for (int n=0; n<num_dust_var; ++n) {
 #pragma omp simd
@@ -87,7 +84,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
       }
 
       // If the sound speed flag is turned on, choose the solver with sound speed, or choose the one without sound speed
-      if (SoundSpeed_Flag_)
+      if (SoundSpeed_Flag)
         HLLE_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
       else
         NoCs_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
@@ -130,7 +127,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
 
 
         // Compute x1 interface fluxes from face-centered primitive variables
-      if (SoundSpeed_Flag_)
+      if (SoundSpeed_Flag)
         HLLE_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
       else
         NoCs_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
@@ -170,7 +167,6 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
       } else if (order == 2) {
         pmb->precon->PiecewiseLinearX2_DustFluids(k, js-1, il, iu, prim_df, df_prim_l_, df_prim_r_);
       } else {
-        //pmb->precon->PiecewiseParabolicX2_DustFluids(k, js-1, il, iu, prim_df, df_prim_l_, df_prim_r_);
         pmb->precon->PiecewiseParabolicX2_DustFluids(k, js-1, il, iu, prim_df, df_prim_l_, df_prim_r_);
         for (int n=0; n<num_dust_var; ++n) {
 #pragma omp simd
@@ -188,7 +184,6 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         } else if (order == 2) {
           pmb->precon->PiecewiseLinearX2_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
         } else {
-          //pmb->precon->PiecewiseParabolicX2_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
           pmb->precon->PiecewiseParabolicX2_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
           for (int n=0; n<num_dust_var; ++n) {
 #pragma omp simd
@@ -199,7 +194,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           }
         }
 
-        if (SoundSpeed_Flag_)
+        if (SoundSpeed_Flag)
           HLLE_RiemannSolver_DustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
         else
           NoCs_RiemannSolver_DustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
@@ -244,7 +239,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           }
 
           // Compute x2 interface fluxes from face-centered primitive variables
-          if (SoundSpeed_Flag_)
+          if (SoundSpeed_Flag)
             HLLE_RiemannSolver_DustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
           else
             NoCs_RiemannSolver_DustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
@@ -278,7 +273,6 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
       } else if (order == 2) {
         pmb->precon->PiecewiseLinearX3_DustFluids(ks-1, j, il, iu, prim_df, df_prim_l_, df_prim_r_);
       } else {
-        //pmb->precon->PiecewiseParabolicX3_DustFluids(ks-1, j, il, iu, prim_df, df_prim_l_, df_prim_r_);
         pmb->precon->PiecewiseParabolicX3_DustFluids(ks-1, j, il, iu, prim_df, df_prim_l_, df_prim_r_);
         for (int n=0; n<num_dust_var; ++n) {
 #pragma omp simd
@@ -295,7 +289,6 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         } else if (order == 2) {
           pmb->precon->PiecewiseLinearX3_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
         } else {
-          //pmb->precon->PiecewiseParabolicX3_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
           pmb->precon->PiecewiseParabolicX3_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
           for (int n=0; n<num_dust_var; ++n) {
 #pragma omp simd
@@ -306,7 +299,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           }
         }
 
-        if (SoundSpeed_Flag_)
+        if (SoundSpeed_Flag)
           HLLE_RiemannSolver_DustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
         else
           NoCs_RiemannSolver_DustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
@@ -351,7 +344,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           }
 
           // Compute x3 interface fluxes from face-centered primitive variables
-          if (SoundSpeed_Flag_)
+          if (SoundSpeed_Flag)
             HLLE_RiemannSolver_DustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
           else
             NoCs_RiemannSolver_DustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
