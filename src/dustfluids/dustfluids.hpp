@@ -73,7 +73,7 @@ class DustFluids {
     AthenaArray<Real> const_nu_dust_;       // Constant concentration diffusivity of dust
 
 
-    // public functions:
+    // Public functions:
 
     // Stopping time
     // Calculate the user defined stopping time, varied with the properties of gas and dust
@@ -90,7 +90,7 @@ class DustFluids {
     void CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &prim_df); // Calculate fluxes of dust fluids
     void CalculateDustFluidsFluxes_STS(); // Calculate fluxes of dust fluids in super time step
 
-    // The Riemann Solver for dust fluids
+    // Riemann Solvers for dust fluids
     // HLLE solver without sound speed of dust
     void NoCs_RiemannSolver_DustFluids( const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &df_prim_l,

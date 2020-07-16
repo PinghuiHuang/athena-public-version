@@ -177,14 +177,14 @@ class TimeIntegratorTaskList : public TaskList {
   TaskStatus CalculateDustFluidsFlux(MeshBlock *pmb, int stage);
   TaskStatus SendDustFluidsFlux(MeshBlock *pmb, int stage);
   TaskStatus ReceiveDustFluidsFlux(MeshBlock *pmb, int stage);
-  TaskStatus IntegrateDustFluids(MeshBlock *pmb, int stage);
+  //TaskStatus IntegrateDustFluids(MeshBlock *pmb, int stage);
   TaskStatus SendDustFluids(MeshBlock *pmb, int stage);
   TaskStatus ReceiveDustFluids(MeshBlock *pmb, int stage);
   TaskStatus SetBoundariesDustFluids(MeshBlock *pmb, int stage);
   TaskStatus AddSourceTermsDustFluids(MeshBlock *pmb, int stage);
   TaskStatus ReceiveDustFluidsShear(MeshBlock *pmb, int stage);
   TaskStatus SendDustFluidsShear(MeshBlock *pmb, int stage);
-  TaskStatus DustGasDrag(MeshBlock *pmb, int stage);
+  //TaskStatus DustGasDrag(MeshBlock *pmb, int stage);
 
  private:
   IntegratorWeight stage_wghts[MAX_NSTAGE];
@@ -290,7 +290,7 @@ const TaskID DIFFUSE_FLD(48);
 const TaskID CALC_DUSTFLUIDSFLX(49);
 const TaskID SEND_DUSTFLUIDSFLX(50);
 const TaskID RECV_DUSTFLUIDSFLX(51);
-const TaskID INT_DUSTFLUIDS(52);
+//const TaskID INT_DUSTFLUIDS(52);
 const TaskID SEND_DUSTFLUIDS(53);
 const TaskID RECV_DUSTFLUIDS(54);
 const TaskID SETB_DUSTFLUIDS(55);
@@ -298,7 +298,7 @@ const TaskID DIFFUSE_DUSTFLUIDS(56);
 const TaskID SRCTERM_DUSTFLUIDS(57);
 const TaskID SEND_DUSTFLUIDSSH(58);
 const TaskID RECV_DUSTFLUIDSSH(59);
-const TaskID DRAG_DUSTGAS(60);
+//const TaskID DRAG_DUSTGAS(60);
 
 
 }  // namespace HydroIntegratorTaskNames

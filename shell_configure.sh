@@ -7,7 +7,7 @@
 
 #python configure.py --prob disk --coor cylindrical --eos adiabatic --flux hllc --ndustfluids=1 -mpi -debug -hdf5 --hdf5_path=/usr/lib/x86_64-linux-gnu/hdf5/openmpi
 
-python configure.py --prob collision_multipledust --ndustfluids=1 --nghost=3 -mpi -debug -hdf5 --hdf5_path=/usr/lib/x86_64-linux-gnu/hdf5/openmpi
+python configure.py --prob collision_multipledust --ndustfluids=1 --nghost=2 -mpi -debug -hdf5 --hdf5_path=/usr/lib/x86_64-linux-gnu/hdf5/openmpi
 
 #python configure.py --prob shock_multipledust --ndustfluids=3 -mpi -debug -hdf5 --hdf5_path=/usr/lib/x86_64-linux-gnu/hdf5/openmpi
 
