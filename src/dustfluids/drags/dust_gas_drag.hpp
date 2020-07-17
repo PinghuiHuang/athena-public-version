@@ -36,22 +36,55 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    void SingleDust_NoFeedback(MeshBlock *pmb, const Real dt,
+    // Implicit Schemes
+    void SingleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    void SingleDust_Feedback(MeshBlock *pmb, const Real dt,
+    void SingleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    void MultipleDust_NoFeedback(MeshBlock *pmb, const Real dt,
+    void MultipleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    void MultipleDust_Feedback(MeshBlock *pmb, const Real dt,
+    void MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
+        const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    // Semi-Implicit Schemes
+    void SingleDust_NoFeedback_SemiImplicit(MeshBlock *pmb, const Real dt,
+        const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    void SingleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt,
+        const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    //void MultipleDust_NoFeedback_SemiImplicit(MeshBlock *pmb, const Real dt,
+        //const AthenaArray<Real> &stopping_time,
+        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        //const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    //void MultipleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt,
+        //const AthenaArray<Real> &stopping_time,
+        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        //AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    // Explicit Schemes
+    void SingleDust_NoFeedback_Explicit(MeshBlock *pmb, const Real dt,
+        const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    void SingleDust_Feedback_Explicit(MeshBlock *pmb, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
