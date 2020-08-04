@@ -6,8 +6,6 @@
 //! \file dustfluids_diffusion.cpp
 //  \brief Compute dustfluids fluxes corresponding to diffusion processes.
 
-// C headers
-
 // C++ headers
 #include <algorithm>   // min,max
 #include <limits>

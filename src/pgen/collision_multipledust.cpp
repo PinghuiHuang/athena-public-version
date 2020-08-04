@@ -88,63 +88,69 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
         x2=pcoord->x2v(j);
         x3=pcoord->x3v(k);
 
-        ////Test 1: gas and 1 dust fludis, NDUSTFLUIDS == 1
-        //phydro->u(IDN,k,j,i) = 0.2;
-        //phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*1.0;
-        //phydro->u(IM2,k,j,i) = 0.0;
-        //phydro->u(IM3,k,j,i) = 0.0;
+        if (NDUSTFLUIDS == 1){
+          //Test 1: gas and 1 dust fludis, NDUSTFLUIDS == 1
+          phydro->u(IDN,k,j,i) = 0.2;
+          phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*1.0;
+          phydro->u(IM2,k,j,i) = 0.0;
+          phydro->u(IM3,k,j,i) = 0.0;
 
-        //pdustfluids->df_cons(0,k,j,i) = 1.0;
-        //pdustfluids->df_cons(1,k,j,i) = pdustfluids->df_cons(0,k,j,i)*2.0;
-        //pdustfluids->df_cons(2,k,j,i) = 0.0;
-        //pdustfluids->df_cons(3,k,j,i) = 0.0;
+          pdustfluids->df_cons(0,k,j,i) = 1.0;
+          pdustfluids->df_cons(1,k,j,i) = pdustfluids->df_cons(0,k,j,i)*2.0;
+          pdustfluids->df_cons(2,k,j,i) = 0.0;
+          pdustfluids->df_cons(3,k,j,i) = 0.0;
+        }
 
-        //// Test 2: gas and 2 dust fludis, NDUSTFLUIDS == 2
-        //phydro->u(IDN,k,j,i) = 0.2;
-        //phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*1.0;
-        //phydro->u(IM2,k,j,i) = 0.0;
-        //phydro->u(IM3,k,j,i) = 0.0;
+        if (NDUSTFLUIDS == 2) {
+          // Test 2: gas and 2 dust fludis, NDUSTFLUIDS == 2
+          phydro->u(IDN,k,j,i) = 0.2;
+          phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*1.0;
+          phydro->u(IM2,k,j,i) = 0.0;
+          phydro->u(IM3,k,j,i) = 0.0;
 
-        //pdustfluids->df_cons(0,k,j,i) = 1.0;
-        //pdustfluids->df_cons(1,k,j,i) = pdustfluids->df_cons(0,k,j,i)*2.0;
-        //pdustfluids->df_cons(2,k,j,i) = 0.0;
-        //pdustfluids->df_cons(3,k,j,i) = 0.0;
+          pdustfluids->df_cons(0,k,j,i) = 1.0;
+          pdustfluids->df_cons(1,k,j,i) = pdustfluids->df_cons(0,k,j,i)*2.0;
+          pdustfluids->df_cons(2,k,j,i) = 0.0;
+          pdustfluids->df_cons(3,k,j,i) = 0.0;
 
-        //pdustfluids->df_cons(4,k,j,i) = 1.8;
-        //pdustfluids->df_cons(5,k,j,i) = pdustfluids->df_cons(4,k,j,i)*3.0;
-        //pdustfluids->df_cons(6,k,j,i) = 0.0;
-        //pdustfluids->df_cons(7,k,j,i) = 0.0;
+          pdustfluids->df_cons(4,k,j,i) = 1.8;
+          pdustfluids->df_cons(5,k,j,i) = pdustfluids->df_cons(4,k,j,i)*3.0;
+          pdustfluids->df_cons(6,k,j,i) = 0.0;
+          pdustfluids->df_cons(7,k,j,i) = 0.0;
+        }
 
-        // Test 3: gas and 5 dust fludis, NDUSTFLUIDS == 5
-        phydro->u(IDN,k,j,i) = 1.;
-        phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*-1.0;
-        phydro->u(IM2,k,j,i) = 0.0;
-        phydro->u(IM3,k,j,i) = 0.0;
+        if (NDUSTFLUIDS == 5) {
+          // Test 3: gas and 5 dust fludis, NDUSTFLUIDS == 5
+          phydro->u(IDN,k,j,i) = 1.;
+          phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*-1.0;
+          phydro->u(IM2,k,j,i) = 0.0;
+          phydro->u(IM3,k,j,i) = 0.0;
 
-        pdustfluids->df_cons(0,k,j,i)  = 1.5;
-        pdustfluids->df_cons(1,k,j,i)  = pdustfluids->df_cons(0,k,j,i)*2.0;
-        pdustfluids->df_cons(2,k,j,i)  = 0.0;
-        pdustfluids->df_cons(3,k,j,i)  = 0.0;
+          pdustfluids->df_cons(0,k,j,i)  = 1.5;
+          pdustfluids->df_cons(1,k,j,i)  = pdustfluids->df_cons(0,k,j,i)*2.0;
+          pdustfluids->df_cons(2,k,j,i)  = 0.0;
+          pdustfluids->df_cons(3,k,j,i)  = 0.0;
 
-        pdustfluids->df_cons(4,k,j,i)  = 2.0;
-        pdustfluids->df_cons(5,k,j,i)  = pdustfluids->df_cons(4,k,j,i)*3.1;
-        pdustfluids->df_cons(6,k,j,i)  = 0.0;
-        pdustfluids->df_cons(7,k,j,i)  = 0.0;
+          pdustfluids->df_cons(4,k,j,i)  = 2.0;
+          pdustfluids->df_cons(5,k,j,i)  = pdustfluids->df_cons(4,k,j,i)*3.1;
+          pdustfluids->df_cons(6,k,j,i)  = 0.0;
+          pdustfluids->df_cons(7,k,j,i)  = 0.0;
 
-        pdustfluids->df_cons(8,k,j,i)  = 2.5;
-        pdustfluids->df_cons(9,k,j,i)  = pdustfluids->df_cons(8,k,j,i)*-2.5;
-        pdustfluids->df_cons(10,k,j,i) = 0.0;
-        pdustfluids->df_cons(11,k,j,i) = 0.0;
+          pdustfluids->df_cons(8,k,j,i)  = 2.5;
+          pdustfluids->df_cons(9,k,j,i)  = pdustfluids->df_cons(8,k,j,i)*-2.5;
+          pdustfluids->df_cons(10,k,j,i) = 0.0;
+          pdustfluids->df_cons(11,k,j,i) = 0.0;
 
-        pdustfluids->df_cons(12,k,j,i) = 3.0;
-        pdustfluids->df_cons(13,k,j,i) = pdustfluids->df_cons(12,k,j,i)*0.5;
-        pdustfluids->df_cons(14,k,j,i) = 0.0;
-        pdustfluids->df_cons(15,k,j,i) = 0.0;
+          pdustfluids->df_cons(12,k,j,i) = 3.0;
+          pdustfluids->df_cons(13,k,j,i) = pdustfluids->df_cons(12,k,j,i)*0.5;
+          pdustfluids->df_cons(14,k,j,i) = 0.0;
+          pdustfluids->df_cons(15,k,j,i) = 0.0;
 
-        pdustfluids->df_cons(16,k,j,i) = 3.5;
-        pdustfluids->df_cons(17,k,j,i) = pdustfluids->df_cons(16,k,j,i)*-4.1;
-        pdustfluids->df_cons(18,k,j,i) = 0.0;
-        pdustfluids->df_cons(19,k,j,i) = 0.0;
+          pdustfluids->df_cons(16,k,j,i) = 3.5;
+          pdustfluids->df_cons(17,k,j,i) = pdustfluids->df_cons(16,k,j,i)*-4.1;
+          pdustfluids->df_cons(18,k,j,i) = 0.0;
+          pdustfluids->df_cons(19,k,j,i) = 0.0;
+        }
 
       }
     }

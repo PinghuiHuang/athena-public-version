@@ -3,9 +3,9 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AverageFluxBoundary	flux_correction_fc.cpp	/^void FaceCenteredBoundaryVariable::AverageFluxBoundary() {$/;"	f	class:FaceCenteredBoundaryVariable
-BVALS_FC_BVALS_FC_HPP_	bvals_fc.hpp	2;"	d
+BVALS_FC_BVALS_FC_HPP_	bvals_fc.hpp	/^#define BVALS_FC_BVALS_FC_HPP_$/;"	d
 ClearBoundary	bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::ClearBoundary(BoundaryCommSubset phase) {$/;"	f	class:FaceCenteredBoundaryVariable
 ClearCoarseFluxBoundary	flux_correction_fc.cpp	/^void FaceCenteredBoundaryVariable::ClearCoarseFluxBoundary() {$/;"	f	class:FaceCenteredBoundaryVariable
 ClearEMFShearing	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::ClearEMFShearing(EdgeField &work) {$/;"	f	class:FaceCenteredBoundaryVariable

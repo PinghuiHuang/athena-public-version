@@ -6,8 +6,6 @@
 //! \file dustfluids_diffusion.cpp
 //  \brief Compute dustfluids fluxes corresponding to diffusion processes.
 
-// C headers
-
 // C++ headers
 #include <algorithm>   // min,max
 #include <limits>
@@ -89,9 +87,17 @@ void DustGasDrag::SingleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,
         Real A22   = 1.0 + alpha_dg*dt;
         Real deter = A11*A22 - A12*A21;
 
-        dust_m1 = dust_d*(A11*dust_v1 - A21*gas_v1)/deter;
-        dust_m2 = dust_d*(A11*dust_v2 - A21*gas_v2)/deter;
-        dust_m3 = dust_d*(A11*dust_v3 - A21*gas_v3)/deter;
+        Real dust_v1_new = (A11*dust_v1 - A21*gas_v1)/deter;
+        Real dust_v2_new = (A11*dust_v2 - A21*gas_v2)/deter;
+        Real dust_v3_new = (A11*dust_v3 - A21*gas_v3)/deter;
+
+        Real delta_dust_m1 = dust_d*(dust_v1_new - dust_v1);
+        Real delta_dust_m2 = dust_d*(dust_v2_new - dust_v2);
+        Real delta_dust_m3 = dust_d*(dust_v3_new - dust_v3);
+
+        dust_m1 += delta_dust_m1;
+        dust_m2 += delta_dust_m2;
+        dust_m3 += delta_dust_m3;
 
       }
     }
@@ -167,18 +173,33 @@ void DustGasDrag::SingleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
         Real A22   = 1.0 + alpha_dg*dt;
         Real deter = A11*A22 - A12*A21;
 
-        dust_m1 = dust_d*(A11*dust_v1 - A21*gas_v1)/deter;
-        gas_m1  = gas_d*(A22*gas_v1  - A12*dust_v1)/deter;
+        Real dust_v1_new = (A11*dust_v1 - A21*gas_v1)/deter;
+        Real dust_v2_new = (A11*dust_v2 - A21*gas_v2)/deter;
+        Real dust_v3_new = (A11*dust_v3 - A21*gas_v3)/deter;
 
-        dust_m2 = dust_d*(A11*dust_v2 - A21*gas_v2)/deter;
-        gas_m2  = gas_d*(A22*gas_v2  - A12*dust_v2)/deter;
+        Real gas_v1_new = (A22*gas_v1  - A12*dust_v1)/deter;
+        Real gas_v2_new = (A22*gas_v2  - A12*dust_v2)/deter;
+        Real gas_v3_new = (A22*gas_v3  - A12*dust_v3)/deter;
 
-        dust_m3 = dust_d*(A11*dust_v3 - A21*gas_v3)/deter;
-        gas_m3  = gas_d*(A22*gas_v3  - A12*dust_v3)/deter;
+        Real delta_dust_m1 = dust_d*(dust_v1_new - dust_v1);
+        Real delta_dust_m2 = dust_d*(dust_v2_new - dust_v2);
+        Real delta_dust_m3 = dust_d*(dust_v3_new - dust_v3);
+
+        Real delta_gas_m1  = gas_d*(gas_v1_new - gas_v1);
+        Real delta_gas_m2  = gas_d*(gas_v2_new - gas_v2);
+        Real delta_gas_m3  = gas_d*(gas_v3_new - gas_v3);
+
+        dust_m1 += delta_dust_m1;
+        dust_m2 += delta_dust_m1;
+        dust_m3 += delta_dust_m1;
+
+        gas_m1  += delta_gas_m1;
+        gas_m2  += delta_gas_m1;
+        gas_m3  += delta_gas_m1;
 
         // Update the energy of gas if the gas is non barotropic.
         if (NON_BAROTROPIC_EOS)
-          gas_e = gas_p*igm1 + 0.5*(SQR(gas_m1) + SQR(gas_m2) + SQR(gas_m3))/gas_d;
+          gas_e += delta_gas_m1*gas_v1 + delta_gas_m2*gas_v2 + delta_gas_m3*gas_v3;
 
         }
       }
@@ -259,9 +280,6 @@ void DustGasDrag::MultipleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt
         SolveLinearEquation(b1_vector, x1_vector); // b:v^n, x:v^(n+1), along the x1 direction
         SolveLinearEquation(b2_vector, x2_vector); // b:v^n, x:v^(n+1), along the x2 direction
         SolveLinearEquation(b3_vector, x3_vector); // b:v^n, x:v^(n+1), along the x3 direction
-        //IterativeImprove(b1_vector, x1_vector);
-        //IterativeImprove(b2_vector, x2_vector);
-        //IterativeImprove(b3_vector, x3_vector);
 
         for (int n=1; n<=NDUSTFLUIDS; n++){
           int dust_id  = n-1;
@@ -272,13 +290,25 @@ void DustGasDrag::MultipleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt
           // Alias the parameters of dust
           const Real &dust_d = prim_df(rho_id, k, j, i);
 
-          Real &dust_m1      = cons_df(v1_id,  k, j, i);
-          Real &dust_m2      = cons_df(v2_id,  k, j, i);
-          Real &dust_m3      = cons_df(v3_id,  k, j, i);
+          Real &dust_m1 = cons_df(v1_id,  k, j, i);
+          Real &dust_m2 = cons_df(v2_id,  k, j, i);
+          Real &dust_m3 = cons_df(v3_id,  k, j, i);
 
-          dust_m1            = dust_d*x1_vector(n);
-          dust_m2            = dust_d*x2_vector(n);
-          dust_m3            = dust_d*x3_vector(n);
+          Real dust_v1 = b1_vector(n);
+          Real dust_v2 = b2_vector(n);
+          Real dust_v3 = b3_vector(n);
+
+          Real dust_v1_new = x1_vector(n);
+          Real dust_v2_new = x2_vector(n);
+          Real dust_v3_new = x3_vector(n);
+
+          Real delta_dust_m1 = dust_d*(dust_v1_new - dust_v1);
+          Real delta_dust_m2 = dust_d*(dust_v2_new - dust_v2);
+          Real delta_dust_m3 = dust_d*(dust_v3_new - dust_v3);
+
+          dust_m1 += delta_dust_m1;
+          dust_m2 += delta_dust_m2;
+          dust_m3 += delta_dust_m3;
         }
 
       }
@@ -375,9 +405,6 @@ void DustGasDrag::MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
         SolveLinearEquation(b1_vector, x1_vector); // b:v^n, x:v^(n+1), along the x1 direction
         SolveLinearEquation(b2_vector, x2_vector); // b:v^n, x:v^(n+1), along the x2 direction
         SolveLinearEquation(b3_vector, x3_vector); // b:v^n, x:v^(n+1), along the x3 direction
-        //IterativeImprove(b1_vector, x1_vector);
-        //IterativeImprove(b2_vector, x2_vector);
-        //IterativeImprove(b3_vector, x3_vector);
 
         // Alias the parameters of gas
         const Real &gas_p = w(IPR, k, j, i);
@@ -387,13 +414,25 @@ void DustGasDrag::MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
         Real &gas_m3      = u(IM3, k, j, i);
         Real &gas_e       = u(IEN, k, j, i);
 
-        gas_m1 = gas_d*x1_vector(0);
-        gas_m2 = gas_d*x2_vector(0);
-        gas_m3 = gas_d*x3_vector(0);
+        Real gas_v1 = b1_vector(0);
+        Real gas_v2 = b2_vector(0);
+        Real gas_v3 = b3_vector(0);
+
+        Real gas_v1_new = x1_vector(0);
+        Real gas_v2_new = x2_vector(0);
+        Real gas_v3_new = x3_vector(0);
+
+        Real delta_gas_m1 = gas_d*(gas_v1_new - gas_v1);
+        Real delta_gas_m2 = gas_d*(gas_v2_new - gas_v2);
+        Real delta_gas_m3 = gas_d*(gas_v3_new - gas_v3);
+
+        gas_m1 += delta_gas_m1;
+        gas_m2 += delta_gas_m2;
+        gas_m3 += delta_gas_m3;
 
         // Update the energy of gas if the gas is non barotropic.
         if (NON_BAROTROPIC_EOS)
-          gas_e = gas_p*igm1 + 0.5*(SQR(gas_m1) + SQR(gas_m2) + SQR(gas_m3))/gas_d;
+          gas_e += delta_gas_m1*gas_v1 + delta_gas_m2*gas_v2 + delta_gas_m3*gas_v3;
 
         for (int n=1; n<=NDUSTFLUIDS; n++){
           int dust_id  = n-1;
@@ -404,13 +443,25 @@ void DustGasDrag::MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
           // Alias the parameters of dust
           const Real &dust_d = prim_df(rho_id, k, j, i);
 
-          Real &dust_m1      = cons_df(v1_id,  k, j, i);
-          Real &dust_m2      = cons_df(v2_id,  k, j, i);
-          Real &dust_m3      = cons_df(v3_id,  k, j, i);
+          Real &dust_m1 = cons_df(v1_id, k, j, i);
+          Real &dust_m2 = cons_df(v2_id, k, j, i);
+          Real &dust_m3 = cons_df(v3_id, k, j, i);
 
-          dust_m1            = dust_d*x1_vector(n);
-          dust_m2            = dust_d*x2_vector(n);
-          dust_m3            = dust_d*x3_vector(n);
+          Real dust_v1 = b1_vector(n);
+          Real dust_v2 = b2_vector(n);
+          Real dust_v3 = b3_vector(n);
+
+          Real dust_v1_new = x1_vector(n);
+          Real dust_v2_new = x2_vector(n);
+          Real dust_v3_new = x3_vector(n);
+
+          Real delta_dust_m1 = dust_d*(dust_v1_new - dust_v1);
+          Real delta_dust_m2 = dust_d*(dust_v2_new - dust_v2);
+          Real delta_dust_m3 = dust_d*(dust_v3_new - dust_v3);
+
+          dust_m1 += delta_dust_m1;
+          dust_m2 += delta_dust_m2;
+          dust_m3 += delta_dust_m3;
         }
 
       }
@@ -479,10 +530,17 @@ void DustGasDrag::SingleDust_NoFeedback_SemiImplicit(MeshBlock *pmb, const Real 
         Real tempA_d = 2.0 * alpha_dg*dt;
         Real tempB_d = 2.0 + alpha_gd*dt - alpha_dg*dt;
 
-        dust_m1 = dust_d*(tempA_d * gas_v1 + tempB_d * dust_v1)/deter;
-        dust_m2 = dust_d*(tempA_d * gas_v2 + tempB_d * dust_v2)/deter;
-        dust_m3 = dust_d*(tempA_d * gas_v3 + tempB_d * dust_v3)/deter;
+        Real dust_v1_new = (tempA_d * gas_v1 + tempB_d * dust_v1)/deter;
+        Real dust_v2_new = (tempA_d * gas_v2 + tempB_d * dust_v2)/deter;
+        Real dust_v3_new = (tempA_d * gas_v3 + tempB_d * dust_v3)/deter;
 
+        Real delta_dust_m1 = dust_d*(dust_v1_new - dust_v1);
+        Real delta_dust_m2 = dust_d*(dust_v2_new - dust_v2);
+        Real delta_dust_m3 = dust_d*(dust_v3_new - dust_v3);
+
+        dust_m1 += delta_dust_m1;
+        dust_m2 += delta_dust_m2;
+        dust_m3 += delta_dust_m3;
       }
     }
   }
@@ -559,17 +617,33 @@ void DustGasDrag::SingleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt
         Real tempA_d = 2.0 * alpha_dg*dt;
         Real tempB_d = 2.0 + alpha_gd*dt - alpha_dg*dt;
 
-        dust_m1 = dust_d*(tempA_d * gas_v1  + tempB_d * dust_v1)/deter;
-        dust_m2 = dust_d*(tempA_d * gas_v2  + tempB_d * dust_v2)/deter;
-        dust_m3 = dust_d*(tempA_d * gas_v3  + tempB_d * dust_v3)/deter;
+        Real dust_v1_new = (tempA_d * gas_v1  + tempB_d * dust_v1)/deter;
+        Real dust_v2_new = (tempA_d * gas_v2  + tempB_d * dust_v2)/deter;
+        Real dust_v3_new = (tempA_d * gas_v3  + tempB_d * dust_v3)/deter;
 
-        gas_m1  = gas_d*(tempA_g  * dust_v1 + tempB_g * gas_v1)/deter;
-        gas_m2  = gas_d*(tempA_g  * dust_v2 + tempB_g * gas_v2)/deter;
-        gas_m3  = gas_d*(tempA_g  * dust_v3 + tempB_g * gas_v3)/deter;
+        Real delta_dust_m1 = dust_d*(dust_v1_new - dust_v1);
+        Real delta_dust_m2 = dust_d*(dust_v2_new - dust_v2);
+        Real delta_dust_m3 = dust_d*(dust_v3_new - dust_v3);
+
+        dust_m1 += delta_dust_m1;
+        dust_m2 += delta_dust_m2;
+        dust_m3 += delta_dust_m3;
+
+        Real gas_v1_new = (tempA_g  * dust_v1 + tempB_g * gas_v1)/deter;
+        Real gas_v2_new = (tempA_g  * dust_v2 + tempB_g * gas_v2)/deter;
+        Real gas_v3_new = (tempA_g  * dust_v3 + tempB_g * gas_v3)/deter;
+
+        Real delta_gas_m1 = gas_d*(gas_v1_new - gas_v1);
+        Real delta_gas_m2 = gas_d*(gas_v2_new - gas_v2);
+        Real delta_gas_m3 = gas_d*(gas_v3_new - gas_v3);
+
+        gas_m1 += delta_gas_m1;
+        gas_m2 += delta_gas_m2;
+        gas_m3 += delta_gas_m3;
 
         // Update the energy of gas if the gas is non barotropic.
         if (NON_BAROTROPIC_EOS)
-          gas_e = gas_p*igm1 + 0.5*(SQR(gas_m1) + SQR(gas_m2) + SQR(gas_m3))/gas_d;
+          gas_e += delta_gas_m1*gas_v1 + delta_gas_m2*gas_v2 + delta_gas_m3*gas_v3;
 
         }
       }
@@ -632,10 +706,18 @@ void DustGasDrag::SingleDust_NoFeedback_Explicit(MeshBlock *pmb, const Real dt,
         Real alpha_dg = 1.0/stopping_time(dust_id,k,j,i);
         Real alpha_gd = dust_d/gas_d*alpha_dg;
 
+        Real dust_v1_new = (gas_v1 * alpha_dg *dt + dust_v1 * (1.0 - alpha_dg *dt));
+        Real dust_v2_new = (gas_v2 * alpha_dg *dt + dust_v2 * (1.0 - alpha_dg *dt));
+        Real dust_v3_new = (gas_v3 * alpha_dg *dt + dust_v3 * (1.0 - alpha_dg *dt));
+
         // Update the Momentum of gas and dust
-        dust_m1 = dust_d*(gas_v1 * alpha_dg *dt + dust_v1 * (1.0 - alpha_dg *dt));
-        dust_m2 = dust_d*(gas_v2 * alpha_dg *dt + dust_v2 * (1.0 - alpha_dg *dt));
-        dust_m3 = dust_d*(gas_v3 * alpha_dg *dt + dust_v3 * (1.0 - alpha_dg *dt));
+        Real delta_dust_m1 = dust_d*(dust_v1_new - dust_v1);
+        Real delta_dust_m2 = dust_d*(dust_v2_new - dust_v2);
+        Real delta_dust_m3 = dust_d*(dust_v3_new - dust_v3);
+
+        dust_m1 += delta_dust_m1;
+        dust_m2 += delta_dust_m2;
+        dust_m3 += delta_dust_m3;
       }
     }
   }
@@ -703,18 +785,35 @@ void DustGasDrag::SingleDust_Feedback_Explicit(MeshBlock *pmb, const Real dt,
         Real alpha_dg = 1.0/stopping_time(dust_id,k,j,i);
         Real alpha_gd = dust_d/gas_d*alpha_dg;
 
-        // Update the Momentum of gas and dust
-        dust_m1 = dust_d*(gas_v1 * alpha_dg *dt + dust_v1 * (1.0 - alpha_dg *dt));
-        dust_m2 = dust_d*(gas_v2 * alpha_dg *dt + dust_v2 * (1.0 - alpha_dg *dt));
-        dust_m3 = dust_d*(gas_v3 * alpha_dg *dt + dust_v3 * (1.0 - alpha_dg *dt));
+        Real dust_v1_new = (gas_v1 * alpha_dg *dt + dust_v1 * (1.0 - alpha_dg *dt));
+        Real dust_v2_new = (gas_v2 * alpha_dg *dt + dust_v2 * (1.0 - alpha_dg *dt));
+        Real dust_v3_new = (gas_v3 * alpha_dg *dt + dust_v3 * (1.0 - alpha_dg *dt));
 
-        gas_m1  = gas_d*(dust_v1 * alpha_gd *dt + gas_v1 * (1.0 - alpha_gd *dt));
-        gas_m2  = gas_d*(dust_v2 * alpha_gd *dt + gas_v2 * (1.0 - alpha_gd *dt));
-        gas_m3  = gas_d*(dust_v1 * alpha_gd *dt + gas_v3 * (1.0 - alpha_gd *dt));
+        Real gas_v1_new = (dust_v1 * alpha_gd *dt + gas_v1 * (1.0 - alpha_gd *dt));
+        Real gas_v2_new = (dust_v2 * alpha_gd *dt + gas_v2 * (1.0 - alpha_gd *dt));
+        Real gas_v3_new = (dust_v3 * alpha_gd *dt + gas_v3 * (1.0 - alpha_gd *dt));
+
+        // Update the Momentum of gas and dust
+        Real delta_dust_m1 = dust_d*(dust_v1_new - dust_v1);
+        Real delta_dust_m2 = dust_d*(dust_v2_new - dust_v2);
+        Real delta_dust_m3 = dust_d*(dust_v3_new - dust_v3);
+
+        Real delta_gas_m1 = gas_d*(gas_v1_new - gas_v1);
+        Real delta_gas_m2 = gas_d*(gas_v2_new - gas_v2);
+        Real delta_gas_m3 = gas_d*(gas_v3_new - gas_v3);
+
+        // Update the Momentum of gas and dust
+        dust_m1 += delta_dust_m1;
+        dust_m2 += delta_dust_m2;
+        dust_m3 += delta_dust_m3;
+
+        gas_m1  += delta_gas_m1;
+        gas_m2  += delta_gas_m2;
+        gas_m3  += delta_gas_m3;
 
         // Update the energy of gas if the gas is non barotropic.
         if (NON_BAROTROPIC_EOS)
-          gas_e = gas_p*igm1 + 0.5*(SQR(gas_m1) + SQR(gas_m2) + SQR(gas_m3))/gas_d;
+          gas_e += delta_gas_m1*gas_v1 + delta_gas_m2*gas_v2 + delta_gas_m3*gas_v3;
 
         }
       }

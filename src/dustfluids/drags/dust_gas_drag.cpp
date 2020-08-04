@@ -6,8 +6,6 @@
 //! \file dustfluids_diffusion.cpp
 //  \brief Compute dustfluids fluxes corresponding to diffusion processes.
 
-// C headers
-
 // C++ headers
 #include <algorithm>   // min,max
 #include <limits>
@@ -43,14 +41,14 @@ void DustGasDrag::Aerodynamics_Drag(MeshBlock *pmb, const Real dt, const AthenaA
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df){
   if ( NDUSTFLUIDS == 1 ) { // If the nudstfluids == 1, update the cons by analytical formulas, see eq 6&7 in Stone (1997).
     if (DustFeedback_Flag) {
-      //SingleDust_Feedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+      SingleDust_Feedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
       //SingleDust_Feedback_SemiImplicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
-      SingleDust_Feedback_Explicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+      //SingleDust_Feedback_Explicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
     }
     else {
-      //SingleDust_NoFeedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+      SingleDust_NoFeedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
       //SingleDust_NoFeedback_SemiImplicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
-      SingleDust_NoFeedback_Explicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+      //SingleDust_NoFeedback_Explicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
     }
   }
   else { // If NDUSTFLUIDS > 1, then LU decompose the drags matrix, see Benitez-Llambay et al. 2019

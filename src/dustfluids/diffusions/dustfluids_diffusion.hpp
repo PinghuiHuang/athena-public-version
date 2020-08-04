@@ -97,25 +97,5 @@ class DustFluidsDiffusion {
     // functions pointer to calculate spatial dependent coefficients
     //DustFluidsDiffusionCoeffFunc CalcDustFluidsDiffusivityCoeff_;
 
-    // auxiliary functions to calculate viscous flux
-    //void DivVelocity(const AthenaArray<Real> &prim, AthenaArray<Real> &divv);
-    //void FaceXdx(const int k, const int j, const int il, const int iu,
-                 //const AthenaArray<Real> &prim, AthenaArray<Real> &len);
-    //void FaceXdy(const int k, const int j, const int il, const int iu,
-                 //const AthenaArray<Real> &prim, AthenaArray<Real> &len);
-    //void FaceXdz(const int k, const int j, const int il, const int iu,
-                 //const AthenaArray<Real> &prim, AthenaArray<Real> &len);
-    //void FaceYdx(const int k, const int j, const int il, const int iu,
-                 //const AthenaArray<Real> &prim, AthenaArray<Real> &len);
-    //void FaceYdy(const int k, const int j, const int il, const int iu,
-                 //const AthenaArray<Real> &prim, AthenaArray<Real> &len);
-    //void FaceYdz(const int k, const int j, const int il, const int iu,
-                 //const AthenaArray<Real> &prim, AthenaArray<Real> &len);
-    //void FaceZdx(const int k, const int j, const int il, const int iu,
-                 //const AthenaArray<Real> &prim, AthenaArray<Real> &len);
-    //void FaceZdy(const int k, const int j, const int il, const int iu,
-                 //const AthenaArray<Real> &prim, AthenaArray<Real> &len);
-    //void FaceZdz(const int k, const int j, const int il, const int iu,
-                 //const AthenaArray<Real> &prim, AthenaArray<Real> &len);
 };
 #endif // DUSTFLUIDS_DIFFUSION_HPP_

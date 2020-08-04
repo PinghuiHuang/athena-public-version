@@ -98,6 +98,9 @@ SuperTimeStepTaskList::SuperTimeStepTaskList(
   {using namespace HydroIntegratorTaskNames; // NOLINT (build/namespace)
     // calculate hydro/field diffusive fluxes
     AddTask(DIFFUSE_HYD,NONE);
+    if (NDUSTFLUIDS > 0) {
+      AddTask(DIFFUSE_DUSTFLUIDS,NONE);
+    }
     // compute hydro fluxes, integrate hydro variables
     if (MAGNETIC_FIELDS_ENABLED) {
       AddTask(DIFFUSE_FLD,NONE);
@@ -105,23 +108,25 @@ SuperTimeStepTaskList::SuperTimeStepTaskList(
     } else {
       AddTask(CALC_HYDFLX,DIFFUSE_HYD);
     }
-    if (NDUSTFLUIDS > 0) {
-      AddTask(DIFFUSE_DUSTFLUIDS,DIFFUSE_HYD);
-      AddTask(CALC_DUSTFLUIDSFLX,(CALC_HYDFLX|DIFFUSE_DUSTFLUIDS));
-      AddTask(INT_HYD, (CALC_HYDFLX|CALC_DUSTFLUIDSFLX));
-    }
-    else {
-      AddTask(INT_HYD, CALC_HYDFLX);
-    }
+    AddTask(INT_HYD, CALC_HYDFLX);
     AddTask(SEND_HYD,INT_HYD);
     AddTask(RECV_HYD,NONE);
     AddTask(SETB_HYD,(RECV_HYD|INT_HYD));
 
     // compute dust fluids fluxes and integrate the density of each species:
     if (NDUSTFLUIDS > 0) {
-      AddTask(SEND_DUSTFLUIDS,INT_HYD);
+      AddTask(CALC_DUSTFLUIDSFLX,(CALC_HYDFLX|DIFFUSE_DUSTFLUIDS));
+      // TODO(felker): uncomment after S/AMR prohibitiion for STS is removed
+       if (pm->multilevel) {
+          AddTask(SEND_DUSTFLUIDSFLX,CALC_DUSTFLUIDSFLX);
+          AddTask(RECV_DUSTFLUIDSFLX,CALC_DUSTFLUIDSFLX);
+          AddTask(INT_DUSTFLUIDS,RECV_DUSTFLUIDSFLX);
+       } else {
+          AddTask(INT_DUSTFLUIDS, CALC_DUSTFLUIDSFLX);
+        }
+      AddTask(SEND_DUSTFLUIDS,INT_DUSTFLUIDS);
       AddTask(RECV_DUSTFLUIDS,NONE);
-      AddTask(SETB_DUSTFLUIDS,(RECV_DUSTFLUIDS|INT_HYD));
+      AddTask(SETB_DUSTFLUIDS,(RECV_DUSTFLUIDS|INT_DUSTFLUIDS));
     }
 
     // compute MHD fluxes, integrate field
@@ -232,10 +237,10 @@ void SuperTimeStepTaskList::AddTask(const TaskID& id, const TaskID& dep) {
         static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
         (&SuperTimeStepTaskList::CalculateDustFluidsFlux_STS);
     task_list_[ntasks].lb_time = true;
-  //} else if (id == INT_DUSTFLUIDS) {
-    //task_list_[ntasks].TaskFunc=
-        //static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
-        //(&SuperTimeStepTaskList::IntegrateDustFluids_STS);
+  } else if (id == INT_DUSTFLUIDS) {
+    task_list_[ntasks].TaskFunc=
+        static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
+        (&SuperTimeStepTaskList::IntegrateDustFluids_STS);
     task_list_[ntasks].lb_time = true;
   } else if (id == SEND_DUSTFLUIDS) {
     task_list_[ntasks].TaskFunc=

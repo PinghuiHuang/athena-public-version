@@ -30,14 +30,13 @@
 void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray<Real> &prim_df,
             const AthenaArray<Real> &w, AthenaArray<Real> *df_diff_flux) {
   DustFluids *pdf = pmb_->pdustfluids;
-  const bool f2 = pmb_->pmy_mesh->f2;
-  const bool f3 = pmb_->pmy_mesh->f3;
+  const bool f2   = pmb_->pmy_mesh->f2;
+  const bool f3   = pmb_->pmy_mesh->f3;
   AthenaArray<Real> &x1flux = df_diff_flux[X1DIR];
   int il, iu, jl, ju, kl, ku;
   int is = pmb_->is; int js = pmb_->js; int ks = pmb_->ks;
   int ie = pmb_->ie; int je = pmb_->je; int ke = pmb_->ke;
   Real nu_face, rho_face, df_d11, df_d22, df_d33;
-  int dust_id, rho_id, v1_id, v2_id, v3_id;
 
   const int num_dust_var = 4*NDUSTFLUIDS;
   // i-direction
@@ -52,11 +51,11 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
   }
 
   for (int n=0; n<num_dust_var; n+=4) {
-    dust_id = n/4;
-    rho_id  = 4*dust_id;
-    v1_id   = rho_id + 1;
-    v2_id   = rho_id + 2;
-    v3_id   = rho_id + 3;
+    int dust_id = n/4;
+    int rho_id  = 4*dust_id;
+    int v1_id   = rho_id + 1;
+    int v2_id   = rho_id + 2;
+    int v3_id   = rho_id + 3;
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
@@ -84,11 +83,11 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
   if (f2) { // 2D or 3D
     AthenaArray<Real> &x2flux = df_diff_flux[X2DIR];
     for (int n=0; n<num_dust_var; n+=4) {
-      dust_id = n/4;
-      rho_id  = 4*dust_id;
-      v1_id   = rho_id + 1;
-      v2_id   = rho_id + 2;
-      v3_id   = rho_id + 3;
+      int dust_id = n/4;
+      int rho_id  = 4*dust_id;
+      int v1_id   = rho_id + 1;
+      int v2_id   = rho_id + 2;
+      int v3_id   = rho_id + 3;
       for (int k=kl; k<=ku; ++k) {
         for (int j=js; j<=je+1; ++j) {
 #pragma omp simd
@@ -118,11 +117,11 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
   if (f3) { // 3D
     AthenaArray<Real> &x3flux = df_diff_flux[X3DIR];
     for (int n=0; n<num_dust_var; n+=4) {
-      dust_id = n/4;
-      rho_id  = 4*dust_id;
-      v1_id   = rho_id + 1;
-      v2_id   = rho_id + 2;
-      v3_id   = rho_id + 3;
+      int dust_id = n/4;
+      int rho_id  = 4*dust_id;
+      int v1_id   = rho_id + 1;
+      int v2_id   = rho_id + 2;
+      int v3_id   = rho_id + 3;
       for (int k=ks; k<=ke+1; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd

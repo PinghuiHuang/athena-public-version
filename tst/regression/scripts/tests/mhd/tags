@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 _exec	mhd_linwave.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
 _exec	rj2a_shock.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
 _fluxes	mhd_linwave.py	/^_fluxes = ['hlld', 'roe']$/;"	v
@@ -13,12 +13,38 @@ _xdirs	rj2a_shock.py	/^_xdirs = [1, 2, 3]$/;"	v
 analyze	cpaw.py	/^def analyze():$/;"	f
 analyze	mhd_linwave.py	/^def analyze():$/;"	f
 analyze	rj2a_shock.py	/^def analyze():$/;"	f
+athena	cpaw.py	/^import scripts.utils.athena as athena$/;"	i
+athena	mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+athena	rj2a_shock.py	/^import scripts.utils.athena as athena$/;"	i
+athena_read	cpaw.py	/^import athena_read                             # noqa$/;"	i
+athena_read	mhd_linwave.py	/^import athena_read                             # noqa$/;"	i
+athena_read	rj2a_shock.py	/^import athena_read                             # noqa$/;"	i
 logger	cpaw.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	mhd_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	rj2a_shock.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logging	cpaw.py	/^import logging$/;"	i
+logging	mhd_linwave.py	/^import logging$/;"	i
+logging	rj2a_shock.py	/^import logging$/;"	i
+move	mhd_linwave.py	/^from shutil import move$/;"	i
+move	rj2a_shock.py	/^from shutil import move$/;"	i
+noqa	cpaw.py	/^import athena_read                             # noqa$/;"	i
+noqa	mhd_linwave.py	/^import athena_read                             # noqa$/;"	i
+noqa	rj2a_shock.py	/^import athena_read                             # noqa$/;"	i
+np	rj2a_shock.py	/^import numpy as np$/;"	i
+os	mhd_linwave.py	/^import os$/;"	i
+os	rj2a_shock.py	/^import os$/;"	i
 prepare	cpaw.py	/^def prepare(**kwargs):$/;"	f
 prepare	mhd_linwave.py	/^def prepare(**kwargs):$/;"	f
 prepare	rj2a_shock.py	/^def prepare(**kwargs):$/;"	f
 run	cpaw.py	/^def run(**kwargs):$/;"	f
 run	mhd_linwave.py	/^def run(**kwargs):$/;"	f
 run	rj2a_shock.py	/^def run(**kwargs):$/;"	f
+scripts	cpaw.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	rj2a_shock.py	/^import scripts.utils.athena as athena$/;"	i
+sys	cpaw.py	/^import sys$/;"	i
+sys	mhd_linwave.py	/^import sys$/;"	i
+sys	rj2a_shock.py	/^import sys$/;"	i
+utils	cpaw.py	/^import scripts.utils.athena as athena$/;"	i
+utils	mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+utils	rj2a_shock.py	/^import scripts.utils.athena as athena$/;"	i

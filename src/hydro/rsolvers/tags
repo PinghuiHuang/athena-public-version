@@ -3,23 +3,23 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 Cons1D	mhd/hlld.cpp	/^struct Cons1D {$/;"	s	file:
 Cons1D	mhd/hlld_iso.cpp	/^struct Cons1D {$/;"	s	file:
-EResidual	mhd/hlld_rel.cpp	/^Real EResidual(Real w_guess, Real dd, Real ee, Real m_sq, Real bb_sq, Real ss_sq,$/;"	f	namespace:__anon10
-EResidualPrime	mhd/hlld_rel.cpp	/^Real EResidualPrime(Real w_guess, Real dd, Real m_sq, Real bb_sq, Real ss_sq,$/;"	f	namespace:__anon10
-HLLCTransforming	hydro/hllc_rel.cpp	/^void HLLCTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon2
-HLLDTransforming	mhd/hlld_rel.cpp	/^void HLLDTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon10
-HLLENonTransforming	hydro/hllc_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon2
-HLLENonTransforming	hydro/hlle_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon4
-HLLENonTransforming	mhd/hlld_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon10
-HLLENonTransforming	mhd/hlle_mhd_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon12
-HLLETransforming	hydro/hlle_rel.cpp	/^void HLLETransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon4
-HLLETransforming	mhd/hlle_mhd_rel.cpp	/^void HLLETransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon12
-LLFNonTransforming	hydro/llf_rel.cpp	/^void LLFNonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon8
-LLFNonTransforming	mhd/llf_mhd_rel.cpp	/^void LLFNonTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon14
-LLFTransforming	hydro/llf_rel.cpp	/^void LLFTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon8
-LLFTransforming	mhd/llf_mhd_rel.cpp	/^void LLFTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon14
+EResidual	mhd/hlld_rel.cpp	/^Real EResidual(Real w_guess, Real dd, Real ee, Real m_sq, Real bb_sq, Real ss_sq,$/;"	f	namespace:__anon8
+EResidualPrime	mhd/hlld_rel.cpp	/^Real EResidualPrime(Real w_guess, Real dd, Real m_sq, Real bb_sq, Real ss_sq,$/;"	f	namespace:__anon8
+HLLCTransforming	hydro/hllc_rel.cpp	/^void HLLCTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon14
+HLLDTransforming	mhd/hlld_rel.cpp	/^void HLLDTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon8
+HLLENonTransforming	hydro/hllc_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon14
+HLLENonTransforming	hydro/hlle_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon16
+HLLENonTransforming	mhd/hlld_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon8
+HLLENonTransforming	mhd/hlle_mhd_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon4
+HLLETransforming	hydro/hlle_rel.cpp	/^void HLLETransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon16
+HLLETransforming	mhd/hlle_mhd_rel.cpp	/^void HLLETransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon4
+LLFNonTransforming	hydro/llf_rel.cpp	/^void LLFNonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon10
+LLFNonTransforming	mhd/llf_mhd_rel.cpp	/^void LLFNonTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon6
+LLFTransforming	hydro/llf_rel.cpp	/^void LLFTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon10
+LLFTransforming	mhd/llf_mhd_rel.cpp	/^void LLFTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon6
 RiemannSolver	hydro/hllc.cpp	/^void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,$/;"	f	class:Hydro
 RiemannSolver	hydro/hllc_rel.cpp	/^void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,$/;"	f	class:Hydro
 RiemannSolver	hydro/hlle.cpp	/^void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,$/;"	f	class:Hydro
@@ -39,10 +39,10 @@ RiemannSolver	mhd/llf_mhd.cpp	/^void Hydro::RiemannSolver(const int k, const int
 RiemannSolver	mhd/llf_mhd_rel.cpp	/^void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,$/;"	f	class:Hydro
 RiemannSolver	mhd/llf_mhd_rel_no_transform.cpp	/^void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,$/;"	f	class:Hydro
 RiemannSolver	mhd/roe_mhd.cpp	/^void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,$/;"	f	class:Hydro
-RoeFlux	hydro/roe.cpp	/^inline void RoeFlux(const Real wroe[], const Real du[], const Real wli[], Real flx[],$/;"	f	namespace:__anon6
-RoeFlux	mhd/roe_mhd.cpp	/^inline void RoeFlux(const Real wroe[], const Real b1, const Real x, const Real y,$/;"	f	namespace:__anon16
-SMALL_NUMBER	mhd/hlld.cpp	32;"	d	file:
-SMALL_NUMBER	mhd/hlld_iso.cpp	31;"	d	file:
+RoeFlux	hydro/roe.cpp	/^inline void RoeFlux(const Real wroe[], const Real du[], const Real wli[], Real flx[],$/;"	f	namespace:__anon12
+RoeFlux	mhd/roe_mhd.cpp	/^inline void RoeFlux(const Real wroe[], const Real b1, const Real x, const Real y,$/;"	f	namespace:__anon2
+SMALL_NUMBER	mhd/hlld.cpp	/^#define SMALL_NUMBER /;"	d	file:
+SMALL_NUMBER	mhd/hlld_iso.cpp	/^#define SMALL_NUMBER /;"	d	file:
 by	mhd/hlld.cpp	/^  Real d, mx, my, mz, e, by, bz;$/;"	m	struct:Cons1D	file:
 by	mhd/hlld_iso.cpp	/^  Real d, mx, my, mz, by, bz;$/;"	m	struct:Cons1D	file:
 bz	mhd/hlld.cpp	/^  Real d, mx, my, mz, e, by, bz;$/;"	m	struct:Cons1D	file:
@@ -50,10 +50,10 @@ bz	mhd/hlld_iso.cpp	/^  Real d, mx, my, mz, by, bz;$/;"	m	struct:Cons1D	file:
 d	mhd/hlld.cpp	/^  Real d, mx, my, mz, e, by, bz;$/;"	m	struct:Cons1D	file:
 d	mhd/hlld_iso.cpp	/^  Real d, mx, my, mz, by, bz;$/;"	m	struct:Cons1D	file:
 e	mhd/hlld.cpp	/^  Real d, mx, my, mz, e, by, bz;$/;"	m	struct:Cons1D	file:
-gm1	hydro/roe.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon5	file:
-gm1	mhd/roe_mhd.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon15	file:
-iso_cs	hydro/roe.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon5	file:
-iso_cs	mhd/roe_mhd.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon15	file:
+gm1	hydro/roe.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon11	file:
+gm1	mhd/roe_mhd.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon1	file:
+iso_cs	hydro/roe.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon11	file:
+iso_cs	mhd/roe_mhd.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon1	file:
 mx	mhd/hlld.cpp	/^  Real d, mx, my, mz, e, by, bz;$/;"	m	struct:Cons1D	file:
 mx	mhd/hlld_iso.cpp	/^  Real d, mx, my, mz, by, bz;$/;"	m	struct:Cons1D	file:
 my	mhd/hlld.cpp	/^  Real d, mx, my, mz, e, by, bz;$/;"	m	struct:Cons1D	file:

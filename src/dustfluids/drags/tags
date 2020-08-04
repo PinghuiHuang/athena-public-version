@@ -3,9 +3,9 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 Aerodynamics_Drag	dust_gas_drag.cpp	/^void DustGasDrag::Aerodynamics_Drag(MeshBlock *pmb, const Real dt, const AthenaArray<Real> &stopping_time,$/;"	f	class:DustGasDrag
-DRAG_DUSTGAS_HPP_	dust_gas_drag.hpp	2;"	d
+DRAG_DUSTGAS_HPP_	dust_gas_drag.hpp	/^#define DRAG_DUSTGAS_HPP_$/;"	d
 Determinant	LU_decompose.cpp	/^Real DustGasDrag::Determinant()$/;"	f	class:DustGasDrag
 DustFeedback_Flag	dust_gas_drag.hpp	/^    bool DustFeedback_Flag;           \/\/ true or false, the flag of dust feedback term$/;"	m	class:DustGasDrag
 DustGasDrag	dust_gas_drag.cpp	/^DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :$/;"	f	class:DustGasDrag
@@ -13,10 +13,14 @@ DustGasDrag	dust_gas_drag.hpp	/^class DustGasDrag {$/;"	c
 InverseMatrix	LU_decompose.cpp	/^AthenaArray<Real> DustGasDrag::InverseMatrix(AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
 IterativeImprove	LU_decompose.cpp	/^void DustGasDrag::IterativeImprove(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector)$/;"	f	class:DustGasDrag
 LUdecompose	LU_decompose.cpp	/^void DustGasDrag::LUdecompose(const AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
-MultipleDust_Feedback	solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_Feedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
-MultipleDust_NoFeedback	solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_NoFeedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
-SingleDust_Feedback	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
-SingleDust_NoFeedback	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+MultipleDust_Feedback_Implicit	solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+MultipleDust_NoFeedback_Implicit	solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+SingleDust_Feedback_Explicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_Explicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+SingleDust_Feedback_Implicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+SingleDust_Feedback_SemiImplicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+SingleDust_NoFeedback_Explicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback_Explicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+SingleDust_NoFeedback_Implicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+SingleDust_NoFeedback_SemiImplicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback_SemiImplicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SolveLinearEquation	LU_decompose.cpp	/^void DustGasDrag::SolveLinearEquation(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector)$/;"	f	class:DustGasDrag
 SolveMultipleLinearEquation	LU_decompose.cpp	/^void DustGasDrag::SolveMultipleLinearEquation(AthenaArray<Real> &b_matrix, AthenaArray<Real> &x_matrix)$/;"	f	class:DustGasDrag
 aref_matrix	dust_gas_drag.hpp	/^    AthenaArray<Real> aref_matrix;$/;"	m	class:DustGasDrag

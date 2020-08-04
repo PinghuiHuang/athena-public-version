@@ -251,57 +251,59 @@ TimeIntegratorTaskList::TimeIntegratorTaskList(ParameterInput *pin, Mesh *pm) {
       if (NDUSTFLUIDS > 0) {
         AddTask(DIFFUSE_DUSTFLUIDS,DIFFUSE_HYD);
         AddTask(CALC_DUSTFLUIDSFLX,DIFFUSE_DUSTFLUIDS);
-        //AddTask(DRAG_DUSTGAS,(CALC_DUSTFLUIDSFLX|CALC_HYDFLX));
       }
     } else { // STS enabled:
       AddTask(CALC_HYDFLX,NONE);
       if (NDUSTFLUIDS > 0)
         AddTask(CALC_DUSTFLUIDSFLX,CALC_HYDFLX);
-      //AddTask(DRAG_DUSTGAS,(CALC_DUSTFLUIDSFLX|CALC_HYDFLX));
     }
 
     if (pm->multilevel) { // SMR or AMR
-      if (NDUSTFLUIDS > 0) {
-        AddTask(SEND_DUSTFLUIDSFLX,CALC_DUSTFLUIDSFLX);
-        AddTask(RECV_DUSTFLUIDSFLX,CALC_DUSTFLUIDSFLX);
-        //AddTask(INT_DUSTFLUIDS,RECV_DUSTFLUIDSFLX);
-
-        AddTask(SEND_HYDFLX,CALC_HYDFLX);
-        AddTask(RECV_HYDFLX,CALC_HYDFLX);
-        AddTask(INT_HYD,(RECV_HYDFLX|RECV_DUSTFLUIDSFLX));
-      }
-      else {
-        AddTask(SEND_HYDFLX,CALC_HYDFLX);
-        AddTask(RECV_HYDFLX,CALC_HYDFLX);
-        AddTask(INT_HYD,RECV_HYDFLX);
-      }
+      AddTask(SEND_HYDFLX,CALC_HYDFLX);
+      AddTask(RECV_HYDFLX,CALC_HYDFLX);
+      AddTask(INT_HYD,RECV_HYDFLX);
     } else {
-      if (NDUSTFLUIDS > 0)
-        AddTask(INT_HYD,(CALC_HYDFLX|CALC_DUSTFLUIDSFLX));
-      else
-        AddTask(INT_HYD, CALC_HYDFLX);
+      AddTask(INT_HYD, CALC_HYDFLX);
     }
-
+    // Set the source term of hydro
     AddTask(SRCTERM_HYD,INT_HYD);
-    AddTask(SEND_HYD,SRCTERM_HYD);
-    AddTask(RECV_HYD,NONE);
-    AddTask(SETB_HYD,(RECV_HYD|SRCTERM_HYD));
-
-    if (SHEARING_BOX) { // Shearingbox BC for Hydro
-      AddTask(SEND_HYDSH,SETB_HYD);
-      AddTask(RECV_HYDSH,SETB_HYD);
-    }
 
     if (NDUSTFLUIDS > 0) {
-      // Set the source term of dust fluids
-      // AddTask(SRCTERM_DUSTFLUIDS,INT_DUSTFLUIDS);
-      AddTask(SRCTERM_DUSTFLUIDS,INT_HYD);
-      AddTask(SEND_DUSTFLUIDS,SRCTERM_DUSTFLUIDS);
+      if (pm->multilevel) {
+        AddTask(SEND_DUSTFLUIDSFLX,CALC_DUSTFLUIDSFLX);
+        AddTask(RECV_DUSTFLUIDSFLX,CALC_DUSTFLUIDSFLX);
+        AddTask(INT_DUSTFLUIDS,RECV_DUSTFLUIDSFLX);
+      } else {
+        AddTask(INT_DUSTFLUIDS,CALC_DUSTFLUIDSFLX);
+      }
+
+      // Drag Term is implemented after adding the srcterms of gas and dust
+      AddTask(SRCTERM_DUSTFLUIDS,INT_DUSTFLUIDS);
+      AddTask(DRAG_DUSTGAS,(SRCTERM_DUSTFLUIDS|SRCTERM_HYD));
+
+      AddTask(SEND_HYD,(SRCTERM_HYD|DRAG_DUSTGAS));
+      AddTask(RECV_HYD,NONE);
+      AddTask(SETB_HYD,(RECV_HYD|SRCTERM_HYD|DRAG_DUSTGAS));
+
+      AddTask(SEND_DUSTFLUIDS,(SRCTERM_DUSTFLUIDS|DRAG_DUSTGAS));
       AddTask(RECV_DUSTFLUIDS,NONE);
-      AddTask(SETB_DUSTFLUIDS,(RECV_DUSTFLUIDS|SRCTERM_DUSTFLUIDS));
+      AddTask(SETB_DUSTFLUIDS,(RECV_DUSTFLUIDS|SRCTERM_DUSTFLUIDS|DRAG_DUSTGAS));
+
       if (SHEARING_BOX) {
+        AddTask(SEND_HYDSH,SETB_HYD);
+        AddTask(RECV_HYDSH,SETB_HYD);
         AddTask(SEND_DUSTFLUIDSSH,SETB_DUSTFLUIDS);
         AddTask(RECV_DUSTFLUIDSSH,SETB_DUSTFLUIDS);
+      }
+    }
+    else {
+      AddTask(SEND_HYD,SRCTERM_HYD);
+      AddTask(RECV_HYD,NONE);
+      AddTask(SETB_HYD,(RECV_HYD|SRCTERM_HYD));
+
+      if (SHEARING_BOX) { // Shearingbox BC for Hydro
+        AddTask(SEND_HYDSH,SETB_HYD);
+        AddTask(RECV_HYDSH,SETB_HYD);
       }
     }
 
@@ -572,10 +574,10 @@ void TimeIntegratorTaskList::AddTask(const TaskID& id, const TaskID& dep) {
         static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
         (&TimeIntegratorTaskList::CalculateDustFluidsFlux);
     task_list_[ntasks].lb_time = true;
-  //} else if (id == DRAG_DUSTGAS) {
-    //task_list_[ntasks].TaskFunc=
-        //static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
-        //(&TimeIntegratorTaskList::DustGasDrag);
+  } else if (id == DRAG_DUSTGAS) {
+    task_list_[ntasks].TaskFunc=
+        static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
+        (&TimeIntegratorTaskList::DustGasDrag);
     task_list_[ntasks].lb_time = true;
   } else if (id == SEND_DUSTFLUIDSFLX) {
     task_list_[ntasks].TaskFunc=
@@ -587,11 +589,11 @@ void TimeIntegratorTaskList::AddTask(const TaskID& id, const TaskID& dep) {
         static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
         (&TimeIntegratorTaskList::ReceiveDustFluidsFlux);
     task_list_[ntasks].lb_time = false;
-  //} else if (id == INT_DUSTFLUIDS) {
-    //task_list_[ntasks].TaskFunc=
-        //static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
-        //(&TimeIntegratorTaskList::IntegrateDustFluids);
-    //task_list_[ntasks].lb_time = true;
+  } else if (id == INT_DUSTFLUIDS) {
+    task_list_[ntasks].TaskFunc=
+        static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
+        (&TimeIntegratorTaskList::IntegrateDustFluids);
+    task_list_[ntasks].lb_time = true;
   } else if (id == SRCTERM_DUSTFLUIDS) {
     task_list_[ntasks].TaskFunc=
         static_cast<TaskStatus (TaskList::*)(MeshBlock*,int)>
@@ -775,9 +777,8 @@ TaskStatus TimeIntegratorTaskList::ReceiveAndCorrectEMF(MeshBlock *pmb, int stag
 // Functions to integrate conserved variables
 
 TaskStatus TimeIntegratorTaskList::IntegrateHydro(MeshBlock *pmb, int stage) {
-  Hydro *ph       = pmb->phydro;
-  Field *pf       = pmb->pfield;
-  DustFluids *pdf = pmb->pdustfluids;
+  Hydro *ph = pmb->phydro;
+  Field *pf = pmb->pfield;
 
   if (pmb->pmy_mesh->fluid_setup != FluidFormulation::evolve) return TaskStatus::next;
 
@@ -788,8 +789,6 @@ TaskStatus TimeIntegratorTaskList::IntegrateHydro(MeshBlock *pmb, int stage) {
     ave_wghts[1] = stage_wghts[stage-1].delta;
     ave_wghts[2] = 0.0;
     pmb->WeightedAve(ph->u1, ph->u, ph->u2, ave_wghts);
-    if (NDUSTFLUIDS > 0)
-      pmb->WeightedAve(pdf->df_cons1, pdf->df_cons, pdf->df_cons2, ave_wghts);
 
     ave_wghts[0] = stage_wghts[stage-1].gamma_1;
     ave_wghts[1] = stage_wghts[stage-1].gamma_2;
@@ -799,27 +798,10 @@ TaskStatus TimeIntegratorTaskList::IntegrateHydro(MeshBlock *pmb, int stage) {
     else
       pmb->WeightedAve(ph->u, ph->u1, ph->u2, ave_wghts);
 
-    if (NDUSTFLUIDS > 0) {
-      if (ave_wghts[0] == 0.0 && ave_wghts[1] == 1.0 && ave_wghts[2] == 0.0)
-        pdf->df_cons.SwapAthenaArray(pdf->df_cons1);
-      else
-        pmb->WeightedAve(pdf->df_cons, pdf->df_cons1, pdf->df_cons2, ave_wghts);
-    }
-
     const Real wght = stage_wghts[stage-1].beta*pmb->pmy_mesh->dt;
-
-    if (NDUSTFLUIDS > 0)
-      pdf->dfdrag.Aerodynamics_Drag(pmb, wght, pdf->stopping_time_array, ph->w, pdf->df_prim, ph->u, pdf->df_cons);
-
     ph->AddFluxDivergence(wght, ph->u);
     // add coordinate (geometric) source terms
     pmb->pcoord->AddCoordTermsDivergence(wght, ph->flux, ph->w, pf->bcc, ph->u);
-
-    if (NDUSTFLUIDS > 0) {
-      pdf->AddDustFluidsFluxDivergence(wght, pdf->df_cons);
-      // add coordinate (geometric) source terms
-      pmb->pcoord->AddCoordTermsDivergence_DustFluids(wght, pdf->df_flux, pdf->df_prim, pdf->df_cons);
-    }
 
     // Hardcode an additional flux divergence weighted average for the penultimate
     // stage of SSPRK(5,4) since it cannot be expressed in a 3S* framework
@@ -835,16 +817,7 @@ TaskStatus TimeIntegratorTaskList::IntegrateHydro(MeshBlock *pmb, int stage) {
       ph->AddFluxDivergence(wght_ssp, ph->u2);
       // add coordinate (geometric) source terms
       pmb->pcoord->AddCoordTermsDivergence(wght_ssp, ph->flux, ph->w, pf->bcc, ph->u2);
-
-      if (NDUSTFLUIDS > 0) {
-        // writing out to df_cons2 register
-        pmb->WeightedAve(pdf->df_cons2, pdf->df_cons1, pdf->df_cons2, ave_wghts);
-        pdf->AddDustFluidsFluxDivergence(wght_ssp, pdf->df_cons2);
-        // add coordinate (geometric) source terms
-        pmb->pcoord->AddCoordTermsDivergence_DustFluids(wght_ssp, pdf->df_flux, pdf->df_prim, pdf->df_cons2);
-      }
     }
-
     return TaskStatus::next;
   }
   return TaskStatus::fail;
@@ -1257,49 +1230,49 @@ TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsFlux(MeshBlock *pmb, int sta
 }
 
 
-//TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage) {
-  //DustFluids *pdf = pmb->pdustfluids;
-  //Hydro *ph       = pmb->phydro;
-  //if (stage <= nstages) {
-    //// This time-integrator-specific averaging operation logic is identical to
-    //// IntegrateHydro, IntegrateField
-    //Real ave_wghts[3];
-    //ave_wghts[0] = 1.0;
-    //ave_wghts[1] = stage_wghts[stage-1].delta;
-    //ave_wghts[2] = 0.0;
-    //pmb->WeightedAve(pdf->df_cons1, pdf->df_cons, pdf->df_cons2, ave_wghts);
+TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage) {
+  DustFluids *pdf = pmb->pdustfluids;
+  Hydro *ph       = pmb->phydro;
+  if (stage <= nstages) {
+    // This time-integrator-specific averaging operation logic is identical to
+    // IntegrateHydro, IntegrateField
+    Real ave_wghts[3];
+    ave_wghts[0] = 1.0;
+    ave_wghts[1] = stage_wghts[stage-1].delta;
+    ave_wghts[2] = 0.0;
+    pmb->WeightedAve(pdf->df_cons1, pdf->df_cons, pdf->df_cons2, ave_wghts);
 
-    //ave_wghts[0] = stage_wghts[stage-1].gamma_1;
-    //ave_wghts[1] = stage_wghts[stage-1].gamma_2;
-    //ave_wghts[2] = stage_wghts[stage-1].gamma_3;
-    //if (ave_wghts[0] == 0.0 && ave_wghts[1] == 1.0 && ave_wghts[2] == 0.0)
-      //pdf->df_cons.SwapAthenaArray(pdf->df_cons1);
-    //else
-      //pmb->WeightedAve(pdf->df_cons, pdf->df_cons1, pdf->df_cons2, ave_wghts);
+    ave_wghts[0] = stage_wghts[stage-1].gamma_1;
+    ave_wghts[1] = stage_wghts[stage-1].gamma_2;
+    ave_wghts[2] = stage_wghts[stage-1].gamma_3;
+    if (ave_wghts[0] == 0.0 && ave_wghts[1] == 1.0 && ave_wghts[2] == 0.0)
+      pdf->df_cons.SwapAthenaArray(pdf->df_cons1);
+    else
+      pmb->WeightedAve(pdf->df_cons, pdf->df_cons1, pdf->df_cons2, ave_wghts);
 
-    //const Real wght = stage_wghts[stage-1].beta*pmb->pmy_mesh->dt;
+    const Real wght = stage_wghts[stage-1].beta*pmb->pmy_mesh->dt;
 
-    //pdf->AddDustFluidsFluxDivergence(wght, pdf->df_cons);
-    //pmb->pcoord->AddCoordTermsDivergence_DustFluids(wght, pdf->df_flux, pdf->df_prim, pdf->df_cons);
+    pdf->AddDustFluidsFluxDivergence(wght, pdf->df_cons);
+    pmb->pcoord->AddCoordTermsDivergence_DustFluids(wght, pdf->df_flux, pdf->df_prim, pdf->df_cons);
 
-    //// Hardcode an additional flux divergence weighted average for the penultimate
-    //// stage of SSPRK(5,4) since it cannot be expressed in a 3S* framework
-    //if (stage == 4 && integrator == "ssprk5_4") {
-      //// From Gottlieb (2009), u^(n+1) partial calculation
-      //ave_wghts[0] = -1.0; // -u^(n) coeff.
-      //ave_wghts[1] = 0.0;
-      //ave_wghts[2] = 0.0;
-      //const Real beta = 0.063692468666290; // F(u^(3)) coeff.
-      //const Real wght_ssp = beta*pmb->pmy_mesh->dt;
-      //// writing out to df_cons2 register
-      //pmb->WeightedAve(pdf->df_cons2, pdf->df_cons1, pdf->df_cons2, ave_wghts);
-      //pdf->AddDustFluidsFluxDivergence(wght_ssp, pdf->df_cons2);
-      //pmb->pcoord->AddCoordTermsDivergence_DustFluids(wght_ssp, pdf->df_flux, pdf->df_prim, pdf->df_cons2);
-    //}
-    //return TaskStatus::next;
-  //}
-  //return TaskStatus::fail;
-//}
+    // Hardcode an additional flux divergence weighted average for the penultimate
+    // stage of SSPRK(5,4) since it cannot be expressed in a 3S* framework
+    if (stage == 4 && integrator == "ssprk5_4") {
+      // From Gottlieb (2009), u^(n+1) partial calculation
+      ave_wghts[0] = -1.0; // -u^(n) coeff.
+      ave_wghts[1] = 0.0;
+      ave_wghts[2] = 0.0;
+      const Real beta = 0.063692468666290; // F(u^(3)) coeff.
+      const Real wght_ssp = beta*pmb->pmy_mesh->dt;
+      // writing out to df_cons2 register
+      pmb->WeightedAve(pdf->df_cons2, pdf->df_cons1, pdf->df_cons2, ave_wghts);
+      pdf->AddDustFluidsFluxDivergence(wght_ssp, pdf->df_cons2);
+      pmb->pcoord->AddCoordTermsDivergence_DustFluids(wght_ssp, pdf->df_flux, pdf->df_prim, pdf->df_cons2);
+    }
+    return TaskStatus::next;
+  }
+  return TaskStatus::fail;
+}
 
 
 TaskStatus TimeIntegratorTaskList::SendDustFluids(MeshBlock *pmb, int stage) {
@@ -1411,14 +1384,16 @@ TaskStatus TimeIntegratorTaskList::SendDustFluidsShear(MeshBlock *pmb, int stage
   return TaskStatus::success;
 }
 
-//TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
-  //DustFluids *pdf     = pmb->pdustfluids;
-  //Hydro *ph           = pmb->phydro;
+TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
+  DustFluids *pdf     = pmb->pdustfluids;
+  Hydro *ph           = pmb->phydro;
 
-  //if (stage <= nstages) {
-    //pdf->dfdrag.Aerodynamics_Drag(pmb, pmb->pmy_mesh->dt, pdf->stopping_time_array,
-                                  //ph->w, pdf->df_prim, ph->u, pdf->df_cons);
-  //}
-  //return TaskStatus::next;
-//}
-////TaskStatus TimeIntegratorTaskList::
+  if (stage <= nstages) {
+    Real dt = (stage_wghts[(stage-1)].beta)*(pmb->pmy_mesh->dt);
+    pdf->dfdrag.Aerodynamics_Drag(pmb, dt, pdf->stopping_time_array,
+                                  ph->w, pdf->df_prim, ph->u, pdf->df_cons);
+  }
+  return TaskStatus::next;
+}
+
+//TaskStatus TimeIntegratorTaskList::

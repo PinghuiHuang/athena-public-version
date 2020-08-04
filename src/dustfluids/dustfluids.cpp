@@ -176,9 +176,12 @@ void DustFluids::UserDefined_StoppingTime(const int kl, const int ku, const int 
           Real &dust_den = df_prim(rho_id,k,j,i);
           Real &st_time  = stopping_time(dust_id,k,j,i);
           const Real &wd = w(IDN,k,j,i);
-          //// The stopping time is in inversely proportion to the density of gas, see Takeuchi & Lin, 2001
+
+          // The stopping time is in inversely proportion to the density of gas, see Takeuchi & Lin, 2001
           st_time        = particle_density(dust_id)/wd;
-          //st_time = dust_den/particle_density(dust_id);
+
+          // Or you can define the stopping time arbitrarily
+          // st_time = dust_den/particle_density(dust_id);
         }
       }
     }

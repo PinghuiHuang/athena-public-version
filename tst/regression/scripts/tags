@@ -3,20 +3,46 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
+Athena	tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
+Athena	tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+Athena	tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
+Athena	tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
 AthenaError	utils/athena.py	/^class AthenaError(RuntimeError):$/;"	c
 AthenaTable	utils/EquationOfState/eos.py	/^class AthenaTable(EOS):$/;"	c
+AutoMinorLocator	utils/plot_mignone/section_5_1_1.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
+AutoMinorLocator	utils/plot_mignone/section_5_1_2.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
 EOS	utils/EquationOfState/eos.py	/^class EOS(object):$/;"	c
 EvolvedCosineProfile	utils/plot_mignone/section_5_1_2.py	/^def EvolvedCosineProfile(x2, a, b, t):$/;"	f
 EvolvedGaussianProfile	utils/plot_mignone/section_5_1_1.py	/^def EvolvedGaussianProfile(x1, a, b, m, t):$/;"	f
+FormatStrFormatter	utils/plot_mignone/section_5_1_1.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
+FormatStrFormatter	utils/plot_mignone/section_5_1_2.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
 Ideal	utils/EquationOfState/eos.py	/^class Ideal(EOS):$/;"	c
+Ideal	utils/RiemannSolver/AthenaWrapper.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
+Ideal	utils/RiemannSolver/tests.py	/^        from .eos import Ideal$/;"	i
+Ideal	utils/RiemannSolver/tests.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
 InitialCosineProfile	utils/plot_mignone/section_5_1_2.py	/^def InitialCosineProfile(x2, a, b):$/;"	f
 InitialGaussianProfile	utils/plot_mignone/section_5_1_1.py	/^def InitialGaussianProfile(x1, a, b):$/;"	f
+Line2D	utils/plot_mignone/section_5_1_1.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
+Line2D	utils/plot_mignone/section_5_1_2.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
+LogPipe	utils/athena.py	/^from .log_pipe import LogPipe$/;"	i
 LogPipe	utils/log_pipe.py	/^class LogPipe(threading.Thread):$/;"	c
+Polynomial	tests/diffusion/linear_wave3d.py	/^from numpy.polynomial import Polynomial$/;"	i
+Polynomial	tests/diffusion/thermal_attenuation.py	/^from numpy.polynomial import Polynomial$/;"	i
+Python	tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+Python	tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
+Python	tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+Python	tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
+Python	utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+RBS	utils/EquationOfState/eos.py	/^from scipy.interpolate import RectBivariateSpline as RBS$/;"	i
 RareInt	utils/RiemannSolver/riemann.py	/^class RareInt(object):$/;"	c
 RiemannSol	utils/RiemannSolver/riemann.py	/^class RiemannSol(object):$/;"	c
+RiemannSol	utils/RiemannSolver/tests.py	/^from .riemann import RiemannSol, StateVector$/;"	i
 SimpleHydrogen	utils/EquationOfState/eos.py	/^class SimpleHydrogen(EOS):$/;"	c
+SimpleHydrogen	utils/RiemannSolver/AthenaWrapper.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
+SimpleHydrogen	utils/RiemannSolver/tests.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
 StateVector	utils/RiemannSolver/riemann.py	/^class StateVector(object):$/;"	c
+StateVector	utils/RiemannSolver/tests.py	/^from .riemann import RiemannSol, StateVector$/;"	i
 T_of_rho_ei	utils/EquationOfState/eos.py	/^    def T_of_rho_ei(self, rho, ei):$/;"	m	class:Ideal
 T_of_rho_p	utils/EquationOfState/eos.py	/^    def T_of_rho_p(self, rho, p):$/;"	m	class:Ideal
 TestIdeal	utils/EquationOfState/eos.py	/^class TestIdeal(Ideal):$/;"	c
@@ -74,11 +100,14 @@ _nxs	tests/mhd/rj2a_shock.py	/^_nxs = [256, 512]  # resolutions to test (ascendi
 _phi	utils/EquationOfState/eos.py	/^    def _phi(self, T):$/;"	m	class:SimpleHydrogen
 _rare_ode	utils/RiemannSolver/riemann.py	/^    def _rare_ode(self, y, p):$/;"	m	class:RareInt
 _shock_jump	utils/RiemannSolver/riemann.py	/^    def _shock_jump(self, edge, mid):$/;"	m	class:RiemannSol
+_states	tests/eos/eos_mhd.py	/^from .eos_riemann import _tests, _thresh, _states$/;"	i
 _states	tests/eos/eos_riemann.py	/^_states = [dict(zip(tmp, i[:-1])) for i in _tests]$/;"	v
 _t0	tests/diffusion/resistive_diffusion.py	/^_t0 = 0.5$/;"	v
 _t0	tests/diffusion/viscous_diffusion.py	/^_t0 = 0.5$/;"	v
+_tests	tests/eos/eos_mhd.py	/^from .eos_riemann import _tests, _thresh, _states$/;"	i
 _tests	tests/eos/eos_riemann.py	/^_tests = [[1e-07, 0.00, 0.150, 1.25e-8, 0., 0.062, .25],$/;"	v
 _tests	tests/eos/eos_riemann.py	/^_tests = [dict(zip(tmp, i)) for i in _tests]$/;"	v
+_thresh	tests/eos/eos_mhd.py	/^from .eos_riemann import _tests, _thresh, _states$/;"	i
 _thresh	tests/eos/eos_riemann.py	/^_thresh = [[5.1e-10, 6.5e-11, 0.0039],$/;"	v
 _thresh	tests/eos/eos_riemann.py	/^_thresh = [dict(zip(['rho', 'press', 'vel'], i)) for i in _thresh]$/;"	v
 _x	utils/EquationOfState/eos.py	/^    def _x(self, rho, T):$/;"	m	class:SimpleHydrogen
@@ -162,6 +191,123 @@ asq_of_rho_p	utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$
 asq_of_rho_p	utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:EOS
 asq_of_rho_p	utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:Ideal
 asq_of_rho_p	utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
+athena	tests/amr/amr_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/curvilinear/blast_cyl.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/curvilinear/blast_sph.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/diffusion/linear_wave3d.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/diffusion/linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+athena	tests/diffusion/resistive_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/diffusion/resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+athena	tests/diffusion/thermal_attenuation.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/diffusion/thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+athena	tests/diffusion/viscous_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/diffusion/viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+athena	tests/eos/eos_comparison.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/eos/eos_hdf5_table.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/eos/eos_mhd.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/eos/eos_riemann.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+athena	tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+athena	tests/gr/compile_kerr-schild.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/compile_minkowski.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/compile_schwarzschild.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/gr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/grav/jeans_3d.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/grav/unstable_jeans_3d_fft.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/grav/unstable_jeans_3d_mg.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/hybrid/hybrid_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/hydro/hydro_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/hydro/sod_shock.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/hydro4/hydro_linwave_2d.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/hydro4/hydro_linwave_3d.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/mhd/cpaw.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/mhd/mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/mhd/rj2a_shock.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/mpi/mpi_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/omp/omp_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/outputs/all_outputs.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/pgen/hdf5_reader_parallel.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/pgen/hdf5_reader_serial.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/pgen/pgen_compile.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/scalars/mignone_meridional_1d.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/scalars/mignone_radial_1d.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/scalars/restart.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/shearingbox/mri2d.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/shearingbox/mri3d.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/sr/hydro_convergence.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/sr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/sr/mhd_convergence.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/sr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/sr/sr_mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/symmetry/hydro_linwave_aligned.py	/^import scripts.utils.athena as athena$/;"	i
+athena	tests/turb/turb_3d.py	/^import scripts.utils.athena as athena$/;"	i
+athena_read	tests/amr/amr_linwave.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/curvilinear/blast_cyl.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/curvilinear/blast_sph.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/diffusion/linear_wave3d.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/diffusion/resistive_diffusion.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/diffusion/thermal_attenuation.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/diffusion/viscous_diffusion.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/eos/eos_comparison.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/eos/eos_hdf5_table.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/eos/eos_mhd.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/eos/eos_riemann.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
+athena_read	tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
+athena_read	tests/gr/hydro_shocks_hllc.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/gr/hydro_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/gr/hydro_shocks_hlle_no_transform.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/gr/hydro_shocks_llf.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/gr/hydro_shocks_llf_no_transform.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/gr/mhd_shocks_hlld.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/gr/mhd_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/gr/mhd_shocks_llf.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/grav/jeans_3d.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/grav/unstable_jeans_3d_fft.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/grav/unstable_jeans_3d_mg.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/hybrid/hybrid_linwave.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/hydro/hydro_linwave.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/hydro/sod_shock.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/hydro4/hydro_linwave_2d.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/hydro4/hydro_linwave_3d.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/mhd/cpaw.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/mhd/mhd_linwave.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/mhd/rj2a_shock.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/mpi/mpi_linwave.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/omp/omp_linwave.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/outputs/all_outputs.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/pgen/hdf5_reader_parallel.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/pgen/hdf5_reader_serial.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/scalars/mignone_meridional_1d.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/scalars/mignone_radial_1d.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/scalars/restart.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/shearingbox/mri2d.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/shearingbox/mri3d.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/sr/hydro_convergence.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/sr/hydro_shocks_hllc.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/sr/hydro_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/sr/hydro_shocks_llf.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/sr/mhd_convergence.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/sr/mhd_shocks_hlld.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/sr/mhd_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/sr/mhd_shocks_llf.py	/^import athena_read  # noqa$/;"	i
+athena_read	tests/sr/sr_mhd_linwave.py	/^import athena_read                            # noqa$/;"	i
+athena_read	tests/symmetry/hydro_linwave_aligned.py	/^import athena_read                             # noqa$/;"	i
+athena_read	tests/turb/turb_3d.py	/^import athena_read                             # noqa$/;"	i
+athena_read	utils/RiemannSolver/AthenaWrapper.py	/^import athena_read  # noqa$/;"	i
+athena_read	utils/plot_mignone/section_5_1_1.py	/^import athena_read                             # noqa$/;"	i
+athena_read	utils/plot_mignone/section_5_1_2.py	/^import athena_read                             # noqa$/;"	i
 athena_rel_path	utils/athena.py	/^athena_rel_path = '..\/..\/'$/;"	v
 athinput2riemann	utils/RiemannSolver/AthenaWrapper.py	/^def athinput2riemann(athinput, eos=None):$/;"	f
 b_params	utils/plot_mignone/section_5_1_1.py	/^b_params = [0.0, 0.5]$/;"	v
@@ -169,7 +315,11 @@ b_params	utils/plot_mignone/section_5_1_2.py	/^b_params = [0.0, 0.19634954084936
 base_x1rat	tests/scalars/mignone_radial_1d.py	/^base_x1rat = 1.0$/;"	v
 base_x2rat	tests/scalars/mignone_meridional_1d.py	/^base_x2rat = 1.0$/;"	v
 brent_opt	utils/EquationOfState/__init__.py	/^brent_opt = dict(full_output=True, disp=True)$/;"	v
+brent_opt	utils/EquationOfState/eos.py	/^from . import brent_opt$/;"	i
 brent_opt	utils/RiemannSolver/__init__.py	/^brent_opt = dict(full_output=True, disp=True)  # Set options for scipy.optimize.brentq$/;"	v
+brent_opt	utils/RiemannSolver/riemann.py	/^from . import brent_opt, ode_opt$/;"	i
+brentq	utils/EquationOfState/eos.py	/^from scipy.optimize import brentq$/;"	i
+brentq	utils/RiemannSolver/riemann.py	/^from scipy.optimize import brentq$/;"	i
 bx	tests/sr/mhd_convergence.py	/^bx = 2.5$/;"	v
 by	tests/sr/mhd_convergence.py	/^by = 1.8$/;"	v
 bz	tests/sr/mhd_convergence.py	/^bz = -1.2$/;"	v
@@ -180,8 +330,34 @@ cases	tests/scalars/mignone_meridional_1d.py	/^cases = {$/;"	v
 cases	tests/scalars/mignone_radial_1d.py	/^cases = {$/;"	v
 cases	utils/plot_mignone/section_5_1_1.py	/^cases = ['A', 'B']$/;"	v
 cases	utils/plot_mignone/section_5_1_2.py	/^cases = ['A', 'B']$/;"	v
+change	tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
+change	tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
 characteristic	utils/RiemannSolver/riemann.py	/^    def characteristic(self, xi):$/;"	m	class:RareInt
 close	utils/log_pipe.py	/^    def close(self):$/;"	m	class:LogPipe
+colorama	tests/scalars/mignone_meridional_1d.py	/^    import colorama$/;"	i
+colorama	tests/scalars/mignone_radial_1d.py	/^    import colorama$/;"	i
+colored	tests/scalars/mignone_meridional_1d.py	/^    from termcolor import colored$/;"	i
+colored	tests/scalars/mignone_radial_1d.py	/^    from termcolor import colored$/;"	i
+comparison	tests/eos/eos_comparison.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/eos/eos_hdf5_table.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/eos/eos_mhd.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/eos/eos_riemann.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+comparison	tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+comparison	tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/gr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/gr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/sr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+comparison	tests/sr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
 complete	utils/RiemannSolver/riemann.py	/^    def complete(self, ignore_u=False):$/;"	m	class:StateVector
 configure	utils/athena.py	/^def configure(*args, **kwargs):$/;"	f
 convergence_y0	utils/plot_mignone/section_5_1_1.py	/^convergence_y0 = [$/;"	v
@@ -194,6 +370,8 @@ current_dir	tests/pgen/pgen_compile.py	/^current_dir = os.getcwd()$/;"	v
 cutoff	tests/sr/hydro_convergence.py	/^cutoff = 1.8$/;"	v
 cutoff	tests/sr/mhd_convergence.py	/^cutoff = 1.8$/;"	v
 d	utils/RiemannSolver/riemann.py	/^    def d(self):$/;"	m	class:StateVector
+data	tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
+data	tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
 data_array	utils/RiemannSolver/riemann.py	/^    def data_array(self, xi, add_var=None):$/;"	m	class:RiemannSol
 dataset_b1	tests/pgen/hdf5_reader_parallel.py	/^dataset_b1 = 'b1'$/;"	v
 dataset_b1	tests/pgen/hdf5_reader_serial.py	/^dataset_b1 = 'b1'$/;"	v
@@ -206,6 +384,10 @@ dataset_cons	tests/pgen/hdf5_reader_serial.py	/^dataset_cons = 'cons'$/;"	v
 default_names	utils/EquationOfState/writeEOS.py	/^default_names = ['p\/e(e\/rho,rho)', 'e\/p(p\/rho,rho)', 'asq*rho\/p(p\/rho,rho)']$/;"	v
 diff_threshold	tests/scalars/mignone_meridional_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
 diff_threshold	tests/scalars/mignone_radial_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
+diffusion	tests/diffusion/linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
+diffusion	tests/diffusion/resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
+diffusion	tests/diffusion/thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
+diffusion	tests/diffusion/viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
 dpi_global	utils/plot_mignone/section_5_1_1.py	/^dpi_global = 300$/;"	v
 dpi_global	utils/plot_mignone/section_5_1_2.py	/^dpi_global = 300$/;"	v
 ei_of_rho_T	utils/EquationOfState/eos.py	/^    def ei_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
@@ -213,6 +395,7 @@ ei_of_rho_p	utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;
 ei_of_rho_p	utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:EOS
 ei_of_rho_p	utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:Ideal
 ei_of_rho_p	utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
+eos	utils/EquationOfState/writeEOS.py	/^from . import eos$/;"	i
 eos_eval	utils/RiemannSolver/riemann.py	/^    def eos_eval(self, func):$/;"	m	class:StateVector
 eos_rj2a	tests/eos/eos_mhd.py	/^eos_rj2a = [[1.08, 1.2, 1.0e-2, 0.5, 1.0155412503859613, 0.5641895835477563, 0.95],$/;"	v
 eos_rj2a	tests/eos/eos_mhd.py	/^eos_rj2a = np.array(eos_rj2a)$/;"	v
@@ -228,6 +411,8 @@ error_tols	tests/hydro4/hydro_linwave_3d.py	/^error_tols = [((5.6e-9, 3.6e-10), 
 es	utils/RiemannSolver/riemann.py	/^    def es(self):$/;"	m	class:StateVector
 es_of_rho_p	utils/EquationOfState/eos.py	/^    def es_of_rho_p(self, rho, p):$/;"	m	class:AthenaTable
 es_of_rho_p	utils/EquationOfState/eos.py	/^    def es_of_rho_p(self, rho, p):$/;"	m	class:EOS
+explicitly	tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+explicitly	tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
 f	utils/EquationOfState/eos.py	/^        def f(y):   # function to find root of$/;"	f	function:SimpleHydrogen._T_of_rho_ei
 f	utils/EquationOfState/eos.py	/^        def f(y):  # function to find root of$/;"	f	function:SimpleHydrogen._T_of_rho_p
 f	utils/EquationOfState/eos.py	/^        def f(y):$/;"	f	function:SimpleHydrogen._T_of_rho_h
@@ -238,16 +423,29 @@ f	utils/RiemannSolver/riemann.py	/^        def f(p):$/;"	f	function:RareInt.char
 fan_plot	utils/RiemannSolver/riemann.py	/^    def fan_plot(self, xlim=None, ylim=None, fig=True):$/;"	m	class:RiemannSol
 figsize	utils/plot_mignone/section_5_1_1.py	/^figsize = (12.8, 9.6)$/;"	v
 figsize	utils/plot_mignone/section_5_1_2.py	/^figsize = (12.8, 9.6)$/;"	v
+figure2_profiles	tests/scalars/mignone_radial_1d.py	/^        figure2_profiles, figure3_convergence # noqa$/;"	i
 figure2_profiles	utils/plot_mignone/section_5_1_1.py	/^def figure2_profiles():$/;"	f
+figure3_convergence	tests/scalars/mignone_radial_1d.py	/^        figure2_profiles, figure3_convergence # noqa$/;"	i
 figure3_convergence	utils/plot_mignone/section_5_1_1.py	/^def figure3_convergence():$/;"	f
+figure4_convergence	tests/scalars/mignone_meridional_1d.py	/^        plot_profiles, figure4_convergence # noqa$/;"	i
 figure4_convergence	utils/plot_mignone/section_5_1_2.py	/^def figure4_convergence():$/;"	f
 filename_input	tests/pgen/hdf5_reader_parallel.py	/^filename_input = 'initial_data.hdf5'$/;"	v
 filename_input	tests/pgen/hdf5_reader_serial.py	/^filename_input = 'initial_data.hdf5'$/;"	v
 filename_output	tests/pgen/hdf5_reader_parallel.py	/^filename_output = 'from_array.cons.00000.athdf'$/;"	v
 filename_output	tests/pgen/hdf5_reader_serial.py	/^filename_output = 'from_array.cons.00000.athdf'$/;"	v
 fileno	utils/log_pipe.py	/^    def fileno(self):$/;"	m	class:LogPipe
+files	tests/eos/eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
 fill_to_refined	utils/comparison.py	/^    def fill_to_refined(faces, vals, faces_refined):$/;"	f	function:l1_diff
 flux	utils/RiemannSolver/riemann.py	/^    def flux(self):$/;"	m	class:StateVector
+for	tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
+for	tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+for	tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+for	tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+for	tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
+for	tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+for	tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+for	tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+for	utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
 gamma	tests/pgen/hdf5_reader_parallel.py	/^gamma = 5.0\/3.0$/;"	v
 gamma	tests/pgen/hdf5_reader_serial.py	/^gamma = 5.0\/3.0$/;"	v
 gamma	utils/EquationOfState/eos.py	/^    def gamma(self):$/;"	m	class:Ideal
@@ -256,18 +454,23 @@ gamma_adi	tests/sr/hydro_convergence.py	/^gamma_adi = 4.0\/3.0$/;"	v
 gamma_adi	tests/sr/mhd_convergence.py	/^gamma_adi = 4.0\/3.0$/;"	v
 gen_sol	utils/RiemannSolver/riemann.py	/^    def gen_sol(self):$/;"	m	class:RiemannSol
 get_state	utils/RiemannSolver/riemann.py	/^    def get_state(self, xi):$/;"	m	class:RiemannSol
+glob	tests/pgen/pgen_compile.py	/^import glob$/;"	i
 global_config_args	utils/athena.py	/^global_config_args = []$/;"	v
 global_coverage_cmd	utils/athena.py	/^global_coverage_cmd = None$/;"	v
 global_run_args	utils/athena.py	/^global_run_args = []$/;"	v
 global_silent	utils/athena.py	/^global_silent = False$/;"	v
 global_test_name	utils/athena.py	/^global_test_name = None$/;"	v
 gr_probs	tests/pgen/pgen_compile.py	/^gr_probs = set([pgen for pgen in pgen_choices if pgen[0:3] == 'gr_'])$/;"	v
+h5py	tests/pgen/hdf5_reader_parallel.py	/^import h5py$/;"	i
+h5py	tests/pgen/hdf5_reader_serial.py	/^import h5py$/;"	i
+h5py	utils/EquationOfState/writeEOS.py	/^        import h5py$/;"	i
 hydro_args	tests/pgen/pgen_compile.py	/^hydro_args = []$/;"	v
 hydro_probs	tests/pgen/pgen_compile.py	/^hydro_probs = pgen_choices - gr_probs - mhd_probs - shear_probs$/;"	v
 ic	utils/RiemannSolver/riemann.py	/^    def ic(self):$/;"	m	class:RiemannSol
 init_data	utils/RiemannSolver/riemann.py	/^    def init_data(self, pmin, pmax, bp=12):$/;"	m	class:RareInt
 integrator	utils/plot_mignone/section_5_1_1.py	/^integrator = 'rk3'$/;"	v
 integrator	utils/plot_mignone/section_5_1_2.py	/^integrator = 'rk3'$/;"	v
+interp1d	utils/RiemannSolver/riemann.py	/^from scipy.interpolate import interp1d$/;"	i
 iprob	tests/scalars/mignone_meridional_1d.py	/^iprob = 2  # 1 = meridional 1D tests, section 5.1.2 from Mignone (2014)$/;"	v
 iprob	tests/scalars/mignone_radial_1d.py	/^iprob = 1  # 1 = radial 1D tests, section 5.1.1 from Mignone (2014)$/;"	v
 iprob	utils/plot_mignone/section_5_1_1.py	/^iprob = 1$/;"	v
@@ -276,6 +479,9 @@ l1_diff	utils/comparison.py	/^def l1_diff(faces_1, vals_1, faces_2, vals_2):$/;"
 l1_norm	utils/comparison.py	/^def l1_norm(faces, vals):$/;"	f
 legend_handles	utils/plot_mignone/section_5_1_1.py	/^legend_handles = [$/;"	v
 legend_handles	utils/plot_mignone/section_5_1_2.py	/^legend_handles = [$/;"	v
+linear_wave3d	tests/diffusion/linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
+log	tests/hydro4/hydro_linwave_2d.py	/^from math import log$/;"	i
+log	tests/hydro4/hydro_linwave_3d.py	/^from math import log$/;"	i
 logger	tests/amr/amr_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	tests/curvilinear/blast_cyl.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	tests/curvilinear/blast_sph.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
@@ -331,11 +537,83 @@ logger	tests/sr/mhd_shocks_llf.py	/^logger = logging.getLogger('athena' + __name
 logger	tests/sr/sr_mhd_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	tests/symmetry/hydro_linwave_aligned.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	tests/turb/turb_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logging	tests/amr/amr_linwave.py	/^import logging$/;"	i
+logging	tests/curvilinear/blast_cyl.py	/^import logging$/;"	i
+logging	tests/curvilinear/blast_sph.py	/^import logging$/;"	i
+logging	tests/diffusion/linear_wave3d.py	/^import logging$/;"	i
+logging	tests/diffusion/linear_wave3d_sts.py	/^import logging$/;"	i
+logging	tests/diffusion/resistive_diffusion.py	/^import logging$/;"	i
+logging	tests/diffusion/resistive_diffusion_sts.py	/^import logging$/;"	i
+logging	tests/diffusion/thermal_attenuation.py	/^import logging$/;"	i
+logging	tests/diffusion/thermal_attenuation_sts.py	/^import logging$/;"	i
+logging	tests/diffusion/viscous_diffusion.py	/^import logging$/;"	i
+logging	tests/diffusion/viscous_diffusion_sts.py	/^import logging$/;"	i
+logging	tests/eos/eos_comparison.py	/^import logging$/;"	i
+logging	tests/eos/eos_hdf5_table.py	/^import logging$/;"	i
+logging	tests/eos/eos_mhd.py	/^import logging$/;"	i
+logging	tests/eos/eos_riemann.py	/^import logging$/;"	i
+logging	tests/gr/compile_kerr-schild.py	/^import logging$/;"	i
+logging	tests/gr/compile_minkowski.py	/^import logging$/;"	i
+logging	tests/gr/compile_schwarzschild.py	/^import logging$/;"	i
+logging	tests/gr/hydro_shocks_hllc.py	/^import logging$/;"	i
+logging	tests/gr/hydro_shocks_hlle.py	/^import logging$/;"	i
+logging	tests/gr/hydro_shocks_hlle_no_transform.py	/^import logging$/;"	i
+logging	tests/gr/hydro_shocks_llf.py	/^import logging$/;"	i
+logging	tests/gr/hydro_shocks_llf_no_transform.py	/^import logging$/;"	i
+logging	tests/gr/mhd_shocks_hlld.py	/^import logging$/;"	i
+logging	tests/gr/mhd_shocks_hlle.py	/^import logging$/;"	i
+logging	tests/gr/mhd_shocks_llf.py	/^import logging$/;"	i
+logging	tests/grav/jeans_3d.py	/^import logging$/;"	i
+logging	tests/grav/unstable_jeans_3d_fft.py	/^import logging$/;"	i
+logging	tests/grav/unstable_jeans_3d_mg.py	/^import logging$/;"	i
+logging	tests/hybrid/hybrid_linwave.py	/^import logging$/;"	i
+logging	tests/hydro/hydro_linwave.py	/^import logging$/;"	i
+logging	tests/hydro/sod_shock.py	/^import logging$/;"	i
+logging	tests/hydro4/hydro_linwave_2d.py	/^import logging$/;"	i
+logging	tests/hydro4/hydro_linwave_3d.py	/^import logging$/;"	i
+logging	tests/mhd/cpaw.py	/^import logging$/;"	i
+logging	tests/mhd/mhd_linwave.py	/^import logging$/;"	i
+logging	tests/mhd/rj2a_shock.py	/^import logging$/;"	i
+logging	tests/mpi/mpi_linwave.py	/^import logging$/;"	i
+logging	tests/omp/omp_linwave.py	/^import logging$/;"	i
+logging	tests/outputs/all_outputs.py	/^import logging$/;"	i
+logging	tests/pgen/hdf5_reader_parallel.py	/^import logging$/;"	i
+logging	tests/pgen/hdf5_reader_serial.py	/^import logging$/;"	i
+logging	tests/pgen/pgen_compile.py	/^import logging$/;"	i
+logging	tests/scalars/mignone_meridional_1d.py	/^import logging$/;"	i
+logging	tests/scalars/mignone_radial_1d.py	/^import logging$/;"	i
+logging	tests/scalars/restart.py	/^import logging$/;"	i
+logging	tests/shearingbox/mri2d.py	/^import logging$/;"	i
+logging	tests/shearingbox/mri3d.py	/^import logging$/;"	i
+logging	tests/sr/hydro_convergence.py	/^import logging$/;"	i
+logging	tests/sr/hydro_shocks_hllc.py	/^import logging$/;"	i
+logging	tests/sr/hydro_shocks_hlle.py	/^import logging$/;"	i
+logging	tests/sr/hydro_shocks_llf.py	/^import logging$/;"	i
+logging	tests/sr/mhd_convergence.py	/^import logging$/;"	i
+logging	tests/sr/mhd_shocks_hlld.py	/^import logging$/;"	i
+logging	tests/sr/mhd_shocks_hlle.py	/^import logging$/;"	i
+logging	tests/sr/mhd_shocks_llf.py	/^import logging$/;"	i
+logging	tests/sr/sr_mhd_linwave.py	/^import logging$/;"	i
+logging	tests/symmetry/hydro_linwave_aligned.py	/^import logging$/;"	i
+logging	tests/turb/turb_3d.py	/^import logging$/;"	i
+logging	utils/athena.py	/^import logging$/;"	i
+logging	utils/log_pipe.py	/^import logging$/;"	i
+logging	utils/plot_mignone/section_5_1_1.py	/^import logging$/;"	i
+logging	utils/plot_mignone/section_5_1_2.py	/^import logging$/;"	i
 major_yticks	utils/plot_mignone/section_5_1_1.py	/^major_yticks = [$/;"	v
 major_yticks	utils/plot_mignone/section_5_1_2.py	/^major_yticks = [$/;"	v
 make	utils/athena.py	/^def make(clean_first=True, obj_only=False):$/;"	f
 markeredgecolor	utils/plot_mignone/section_5_1_1.py	/^           markeredgecolor=xorder_colors[xorder_],$/;"	v
 markeredgecolor	utils/plot_mignone/section_5_1_2.py	/^           markeredgecolor=xorder_colors[xorder_],$/;"	v
+math	tests/sr/hydro_convergence.py	/^import math$/;"	i
+math	tests/sr/mhd_convergence.py	/^import math$/;"	i
+math	utils/comparison.py	/^import math$/;"	i
+matplotlib	utils/RiemannSolver/riemann.py	/^        import matplotlib.pyplot as plt$/;"	i
+matplotlib	utils/RiemannSolver/tests.py	/^        import matplotlib.pyplot as plt$/;"	i
+matplotlib	utils/plot_mignone/section_5_1_1.py	/^import matplotlib               # noqa$/;"	i
+matplotlib	utils/plot_mignone/section_5_1_1.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
+matplotlib	utils/plot_mignone/section_5_1_2.py	/^import matplotlib               # noqa$/;"	i
+matplotlib	utils/plot_mignone/section_5_1_2.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
 method	tests/diffusion/linear_wave3d.py	/^method = 'Explicit'$/;"	v
 method	tests/diffusion/resistive_diffusion.py	/^method = 'Explicit'$/;"	v
 method	tests/diffusion/thermal_attenuation.py	/^method = 'Explicit'$/;"	v
@@ -348,7 +626,27 @@ minor_yticks	utils/plot_mignone/section_5_1_1.py	/^minor_yticks = [$/;"	v
 minor_yticks	utils/plot_mignone/section_5_1_2.py	/^minor_yticks = [$/;"	v
 minor_yticks_auto	utils/plot_mignone/section_5_1_1.py	/^minor_yticks_auto = [$/;"	v
 minor_yticks_auto	utils/plot_mignone/section_5_1_2.py	/^minor_yticks_auto = [$/;"	v
+mk_ideal	tests/eos/eos_comparison.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
+mk_ideal	tests/eos/eos_hdf5_table.py	/^from .eos_comparison import mk_ideal, write_H$/;"	i
+mk_ideal	tests/eos/eos_table_test.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
 mk_ideal	utils/EquationOfState/writeEOS.py	/^def mk_ideal(gamma=5.\/3., n=2, fn=None, out_type=None):$/;"	f
+module	tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+module	tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
+module	tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+module	tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
+module	utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+more	tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+more	tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+move	tests/eos/eos_comparison.py	/^from shutil import move$/;"	i
+move	tests/eos/eos_hdf5_table.py	/^from shutil import move$/;"	i
+move	tests/eos/eos_riemann.py	/^from shutil import move$/;"	i
+move	tests/eos/eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
+move	tests/hydro/hydro_linwave.py	/^from shutil import move$/;"	i
+move	tests/hydro/sod_shock.py	/^from shutil import move$/;"	i
+move	tests/mhd/mhd_linwave.py	/^from shutil import move$/;"	i
+move	tests/mhd/rj2a_shock.py	/^from shutil import move$/;"	i
+move	tests/scalars/restart.py	/^from shutil import move$/;"	i
+moves	tests/eos/eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
 mpirun	utils/athena.py	/^def mpirun(mpirun_cmd, mpirun_opts, nproc, input_filename, arguments,$/;"	f
 mpl_logger	utils/plot_mignone/section_5_1_1.py	/^mpl_logger = logging.getLogger('matplotlib')$/;"	v
 mpl_logger	utils/plot_mignone/section_5_1_2.py	/^mpl_logger = logging.getLogger('matplotlib')$/;"	v
@@ -358,6 +656,124 @@ n3_xrange	utils/plot_mignone/section_5_1_1.py	/^n3_xrange = np.array([32., 110.]
 n3_xrange	utils/plot_mignone/section_5_1_2.py	/^n3_xrange = np.array([32., 110.])$/;"	v
 nb1	tests/pgen/hdf5_reader_parallel.py	/^nb1 = 4$/;"	v
 nb1	tests/pgen/hdf5_reader_serial.py	/^nb1 = 4$/;"	v
+noqa	tests/amr/amr_linwave.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/curvilinear/blast_cyl.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/curvilinear/blast_sph.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/diffusion/linear_wave3d.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/diffusion/linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+noqa	tests/diffusion/resistive_diffusion.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/diffusion/resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+noqa	tests/diffusion/thermal_attenuation.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/diffusion/thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+noqa	tests/diffusion/viscous_diffusion.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/diffusion/viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+noqa	tests/eos/eos_comparison.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/eos/eos_hdf5_table.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/eos/eos_mhd.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/eos/eos_riemann.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
+noqa	tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
+noqa	tests/gr/hydro_shocks_hllc.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/gr/hydro_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/gr/hydro_shocks_hlle_no_transform.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/gr/hydro_shocks_llf.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/gr/hydro_shocks_llf_no_transform.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/gr/mhd_shocks_hlld.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/gr/mhd_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/gr/mhd_shocks_llf.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/grav/jeans_3d.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/grav/unstable_jeans_3d_fft.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/grav/unstable_jeans_3d_mg.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/hybrid/hybrid_linwave.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/hydro/hydro_linwave.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/hydro/sod_shock.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/hydro4/hydro_linwave_2d.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/hydro4/hydro_linwave_3d.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/mhd/cpaw.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/mhd/mhd_linwave.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/mhd/rj2a_shock.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/mpi/mpi_linwave.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/omp/omp_linwave.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/outputs/all_outputs.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/pgen/hdf5_reader_parallel.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/pgen/hdf5_reader_serial.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/scalars/mignone_meridional_1d.py	/^        plot_profiles, figure4_convergence # noqa$/;"	i
+noqa	tests/scalars/mignone_meridional_1d.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/scalars/mignone_radial_1d.py	/^        figure2_profiles, figure3_convergence # noqa$/;"	i
+noqa	tests/scalars/mignone_radial_1d.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/scalars/restart.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/shearingbox/mri2d.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/shearingbox/mri3d.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/sr/hydro_convergence.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/sr/hydro_shocks_hllc.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/sr/hydro_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/sr/hydro_shocks_llf.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/sr/mhd_convergence.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/sr/mhd_shocks_hlld.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/sr/mhd_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/sr/mhd_shocks_llf.py	/^import athena_read  # noqa$/;"	i
+noqa	tests/sr/sr_mhd_linwave.py	/^import athena_read                            # noqa$/;"	i
+noqa	tests/symmetry/hydro_linwave_aligned.py	/^import athena_read                             # noqa$/;"	i
+noqa	tests/turb/turb_3d.py	/^import athena_read                             # noqa$/;"	i
+noqa	utils/RiemannSolver/AthenaWrapper.py	/^import athena_read  # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_1.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_1.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_1.py	/^import athena_read                             # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_1.py	/^import matplotlib               # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_1.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_2.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_2.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_2.py	/^import athena_read                             # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_2.py	/^import matplotlib               # noqa$/;"	i
+noqa	utils/plot_mignone/section_5_1_2.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
+np	tests/diffusion/linear_wave3d.py	/^import numpy as np$/;"	i
+np	tests/diffusion/resistive_diffusion.py	/^import numpy as np$/;"	i
+np	tests/diffusion/thermal_attenuation.py	/^import numpy as np$/;"	i
+np	tests/diffusion/viscous_diffusion.py	/^import numpy as np$/;"	i
+np	tests/eos/eos_comparison.py	/^import numpy as np$/;"	i
+np	tests/eos/eos_hdf5_table.py	/^import numpy as np$/;"	i
+np	tests/eos/eos_mhd.py	/^import numpy as np$/;"	i
+np	tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+np	tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+np	tests/gr/hydro_shocks_hllc.py	/^import numpy as np$/;"	i
+np	tests/gr/hydro_shocks_hlle.py	/^import numpy as np$/;"	i
+np	tests/gr/hydro_shocks_hlle_no_transform.py	/^import numpy as np$/;"	i
+np	tests/gr/hydro_shocks_llf.py	/^import numpy as np$/;"	i
+np	tests/gr/hydro_shocks_llf_no_transform.py	/^import numpy as np$/;"	i
+np	tests/gr/mhd_shocks_hlld.py	/^import numpy as np$/;"	i
+np	tests/gr/mhd_shocks_hlle.py	/^import numpy as np$/;"	i
+np	tests/gr/mhd_shocks_llf.py	/^import numpy as np$/;"	i
+np	tests/grav/unstable_jeans_3d_fft.py	/^import numpy as np$/;"	i
+np	tests/grav/unstable_jeans_3d_mg.py	/^import numpy as np$/;"	i
+np	tests/hydro/sod_shock.py	/^import numpy as np$/;"	i
+np	tests/hydro4/hydro_linwave_2d.py	/^import numpy as np$/;"	i
+np	tests/hydro4/hydro_linwave_3d.py	/^import numpy as np$/;"	i
+np	tests/mhd/rj2a_shock.py	/^import numpy as np$/;"	i
+np	tests/outputs/all_outputs.py	/^import numpy as np$/;"	i
+np	tests/pgen/hdf5_reader_parallel.py	/^import numpy as np$/;"	i
+np	tests/pgen/hdf5_reader_serial.py	/^import numpy as np$/;"	i
+np	tests/scalars/mignone_meridional_1d.py	/^import numpy as np$/;"	i
+np	tests/scalars/mignone_radial_1d.py	/^import numpy as np$/;"	i
+np	tests/shearingbox/mri2d.py	/^import numpy as np$/;"	i
+np	tests/shearingbox/mri3d.py	/^import numpy as np$/;"	i
+np	tests/sr/hydro_convergence.py	/^import numpy as np$/;"	i
+np	tests/sr/hydro_shocks_hllc.py	/^import numpy as np$/;"	i
+np	tests/sr/hydro_shocks_hlle.py	/^import numpy as np$/;"	i
+np	tests/sr/hydro_shocks_llf.py	/^import numpy as np$/;"	i
+np	tests/sr/mhd_convergence.py	/^import numpy as np$/;"	i
+np	tests/sr/mhd_shocks_hlld.py	/^import numpy as np$/;"	i
+np	tests/sr/mhd_shocks_hlle.py	/^import numpy as np$/;"	i
+np	tests/sr/mhd_shocks_llf.py	/^import numpy as np$/;"	i
+np	tests/sr/sr_mhd_linwave.py	/^import numpy as np$/;"	i
+np	tests/symmetry/hydro_linwave_aligned.py	/^import numpy as np$/;"	i
+np	tests/turb/turb_3d.py	/^import numpy as np$/;"	i
+np	utils/EquationOfState/eos.py	/^import numpy as np$/;"	i
+np	utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+np	utils/RiemannSolver/riemann.py	/^import numpy as np$/;"	i
+np	utils/RiemannSolver/tests.py	/^import numpy as np$/;"	i
+np	utils/comparison.py	/^import numpy as np$/;"	i
+np	utils/plot_mignone/section_5_1_1.py	/^import numpy as np$/;"	i
+np	utils/plot_mignone/section_5_1_2.py	/^import numpy as np$/;"	i
 nrows_per_solver	tests/hydro4/hydro_linwave_2d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
 nrows_per_solver	tests/hydro4/hydro_linwave_3d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
 nrows_per_solver	tests/scalars/mignone_meridional_1d.py	/^nrows_per_solver = 1*num_nx2 + 2$/;"	v
@@ -371,6 +787,9 @@ num_nx1	tests/scalars/mignone_radial_1d.py	/^num_nx1 = len(resolution_range)$/;"
 num_nx1	tests/symmetry/hydro_linwave_aligned.py	/^num_nx1 = len(resolution_range)$/;"	v
 num_nx2	tests/scalars/mignone_meridional_1d.py	/^num_nx2 = len(resolution_range)$/;"	v
 num_ranks	tests/pgen/hdf5_reader_parallel.py	/^num_ranks = 3$/;"	v
+numerics	tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+numerics	tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+numerics	utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
 nx1	tests/pgen/hdf5_reader_parallel.py	/^nx1 = 4$/;"	v
 nx1	tests/pgen/hdf5_reader_serial.py	/^nx1 = 4$/;"	v
 nx1_profile	tests/scalars/mignone_radial_1d.py	/^nx1_profile = 64$/;"	v
@@ -383,6 +802,30 @@ nx3	tests/pgen/hdf5_reader_parallel.py	/^nx3 = 4$/;"	v
 nx3	tests/pgen/hdf5_reader_serial.py	/^nx3 = 4$/;"	v
 ode_opt	utils/EquationOfState/__init__.py	/^ode_opt = dict(mxstep=5000000, rtol=1e-15, atol=1e-13)$/;"	v
 ode_opt	utils/RiemannSolver/__init__.py	/^ode_opt = dict(mxstep=5000000, rtol=1e-15, atol=1e-13)  # Set options for odeint$/;"	v
+ode_opt	utils/RiemannSolver/riemann.py	/^from . import brent_opt, ode_opt$/;"	i
+odeint	utils/RiemannSolver/riemann.py	/^from scipy.integrate import odeint$/;"	i
+os	tests/eos/eos_comparison.py	/^import os$/;"	i
+os	tests/eos/eos_hdf5_table.py	/^import os$/;"	i
+os	tests/eos/eos_riemann.py	/^import os$/;"	i
+os	tests/eos/eos_table_test.py	/^import os$/;"	i
+os	tests/grav/jeans_3d.py	/^import os$/;"	i
+os	tests/hybrid/hybrid_linwave.py	/^import os$/;"	i
+os	tests/hydro/hydro_linwave.py	/^import os$/;"	i
+os	tests/hydro/sod_shock.py	/^import os$/;"	i
+os	tests/mhd/mhd_linwave.py	/^import os$/;"	i
+os	tests/mhd/rj2a_shock.py	/^import os$/;"	i
+os	tests/mpi/mpi_linwave.py	/^import os$/;"	i
+os	tests/omp/omp_linwave.py	/^import os$/;"	i
+os	tests/pgen/pgen_compile.py	/^import os$/;"	i
+os	tests/scalars/mignone_meridional_1d.py	/^import os$/;"	i
+os	tests/scalars/mignone_radial_1d.py	/^import os$/;"	i
+os	tests/scalars/restart.py	/^import os$/;"	i
+os	tests/turb/turb_3d.py	/^import os$/;"	i
+os	utils/RiemannSolver/AthenaWrapper.py	/^import os$/;"	i
+os	utils/athena.py	/^import os$/;"	i
+os	utils/log_pipe.py	/^import os$/;"	i
+os	utils/plot_mignone/section_5_1_1.py	/^import os$/;"	i
+os	utils/plot_mignone/section_5_1_2.py	/^import os$/;"	i
 p_min	utils/RiemannSolver/riemann.py	/^    def p_min(self):$/;"	m	class:StateVector
 p_of_rho_T	utils/EquationOfState/eos.py	/^    def p_of_rho_T(self, rho, T):$/;"	m	class:Ideal
 p_of_rho_T	utils/EquationOfState/eos.py	/^    def p_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
@@ -393,6 +836,9 @@ p_of_rho_es	utils/EquationOfState/eos.py	/^    def p_of_rho_es(self, rho, es):$/
 p_of_rho_es	utils/EquationOfState/eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:Ideal
 p_of_rho_es	utils/EquationOfState/eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:SimpleHydrogen
 parse_eos	utils/EquationOfState/eos.py	/^def parse_eos(eos):$/;"	f
+parse_eos	utils/RiemannSolver/riemann.py	/^from scripts.utils.EquationOfState.eos import parse_eos$/;"	i
+path	tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
+path	tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
 percentage_formatter	tests/scalars/mignone_meridional_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
 percentage_formatter	tests/scalars/mignone_meridional_1d.py	/^    percentage_formatter = lambda x: colored($/;"	v
 percentage_formatter	tests/scalars/mignone_radial_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
@@ -404,10 +850,15 @@ pgen_choices	tests/pgen/pgen_compile.py	/^pgen_choices = set([choice[len(pgen_di
 pgen_directory	tests/pgen/pgen_compile.py	/^pgen_directory = test + 'src\/pgen\/'$/;"	v
 plot_convergence	tests/scalars/mignone_meridional_1d.py	/^plot_convergence = False$/;"	v
 plot_convergence	tests/scalars/mignone_radial_1d.py	/^plot_convergence = False$/;"	v
+plot_profiles	tests/scalars/mignone_meridional_1d.py	/^        plot_profiles, figure4_convergence # noqa$/;"	i
 plot_profiles	tests/scalars/mignone_meridional_1d.py	/^plot_profiles = False$/;"	v
 plot_profiles	tests/scalars/mignone_radial_1d.py	/^plot_profiles = False$/;"	v
 plot_profiles	utils/plot_mignone/section_5_1_2.py	/^def plot_profiles():$/;"	f
 plot_sol	utils/RiemannSolver/riemann.py	/^    def plot_sol(self, var=None, xi_min=None, xi_max=None, nsimp=100, speeds=True,$/;"	m	class:RiemannSol
+plt	utils/RiemannSolver/riemann.py	/^        import matplotlib.pyplot as plt$/;"	i
+plt	utils/RiemannSolver/tests.py	/^        import matplotlib.pyplot as plt$/;"	i
+plt	utils/plot_mignone/section_5_1_1.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
+plt	utils/plot_mignone/section_5_1_2.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
 prepare	tests/amr/amr_linwave.py	/^def prepare(**kwargs):$/;"	f
 prepare	tests/curvilinear/blast_cyl.py	/^def prepare(**kwargs):$/;"	f
 prepare	tests/curvilinear/blast_sph.py	/^def prepare(**kwargs):$/;"	f
@@ -481,10 +932,15 @@ rate_tols	tests/diffusion/resistive_diffusion.py	/^rate_tols = [-1.99]$/;"	v
 rate_tols	tests/diffusion/viscous_diffusion.py	/^rate_tols = [-1.99]$/;"	v
 rate_tols	tests/hydro4/hydro_linwave_2d.py	/^rate_tols = [(2.0, 1.9), (2.0, 2.0), (1.95, 1.85),$/;"	v
 rate_tols	tests/hydro4/hydro_linwave_3d.py	/^rate_tols = [(3.95, 3.94),  (3.95, 3.94)]$/;"	v
+re	utils/RiemannSolver/riemann.py	/^    import re$/;"	i
+reading	tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
+reading	tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
+renames	tests/eos/eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
 res_high	tests/sr/hydro_convergence.py	/^res_high = 512$/;"	v
 res_high	tests/sr/mhd_convergence.py	/^res_high = 512$/;"	v
 res_low	tests/sr/hydro_convergence.py	/^res_low = 64$/;"	v
 res_low	tests/sr/mhd_convergence.py	/^res_low = 64$/;"	v
+resistive_diffusion	tests/diffusion/resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
 resolution_range	tests/diffusion/linear_wave3d.py	/^resolution_range = [32, 64]$/;"	v
 resolution_range	tests/diffusion/resistive_diffusion.py	/^resolution_range = [64, 128]$/;"	v
 resolution_range	tests/diffusion/thermal_attenuation.py	/^resolution_range = [32, 64]$/;"	v
@@ -499,6 +955,9 @@ restore_files	utils/athena.py	/^def restore_files():$/;"	f
 rho	tests/sr/hydro_convergence.py	/^rho = 4.0$/;"	v
 rho	tests/sr/mhd_convergence.py	/^rho = 4.0$/;"	v
 rho	utils/RiemannSolver/riemann.py	/^            def rho(p):$/;"	f	function:RareInt.__init__
+riemann_problem	tests/eos/eos_mhd.py	/^from scripts.utils.RiemannSolver.riemann import riemann_problem$/;"	i
+riemann_problem	tests/eos/eos_riemann.py	/^from scripts.utils.RiemannSolver.riemann import riemann_problem$/;"	i
+riemann_problem	utils/RiemannSolver/AthenaWrapper.py	/^from .riemann import riemann_problem$/;"	i
 riemann_problem	utils/RiemannSolver/riemann.py	/^def riemann_problem(states, eos):$/;"	f
 run	tests/amr/amr_linwave.py	/^def run(**kwargs):$/;"	f
 run	tests/curvilinear/blast_cyl.py	/^def run(**kwargs):$/;"	f
@@ -563,10 +1022,97 @@ run	tests/symmetry/hydro_linwave_aligned.py	/^def run(**kwargs):$/;"	f
 run	tests/turb/turb_3d.py	/^def run(**kwargs):$/;"	f
 run	utils/athena.py	/^def run(input_filename, arguments, lcov_test_suffix=None):$/;"	f
 run	utils/log_pipe.py	/^    def run(self):$/;"	m	class:LogPipe
+running	tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+running	tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
 sanitize_lbl	utils/RiemannSolver/riemann.py	/^def sanitize_lbl(label):$/;"	f
 save_files	utils/athena.py	/^def save_files():$/;"	f
 saved_filenames	utils/athena.py	/^saved_filenames = ['src\/defs.hpp', 'Makefile']$/;"	v
 saved_files	utils/athena.py	/^saved_files = []$/;"	v
+scripts	tests/amr/amr_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/curvilinear/blast_cyl.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/curvilinear/blast_sph.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/diffusion/linear_wave3d.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/diffusion/linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
+scripts	tests/diffusion/linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+scripts	tests/diffusion/resistive_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/diffusion/resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
+scripts	tests/diffusion/resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+scripts	tests/diffusion/thermal_attenuation.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/diffusion/thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
+scripts	tests/diffusion/thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+scripts	tests/diffusion/viscous_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/diffusion/viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
+scripts	tests/diffusion/viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+scripts	tests/eos/eos_comparison.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/eos/eos_comparison.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/eos/eos_hdf5_table.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/eos/eos_hdf5_table.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/eos/eos_mhd.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/eos/eos_mhd.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/eos/eos_riemann.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/eos/eos_riemann.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+scripts	tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+scripts	tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+scripts	tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+scripts	tests/gr/compile_kerr-schild.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/compile_minkowski.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/compile_schwarzschild.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/gr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/gr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/gr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/grav/jeans_3d.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/grav/unstable_jeans_3d_fft.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/grav/unstable_jeans_3d_mg.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/hybrid/hybrid_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/hydro/hydro_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/hydro/sod_shock.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/hydro4/hydro_linwave_2d.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/hydro4/hydro_linwave_3d.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/mhd/cpaw.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/mhd/mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/mhd/rj2a_shock.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/mpi/mpi_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/omp/omp_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/outputs/all_outputs.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/pgen/hdf5_reader_parallel.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/pgen/hdf5_reader_serial.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/pgen/pgen_compile.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/scalars/mignone_meridional_1d.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/scalars/mignone_radial_1d.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/scalars/restart.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/shearingbox/mri2d.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/shearingbox/mri3d.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/sr/hydro_convergence.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/sr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/sr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/sr/mhd_convergence.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/sr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/sr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+scripts	tests/sr/sr_mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/symmetry/hydro_linwave_aligned.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	tests/turb/turb_3d.py	/^import scripts.utils.athena as athena$/;"	i
 shear_args	tests/pgen/pgen_compile.py	/^shear_args = ['b', 'shear']$/;"	v
 shear_probs	tests/pgen/pgen_compile.py	/^shear_probs = set(['hb3', 'hgb', 'ssheet', 'strat'])$/;"	v
 show	utils/RiemannSolver/riemann.py	/^    def show(self):$/;"	m	class:StateVector
@@ -579,16 +1125,178 @@ solvers	tests/scalars/mignone_radial_1d.py	/^solvers = [('rk3', 2), ('rk3', 3), 
 solvers	tests/symmetry/hydro_linwave_aligned.py	/^solvers = [('vl2', '2'), ('rk3', '4c'), ('ssprk5_4', '4')]$/;"	v
 speed_row	utils/RiemannSolver/riemann.py	/^    def speed_row(self, sep=None, fmt='.7e'):$/;"	m	class:RiemannSol
 speeds	utils/RiemannSolver/riemann.py	/^    def speeds(self):$/;"	m	class:RiemannSol
+standard	tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+standard	tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
+standard	tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
+standard	tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
+standard	utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
 state_tbl	utils/RiemannSolver/riemann.py	/^    def state_tbl(self, row_sep=None, col_sep=None, eol='', fmt='.7e', speeds=False):$/;"	m	class:RiemannSol
 states	utils/RiemannSolver/riemann.py	/^    def states(self):$/;"	m	class:RiemannSol
+subprocess	utils/athena.py	/^import subprocess$/;"	i
+sys	tests/amr/amr_linwave.py	/^import sys$/;"	i
+sys	tests/curvilinear/blast_cyl.py	/^import sys$/;"	i
+sys	tests/curvilinear/blast_sph.py	/^import sys$/;"	i
+sys	tests/diffusion/linear_wave3d.py	/^import sys$/;"	i
+sys	tests/diffusion/resistive_diffusion.py	/^import sys$/;"	i
+sys	tests/diffusion/thermal_attenuation.py	/^import sys$/;"	i
+sys	tests/diffusion/viscous_diffusion.py	/^import sys$/;"	i
+sys	tests/eos/eos_comparison.py	/^import sys$/;"	i
+sys	tests/eos/eos_hdf5_table.py	/^import sys$/;"	i
+sys	tests/eos/eos_mhd.py	/^import sys$/;"	i
+sys	tests/eos/eos_riemann.py	/^import sys$/;"	i
+sys	tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
+sys	tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
+sys	tests/gr/hydro_shocks_hllc.py	/^import sys$/;"	i
+sys	tests/gr/hydro_shocks_hlle.py	/^import sys$/;"	i
+sys	tests/gr/hydro_shocks_hlle_no_transform.py	/^import sys$/;"	i
+sys	tests/gr/hydro_shocks_llf.py	/^import sys$/;"	i
+sys	tests/gr/hydro_shocks_llf_no_transform.py	/^import sys$/;"	i
+sys	tests/gr/mhd_shocks_hlld.py	/^import sys$/;"	i
+sys	tests/gr/mhd_shocks_hlle.py	/^import sys$/;"	i
+sys	tests/gr/mhd_shocks_llf.py	/^import sys$/;"	i
+sys	tests/grav/jeans_3d.py	/^import sys$/;"	i
+sys	tests/grav/unstable_jeans_3d_fft.py	/^import sys$/;"	i
+sys	tests/grav/unstable_jeans_3d_mg.py	/^import sys$/;"	i
+sys	tests/hybrid/hybrid_linwave.py	/^import sys$/;"	i
+sys	tests/hydro/hydro_linwave.py	/^import sys$/;"	i
+sys	tests/hydro/sod_shock.py	/^import sys$/;"	i
+sys	tests/hydro4/hydro_linwave_2d.py	/^import sys$/;"	i
+sys	tests/hydro4/hydro_linwave_3d.py	/^import sys$/;"	i
+sys	tests/mhd/cpaw.py	/^import sys$/;"	i
+sys	tests/mhd/mhd_linwave.py	/^import sys$/;"	i
+sys	tests/mhd/rj2a_shock.py	/^import sys$/;"	i
+sys	tests/mpi/mpi_linwave.py	/^import sys$/;"	i
+sys	tests/omp/omp_linwave.py	/^import sys$/;"	i
+sys	tests/outputs/all_outputs.py	/^import sys$/;"	i
+sys	tests/pgen/hdf5_reader_parallel.py	/^import sys$/;"	i
+sys	tests/pgen/hdf5_reader_serial.py	/^import sys$/;"	i
+sys	tests/scalars/mignone_meridional_1d.py	/^import sys$/;"	i
+sys	tests/scalars/mignone_radial_1d.py	/^import sys$/;"	i
+sys	tests/scalars/restart.py	/^import sys$/;"	i
+sys	tests/shearingbox/mri2d.py	/^import sys$/;"	i
+sys	tests/shearingbox/mri3d.py	/^import sys$/;"	i
+sys	tests/sr/hydro_convergence.py	/^import sys$/;"	i
+sys	tests/sr/hydro_shocks_hllc.py	/^import sys$/;"	i
+sys	tests/sr/hydro_shocks_hlle.py	/^import sys$/;"	i
+sys	tests/sr/hydro_shocks_llf.py	/^import sys$/;"	i
+sys	tests/sr/mhd_convergence.py	/^import sys$/;"	i
+sys	tests/sr/mhd_shocks_hlld.py	/^import sys$/;"	i
+sys	tests/sr/mhd_shocks_hlle.py	/^import sys$/;"	i
+sys	tests/sr/mhd_shocks_llf.py	/^import sys$/;"	i
+sys	tests/sr/sr_mhd_linwave.py	/^import sys$/;"	i
+sys	tests/symmetry/hydro_linwave_aligned.py	/^import sys$/;"	i
+sys	tests/turb/turb_3d.py	/^import sys$/;"	i
+sys	utils/EquationOfState/eos.py	/^import sys$/;"	i
+sys	utils/RiemannSolver/AthenaWrapper.py	/^import sys$/;"	i
+sys	utils/plot_mignone/section_5_1_1.py	/^import sys$/;"	i
+sys	utils/plot_mignone/section_5_1_2.py	/^import sys$/;"	i
 test	tests/pgen/pgen_compile.py	/^test = current_dir[0:(len(current_dir) - 14)]$/;"	v
+testing	tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+testing	tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+tests	tests/diffusion/linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
+tests	tests/diffusion/resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
+tests	tests/diffusion/thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
+tests	tests/diffusion/viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
+thermal_attenuation	tests/diffusion/thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
+threading	utils/log_pipe.py	/^import threading$/;"	i
+timer	utils/athena.py	/^from timeit import default_timer as timer$/;"	i
 tmp	tests/eos/eos_riemann.py	/^tmp = ['dl', 'ul', 'Tl', 'dr', 'ur', 'Tr']$/;"	v
 tmp	tests/eos/eos_riemann.py	/^tmp = ['problem\/' + i for i in tmp] + ['time\/tlim']$/;"	v
 tmp	utils/RiemannSolver/riemann.py	/^            def tmp(p):$/;"	f	function:RareInt.__init__
+to	tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
+to	tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
 u	utils/RiemannSolver/riemann.py	/^            def u(p):$/;"	f	function:RareInt.__init__
+utilities	tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
+utilities	tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+utilities	tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+utilities	tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
+utilities	tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+utilities	tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+utils	tests/amr/amr_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/curvilinear/blast_cyl.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/curvilinear/blast_sph.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/diffusion/linear_wave3d.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/diffusion/linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+utils	tests/diffusion/resistive_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/diffusion/resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+utils	tests/diffusion/thermal_attenuation.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/diffusion/thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+utils	tests/diffusion/viscous_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/diffusion/viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+utils	tests/eos/eos_comparison.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/eos/eos_comparison.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/eos/eos_hdf5_table.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/eos/eos_hdf5_table.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/eos/eos_mhd.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/eos/eos_mhd.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/eos/eos_riemann.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/eos/eos_riemann.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+utils	tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+utils	tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
+utils	tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
+utils	tests/gr/compile_kerr-schild.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/compile_minkowski.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/compile_schwarzschild.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/gr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/gr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/gr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/grav/jeans_3d.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/grav/unstable_jeans_3d_fft.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/grav/unstable_jeans_3d_mg.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/hybrid/hybrid_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/hydro/hydro_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/hydro/sod_shock.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/hydro4/hydro_linwave_2d.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/hydro4/hydro_linwave_3d.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/mhd/cpaw.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/mhd/mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/mhd/rj2a_shock.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/mpi/mpi_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/omp/omp_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/outputs/all_outputs.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/pgen/hdf5_reader_parallel.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/pgen/hdf5_reader_serial.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/pgen/pgen_compile.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/scalars/mignone_meridional_1d.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/scalars/mignone_radial_1d.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/scalars/restart.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/shearingbox/mri2d.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/shearingbox/mri3d.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/sr/hydro_convergence.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/sr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/sr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/sr/mhd_convergence.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/sr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/sr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
+utils	tests/sr/sr_mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/symmetry/hydro_linwave_aligned.py	/^import scripts.utils.athena as athena$/;"	i
+utils	tests/turb/turb_3d.py	/^import scripts.utils.athena as athena$/;"	i
 valid	utils/EquationOfState/eos.py	/^    def valid(self):$/;"	m	class:EOS
 vector_get_state	utils/RiemannSolver/riemann.py	/^    def vector_get_state(self, xi, add_var=None, inc_xi=False):$/;"	m	class:RiemannSol
 vector_state_names	utils/RiemannSolver/riemann.py	/^vector_state_names = ['rho', 'p', 'u']$/;"	v
+viscous_diffusion	tests/diffusion/viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
 vx	tests/sr/hydro_convergence.py	/^vx = 0.1$/;"	v
 vx	tests/sr/mhd_convergence.py	/^vx = 0.1$/;"	v
 vy	tests/sr/hydro_convergence.py	/^vy = 0.3$/;"	v
@@ -600,6 +1308,9 @@ wave_flags	tests/sr/mhd_convergence.py	/^wave_flags = range(7)$/;"	v
 wave_speeds	tests/eos/eos_mhd.py	/^wave_speeds = [-0.8236630408305421, 0.15084012571797972, 0.29445281898990067,$/;"	v
 wavespeeds_hydro	tests/sr/hydro_convergence.py	/^def wavespeeds_hydro():$/;"	f
 wavespeeds_mhd	tests/sr/mhd_convergence.py	/^def wavespeeds_mhd():$/;"	f
+write_H	tests/eos/eos_comparison.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
+write_H	tests/eos/eos_hdf5_table.py	/^from .eos_comparison import mk_ideal, write_H$/;"	i
+write_H	tests/eos/eos_table_test.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
 write_H	utils/EquationOfState/writeEOS.py	/^def write_H(nEspec=256, nRho=64, logEspecLim=None, logRhoLim=None, eOp=1.5,$/;"	f
 write_varlist	utils/EquationOfState/writeEOS.py	/^def write_varlist(dlim, elim, varlist, fn=None, out_type=None, eOp=1.5,$/;"	f
 xorder_colors	utils/plot_mignone/section_5_1_1.py	/^xorder_colors = {$/;"	v

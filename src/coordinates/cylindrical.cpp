@@ -361,17 +361,9 @@ void Cylindrical::AddCoordTermsDivergence_DustFluids(
 
             // Dust momentum diffusion flux
             if (pdf->dfdif.Momentum_Diffusion_Flag) {
-              Real m_pp_m1 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v1_id,k,j+1,i) +
-                    pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v1_id,k,j,i));
-              m_pp += m_pp_m1;
-
               Real m_pp_m2 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j+1,i) +
                     pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j,i));
               m_pp += m_pp_m2;
-
-              Real m_pp_m3 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v3_id,k,j+1,i) +
-                    pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v3_id,k,j,i));
-              m_pp += m_pp_m3;
             }
           }
 

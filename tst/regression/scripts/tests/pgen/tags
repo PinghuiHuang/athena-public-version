@@ -3,10 +3,15 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 analyze	hdf5_reader_parallel.py	/^def analyze():$/;"	f
 analyze	hdf5_reader_serial.py	/^def analyze():$/;"	f
 analyze	pgen_compile.py	/^def analyze():$/;"	f
+athena	hdf5_reader_parallel.py	/^import scripts.utils.athena as athena$/;"	i
+athena	hdf5_reader_serial.py	/^import scripts.utils.athena as athena$/;"	i
+athena	pgen_compile.py	/^import scripts.utils.athena as athena$/;"	i
+athena_read	hdf5_reader_parallel.py	/^import athena_read  # noqa$/;"	i
+athena_read	hdf5_reader_serial.py	/^import athena_read  # noqa$/;"	i
 current_dir	pgen_compile.py	/^current_dir = os.getcwd()$/;"	v
 dataset_b1	hdf5_reader_parallel.py	/^dataset_b1 = 'b1'$/;"	v
 dataset_b1	hdf5_reader_serial.py	/^dataset_b1 = 'b1'$/;"	v
@@ -22,16 +27,26 @@ filename_output	hdf5_reader_parallel.py	/^filename_output = 'from_array.cons.000
 filename_output	hdf5_reader_serial.py	/^filename_output = 'from_array.cons.00000.athdf'$/;"	v
 gamma	hdf5_reader_parallel.py	/^gamma = 5.0\/3.0$/;"	v
 gamma	hdf5_reader_serial.py	/^gamma = 5.0\/3.0$/;"	v
+glob	pgen_compile.py	/^import glob$/;"	i
 gr_probs	pgen_compile.py	/^gr_probs = set([pgen for pgen in pgen_choices if pgen[0:3] == 'gr_'])$/;"	v
+h5py	hdf5_reader_parallel.py	/^import h5py$/;"	i
+h5py	hdf5_reader_serial.py	/^import h5py$/;"	i
 hydro_args	pgen_compile.py	/^hydro_args = []$/;"	v
 hydro_probs	pgen_compile.py	/^hydro_probs = pgen_choices - gr_probs - mhd_probs - shear_probs$/;"	v
 logger	hdf5_reader_parallel.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	hdf5_reader_serial.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	pgen_compile.py	/^logger = logging.getLogger('athena' + __name__[7:])$/;"	v
+logging	hdf5_reader_parallel.py	/^import logging$/;"	i
+logging	hdf5_reader_serial.py	/^import logging$/;"	i
+logging	pgen_compile.py	/^import logging$/;"	i
 mhd_args	pgen_compile.py	/^mhd_args = ['b']$/;"	v
 mhd_probs	pgen_compile.py	/^mhd_probs = set(['cpaw', 'field_loop', 'orszag_tang', 'rotor', 'resist', 'magnoh'])$/;"	v
 nb1	hdf5_reader_parallel.py	/^nb1 = 4$/;"	v
 nb1	hdf5_reader_serial.py	/^nb1 = 4$/;"	v
+noqa	hdf5_reader_parallel.py	/^import athena_read  # noqa$/;"	i
+noqa	hdf5_reader_serial.py	/^import athena_read  # noqa$/;"	i
+np	hdf5_reader_parallel.py	/^import numpy as np$/;"	i
+np	hdf5_reader_serial.py	/^import numpy as np$/;"	i
 num_ranks	hdf5_reader_parallel.py	/^num_ranks = 3$/;"	v
 nx1	hdf5_reader_parallel.py	/^nx1 = 4$/;"	v
 nx1	hdf5_reader_serial.py	/^nx1 = 4$/;"	v
@@ -39,6 +54,7 @@ nx2	hdf5_reader_parallel.py	/^nx2 = 6$/;"	v
 nx2	hdf5_reader_serial.py	/^nx2 = 6$/;"	v
 nx3	hdf5_reader_parallel.py	/^nx3 = 4$/;"	v
 nx3	hdf5_reader_serial.py	/^nx3 = 4$/;"	v
+os	pgen_compile.py	/^import os$/;"	i
 pgen_choices	pgen_compile.py	/^pgen_choices = glob.glob(pgen_directory + '*.cpp')$/;"	v
 pgen_choices	pgen_compile.py	/^pgen_choices = set([choice[len(pgen_directory):-4] for choice in pgen_choices])$/;"	v
 pgen_directory	pgen_compile.py	/^pgen_directory = test + 'src\/pgen\/'$/;"	v
@@ -48,6 +64,14 @@ prepare	pgen_compile.py	/^def prepare(**kwargs):$/;"	f
 run	hdf5_reader_parallel.py	/^def run(**kwargs):$/;"	f
 run	hdf5_reader_serial.py	/^def run(**kwargs):$/;"	f
 run	pgen_compile.py	/^def run(**kwargs):$/;"	f
+scripts	hdf5_reader_parallel.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	hdf5_reader_serial.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	pgen_compile.py	/^import scripts.utils.athena as athena$/;"	i
 shear_args	pgen_compile.py	/^shear_args = ['b', 'shear']$/;"	v
 shear_probs	pgen_compile.py	/^shear_probs = set(['hb3', 'hgb', 'ssheet', 'strat'])$/;"	v
+sys	hdf5_reader_parallel.py	/^import sys$/;"	i
+sys	hdf5_reader_serial.py	/^import sys$/;"	i
 test	pgen_compile.py	/^test = current_dir[0:(len(current_dir) - 14)]$/;"	v
+utils	hdf5_reader_parallel.py	/^import scripts.utils.athena as athena$/;"	i
+utils	hdf5_reader_serial.py	/^import scripts.utils.athena as athena$/;"	i
+utils	pgen_compile.py	/^import scripts.utils.athena as athena$/;"	i

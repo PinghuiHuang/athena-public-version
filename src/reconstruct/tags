@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 DonorCellX1	dc.cpp	/^void Reconstruction::DonorCellX1(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
 DonorCellX1	dc_simple.cpp	/^void Reconstruction::DonorCellX1(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
 DonorCellX1_DustFluids	dc_dustFluids.cpp	/^void Reconstruction::DonorCellX1_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
@@ -34,7 +34,7 @@ PiecewiseParabolicX2_DustFluids	ppm_dustfluids.cpp	/^void Reconstruction::Piecew
 PiecewiseParabolicX3	ppm.cpp	/^void Reconstruction::PiecewiseParabolicX3($/;"	f	class:Reconstruction
 PiecewiseParabolicX3	ppm_simple.cpp	/^void Reconstruction::PiecewiseParabolicX3($/;"	f	class:Reconstruction
 PiecewiseParabolicX3_DustFluids	ppm_dustfluids.cpp	/^void Reconstruction::PiecewiseParabolicX3_DustFluids($/;"	f	class:Reconstruction
-RECONSTRUCT_RECONSTRUCTION_HPP_	reconstruction.hpp	2;"	d
+RECONSTRUCT_RECONSTRUCTION_HPP_	reconstruction.hpp	/^#define RECONSTRUCT_RECONSTRUCTION_HPP_$/;"	d
 Reconstruction	reconstruction.cpp	/^Reconstruction::Reconstruction(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:Reconstruction
 Reconstruction	reconstruction.hpp	/^class Reconstruction {$/;"	c
 RightEigenmatrixDotVector	characteristic.cpp	/^void Reconstruction::RightEigenmatrixDotVector($/;"	f	class:Reconstruction

@@ -69,9 +69,6 @@ Real DustFluids::NewAdvectionDt() {
             df_prim_i[v2_id]  = df_prim(v2_id,k,j,i);
             df_prim_i[v3_id]  = df_prim(v3_id,k,j,i);
 
-            //dt1(i) /= (std::abs(df_prim_i[v1_id]));
-            //dt2(i) /= (std::abs(df_prim_i[v2_id]));
-            //dt3(i) /= (std::abs(df_prim_i[v3_id]));
             if ((fluid_status == FluidFormulation::evolve) && SoundSpeed_Flag) {
               dt1(i) /= (std::abs(df_prim_i[v1_id]) + cs_dustfluids_array(dust_id,k,j,i));
               dt2(i) /= (std::abs(df_prim_i[v2_id]) + cs_dustfluids_array(dust_id,k,j,i));

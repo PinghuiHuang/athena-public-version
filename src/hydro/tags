@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AddDiffusionEnergyFlux	hydro_diffusion/hydro_diffusion.cpp	/^void HydroDiffusion::AddDiffusionEnergyFlux(AthenaArray<Real> *flux_src,$/;"	f	class:HydroDiffusion
 AddDiffusionFlux	hydro_diffusion/hydro_diffusion.cpp	/^void HydroDiffusion::AddDiffusionFlux(AthenaArray<Real> *flux_src,$/;"	f	class:HydroDiffusion
 AddDiffusionFluxes	calculate_fluxes.cpp	/^void Hydro::AddDiffusionFluxes() {$/;"	f	class:Hydro
@@ -25,8 +25,8 @@ ConstViscosity	hydro_diffusion/viscosity.cpp	/^void ConstViscosity(HydroDiffusio
 ConstantAcceleration	srcterms/constant_acc.cpp	/^void HydroSourceTerms::ConstantAcceleration(const Real dt,const AthenaArray<Real> *flux,$/;"	f	class:HydroSourceTerms
 DiffProcess	hydro_diffusion/hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2}; \/\/ TODO: PH: I added the third index "alpha" for alpha disk model.$/;"	g	class:HydroDiffusion
 DivVelocity	hydro_diffusion/viscosity.cpp	/^void HydroDiffusion::DivVelocity(const AthenaArray<Real> &prim,$/;"	f	class:HydroDiffusion
-EResidual	rsolvers/mhd/hlld_rel.cpp	/^Real EResidual(Real w_guess, Real dd, Real ee, Real m_sq, Real bb_sq, Real ss_sq,$/;"	f	namespace:__anon10
-EResidualPrime	rsolvers/mhd/hlld_rel.cpp	/^Real EResidualPrime(Real w_guess, Real dd, Real m_sq, Real bb_sq, Real ss_sq,$/;"	f	namespace:__anon10
+EResidual	rsolvers/mhd/hlld_rel.cpp	/^Real EResidual(Real w_guess, Real dd, Real ee, Real m_sq, Real bb_sq, Real ss_sq,$/;"	f	namespace:__anon8
+EResidualPrime	rsolvers/mhd/hlld_rel.cpp	/^Real EResidualPrime(Real w_guess, Real dd, Real m_sq, Real bb_sq, Real ss_sq,$/;"	f	namespace:__anon8
 FaceXdx	hydro_diffusion/viscosity.cpp	/^void HydroDiffusion::FaceXdx(const int k, const int j, const int il, const int iu,$/;"	f	class:HydroDiffusion
 FaceXdy	hydro_diffusion/viscosity.cpp	/^void HydroDiffusion::FaceXdy(const int k, const int j, const int il, const int iu,$/;"	f	class:HydroDiffusion
 FaceXdz	hydro_diffusion/viscosity.cpp	/^void HydroDiffusion::FaceXdz(const int k, const int j, const int il, const int iu,$/;"	f	class:HydroDiffusion
@@ -42,27 +42,27 @@ GetG2	srcterms/hydro_srcterms.hpp	/^  Real GetG2() const {return g2_;}$/;"	f	cla
 GetG3	srcterms/hydro_srcterms.hpp	/^  Real GetG3() const {return g3_;}$/;"	f	class:HydroSourceTerms
 GetGM	srcterms/hydro_srcterms.hpp	/^  Real GetGM() const {return gm_;}$/;"	f	class:HydroSourceTerms
 GetWeightForCT	hydro.cpp	/^Real Hydro::GetWeightForCT(Real dflx, Real rhol, Real rhor, Real dx, Real dt) {$/;"	f	class:Hydro
-HLLCTransforming	rsolvers/hydro/hllc_rel.cpp	/^void HLLCTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon2
-HLLDTransforming	rsolvers/mhd/hlld_rel.cpp	/^void HLLDTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon10
-HLLENonTransforming	rsolvers/hydro/hllc_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon2
-HLLENonTransforming	rsolvers/hydro/hlle_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon4
-HLLENonTransforming	rsolvers/mhd/hlld_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon10
-HLLENonTransforming	rsolvers/mhd/hlle_mhd_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon12
-HLLETransforming	rsolvers/hydro/hlle_rel.cpp	/^void HLLETransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon4
-HLLETransforming	rsolvers/mhd/hlle_mhd_rel.cpp	/^void HLLETransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon12
-HYDRO_HYDRO_DIFFUSION_HYDRO_DIFFUSION_HPP_	hydro_diffusion/hydro_diffusion.hpp	2;"	d
-HYDRO_HYDRO_HPP_	hydro.hpp	2;"	d
-HYDRO_SRCTERMS_HYDRO_SRCTERMS_HPP_	srcterms/hydro_srcterms.hpp	2;"	d
+HLLCTransforming	rsolvers/hydro/hllc_rel.cpp	/^void HLLCTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon14
+HLLDTransforming	rsolvers/mhd/hlld_rel.cpp	/^void HLLDTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon8
+HLLENonTransforming	rsolvers/hydro/hllc_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon14
+HLLENonTransforming	rsolvers/hydro/hlle_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon16
+HLLENonTransforming	rsolvers/mhd/hlld_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon8
+HLLENonTransforming	rsolvers/mhd/hlle_mhd_rel.cpp	/^void HLLENonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon4
+HLLETransforming	rsolvers/hydro/hlle_rel.cpp	/^void HLLETransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon16
+HLLETransforming	rsolvers/mhd/hlle_mhd_rel.cpp	/^void HLLETransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon4
+HYDRO_HYDRO_DIFFUSION_HYDRO_DIFFUSION_HPP_	hydro_diffusion/hydro_diffusion.hpp	/^#define HYDRO_HYDRO_DIFFUSION_HYDRO_DIFFUSION_HPP_$/;"	d
+HYDRO_HYDRO_HPP_	hydro.hpp	/^#define HYDRO_HYDRO_HPP_$/;"	d
+HYDRO_SRCTERMS_HYDRO_SRCTERMS_HPP_	srcterms/hydro_srcterms.hpp	/^#define HYDRO_SRCTERMS_HYDRO_SRCTERMS_HPP_$/;"	d
 Hydro	hydro.cpp	/^Hydro::Hydro(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:Hydro
 Hydro	hydro.hpp	/^class Hydro {$/;"	c
 HydroDiffusion	hydro_diffusion/hydro_diffusion.cpp	/^HydroDiffusion::HydroDiffusion(Hydro *phyd, ParameterInput *pin) :$/;"	f	class:HydroDiffusion
 HydroDiffusion	hydro_diffusion/hydro_diffusion.hpp	/^class HydroDiffusion {$/;"	c
 HydroSourceTerms	srcterms/hydro_srcterms.cpp	/^HydroSourceTerms::HydroSourceTerms(Hydro *phyd, ParameterInput *pin) {$/;"	f	class:HydroSourceTerms
 HydroSourceTerms	srcterms/hydro_srcterms.hpp	/^class HydroSourceTerms {$/;"	c
-LLFNonTransforming	rsolvers/hydro/llf_rel.cpp	/^void LLFNonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon8
-LLFNonTransforming	rsolvers/mhd/llf_mhd_rel.cpp	/^void LLFNonTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon14
-LLFTransforming	rsolvers/hydro/llf_rel.cpp	/^void LLFTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon8
-LLFTransforming	rsolvers/mhd/llf_mhd_rel.cpp	/^void LLFTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon14
+LLFNonTransforming	rsolvers/hydro/llf_rel.cpp	/^void LLFNonTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon10
+LLFNonTransforming	rsolvers/mhd/llf_mhd_rel.cpp	/^void LLFNonTransforming(MeshBlock *pmb, const int k, const int j, const int il,$/;"	f	namespace:__anon6
+LLFTransforming	rsolvers/hydro/llf_rel.cpp	/^void LLFTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon10
+LLFTransforming	rsolvers/mhd/llf_mhd_rel.cpp	/^void LLFTransforming(MeshBlock *pmb, const int k, const int j,$/;"	f	namespace:__anon6
 NewBlockTimeStep	new_blockdt.cpp	/^void Hydro::NewBlockTimeStep() {$/;"	f	class:Hydro
 NewDiffusionDt	hydro_diffusion/hydro_diffusion.cpp	/^void HydroDiffusion::NewDiffusionDt(Real &dt_vis, Real &dt_cnd) {$/;"	f	class:HydroDiffusion
 Omega_0_	srcterms/hydro_srcterms.hpp	/^  Real Omega_0_, qshear_; \/\/ Orbital freq and shear rate$/;"	m	class:HydroSourceTerms
@@ -86,10 +86,10 @@ RiemannSolver	rsolvers/mhd/llf_mhd.cpp	/^void Hydro::RiemannSolver(const int k, 
 RiemannSolver	rsolvers/mhd/llf_mhd_rel.cpp	/^void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,$/;"	f	class:Hydro
 RiemannSolver	rsolvers/mhd/llf_mhd_rel_no_transform.cpp	/^void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,$/;"	f	class:Hydro
 RiemannSolver	rsolvers/mhd/roe_mhd.cpp	/^void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,$/;"	f	class:Hydro
-RoeFlux	rsolvers/hydro/roe.cpp	/^inline void RoeFlux(const Real wroe[], const Real du[], const Real wli[], Real flx[],$/;"	f	namespace:__anon6
-RoeFlux	rsolvers/mhd/roe_mhd.cpp	/^inline void RoeFlux(const Real wroe[], const Real b1, const Real x, const Real y,$/;"	f	namespace:__anon16
-SMALL_NUMBER	rsolvers/mhd/hlld.cpp	32;"	d	file:
-SMALL_NUMBER	rsolvers/mhd/hlld_iso.cpp	31;"	d	file:
+RoeFlux	rsolvers/hydro/roe.cpp	/^inline void RoeFlux(const Real wroe[], const Real du[], const Real wli[], Real flx[],$/;"	f	namespace:__anon12
+RoeFlux	rsolvers/mhd/roe_mhd.cpp	/^inline void RoeFlux(const Real wroe[], const Real b1, const Real x, const Real y,$/;"	f	namespace:__anon2
+SMALL_NUMBER	rsolvers/mhd/hlld.cpp	/^#define SMALL_NUMBER /;"	d	file:
+SMALL_NUMBER	rsolvers/mhd/hlld_iso.cpp	/^#define SMALL_NUMBER /;"	d	file:
 SelfGravity	srcterms/self_gravity.cpp	/^void HydroSourceTerms::SelfGravity(const Real dt,const AthenaArray<Real> *flux,$/;"	f	class:HydroSourceTerms
 SetDiffusivity	hydro_diffusion/hydro_diffusion.cpp	/^void HydroDiffusion::SetDiffusivity(AthenaArray<Real> &w, AthenaArray<Real> &bc) {$/;"	f	class:HydroDiffusion
 ShBoxCoord_	srcterms/hydro_srcterms.hpp	/^  int  ShBoxCoord_;       \/\/ ShearCoordinate type: 1=xy (default), 2=xz$/;"	m	class:HydroSourceTerms
@@ -136,8 +136,8 @@ g_	hydro.hpp	/^  AthenaArray<Real> g_, gi_;       \/\/ metric and inverse, for s
 gflx	hydro.hpp	/^  AthenaArray<Real> gflx[3], gflx_old[3]; \/\/ gravity tensor (old Athena style)$/;"	m	class:Hydro
 gflx_old	hydro.hpp	/^  AthenaArray<Real> gflx[3], gflx_old[3]; \/\/ gravity tensor (old Athena style)$/;"	m	class:Hydro
 gi_	hydro.hpp	/^  AthenaArray<Real> g_, gi_;       \/\/ metric and inverse, for some GR Riemann solvers$/;"	m	class:Hydro
-gm1	rsolvers/hydro/roe.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon5	file:
-gm1	rsolvers/mhd/roe_mhd.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon15	file:
+gm1	rsolvers/hydro/roe.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon11	file:
+gm1	rsolvers/mhd/roe_mhd.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon1	file:
 gm_	srcterms/hydro_srcterms.hpp	/^  Real gm_;           \/\/ GM for point mass MUST BE LOCATED AT ORIGIN$/;"	m	class:HydroSourceTerms
 hbvar	hydro.hpp	/^  HydroBoundaryVariable hbvar;$/;"	m	class:Hydro
 hdif	hydro.cpp	/^    hdif(this, pin) {$/;"	f
@@ -146,8 +146,8 @@ hsrc	hydro.hpp	/^  HydroSourceTerms hsrc;$/;"	m	class:Hydro
 hydro_diffusion_defined	hydro_diffusion/hydro_diffusion.hpp	/^  bool hydro_diffusion_defined;$/;"	m	class:HydroDiffusion
 hydro_sourceterms_defined	srcterms/hydro_srcterms.hpp	/^  bool hydro_sourceterms_defined;$/;"	m	class:HydroSourceTerms
 iso	hydro_diffusion/hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2}; \/\/ TODO: PH: I added the third index "alpha" for alpha disk model.$/;"	e	enum:HydroDiffusion::DiffProcess
-iso_cs	rsolvers/hydro/roe.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon5	file:
-iso_cs	rsolvers/mhd/roe_mhd.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon15	file:
+iso_cs	rsolvers/hydro/roe.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon11	file:
+iso_cs	rsolvers/mhd/roe_mhd.cpp	/^Real gm1, iso_cs;$/;"	m	namespace:__anon1	file:
 kappa	hydro_diffusion/hydro_diffusion.hpp	/^  AthenaArray<Real> kappa; \/\/ conduction array$/;"	m	class:HydroDiffusion
 kappa_aniso	hydro_diffusion/hydro_diffusion.hpp	/^  Real kappa_iso, kappa_aniso; \/\/ thermal conduction coeff$/;"	m	class:HydroDiffusion
 kappa_iso	hydro_diffusion/hydro_diffusion.hpp	/^  Real kappa_iso, kappa_aniso; \/\/ thermal conduction coeff$/;"	m	class:HydroDiffusion
