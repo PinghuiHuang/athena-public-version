@@ -52,7 +52,7 @@ void DustFluidsDiffusion::Constant_DustDiffusivity(const AthenaArray<Real> &nu_g
   const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
   const AthenaArray<Real> &stopping_time,
   AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs){
-  for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
+  for (int n=0; n<NDUSTFLUIDS; n++) {
     int &dust_id = n;
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
@@ -84,15 +84,15 @@ void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &n
     std::stringstream msg;
     msg << "### FATAL ERROR in the defination of gas viscosity." << std::endl
         << "The viscosity of gas (nu_alpha or nu_iso or nu_aniso) must be set." << std::endl;
-    ATHENA_ERROR(msg); // No viscoisity in gas
+    ATHENA_ERROR(msg); // Error if gas is inviscid
     return;
   }
 
-  // In disk problem, and Shakura & Sunyaev (1973) viscoisty profile is used.
+  // Disk problems and Shakura & Sunyaev (1973) viscoisty profile are used.
   bool alpha_disk_model = ((hd.nu_alpha > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0));
 
   if (alpha_disk_model){
-    for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
+    for (int n=0; n<NDUSTFLUIDS; n++) {
       int &dust_id = n;
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
@@ -112,7 +112,7 @@ void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &n
     }
   }
   else if ((hd.nu_iso > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0)){ // if nu_iso >0 and disk problem used
-    for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
+    for (int n=0; n<NDUSTFLUIDS; n++) {
       int &dust_id = n;
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
@@ -132,7 +132,7 @@ void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &n
     }
   }
   else if ((hd.nu_iso > 0.0)){
-    for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
+    for (int n=0; n<NDUSTFLUIDS; n++) {
       int &dust_id = n;
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
@@ -152,7 +152,7 @@ void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &n
     }
   }
   else {
-    for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
+    for (int n=0; n<NDUSTFLUIDS; n++) {
       int &dust_id = n;
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {

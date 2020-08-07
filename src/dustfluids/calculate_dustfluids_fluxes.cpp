@@ -41,7 +41,6 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
   // approximations (flux_fc in calculate_fluxes.cpp is currently not saved persistently
   // in Hydro class but each flux dir is temp. stored in 4D scratch array scr1_nkji_)
 
-
   AthenaArray<Real> &x1flux = df_flux[X1DIR];
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
@@ -126,11 +125,11 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         }
 
 
-        // Compute x1 interface fluxes from face-centered primitive variables
-      if (SoundSpeed_Flag)
-        HLLE_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
-      else
-        NoCs_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
+          // Compute x1 interface fluxes from face-centered primitive variables
+        if (SoundSpeed_Flag)
+          HLLE_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
+        else
+          NoCs_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
 
         // Apply Laplacian of second-order accurate face-averaged flux on x1 faces
         for (int n=0; n<num_dust_var; ++n) {

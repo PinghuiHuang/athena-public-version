@@ -46,7 +46,7 @@ void DustFluids::HLLE_RiemannSolver_DustFluids(const int k, const int j, const i
   for (int n=0; n<num_dust_var; n+=4) {
     int dust_id = n/4;
     int rho_id  = 4*dust_id;
-    int ivx     = (IVX + ((index-IVX))%3) + rho_id;
+    int ivx     = (IVX + ((index-IVX))%3)   + rho_id;
     int ivy     = (IVX + ((index-IVX)+1)%3) + rho_id;
     int ivz     = (IVX + ((index-IVX)+2)%3) + rho_id;
 #pragma omp simd private(df_prim_li, df_prim_ri, df_prim_roe, df_fl, df_fr, df_flxi)

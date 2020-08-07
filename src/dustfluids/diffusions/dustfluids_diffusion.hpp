@@ -55,7 +55,7 @@ class DustFluidsDiffusion {
     Real NewDiffusionDt();
 
     // Other functions
-    Real Van_leer_limiter(const Real a, const Real b); // Van Leer Flux Limiter on the momentum diffusion
+    Real VanLeerLimiter(const Real a, const Real b); // Van Leer Flux Limiter on the momentum diffusion
 
     // Transfer the coordinate into cylindrical, used in disk problem
     void GetCylCoord(Coordinates *pco, Real &rad, Real &phi, Real &z, int i, int j, int k);

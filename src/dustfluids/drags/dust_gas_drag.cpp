@@ -31,7 +31,7 @@ DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :
   indx_array(num_species),                // Stores the permutation
   pmy_dustfluids_(pdf), pmb_(pmy_dustfluids_->pmy_block), pco_(pmb_->pcoord) {
 
-  hydro_gamma_      = pin->GetReal("hydro", "gamma");
+  //hydro_gamma_      = pin->GetReal("hydro", "gamma");
   DustFeedback_Flag = pin->GetBoolean("dust", "DustFeedback_Flag");
 }
 
@@ -52,10 +52,12 @@ void DustGasDrag::Aerodynamics_Drag(MeshBlock *pmb, const Real dt, const AthenaA
     }
   }
   else { // If NDUSTFLUIDS > 1, then LU decompose the drags matrix, see Benitez-Llambay et al. 2019
-    if (DustFeedback_Flag)
+    if (DustFeedback_Flag) {
       MultipleDust_Feedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
-    else
+    }
+    else {
       MultipleDust_NoFeedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+    }
   }
 
   return;

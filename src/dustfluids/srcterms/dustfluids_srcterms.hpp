@@ -26,7 +26,7 @@ class ParameterInput;
 //  \brief data and functions for physical source terms in the dustfluids
 class DustFluidsSourceTerms {
   public:
-    DustFluidsSourceTerms(DustFluids * pdf, ParameterInput *pin);
+    DustFluidsSourceTerms(DustFluids *pdf, ParameterInput *pin);
 
     // accessors
     Real GetGM() const {return gm_;}

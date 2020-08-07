@@ -63,22 +63,22 @@ Real DustFluids::NewAdvectionDt() {
         pmb->pcoord->CenterWidth2(k, j, is, ie, dt2);
         pmb->pcoord->CenterWidth3(k, j, is, ie, dt3);
 #pragma ivdep
-          for (int i=is; i<=ie; ++i) {
-            df_prim_i[rho_id] = df_prim(rho_id,k,j,i);
-            df_prim_i[v1_id]  = df_prim(v1_id,k,j,i);
-            df_prim_i[v2_id]  = df_prim(v2_id,k,j,i);
-            df_prim_i[v3_id]  = df_prim(v3_id,k,j,i);
+        for (int i=is; i<=ie; ++i) {
+          df_prim_i[rho_id] = df_prim(rho_id,k,j,i);
+          df_prim_i[v1_id]  = df_prim(v1_id,k,j,i);
+          df_prim_i[v2_id]  = df_prim(v2_id,k,j,i);
+          df_prim_i[v3_id]  = df_prim(v3_id,k,j,i);
 
-            if ((fluid_status == FluidFormulation::evolve) && SoundSpeed_Flag) {
-              dt1(i) /= (std::abs(df_prim_i[v1_id]) + cs_dustfluids_array(dust_id,k,j,i));
-              dt2(i) /= (std::abs(df_prim_i[v2_id]) + cs_dustfluids_array(dust_id,k,j,i));
-              dt3(i) /= (std::abs(df_prim_i[v3_id]) + cs_dustfluids_array(dust_id,k,j,i));
-            } else { // FluidFormulation::background or disabled. Assume scalar advection:
-              dt1(i) /= (std::abs(df_prim_i[v1_id]));
-              dt2(i) /= (std::abs(df_prim_i[v2_id]));
-              dt3(i) /= (std::abs(df_prim_i[v3_id]));
-            }
+          if ((fluid_status == FluidFormulation::evolve) && SoundSpeed_Flag) {
+            dt1(i) /= (std::abs(df_prim_i[v1_id]) + cs_dustfluids_array(dust_id,k,j,i));
+            dt2(i) /= (std::abs(df_prim_i[v2_id]) + cs_dustfluids_array(dust_id,k,j,i));
+            dt3(i) /= (std::abs(df_prim_i[v3_id]) + cs_dustfluids_array(dust_id,k,j,i));
+          } else { // FluidFormulation::background or disabled. Assume scalar advection:
+            dt1(i) /= (std::abs(df_prim_i[v1_id]));
+            dt2(i) /= (std::abs(df_prim_i[v2_id]));
+            dt3(i) /= (std::abs(df_prim_i[v3_id]));
           }
+        }
 
         // compute minimum of (v1 +/- C)
         for (int i=is; i<=ie; ++i) {

@@ -38,6 +38,8 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
   int ie = pmb_->ie; int je = pmb_->je; int ke = pmb_->ke;
   Real nu_face, rho_face, df_d11, df_d22, df_d33;
 
+  AthenaArray<Real> &nu_dust = pdf->nu_dustfluids_array;
+
   const int num_dust_var = 4*NDUSTFLUIDS;
   // i-direction
   jl = js, ju = je, kl = ks, ku = ke;
@@ -60,11 +62,12 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
         for (int i=is; i<=ie+1; ++i) {
-          nu_face  = 0.5*(pdf->nu_dustfluids_array(dust_id,k,j,i) + pdf->nu_dustfluids_array(dust_id,k,j,i-1));
+          nu_face  = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k,j,i-1));
           rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k,j,i-1));
 
           // df_d11 = D(rho_d/rho_g)_x1/D(x1)
-          df_d11   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j,i-1)/w(IDN,k,j,i-1))/pco_->dx1v(i-1);
+          df_d11   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j,i-1)/w(IDN,k,j,i-1))
+                      /pco_->dx1v(i-1);
           x1flux(rho_id,k,j,i) = -nu_face*rho_face*df_d11;
         }
       }
@@ -92,7 +95,7 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
         for (int j=js; j<=je+1; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            nu_face  = 0.5*(pdf->nu_dustfluids_array(dust_id,k,j,i) + pdf->nu_dustfluids_array(dust_id,k,j-1,i));
+            nu_face  = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k,j-1,i));
             rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k,j-1,i));
 
             // df_d22 = D(rho_d/rho_g)_x2/D(x2)
@@ -126,7 +129,7 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            nu_face  = 0.5*(pdf->nu_dustfluids_array(dust_id,k,j,i) + pdf->nu_dustfluids_array(dust_id,k-1,j,i));
+            nu_face  = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k-1,j,i));
             rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k-1,j,i));
 
             // df_d33 = D(rho_d/rho_g)_x3/D(x3)

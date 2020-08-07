@@ -154,8 +154,8 @@ void DustFluids::Constant_StoppingTime(const int kl, const int ku, const int jl,
         for (int i=il; i<=iu; ++i) { //TODO check the index
           Real rad, phi, z;
           dfdif.GetCylCoord(pco_, rad, phi, z, i, j, k);
-          Real &st_time  = stopping_time(dust_id,k,j,i);
-          st_time        = const_stopping_time_(dust_id);
+          Real &st_time = stopping_time(dust_id,k,j,i);
+          st_time       = const_stopping_time_(dust_id);
         }
       }
     }
@@ -168,7 +168,7 @@ void DustFluids::UserDefined_StoppingTime(const int kl, const int ku, const int 
             const AthenaArray<Real> &w, AthenaArray<Real> &stopping_time){
   for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
     int &dust_id = n;
-    int rho_id   = 4*n;
+    int rho_id   = 4*dust_id;
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
@@ -177,10 +177,10 @@ void DustFluids::UserDefined_StoppingTime(const int kl, const int ku, const int 
           Real &st_time  = stopping_time(dust_id,k,j,i);
           const Real &wd = w(IDN,k,j,i);
 
-          // The stopping time is in inversely proportion to the density of gas, see Takeuchi & Lin, 2001
-          st_time        = particle_density(dust_id)/wd;
+          // Usually, the stopping time is in inversely proportional to the density of gas, see Takeuchi & Lin, 2001
+          st_time = particle_density(dust_id)/wd;
 
-          // Or you can define the stopping time arbitrarily
+          // Or you can define the stopping time by yourself
           // st_time = dust_den/particle_density(dust_id);
         }
       }

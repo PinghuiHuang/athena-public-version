@@ -48,7 +48,6 @@ void DustGasDrag::SingleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,
     //}
   //}
 
-  Real igm1 = 1.0/(hydro_gamma_ - 1.0);
   int dust_id = 0;
   int rho_id  = 4*dust_id;
   int v1_id   = rho_id + 1;
@@ -128,7 +127,6 @@ void DustGasDrag::SingleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
     //}
   //}
 
-  Real igm1 = 1.0/(hydro_gamma_ - 1.0);
   int dust_id = 0;
   int rho_id  = 4*dust_id;
   int v1_id   = rho_id + 1;
@@ -219,7 +217,6 @@ void DustGasDrag::MultipleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt
   Coordinates *pco       = pmb->pcoord;
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
-  Real igm1 = 1.0/(hydro_gamma_ - 1.0);
 
   //int il, iu, jl, ju, kl, ku;
   //jl = js, ju = je, kl = ks, ku = ke;
@@ -282,11 +279,11 @@ void DustGasDrag::MultipleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt
         SolveLinearEquation(b3_vector, x3_vector); // b:v^n, x:v^(n+1), along the x3 direction
 
         for (int n=1; n<=NDUSTFLUIDS; n++){
-          int dust_id  = n-1;
-          int rho_id   = 4*dust_id;
-          int v1_id    = rho_id + 1;
-          int v2_id    = rho_id + 2;
-          int v3_id    = rho_id + 3;
+          int dust_id = n-1;
+          int rho_id  = 4*dust_id;
+          int v1_id   = rho_id + 1;
+          int v2_id   = rho_id + 2;
+          int v3_id   = rho_id + 3;
           // Alias the parameters of dust
           const Real &dust_d = prim_df(rho_id, k, j, i);
 
@@ -329,7 +326,6 @@ void DustGasDrag::MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
   Coordinates *pco       = pmb->pcoord;
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
-  Real igm1 = 1.0/(hydro_gamma_ - 1.0);
 
   //int il, iu, jl, ju, kl, ku;
   //jl = js, ju = je, kl = ks, ku = ke;
@@ -435,11 +431,11 @@ void DustGasDrag::MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
           gas_e += delta_gas_m1*gas_v1 + delta_gas_m2*gas_v2 + delta_gas_m3*gas_v3;
 
         for (int n=1; n<=NDUSTFLUIDS; n++){
-          int dust_id  = n-1;
-          int rho_id   = 4*dust_id;
-          int v1_id    = rho_id + 1;
-          int v2_id    = rho_id + 2;
-          int v3_id    = rho_id + 3;
+          int dust_id = n-1;
+          int rho_id  = 4*dust_id;
+          int v1_id   = rho_id + 1;
+          int v2_id   = rho_id + 2;
+          int v3_id   = rho_id + 3;
           // Alias the parameters of dust
           const Real &dust_d = prim_df(rho_id, k, j, i);
 
@@ -493,7 +489,6 @@ void DustGasDrag::SingleDust_NoFeedback_SemiImplicit(MeshBlock *pmb, const Real 
     //}
   //}
 
-  Real igm1 = 1.0/(hydro_gamma_ - 1.0);
   int dust_id = 0;
   int rho_id  = 4*dust_id;
   int v1_id   = rho_id + 1;
@@ -570,7 +565,6 @@ void DustGasDrag::SingleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt
     //}
   //}
 
-  Real igm1 = 1.0/(hydro_gamma_ - 1.0);
   int dust_id = 0;
   int rho_id  = 4*dust_id;
   int v1_id   = rho_id + 1;
@@ -674,7 +668,6 @@ void DustGasDrag::SingleDust_NoFeedback_Explicit(MeshBlock *pmb, const Real dt,
     //}
   //}
 
-  Real igm1 = 1.0/(hydro_gamma_ - 1.0);
   int dust_id = 0;
   int rho_id  = 4*dust_id;
   int v1_id   = rho_id + 1;
@@ -747,7 +740,6 @@ void DustGasDrag::SingleDust_Feedback_Explicit(MeshBlock *pmb, const Real dt,
     //}
   //}
 
-  Real igm1 = 1.0/(hydro_gamma_ - 1.0);
   int dust_id = 0;
   int rho_id  = 4*dust_id;
   int v1_id   = rho_id + 1;
