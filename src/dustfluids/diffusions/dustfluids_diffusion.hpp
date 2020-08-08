@@ -83,9 +83,10 @@ class DustFluidsDiffusion {
       const AthenaArray<Real> &w, AthenaArray<Real> *df_flx);
 
   private:
-    DustFluids  *pmy_dustfluids_; // ptr to DustFluids containing this DustFluidsDiffusion
-    MeshBlock   *pmb_;            // ptr to meshblock containing this DustFluidsDiffusion
-    Coordinates *pco_;            // ptr to coordinates class
+    static const int num_dust_var = 4*NDUSTFLUIDS;  // Number of dust variables (rho, v1, v2, v3)*4
+    DustFluids  *pmy_dustfluids_;                   // ptr to DustFluids containing this DustFluidsDiffusion
+    MeshBlock   *pmb_;                              // ptr to meshblock containing this DustFluidsDiffusion
+    Coordinates *pco_;                              // ptr to coordinates class
     AthenaArray<Real> x1area_, x2area_, x2area_p1_, x3area_, x3area_p1_;
     AthenaArray<Real> vol_;
     AthenaArray<Real> dx1_, dx2_, dx3_; // scratch arrays used in NewTimeStep

@@ -46,7 +46,6 @@ class ParameterInput;
 void DustFluidsSourceTerms::ShearingBoxSourceTerms_DustFluids(const Real dt,
             const AthenaArray<Real> *flux_df, const AthenaArray<Real> &prim_df,
                                               AthenaArray<Real> &cons_df) {
-  const int num_dust_var = 4*NDUSTFLUIDS;
   if (Omega_0_==0.0 || qshear_==0.0 ) {
     std::cout << "[ShearingBoxSourceTerms]: Omega_0 or qshear not stated " << std::endl;
     return;

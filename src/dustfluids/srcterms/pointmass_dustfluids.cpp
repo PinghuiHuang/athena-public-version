@@ -27,7 +27,6 @@ class ParameterInput;
 void DustFluidsSourceTerms::PointMass_DustFluids(const Real dt, const AthenaArray<Real> *flux_df,
                                  const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df) {
   MeshBlock *pmb = pmy_dustfluids_->pmy_block;
-  const int num_dust_var = 4*NDUSTFLUIDS;
   for (int n=0;n<num_dust_var;n+=4) {
     int dust_id = n/4;
     int rho_id  = 4*dust_id;

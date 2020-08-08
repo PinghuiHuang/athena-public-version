@@ -41,7 +41,6 @@ void DustFluids::AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> 
   AthenaArray<Real> &x1area = x1face_area_,    &x2area = x2face_area_,
                  &x2area_p1 = x2face_area_p1_, &x3area = x3face_area_,
                  &x3area_p1 = x3face_area_p1_, &vol    = cell_volume_,    &dflx = dflx_;
-  const int num_dust_var = 4*NDUSTFLUIDS;
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {
       // calculate x1-flux divergence

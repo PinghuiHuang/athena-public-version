@@ -32,7 +32,6 @@
 //  \brief Calculate dust fluids fluxes using reconstruction + weighted upwinding rule
 
 void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &prim_df) {
-  const int num_dust_var = 4*NDUSTFLUIDS;
   MeshBlock *pmb         = pmy_block;
   // design decision: do not pass Hydro::flux (for mass flux) via function parameters,
   // since 1) it is unlikely that anything else would be passed, 2) the current

@@ -251,13 +251,11 @@ TimeIntegratorTaskList::TimeIntegratorTaskList(ParameterInput *pin, Mesh *pm) {
       if (NDUSTFLUIDS > 0) {
         AddTask(DIFFUSE_DUSTFLUIDS,DIFFUSE_HYD);
         AddTask(CALC_DUSTFLUIDSFLX,DIFFUSE_DUSTFLUIDS);
-        AddTask(DRAG_DUSTGAS,(CALC_DUSTFLUIDSFLX|CALC_HYDFLX));
       }
     } else { // STS enabled:
       AddTask(CALC_HYDFLX,NONE);
       if (NDUSTFLUIDS > 0)
         AddTask(CALC_DUSTFLUIDSFLX,CALC_HYDFLX);
-        AddTask(DRAG_DUSTGAS,(CALC_DUSTFLUIDSFLX|CALC_HYDFLX));
     }
 
     if (pm->multilevel) { // SMR or AMR
@@ -267,32 +265,45 @@ TimeIntegratorTaskList::TimeIntegratorTaskList(ParameterInput *pin, Mesh *pm) {
     } else {
       AddTask(INT_HYD, CALC_HYDFLX);
     }
+    // Set the source term of hydro
     AddTask(SRCTERM_HYD,INT_HYD);
-    AddTask(SEND_HYD,SRCTERM_HYD);
-    AddTask(RECV_HYD,NONE);
-    AddTask(SETB_HYD,(RECV_HYD|SRCTERM_HYD));
-    if (SHEARING_BOX) { // Shearingbox BC for Hydro
-      AddTask(SEND_HYDSH,SETB_HYD);
-      AddTask(RECV_HYDSH,SETB_HYD);
-    }
 
     if (NDUSTFLUIDS > 0) {
       if (pm->multilevel) {
-        AddTask(SEND_DUSTFLUIDSFLX,(DRAG_DUSTGAS|CALC_DUSTFLUIDSFLX));
-        AddTask(RECV_DUSTFLUIDSFLX,(DRAG_DUSTGAS|CALC_DUSTFLUIDSFLX));
+        AddTask(SEND_DUSTFLUIDSFLX,CALC_DUSTFLUIDSFLX);
+        AddTask(RECV_DUSTFLUIDSFLX,CALC_DUSTFLUIDSFLX);
         AddTask(INT_DUSTFLUIDS,RECV_DUSTFLUIDSFLX);
       } else {
-        AddTask(INT_DUSTFLUIDS,(DRAG_DUSTGAS|CALC_DUSTFLUIDSFLX));
+        AddTask(INT_DUSTFLUIDS,CALC_DUSTFLUIDSFLX);
       }
 
-      // Set the source term of dust fluids
+      // Drag Term is implemented after adding the srcterms of gas and dust
       AddTask(SRCTERM_DUSTFLUIDS,INT_DUSTFLUIDS);
-      AddTask(SEND_DUSTFLUIDS,SRCTERM_DUSTFLUIDS);
+      AddTask(DRAG_DUSTGAS,(SRCTERM_DUSTFLUIDS|SRCTERM_HYD));
+
+      AddTask(SEND_HYD,(SRCTERM_HYD|DRAG_DUSTGAS));
+      AddTask(RECV_HYD,NONE);
+      AddTask(SETB_HYD,(RECV_HYD|SRCTERM_HYD|DRAG_DUSTGAS));
+
+      AddTask(SEND_DUSTFLUIDS,(SRCTERM_DUSTFLUIDS|DRAG_DUSTGAS));
       AddTask(RECV_DUSTFLUIDS,NONE);
-      AddTask(SETB_DUSTFLUIDS,(RECV_DUSTFLUIDS|SRCTERM_DUSTFLUIDS));
-      if (SHEARING_BOX) {
+      AddTask(SETB_DUSTFLUIDS,(RECV_DUSTFLUIDS|SRCTERM_DUSTFLUIDS|DRAG_DUSTGAS));
+
+      if (SHEARING_BOX) { // Shearingbox BC for Hydro and DustFluids
+        AddTask(SEND_HYDSH,SETB_HYD);
+        AddTask(RECV_HYDSH,SETB_HYD);
         AddTask(SEND_DUSTFLUIDSSH,SETB_DUSTFLUIDS);
         AddTask(RECV_DUSTFLUIDSSH,SETB_DUSTFLUIDS);
+      }
+    }
+    else {
+      AddTask(SEND_HYD,SRCTERM_HYD);
+      AddTask(RECV_HYD,NONE);
+      AddTask(SETB_HYD,(RECV_HYD|SRCTERM_HYD));
+
+      if (SHEARING_BOX) { // Shearingbox BC for Hydro
+        AddTask(SEND_HYDSH,SETB_HYD);
+        AddTask(RECV_HYDSH,SETB_HYD);
       }
     }
 
@@ -657,8 +668,9 @@ void TimeIntegratorTaskList::StartupTaskList(MeshBlock *pmb, int stage) {
     // Initialize storage registers
     Hydro *ph = pmb->phydro;
     ph->u1.ZeroClear();
-    if (integrator == "ssprk5_4")
+    if (integrator == "ssprk5_4") {
       ph->u2 = ph->u;
+    }
 
     if (MAGNETIC_FIELDS_ENABLED) { // MHD
       Field *pf = pmb->pfield;
@@ -673,6 +685,7 @@ void TimeIntegratorTaskList::StartupTaskList(MeshBlock *pmb, int stage) {
         ATHENA_ERROR(msg);
       }
     }
+
     if (NDUSTFLUIDS > 0) {
       DustFluids *pdf = pmb->pdustfluids;
       pdf->df_cons1.ZeroClear();
@@ -1239,8 +1252,6 @@ TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage
 
     const Real wght = stage_wghts[stage-1].beta*pmb->pmy_mesh->dt;
 
-    pdf->dfdrag.Aerodynamics_Drag(pmb, wght, pdf->stopping_time_array,
-                                  ph->w, pdf->df_prim, ph->u, pdf->df_cons);
     pdf->AddDustFluidsFluxDivergence(wght, pdf->df_cons);
     pmb->pcoord->AddCoordTermsDivergence_DustFluids(wght, pdf->df_flux, pdf->df_prim, pdf->df_cons);
 
@@ -1309,7 +1320,7 @@ TaskStatus TimeIntegratorTaskList::DiffuseDustFluids(MeshBlock *pmb, int stage) 
   Hydro      *phyd          = pmb->phydro;
   DustFluidsDiffusion dfdif = pdf->dfdif;
 
-  //TODO: Set up the properties of dust fluids
+  //TODO: Update the properties of dust fluids in every cycle
   pdf->SetDustFluidsProperties();
 
   // return if there are no diffusion to be added
@@ -1377,10 +1388,12 @@ TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
   DustFluids *pdf     = pmb->pdustfluids;
   Hydro *ph           = pmb->phydro;
 
-  //if (stage <= nstages) {
-    //pdf->dfdrag.Aerodynamics_Drag(pmb, pmb->pmy_mesh->dt, pdf->stopping_time_array,
-                                  //ph->w, pdf->df_prim, ph->u, pdf->df_cons);
-  //}
+  if (stage <= nstages) {
+    Real dt = (stage_wghts[(stage-1)].beta)*(pmb->pmy_mesh->dt);
+    pdf->dfdrag.Aerodynamics_Drag(pmb, dt, pdf->stopping_time_array,
+                                  ph->w, pdf->df_prim, ph->u, pdf->df_cons);
+  }
   return TaskStatus::next;
 }
+
 //TaskStatus TimeIntegratorTaskList::

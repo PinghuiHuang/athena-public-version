@@ -40,7 +40,6 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
 
   AthenaArray<Real> &nu_dust = pdf->nu_dustfluids_array;
 
-  const int num_dust_var = 4*NDUSTFLUIDS;
   // i-direction
   jl = js, ju = je, kl = ks, ku = ke;
   if (MAGNETIC_FIELDS_ENABLED) {

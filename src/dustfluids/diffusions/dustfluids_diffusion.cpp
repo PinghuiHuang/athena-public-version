@@ -36,7 +36,6 @@ class HydroDiffusion;
 
 DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
   pmy_dustfluids_(pdf), pmb_(pmy_dustfluids_->pmy_block), pco_(pmb_->pcoord) {
-  const int num_dust_var = 4*NDUSTFLUIDS;
   int nc1 = pmb_->ncells1, nc2 = pmb_->ncells2, nc3 = pmb_->ncells3;
 
   Hydro *phyd        = pmb_->phydro;
@@ -158,7 +157,6 @@ Real DustFluidsDiffusion::NewDiffusionDt() {
   AthenaArray<Real> &diff_t = diff_tot_;
   AthenaArray<Real> &len = dx1_, &dx2 = dx2_, &dx3 = dx3_;
 
-  const int num_dust_var = 4*NDUSTFLUIDS;
   for (int n = 0; n<num_dust_var; n+=4){
     dust_id = n/4;
     rho_id  = 4*dust_id;

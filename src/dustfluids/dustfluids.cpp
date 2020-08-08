@@ -35,20 +35,20 @@ class DustFluidsSourceTerms;
 // constructor, initializes data structures and parameters
 DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   pmy_block(pmb), pco_(pmb->pcoord),
-  df_cons(4*NDUSTFLUIDS,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons1(4*NDUSTFLUIDS, pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_prim(4*NDUSTFLUIDS,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_flux{{4*NDUSTFLUIDS, pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
-            {4*NDUSTFLUIDS, pmb->ncells3, pmb->ncells2+1, pmb->ncells1,
+  df_cons(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons1(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_flux{{num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
+            {num_dust_var, pmb->ncells3, pmb->ncells2+1, pmb->ncells1,
             (pmb->pmy_mesh->f2 ? AthenaArray<Real>::DataStatus::allocated :
             AthenaArray<Real>::DataStatus::empty)},
-            {4*NDUSTFLUIDS, pmb->ncells3+1, pmb->ncells2, pmb->ncells1,
+            {num_dust_var, pmb->ncells3+1, pmb->ncells2, pmb->ncells1,
             (pmb->pmy_mesh->f3 ? AthenaArray<Real>::DataStatus::allocated :
             AthenaArray<Real>::DataStatus::empty)}},
-  coarse_df_cons_(4*NDUSTFLUIDS, pmb->ncc3, pmb->ncc2, pmb->ncc1,
+  coarse_df_cons_(num_dust_var, pmb->ncc3, pmb->ncc2, pmb->ncc1,
             (pmb->pmy_mesh->multilevel ? AthenaArray<Real>::DataStatus::allocated :
              AthenaArray<Real>::DataStatus::empty)),
-  coarse_df_prim_(4*NDUSTFLUIDS, pmb->ncc3, pmb->ncc2, pmb->ncc1,
+  coarse_df_prim_(num_dust_var, pmb->ncc3, pmb->ncc2, pmb->ncc1,
             (pmb->pmy_mesh->multilevel ? AthenaArray<Real>::DataStatus::allocated :
              AthenaArray<Real>::DataStatus::empty)),
   stopping_time_array(NDUSTFLUIDS, pmb->ncells3, pmb->ncells2, pmb->ncells1),
@@ -61,7 +61,6 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   dfdrag(this, pin),
   dfdif(this,  pin),
   dfsrc(this,  pin) {
-  const int num_dust_var = 4*NDUSTFLUIDS;
   int nc1 = pmb->ncells1, nc2 = pmb->ncells2, nc3 = pmb->ncells3;
   Mesh *pm = pmy_block->pmy_mesh;
   pmb->RegisterMeshBlockData(df_cons);
@@ -71,18 +70,14 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
 
   for (int n=0; n<NDUSTFLUIDS; n++){
     // read the dust internal density, stopping time, nu_dust
-    std::string particle_string = "particle_density_";
-    std::string st_time_string  = "stopping_time_";
-    std::string nu_string       = "nu_dust_";
-
     if (ConstStoppingTime_Flag)
-      const_stopping_time_(n) = pin->GetReal("dust", st_time_string  + std::to_string(n+1));
+      const_stopping_time_(n) = pin->GetReal("dust", "stopping_time_" + std::to_string(n+1));
     else
-      particle_density_(n) = pin->GetReal("dust", particle_string + std::to_string(n+1));
+      particle_density_(n) = pin->GetReal("dust", "particle_density_" + std::to_string(n+1));
 
     if (dfdif.dustfluids_diffusion_defined) {
       if (dfdif.ConstNu_Flag)
-        const_nu_dust_(n) = pin->GetReal("dust", nu_string + std::to_string(n+1));
+        const_nu_dust_(n) = pin->GetReal("dust", "nu_dust_" + std::to_string(n+1));
     }
   }
 

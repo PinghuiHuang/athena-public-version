@@ -37,6 +37,7 @@ class DustFluids {
 
   public:
     DustFluids(MeshBlock *pmb, ParameterInput *pin);
+
     MeshBlock* pmy_block;
     // Leaving as ctor parameter in case of run-time "ndustfluids" option
 
@@ -109,6 +110,8 @@ class DustFluids {
 
 
   private:
+    static const int num_dust_var = 4*NDUSTFLUIDS; // Number of dust variables (rho, v1, v2, v3)*4
+
     Coordinates *pco_;            // ptr to coordinates class
     // scratch space used to compute fluxes
     // 2D scratch arrays

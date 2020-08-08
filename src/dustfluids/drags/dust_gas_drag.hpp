@@ -78,17 +78,6 @@ class DustGasDrag {
         //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         //AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // Explicit Schemes
-    void SingleDust_NoFeedback_Explicit(MeshBlock *pmb, const Real dt,
-        const AthenaArray<Real> &stopping_time,
-        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    void SingleDust_Feedback_Explicit(MeshBlock *pmb, const Real dt,
-        const AthenaArray<Real> &stopping_time,
-        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
     // The functions on calculating the drags-matrix
     // LU decompose on the drags matrix
     void LUdecompose(const AthenaArray<Real> &a_matrix);
@@ -107,11 +96,12 @@ class DustGasDrag {
     void IterativeImprove(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector);
 
   private:
-    const int num_species = NDUSTFLUIDS + 1; // gas and n dust fluids
-    DustFluids  *pmy_dustfluids_;            // ptr to DustFluids containing this DustGasDrag
-    MeshBlock   *pmb_;                       // ptr to meshblock containing this DustGasDrag
-    Coordinates *pco_;                       // ptr to coordinates class
-    //Real        hydro_gamma_;                // The adiabatic index of gas
+    static const int num_species  = NDUSTFLUIDS + 1; // gas and n dust fluids
+    static const int num_dust_var = 4*NDUSTFLUIDS;   // Number of dust variables (rho, v1, v2, v3)*4
+    DustFluids  *pmy_dustfluids_;                    // ptr to DustFluids containing this DustGasDrag
+    MeshBlock   *pmb_;                               // ptr to meshblock containing this DustGasDrag
+    Coordinates *pco_;                               // ptr to coordinates class
+    //Real        hydro_gamma_;                      // The adiabatic index of gas
 
     // data for LU decomposition
     AthenaArray<Real> drags_matrix; // The matrix of drags between dust and gas

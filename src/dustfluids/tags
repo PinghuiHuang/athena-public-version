@@ -46,15 +46,13 @@ NDUSTFLUIDS	dustfluids.cpp	/^  particle_density_(NDUSTFLUIDS),    \/\/ normalize
 NewAdvectionDt	new_blockdt_dustfluids.cpp	/^Real DustFluids::NewAdvectionDt() {$/;"	f	class:DustFluids
 NewDiffusionDt	diffusions/dustfluids_diffusion.cpp	/^Real DustFluidsDiffusion::NewDiffusionDt() {$/;"	f	class:DustFluidsDiffusion
 NoCs_RiemannSolver_DustFluids	dustfluids_noCs_solver.cpp	/^void DustFluids::NoCs_RiemannSolver_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:DustFluids
-Omega_0_	srcterms/dustfluids_srcterms.hpp	/^    Real Omega_0_, qshear_;       \/\/ Orbital freq and shear rate in shearing box$/;"	m	class:DustFluidsSourceTerms
+Omega_0_	srcterms/dustfluids_srcterms.hpp	/^    Real Omega_0_, qshear_;                        \/\/ Orbital freq and shear rate in shearing box$/;"	m	class:DustFluidsSourceTerms
 PointMass_DustFluids	srcterms/pointmass_dustfluids.cpp	/^void DustFluidsSourceTerms::PointMass_DustFluids(const Real dt, const AthenaArray<Real> *flux_df,$/;"	f	class:DustFluidsSourceTerms
 SetDustFluidsProperties	dustfluids.cpp	/^void DustFluids::SetDustFluidsProperties(){$/;"	f	class:DustFluids
-ShBoxCoord_	srcterms/dustfluids_srcterms.hpp	/^    int  ShBoxCoord_;             \/\/ ShearCoordinate type: 1=xy (default), 2=xz$/;"	m	class:DustFluidsSourceTerms
+ShBoxCoord_	srcterms/dustfluids_srcterms.hpp	/^    int  ShBoxCoord_;                              \/\/ ShearCoordinate type: 1=xy (default), 2=xz$/;"	m	class:DustFluidsSourceTerms
 ShearingBoxSourceTerms_DustFluids	srcterms/shearing_box_dustfluids.cpp	/^void DustFluidsSourceTerms::ShearingBoxSourceTerms_DustFluids(const Real dt,$/;"	f	class:DustFluidsSourceTerms
-SingleDust_Feedback_Explicit	drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_Explicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_Feedback_Implicit	drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_Feedback_SemiImplicit	drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
-SingleDust_NoFeedback_Explicit	drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback_Explicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_NoFeedback_Implicit	drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_NoFeedback_SemiImplicit	drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback_SemiImplicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SolveLinearEquation	drags/LU_decompose.cpp	/^void DustGasDrag::SolveLinearEquation(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector)$/;"	f	class:DustGasDrag
@@ -62,7 +60,7 @@ SolveMultipleLinearEquation	drags/LU_decompose.cpp	/^void DustGasDrag::SolveMult
 SoundSpeed_Flag	dustfluids.hpp	/^    bool SoundSpeed_Flag;                  \/\/ true or false, turn on the sound speed of dust fluids$/;"	m	class:DustFluids
 UserDefined_DustDiffusivity	diffusions/diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
 UserDefined_StoppingTime	dustfluids.cpp	/^void DustFluids::UserDefined_StoppingTime(const int kl, const int ku, const int jl, const int ju,$/;"	f	class:DustFluids
-Van_leer_limiter	diffusions/momentum_diffusion.cpp	/^Real DustFluidsDiffusion::Van_leer_limiter(const Real a, const Real b){$/;"	f	class:DustFluidsDiffusion
+VanLeerLimiter	diffusions/momentum_diffusion.cpp	/^Real DustFluidsDiffusion::VanLeerLimiter(const Real a, const Real b){$/;"	f	class:DustFluidsDiffusion
 aref_matrix	drags/dust_gas_drag.hpp	/^    AthenaArray<Real> aref_matrix;$/;"	m	class:DustGasDrag
 cell_volume_	dustfluids.hpp	/^    AthenaArray<Real> cell_volume_;   \/\/ the volume of the cells$/;"	m	class:DustFluids
 coarse_df_cons_	dustfluids.hpp	/^    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; \/\/ coarse df_cons and coarse df_prim, used in mesh refinement$/;"	m	class:DustFluids
@@ -102,25 +100,28 @@ dx1_	diffusions/dustfluids_diffusion.hpp	/^    AthenaArray<Real> dx1_, dx2_, dx3
 dx2_	diffusions/dustfluids_diffusion.hpp	/^    AthenaArray<Real> dx1_, dx2_, dx3_; \/\/ scratch arrays used in NewTimeStep$/;"	m	class:DustFluidsDiffusion
 dx3_	diffusions/dustfluids_diffusion.hpp	/^    AthenaArray<Real> dx1_, dx2_, dx3_; \/\/ scratch arrays used in NewTimeStep$/;"	m	class:DustFluidsDiffusion
 eddy_timescale_r0	diffusions/dustfluids_diffusion.hpp	/^    Real eddy_timescale_r0;      \/\/ The eddy timescale (turn over time of eddy) at r0$/;"	m	class:DustFluidsDiffusion
-gm_	srcterms/dustfluids_srcterms.hpp	/^    Real gm_;                     \/\/ GM for point mass MUST BE LOCATED AT ORIGIN$/;"	m	class:DustFluidsSourceTerms
-hydro_gamma_	drags/dust_gas_drag.hpp	/^    Real        hydro_gamma_;                \/\/ The adiabatic index of gas$/;"	m	class:DustGasDrag
+gm_	srcterms/dustfluids_srcterms.hpp	/^    Real gm_;                                      \/\/ GM for point mass MUST BE LOCATED AT ORIGIN$/;"	m	class:DustFluidsSourceTerms
 indx_array	drags/dust_gas_drag.hpp	/^    AthenaArray<int>  indx_array;   \/\/ Stores the permutation.$/;"	m	class:DustGasDrag
 laplacian_l_df_fc_	dustfluids.hpp	/^    AthenaArray<Real> laplacian_l_df_fc_, laplacian_r_df_fc_;$/;"	m	class:DustFluids
 laplacian_r_df_fc_	dustfluids.hpp	/^    AthenaArray<Real> laplacian_l_df_fc_, laplacian_r_df_fc_;$/;"	m	class:DustFluids
 lu_matrix	drags/dust_gas_drag.hpp	/^    AthenaArray<Real> lu_matrix;    \/\/ Stores the decomposition.$/;"	m	class:DustGasDrag
 nu_dustfluids_array	dustfluids.hpp	/^    AthenaArray<Real> nu_dustfluids_array;      \/\/ Arrays of dust diffusivity array, nu_d$/;"	m	class:DustFluids
-num_species	drags/dust_gas_drag.hpp	/^    const int num_species = NDUSTFLUIDS + 1; \/\/ gas and n dust fluids$/;"	m	class:DustGasDrag
+num_dust_var	diffusions/dustfluids_diffusion.hpp	/^    static const int num_dust_var = 4*NDUSTFLUIDS;  \/\/ Number of dust variables (rho, v1, v2, v3)*4$/;"	m	class:DustFluidsDiffusion
+num_dust_var	drags/dust_gas_drag.hpp	/^    static const int num_dust_var = 4*NDUSTFLUIDS;   \/\/ Number of dust variables (rho, v1, v2, v3)*4$/;"	m	class:DustGasDrag
+num_dust_var	dustfluids.hpp	/^    static const int num_dust_var = 4*NDUSTFLUIDS; \/\/ Number of dust variables (rho, v1, v2, v3)*4$/;"	m	class:DustFluids
+num_dust_var	srcterms/dustfluids_srcterms.hpp	/^    static const int num_dust_var = 4*NDUSTFLUIDS; \/\/ Number of dust variables (rho, v1, v2, v3)*4$/;"	m	class:DustFluidsSourceTerms
+num_species	drags/dust_gas_drag.hpp	/^    static const int num_species  = NDUSTFLUIDS + 1; \/\/ gas and n dust fluids$/;"	m	class:DustGasDrag
 particle_density_	dustfluids.hpp	/^    AthenaArray<Real> particle_density_;    \/\/ normalized dust particle internal density, used in user defined stopping time$/;"	m	class:DustFluids
-pco_	diffusions/dustfluids_diffusion.hpp	/^    Coordinates *pco_;            \/\/ ptr to coordinates class$/;"	m	class:DustFluidsDiffusion
-pco_	drags/dust_gas_drag.hpp	/^    Coordinates *pco_;                       \/\/ ptr to coordinates class$/;"	m	class:DustGasDrag
+pco_	diffusions/dustfluids_diffusion.hpp	/^    Coordinates *pco_;                              \/\/ ptr to coordinates class$/;"	m	class:DustFluidsDiffusion
+pco_	drags/dust_gas_drag.hpp	/^    Coordinates *pco_;                               \/\/ ptr to coordinates class$/;"	m	class:DustGasDrag
 pco_	dustfluids.hpp	/^    Coordinates *pco_;            \/\/ ptr to coordinates class$/;"	m	class:DustFluids
-pmb_	diffusions/dustfluids_diffusion.hpp	/^    MeshBlock   *pmb_;            \/\/ ptr to meshblock containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
-pmb_	drags/dust_gas_drag.hpp	/^    MeshBlock   *pmb_;                       \/\/ ptr to meshblock containing this DustGasDrag$/;"	m	class:DustGasDrag
+pmb_	diffusions/dustfluids_diffusion.hpp	/^    MeshBlock   *pmb_;                              \/\/ ptr to meshblock containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
+pmb_	drags/dust_gas_drag.hpp	/^    MeshBlock   *pmb_;                               \/\/ ptr to meshblock containing this DustGasDrag$/;"	m	class:DustGasDrag
 pmy_block	dustfluids.hpp	/^    MeshBlock* pmy_block;$/;"	m	class:DustFluids
-pmy_dustfluids_	diffusions/dustfluids_diffusion.hpp	/^    DustFluids  *pmy_dustfluids_; \/\/ ptr to DustFluids containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
-pmy_dustfluids_	drags/dust_gas_drag.hpp	/^    DustFluids  *pmy_dustfluids_;            \/\/ ptr to DustFluids containing this DustGasDrag$/;"	m	class:DustGasDrag
-pmy_dustfluids_	srcterms/dustfluids_srcterms.hpp	/^    DustFluids *pmy_dustfluids_;  \/\/ ptr to DustFluids containing this DustFluidsSourceTerms$/;"	m	class:DustFluidsSourceTerms
-qshear_	srcterms/dustfluids_srcterms.hpp	/^    Real Omega_0_, qshear_;       \/\/ Orbital freq and shear rate in shearing box$/;"	m	class:DustFluidsSourceTerms
+pmy_dustfluids_	diffusions/dustfluids_diffusion.hpp	/^    DustFluids  *pmy_dustfluids_;                   \/\/ ptr to DustFluids containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
+pmy_dustfluids_	drags/dust_gas_drag.hpp	/^    DustFluids  *pmy_dustfluids_;                    \/\/ ptr to DustFluids containing this DustGasDrag$/;"	m	class:DustGasDrag
+pmy_dustfluids_	srcterms/dustfluids_srcterms.hpp	/^    DustFluids *pmy_dustfluids_;                   \/\/ ptr to DustFluids containing this DustFluidsSourceTerms$/;"	m	class:DustFluidsSourceTerms
+qshear_	srcterms/dustfluids_srcterms.hpp	/^    Real Omega_0_, qshear_;                        \/\/ Orbital freq and shear rate in shearing box$/;"	m	class:DustFluidsSourceTerms
 r0_	diffusions/dustfluids_diffusion.hpp	/^    Real r0_;                    \/\/ The length unit of radial direction in disk problem$/;"	m	class:DustFluidsDiffusion
 scale_vector	drags/dust_gas_drag.hpp	/^    AthenaArray<Real> scale_vector; \/\/ scale_vector stores the implicit scaling of each row$/;"	m	class:DustGasDrag
 scr1_nkji_	dustfluids.hpp	/^    AthenaArray<Real> scr1_nkji_, scr2_nkji_;$/;"	m	class:DustFluids

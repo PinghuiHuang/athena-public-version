@@ -154,16 +154,17 @@ void Hydro::NewBlockTimeStep() {
 
 
   if (NDUSTFLUIDS > 0) {
+    // dust fluids advection
     DustFluids *pdf           = pmb->pdustfluids;
     Real min_dt_hyperbolic_df = pdf->NewAdvectionDt();
     min_dt_hyperbolic         = std::min(min_dt_hyperbolic, min_dt_hyperbolic_df);
-  } // dust fluids advection
 
-  if (NDUSTFLUIDS > 0 && pmb->pdustfluids->dfdif.dustfluids_diffusion_defined) {
-    DustFluids *pdf          = pmb->pdustfluids;
-    Real min_dt_parabolic_df = pdf->dfdif.NewDiffusionDt();
-    min_dt_parabolic         = std::min(min_dt_parabolic, min_dt_parabolic_df);
-  } // dust fluids diffusion
+   // dust fluids diffusion
+    if (pdf->dfdif.dustfluids_diffusion_defined) {
+      Real min_dt_parabolic_df = pdf->dfdif.NewDiffusionDt();
+      min_dt_parabolic         = std::min(min_dt_parabolic, min_dt_parabolic_df);
+    }
+  }
 
   min_dt_hyperbolic *= pmb->pmy_mesh->cfl_number;
   // scale the theoretical stability limit by a safety factor = the hyperbolic CFL limit

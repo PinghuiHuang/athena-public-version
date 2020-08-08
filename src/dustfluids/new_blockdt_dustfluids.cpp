@@ -42,7 +42,6 @@ Real DustFluids::NewAdvectionDt() {
   AthenaArray<Real> &df_prim = pmb->pdustfluids->df_prim;
   // hyperbolic timestep constraint in each (x1-slice) cell along coordinate direction:
   AthenaArray<Real> &dt1 = dt1_, &dt2 = dt2_, &dt3 = dt3_;  // (x1 slices)
-  const int num_dust_var = 4*NDUSTFLUIDS;
   Real df_prim_i[num_dust_var];
 
   Real real_max = std::numeric_limits<Real>::max();

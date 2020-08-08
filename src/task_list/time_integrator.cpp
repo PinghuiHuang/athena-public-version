@@ -289,7 +289,7 @@ TimeIntegratorTaskList::TimeIntegratorTaskList(ParameterInput *pin, Mesh *pm) {
       AddTask(RECV_DUSTFLUIDS,NONE);
       AddTask(SETB_DUSTFLUIDS,(RECV_DUSTFLUIDS|SRCTERM_DUSTFLUIDS|DRAG_DUSTGAS));
 
-      if (SHEARING_BOX) {
+      if (SHEARING_BOX) { // Shearingbox BC for Hydro and DustFluids
         AddTask(SEND_HYDSH,SETB_HYD);
         AddTask(RECV_HYDSH,SETB_HYD);
         AddTask(SEND_DUSTFLUIDSSH,SETB_DUSTFLUIDS);
@@ -1202,6 +1202,9 @@ TaskStatus TimeIntegratorTaskList::CalculateDustFluidsFlux(MeshBlock *pmb, int s
   DustFluids *pdf = pmb->pdustfluids;
   Hydro *ph       = pmb->phydro;
 
+  if (STS_ENABLED)
+    pdf->SetDustFluidsProperties();
+
   if (stage <= nstages) {
     if ((stage == 1) && (integrator == "vl2")) {
       pdf->CalculateDustFluidsFluxes(1, pdf->df_prim);
@@ -1320,7 +1323,7 @@ TaskStatus TimeIntegratorTaskList::DiffuseDustFluids(MeshBlock *pmb, int stage) 
   Hydro      *phyd          = pmb->phydro;
   DustFluidsDiffusion dfdif = pdf->dfdif;
 
-  //TODO: Set up the properties of dust fluids
+  //TODO: Update the properties of dust fluids in every cycle
   pdf->SetDustFluidsProperties();
 
   // return if there are no diffusion to be added

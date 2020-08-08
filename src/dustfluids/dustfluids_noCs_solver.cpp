@@ -39,7 +39,6 @@
 void DustFluids::NoCs_RiemannSolver_DustFluids(const int k, const int j, const int il, const int iu,
                           const int index, AthenaArray<Real> &df_prim_l,
                           AthenaArray<Real> &df_prim_r, AthenaArray<Real> &dust_flux) {
-  const int num_dust_var = 4*NDUSTFLUIDS;
   Real df_prim_li[(num_dust_var)], df_prim_ri[(num_dust_var)], df_prim_roe[(num_dust_var)];
   Real df_fl[(num_dust_var)],      df_fr[(num_dust_var)],      df_flxi[(num_dust_var)];
 
