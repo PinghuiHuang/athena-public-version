@@ -6,13 +6,13 @@
 !_TAG_PROGRAM_VERSION	5.8	//
 DonorCellX1	dc.cpp	/^void Reconstruction::DonorCellX1(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
 DonorCellX1	dc_simple.cpp	/^void Reconstruction::DonorCellX1(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
-DonorCellX1_DustFluids	dc_dustFluids.cpp	/^void Reconstruction::DonorCellX1_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX1_DustFluids	dc_dustfluids.cpp	/^void Reconstruction::DonorCellX1_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
 DonorCellX2	dc.cpp	/^void Reconstruction::DonorCellX2(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
 DonorCellX2	dc_simple.cpp	/^void Reconstruction::DonorCellX2(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
-DonorCellX2_DustFluids	dc_dustFluids.cpp	/^void Reconstruction::DonorCellX2_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX2_DustFluids	dc_dustfluids.cpp	/^void Reconstruction::DonorCellX2_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
 DonorCellX3	dc.cpp	/^void Reconstruction::DonorCellX3(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
 DonorCellX3	dc_simple.cpp	/^void Reconstruction::DonorCellX3(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
-DonorCellX3_DustFluids	dc_dustFluids.cpp	/^void Reconstruction::DonorCellX3_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
+DonorCellX3_DustFluids	dc_dustfluids.cpp	/^void Reconstruction::DonorCellX3_DustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:Reconstruction
 DoolittleLUPDecompose	reconstruction.cpp	/^int DoolittleLUPDecompose(Real **a, int n, int *pivot) {$/;"	f	namespace:__anon2
 DoolittleLUPSolve	reconstruction.cpp	/^void DoolittleLUPSolve(Real **lu, int *pivot, Real *b, int n, Real *x) {$/;"	f	namespace:__anon2
 LeftEigenmatrixDotVector	characteristic.cpp	/^void Reconstruction::LeftEigenmatrixDotVector($/;"	f	class:Reconstruction

@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AddCoordTermsDivergence	coordinates.cpp	/^void Coordinates::AddCoordTermsDivergence($/;"	f	class:Coordinates
 AddCoordTermsDivergence	cylindrical.cpp	/^void Cylindrical::AddCoordTermsDivergence($/;"	f	class:Cylindrical
 AddCoordTermsDivergence	gr_user.cpp	/^void GRUser::AddCoordTermsDivergence(const Real dt, const AthenaArray<Real> *flux,$/;"	f	class:GRUser
@@ -13,7 +13,7 @@ AddCoordTermsDivergence	spherical_polar.cpp	/^void SphericalPolar::AddCoordTerms
 AddCoordTermsDivergence_DustFluids	coordinates.cpp	/^void Coordinates::AddCoordTermsDivergence_DustFluids($/;"	f	class:Coordinates
 AddCoordTermsDivergence_DustFluids	cylindrical.cpp	/^void Cylindrical::AddCoordTermsDivergence_DustFluids($/;"	f	class:Cylindrical
 AddCoordTermsDivergence_DustFluids	spherical_polar.cpp	/^void SphericalPolar::AddCoordTermsDivergence_DustFluids(const Real dt, const AthenaArray<Real> *df_flx,$/;"	f	class:SphericalPolar
-COORDINATES_COORDINATES_HPP_	coordinates.hpp	/^#define COORDINATES_COORDINATES_HPP_$/;"	d
+COORDINATES_COORDINATES_HPP_	coordinates.hpp	2;"	d
 CalculateTransformation	gr_user.cpp	/^void CalculateTransformation($/;"	f	namespace:__anon2
 Cartesian	cartesian.cpp	/^Cartesian::Cartesian(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:Cartesian
 Cartesian	coordinates.hpp	/^class Cartesian : public Coordinates {$/;"	c

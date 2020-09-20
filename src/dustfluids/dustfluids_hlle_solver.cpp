@@ -36,9 +36,10 @@
 //! \fn void DustFluids::HLLE_RiemannSolver_DustFluids
 //  \brief The HLLE Riemann solver for Dust Fluids (spatially isothermal)
 
-void DustFluids::HLLE_RiemannSolver_DustFluids(const int k, const int j, const int il, const int iu,
+void DustFluids::HLLERiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
                           const int index, AthenaArray<Real> &df_prim_l,
                           AthenaArray<Real> &df_prim_r, AthenaArray<Real> &dust_flux) {
+
   Real df_prim_li[(num_dust_var)], df_prim_ri[(num_dust_var)], df_prim_roe[(num_dust_var)];
   Real df_fl[(num_dust_var)],      df_fr[(num_dust_var)],      df_flxi[(num_dust_var)];
 
@@ -52,6 +53,7 @@ void DustFluids::HLLE_RiemannSolver_DustFluids(const int k, const int j, const i
     for (int i=il; i<=iu; ++i) {
       const Real &cs     = cs_dustfluids_array(dust_id,k,j,i);
       const Real &nu_d   = nu_dustfluids_array(dust_id,k,j,i);
+
       //Load L/R states into local variables
       df_prim_li[rho_id] = df_prim_l(rho_id,i);
       df_prim_li[ivx]    = df_prim_l(ivx,i);

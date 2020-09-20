@@ -3,42 +3,18 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 analyze	jeans_3d.py	/^def analyze():$/;"	f
 analyze	unstable_jeans_3d_fft.py	/^def analyze():$/;"	f
 analyze	unstable_jeans_3d_mg.py	/^def analyze():$/;"	f
 arg_res	unstable_jeans_3d_fft.py	/^    def arg_res(res):$/;"	f	function:run
 arg_res	unstable_jeans_3d_mg.py	/^    def arg_res(res):$/;"	f	function:run
-athena	jeans_3d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	unstable_jeans_3d_fft.py	/^import scripts.utils.athena as athena$/;"	i
-athena	unstable_jeans_3d_mg.py	/^import scripts.utils.athena as athena$/;"	i
-athena_read	jeans_3d.py	/^import athena_read                             # noqa$/;"	i
-athena_read	unstable_jeans_3d_fft.py	/^import athena_read                             # noqa$/;"	i
-athena_read	unstable_jeans_3d_mg.py	/^import athena_read                             # noqa$/;"	i
 logger	jeans_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	unstable_jeans_3d_fft.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	unstable_jeans_3d_mg.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
-logging	jeans_3d.py	/^import logging$/;"	i
-logging	unstable_jeans_3d_fft.py	/^import logging$/;"	i
-logging	unstable_jeans_3d_mg.py	/^import logging$/;"	i
-noqa	jeans_3d.py	/^import athena_read                             # noqa$/;"	i
-noqa	unstable_jeans_3d_fft.py	/^import athena_read                             # noqa$/;"	i
-noqa	unstable_jeans_3d_mg.py	/^import athena_read                             # noqa$/;"	i
-np	unstable_jeans_3d_fft.py	/^import numpy as np$/;"	i
-np	unstable_jeans_3d_mg.py	/^import numpy as np$/;"	i
-os	jeans_3d.py	/^import os$/;"	i
 prepare	jeans_3d.py	/^def prepare(**kwargs):$/;"	f
 prepare	unstable_jeans_3d_fft.py	/^def prepare(**kwargs):$/;"	f
 prepare	unstable_jeans_3d_mg.py	/^def prepare(**kwargs):$/;"	f
 run	jeans_3d.py	/^def run(**kwargs):$/;"	f
 run	unstable_jeans_3d_fft.py	/^def run(**kwargs):$/;"	f
 run	unstable_jeans_3d_mg.py	/^def run(**kwargs):$/;"	f
-scripts	jeans_3d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	unstable_jeans_3d_fft.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	unstable_jeans_3d_mg.py	/^import scripts.utils.athena as athena$/;"	i
-sys	jeans_3d.py	/^import sys$/;"	i
-sys	unstable_jeans_3d_fft.py	/^import sys$/;"	i
-sys	unstable_jeans_3d_mg.py	/^import sys$/;"	i
-utils	jeans_3d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	unstable_jeans_3d_fft.py	/^import scripts.utils.athena as athena$/;"	i
-utils	unstable_jeans_3d_mg.py	/^import scripts.utils.athena as athena$/;"	i

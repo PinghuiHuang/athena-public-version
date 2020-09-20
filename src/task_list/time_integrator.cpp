@@ -276,10 +276,11 @@ TimeIntegratorTaskList::TimeIntegratorTaskList(ParameterInput *pin, Mesh *pm) {
       } else {
         AddTask(INT_DUSTFLUIDS,CALC_DUSTFLUIDSFLX);
       }
+      // Set the source term of dust fluids
+      AddTask(SRCTERM_DUSTFLUIDS,INT_DUSTFLUIDS);
 
       // Drag Term is implemented after adding the srcterms of gas and dust
-      AddTask(SRCTERM_DUSTFLUIDS,INT_DUSTFLUIDS);
-      AddTask(DRAG_DUSTGAS,(SRCTERM_DUSTFLUIDS|SRCTERM_HYD));
+      AddTask(DRAG_DUSTGAS,(SRCTERM_DUSTFLUIDS|SRCTERM_HYD|INT_DUSTFLUIDS|INT_HYD));
 
       AddTask(SEND_HYD,(SRCTERM_HYD|DRAG_DUSTGAS));
       AddTask(RECV_HYD,NONE);
@@ -782,43 +783,92 @@ TaskStatus TimeIntegratorTaskList::IntegrateHydro(MeshBlock *pmb, int stage) {
 
   if (pmb->pmy_mesh->fluid_setup != FluidFormulation::evolve) return TaskStatus::next;
 
-  if (stage <= nstages) {
-    // This time-integrator-specific averaging operation logic is identical to FieldInt
-    Real ave_wghts[3];
-    ave_wghts[0] = 1.0;
-    ave_wghts[1] = stage_wghts[stage-1].delta;
-    ave_wghts[2] = 0.0;
-    pmb->WeightedAve(ph->u1, ph->u, ph->u2, ave_wghts);
+  if (NDUSTFLUIDS > 0) {
+    if (stage <= nstages) {
+      // Backup the u^(n), w^(n) at the stage 1
+      if ( stage == 1 ){
+        Real wghts[3] = {0.0, 1.0, 0.0};
+        pmb->WeightedAve(ph->u_n, ph->u, ph->u, wghts);
+        pmb->WeightedAve(ph->w_n, ph->w, ph->w, wghts);
+      }
 
-    ave_wghts[0] = stage_wghts[stage-1].gamma_1;
-    ave_wghts[1] = stage_wghts[stage-1].gamma_2;
-    ave_wghts[2] = stage_wghts[stage-1].gamma_3;
-    if (ave_wghts[0] == 0.0 && ave_wghts[1] == 1.0 && ave_wghts[2] == 0.0)
-      ph->u.SwapAthenaArray(ph->u1);
-    else
-      pmb->WeightedAve(ph->u, ph->u1, ph->u2, ave_wghts);
-
-    const Real wght = stage_wghts[stage-1].beta*pmb->pmy_mesh->dt;
-    ph->AddFluxDivergence(wght, ph->u);
-    // add coordinate (geometric) source terms
-    pmb->pcoord->AddCoordTermsDivergence(wght, ph->flux, ph->w, pf->bcc, ph->u);
-
-    // Hardcode an additional flux divergence weighted average for the penultimate
-    // stage of SSPRK(5,4) since it cannot be expressed in a 3S* framework
-    if (stage == 4 && integrator == "ssprk5_4") {
-      // From Gottlieb (2009), u^(n+1) partial calculation
-      ave_wghts[0] = -1.0; // -u^(n) coeff.
-      ave_wghts[1] = 0.0;
+      // This time-integrator-specific averaging operation logic is identical to FieldInt
+      Real ave_wghts[3];
+      ave_wghts[0] = 1.0;
+      ave_wghts[1] = stage_wghts[stage-1].delta;
       ave_wghts[2] = 0.0;
-      const Real beta = 0.063692468666290; // F(u^(3)) coeff.
-      const Real wght_ssp = beta*pmb->pmy_mesh->dt;
-      // writing out to u2 register
-      pmb->WeightedAve(ph->u2, ph->u1, ph->u2, ave_wghts);
-      ph->AddFluxDivergence(wght_ssp, ph->u2);
+      pmb->WeightedAve(ph->u1, ph->u, ph->u2, ave_wghts);
+
+      ave_wghts[0] = stage_wghts[stage-1].gamma_1;
+      ave_wghts[1] = stage_wghts[stage-1].gamma_2;
+      ave_wghts[2] = stage_wghts[stage-1].gamma_3;
+      if (ave_wghts[0] == 0.0 && ave_wghts[1] == 1.0 && ave_wghts[2] == 0.0)
+        ph->u.SwapAthenaArray(ph->u1);
+      else
+        pmb->WeightedAve(ph->u, ph->u1, ph->u2, ave_wghts);
+
+      const Real wght = stage_wghts[stage-1].beta*pmb->pmy_mesh->dt;
+      ph->AddFluxDivergence(wght, ph->u);
       // add coordinate (geometric) source terms
-      pmb->pcoord->AddCoordTermsDivergence(wght_ssp, ph->flux, ph->w, pf->bcc, ph->u2);
+      pmb->pcoord->AddCoordTermsDivergence(wght, ph->flux, ph->w, pf->bcc, ph->u);
+
+      // Hardcode an additional flux divergence weighted average for the penultimate
+      // stage of SSPRK(5,4) since it cannot be expressed in a 3S* framework
+      if (stage == 4 && integrator == "ssprk5_4") {
+        // From Gottlieb (2009), u^(n+1) partial calculation
+        ave_wghts[0] = -1.0; // -u^(n) coeff.
+        ave_wghts[1] = 0.0;
+        ave_wghts[2] = 0.0;
+        const Real beta = 0.063692468666290; // F(u^(3)) coeff.
+        const Real wght_ssp = beta*pmb->pmy_mesh->dt;
+        // writing out to u2 register
+        pmb->WeightedAve(ph->u2, ph->u1, ph->u2, ave_wghts);
+        ph->AddFluxDivergence(wght_ssp, ph->u2);
+        // add coordinate (geometric) source terms
+        pmb->pcoord->AddCoordTermsDivergence(wght_ssp, ph->flux, ph->w, pf->bcc, ph->u2);
+      }
+      return TaskStatus::next;
     }
-    return TaskStatus::next;
+  }
+  else {
+    if (stage <= nstages) {
+      // This time-integrator-specific averaging operation logic is identical to FieldInt
+      Real ave_wghts[3];
+      ave_wghts[0] = 1.0;
+      ave_wghts[1] = stage_wghts[stage-1].delta;
+      ave_wghts[2] = 0.0;
+      pmb->WeightedAve(ph->u1, ph->u, ph->u2, ave_wghts);
+
+      ave_wghts[0] = stage_wghts[stage-1].gamma_1;
+      ave_wghts[1] = stage_wghts[stage-1].gamma_2;
+      ave_wghts[2] = stage_wghts[stage-1].gamma_3;
+      if (ave_wghts[0] == 0.0 && ave_wghts[1] == 1.0 && ave_wghts[2] == 0.0)
+        ph->u.SwapAthenaArray(ph->u1);
+      else
+        pmb->WeightedAve(ph->u, ph->u1, ph->u2, ave_wghts);
+
+      const Real wght = stage_wghts[stage-1].beta*pmb->pmy_mesh->dt;
+      ph->AddFluxDivergence(wght, ph->u);
+      // add coordinate (geometric) source terms
+      pmb->pcoord->AddCoordTermsDivergence(wght, ph->flux, ph->w, pf->bcc, ph->u);
+
+      // Hardcode an additional flux divergence weighted average for the penultimate
+      // stage of SSPRK(5,4) since it cannot be expressed in a 3S* framework
+      if (stage == 4 && integrator == "ssprk5_4") {
+        // From Gottlieb (2009), u^(n+1) partial calculation
+        ave_wghts[0] = -1.0; // -u^(n) coeff.
+        ave_wghts[1] = 0.0;
+        ave_wghts[2] = 0.0;
+        const Real beta = 0.063692468666290; // F(u^(3)) coeff.
+        const Real wght_ssp = beta*pmb->pmy_mesh->dt;
+        // writing out to u2 register
+        pmb->WeightedAve(ph->u2, ph->u1, ph->u2, ave_wghts);
+        ph->AddFluxDivergence(wght_ssp, ph->u2);
+        // add coordinate (geometric) source terms
+        pmb->pcoord->AddCoordTermsDivergence(wght_ssp, ph->flux, ph->w, pf->bcc, ph->u2);
+      }
+      return TaskStatus::next;
+    }
   }
   return TaskStatus::fail;
 }
@@ -864,8 +914,16 @@ TaskStatus TimeIntegratorTaskList::AddSourceTermsHydro(MeshBlock *pmb, int stage
   Field *pf = pmb->pfield;
 
   // return if there are no source terms to be added
-  if (!(ph->hsrc.hydro_sourceterms_defined)
-      || pmb->pmy_mesh->fluid_setup != FluidFormulation::evolve) return TaskStatus::next;
+  if (!(ph->hsrc.hydro_sourceterms_defined) || pmb->pmy_mesh->fluid_setup != FluidFormulation::evolve) {
+    // Backup the u^(') at the stage 1
+    if (NDUSTFLUIDS > 0) {
+      if ( stage == 1 ){
+        Real wghts[3] = {0.0, 1.0, 0.0};
+        pmb->WeightedAve(ph->u_p, ph->u, ph->u, wghts);
+      }
+    }
+    return TaskStatus::next;
+  }
 
   if (stage <= nstages) {
     // Time at beginning of stage for u()
@@ -874,6 +932,14 @@ TaskStatus TimeIntegratorTaskList::AddSourceTermsHydro(MeshBlock *pmb, int stage
     Real dt = (stage_wghts[(stage-1)].beta)*(pmb->pmy_mesh->dt);
     // Evaluate the time-dependent source terms at the time at the beginning of the stage
     ph->hsrc.AddHydroSourceTerms(t_start_stage, dt, ph->flux, ph->w, pf->bcc, ph->u);
+
+    // Backup the u^(') at the stage 1
+    if (NDUSTFLUIDS > 0) {
+      if ( stage == 1 ){
+        Real wghts[3] = {0.0, 1.0, 0.0};
+        pmb->WeightedAve(ph->u_p, ph->u, ph->u, wghts);
+      }
+    }
   } else {
     return TaskStatus::fail;
   }
@@ -1115,9 +1181,8 @@ TaskStatus TimeIntegratorTaskList::Primitives(MeshBlock *pmb, int stage) {
                                     il, iu, jl, ju, kl, ku);
     if (NDUSTFLUIDS > 0) {
       // r1/r_old for GR is currently unused:
-      pmb->peos->DustFluidsConservedToPrimitive(pdf->df_cons, ph->w1, // ph->u, (updated rho)
-                                                   pdf->df_prim, pdf->df_prim,
-                                                   pmb->pcoord, il, iu, jl, ju, kl, ku);
+      pmb->peos->DustFluidsConservedToPrimitive(pdf->df_cons, // ph->u, (updated rho)
+                    pdf->df_prim, pdf->df_prim1, pmb->pcoord, il, iu, jl, ju, kl, ku);
     }
     // fourth-order EOS:
     if (pmb->precon->xorder == 4) {
@@ -1135,13 +1200,14 @@ TaskStatus TimeIntegratorTaskList::Primitives(MeshBlock *pmb, int stage) {
                                                  il, iu, jl, ju, kl, ku);
       if (NDUSTFLUIDS > 0) {
         pmb->peos->DustFluidsConservedToPrimitiveCellAverage(
-            pdf->df_cons, pdf->df_prim, pdf->df_prim, pmb->pcoord, il, iu, jl, ju, kl, ku);
+            pdf->df_cons, pdf->df_prim, pdf->df_prim1, pmb->pcoord, il, iu, jl, ju, kl, ku);
       }
     }
     // swap AthenaArray data pointers so that w now contains the updated w_out
     ph->w.SwapAthenaArray(ph->w1);
     // r1/r_old for GR is currently unused:
-    // pdf->df_prim.SwapAthenaArray(pdf->df_prim1);
+    if (NDUSTFLUIDS > 0)
+      pdf->df_prim.SwapAthenaArray(pdf->df_prim1);
   } else {
     return TaskStatus::fail;
   }
@@ -1203,7 +1269,8 @@ TaskStatus TimeIntegratorTaskList::CalculateDustFluidsFlux(MeshBlock *pmb, int s
   Hydro *ph       = pmb->phydro;
 
   if (STS_ENABLED)
-    pdf->SetDustFluidsProperties();
+    pdf->SetDustFluidsProperties(pdf->stopping_time_array, pdf->nu_dustfluids_array,
+        pdf->cs_dustfluids_array);
 
   if (stage <= nstages) {
     if ((stage == 1) && (integrator == "vl2")) {
@@ -1237,6 +1304,13 @@ TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage
   DustFluids *pdf = pmb->pdustfluids;
   Hydro *ph       = pmb->phydro;
   if (stage <= nstages) {
+    // Backup the u^(n), w^(n) at the stage 1
+    if ( stage == 1 ){
+      Real wghts[3] = {0.0, 1.0, 0.0};
+      pmb->WeightedAve(pdf->df_cons_n, pdf->df_cons, pdf->df_cons, wghts);
+      pmb->WeightedAve(pdf->df_prim_n, pdf->df_prim, pdf->df_prim, wghts);
+    }
+
     // This time-integrator-specific averaging operation logic is identical to
     // IntegrateHydro, IntegrateField
     Real ave_wghts[3];
@@ -1324,7 +1398,8 @@ TaskStatus TimeIntegratorTaskList::DiffuseDustFluids(MeshBlock *pmb, int stage) 
   DustFluidsDiffusion dfdif = pdf->dfdif;
 
   //TODO: Update the properties of dust fluids in every cycle
-  pdf->SetDustFluidsProperties();
+  pdf->SetDustFluidsProperties(pdf->stopping_time_array, pdf->nu_dustfluids_array,
+      pdf->cs_dustfluids_array);
 
   // return if there are no diffusion to be added
   if (!(pdf->dfdif.dustfluids_diffusion_defined))
@@ -1346,6 +1421,11 @@ TaskStatus TimeIntegratorTaskList::AddSourceTermsDustFluids(MeshBlock *pmb, int 
   if (!(pdf->dfsrc.dustfluids_sourceterms_defined)
       || pmb->pmy_mesh->fluid_setup != FluidFormulation::evolve)
   {
+    // Backup the u^(') at the stage 1
+    if ( stage == 1 ){
+      Real wghts[3] = {0.0, 1.0, 0.0};
+      pmb->WeightedAve(pdf->df_cons_p, pdf->df_cons, pdf->df_cons, wghts);
+    }
     return TaskStatus::next;
   }
 
@@ -1356,6 +1436,13 @@ TaskStatus TimeIntegratorTaskList::AddSourceTermsDustFluids(MeshBlock *pmb, int 
     Real dt = (stage_wghts[(stage-1)].beta)*(pmb->pmy_mesh->dt);
     // Evaluate the time-dependent source terms at the time at the beginning of the stage
     pdf->dfsrc.AddDustFluidsSourceTerms(t_start_stage, dt, pdf->df_flux, pdf->df_prim, pdf->df_cons);
+
+    // Backup the u^(') at the stage 1
+    if ( stage == 1 ){
+      Real wghts[3] = {0.0, 1.0, 0.0};
+      pmb->WeightedAve(pdf->df_cons_p, pdf->df_cons, pdf->df_cons, wghts);
+    }
+
   } else {
     return TaskStatus::fail;
   }
@@ -1393,10 +1480,10 @@ TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
 
   if (stage <= nstages) {
     Real dt = (stage_wghts[(stage-1)].beta)*(pmb->pmy_mesh->dt);
-    pdf->dfdrag.Aerodynamics_Drag(pmb, dt, pdf->stopping_time_array,
+    pdf->dfdrag.AerodynamicDrag(pmb, stage, dt, pdf->stopping_time_array,
                                   ph->w, pdf->df_prim, ph->u, pdf->df_cons);
   }
   return TaskStatus::next;
-}
 
+}
 //TaskStatus TimeIntegratorTaskList::

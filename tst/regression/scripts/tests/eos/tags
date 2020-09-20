@@ -3,11 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
-Athena	eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-Athena	eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-Python	eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-Python	eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 _exec	eos_riemann.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
 _fluxes	eos_riemann.py	/^_fluxes = ['hlle', 'hllc']$/;"	v
 _gammas	eos_comparison.py	/^_gammas = [1.1, 1.4, 5.\/3.]$/;"	v
@@ -17,12 +13,9 @@ _mag_list	eos_mhd.py	/^_mag_list = [str(i) for i in [1e-5, 1e-4, 1e-3]]$/;"	v
 _mhd_states	eos_mhd.py	/^_mhd_states = _states + len(_mag_list) * [_states[0]]$/;"	v
 _mhd_tests	eos_mhd.py	/^_mhd_tests = _tests + len(_mag_list) * [_tests[0]]$/;"	v
 _mhd_thresh	eos_mhd.py	/^_mhd_thresh = _thresh + len(_mag_list) * [_thresh[0]]$/;"	v
-_states	eos_mhd.py	/^from .eos_riemann import _tests, _thresh, _states$/;"	i
 _states	eos_riemann.py	/^_states = [dict(zip(tmp, i[:-1])) for i in _tests]$/;"	v
-_tests	eos_mhd.py	/^from .eos_riemann import _tests, _thresh, _states$/;"	i
 _tests	eos_riemann.py	/^_tests = [[1e-07, 0.00, 0.150, 1.25e-8, 0., 0.062, .25],$/;"	v
 _tests	eos_riemann.py	/^_tests = [dict(zip(tmp, i)) for i in _tests]$/;"	v
-_thresh	eos_mhd.py	/^from .eos_riemann import _tests, _thresh, _states$/;"	i
 _thresh	eos_riemann.py	/^_thresh = [[5.1e-10, 6.5e-11, 0.0039],$/;"	v
 _thresh	eos_riemann.py	/^_thresh = [dict(zip(['rho', 'press', 'vel'], i)) for i in _thresh]$/;"	v
 analyze	eos_comparison.py	/^def analyze():$/;"	f
@@ -30,115 +23,22 @@ analyze	eos_hdf5_table.py	/^def analyze():$/;"	f
 analyze	eos_mhd.py	/^def analyze():$/;"	f
 analyze	eos_riemann.py	/^def analyze():$/;"	f
 analyze	eos_table_test.py	/^def analyze():$/;"	f
-athena	eos_comparison.py	/^import scripts.utils.athena as athena$/;"	i
-athena	eos_hdf5_table.py	/^import scripts.utils.athena as athena$/;"	i
-athena	eos_mhd.py	/^import scripts.utils.athena as athena$/;"	i
-athena	eos_riemann.py	/^import scripts.utils.athena as athena$/;"	i
-athena	eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-athena_read	eos_comparison.py	/^import athena_read  # noqa$/;"	i
-athena_read	eos_hdf5_table.py	/^import athena_read  # noqa$/;"	i
-athena_read	eos_mhd.py	/^import athena_read  # noqa$/;"	i
-athena_read	eos_riemann.py	/^import athena_read  # noqa$/;"	i
-athena_read	eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-change	eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-comparison	eos_comparison.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	eos_hdf5_table.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	eos_mhd.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	eos_riemann.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-data	eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
 eos_rj2a	eos_mhd.py	/^eos_rj2a = [[1.08, 1.2, 1.0e-2, 0.5, 1.0155412503859613, 0.5641895835477563, 0.95],$/;"	v
 eos_rj2a	eos_mhd.py	/^eos_rj2a = np.array(eos_rj2a)$/;"	v
-explicitly	eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-files	eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
-for	eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-for	eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-for	eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-for	eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
 logger	eos_comparison.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	eos_hdf5_table.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	eos_mhd.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	eos_riemann.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
-logging	eos_comparison.py	/^import logging$/;"	i
-logging	eos_hdf5_table.py	/^import logging$/;"	i
-logging	eos_mhd.py	/^import logging$/;"	i
-logging	eos_riemann.py	/^import logging$/;"	i
-mk_ideal	eos_comparison.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
-mk_ideal	eos_hdf5_table.py	/^from .eos_comparison import mk_ideal, write_H$/;"	i
-mk_ideal	eos_table_test.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
-module	eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-module	eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-more	eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-move	eos_comparison.py	/^from shutil import move$/;"	i
-move	eos_hdf5_table.py	/^from shutil import move$/;"	i
-move	eos_riemann.py	/^from shutil import move$/;"	i
-move	eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
-moves	eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
-noqa	eos_comparison.py	/^import athena_read  # noqa$/;"	i
-noqa	eos_hdf5_table.py	/^import athena_read  # noqa$/;"	i
-noqa	eos_mhd.py	/^import athena_read  # noqa$/;"	i
-noqa	eos_riemann.py	/^import athena_read  # noqa$/;"	i
-noqa	eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-np	eos_comparison.py	/^import numpy as np$/;"	i
-np	eos_hdf5_table.py	/^import numpy as np$/;"	i
-np	eos_mhd.py	/^import numpy as np$/;"	i
-np	eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-numerics	eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-os	eos_comparison.py	/^import os$/;"	i
-os	eos_hdf5_table.py	/^import os$/;"	i
-os	eos_riemann.py	/^import os$/;"	i
-os	eos_table_test.py	/^import os$/;"	i
-path	eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
 prepare	eos_comparison.py	/^def prepare(**kwargs):$/;"	f
 prepare	eos_hdf5_table.py	/^def prepare(**kwargs):$/;"	f
 prepare	eos_mhd.py	/^def prepare(**kwargs):$/;"	f
 prepare	eos_riemann.py	/^def prepare(**kwargs):$/;"	f
 prepare	eos_table_test.py	/^def prepare(**kwargs):$/;"	f
-reading	eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-renames	eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
-riemann_problem	eos_mhd.py	/^from scripts.utils.RiemannSolver.riemann import riemann_problem$/;"	i
-riemann_problem	eos_riemann.py	/^from scripts.utils.RiemannSolver.riemann import riemann_problem$/;"	i
 run	eos_comparison.py	/^def run(**kwargs):$/;"	f
 run	eos_hdf5_table.py	/^def run(**kwargs):$/;"	f
 run	eos_mhd.py	/^def run(**kwargs):$/;"	f
 run	eos_riemann.py	/^def run(**kwargs):$/;"	f
 run	eos_table_test.py	/^def run(**kwargs):$/;"	f
-running	eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-scripts	eos_comparison.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	eos_comparison.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	eos_hdf5_table.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	eos_hdf5_table.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	eos_mhd.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	eos_mhd.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	eos_riemann.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	eos_riemann.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-scripts	eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-standard	eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-standard	eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-sys	eos_comparison.py	/^import sys$/;"	i
-sys	eos_hdf5_table.py	/^import sys$/;"	i
-sys	eos_mhd.py	/^import sys$/;"	i
-sys	eos_riemann.py	/^import sys$/;"	i
-sys	eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-testing	eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
 tmp	eos_riemann.py	/^tmp = ['dl', 'ul', 'Tl', 'dr', 'ur', 'Tr']$/;"	v
 tmp	eos_riemann.py	/^tmp = ['problem\/' + i for i in tmp] + ['time\/tlim']$/;"	v
-to	eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-utilities	eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-utilities	eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-utilities	eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-utils	eos_comparison.py	/^import scripts.utils.athena as athena$/;"	i
-utils	eos_comparison.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	eos_hdf5_table.py	/^import scripts.utils.athena as athena$/;"	i
-utils	eos_hdf5_table.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	eos_mhd.py	/^import scripts.utils.athena as athena$/;"	i
-utils	eos_mhd.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	eos_riemann.py	/^import scripts.utils.athena as athena$/;"	i
-utils	eos_riemann.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-utils	eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
 wave_speeds	eos_mhd.py	/^wave_speeds = [-0.8236630408305421, 0.15084012571797972, 0.29445281898990067,$/;"	v
-write_H	eos_comparison.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
-write_H	eos_hdf5_table.py	/^from .eos_comparison import mk_ideal, write_H$/;"	i
-write_H	eos_table_test.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i

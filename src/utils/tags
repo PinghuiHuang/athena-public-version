@@ -3,9 +3,9 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
-AM	ran2.cpp	/^#define AM /;"	d	file:
-AM	ran2.cpp	/^#undef AM$/;"	d	file:
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AM	ran2.cpp	30;"	d	file:
+AM	ran2.cpp	84;"	d	file:
 BufferUtility	buffer_utils.cpp	/^namespace BufferUtility {$/;"	n	file:
 BufferUtility	buffer_utils.hpp	/^namespace BufferUtility {$/;"	n
 CancelWallTimeAlarm	signal_handler.cpp	/^void CancelWallTimeAlarm() {$/;"	f	namespace:SignalHandler
@@ -20,37 +20,37 @@ GetSignalFlag	signal_handler.cpp	/^int GetSignalFlag(int s) {$/;"	f	namespace:Si
 GetSize	interp_table.cpp	/^void InterpTable2D::GetSize(int &nvar, int &nx2, int &nx1) {$/;"	f	class:InterpTable2D
 GetX1lim	interp_table.cpp	/^void InterpTable2D::GetX1lim(Real &x1min, Real &x1max) {$/;"	f	class:InterpTable2D
 GetX2lim	interp_table.cpp	/^void InterpTable2D::GetX2lim(Real &x2min, Real &x2max) {$/;"	f	class:InterpTable2D
-IA1	ran2.cpp	/^#define IA1 /;"	d	file:
-IA1	ran2.cpp	/^#undef IA1$/;"	d	file:
-IA2	ran2.cpp	/^#define IA2 /;"	d	file:
-IA2	ran2.cpp	/^#undef IA2$/;"	d	file:
+IA1	ran2.cpp	32;"	d	file:
+IA1	ran2.cpp	86;"	d	file:
+IA2	ran2.cpp	33;"	d	file:
+IA2	ran2.cpp	87;"	d	file:
 IALRM	utils.hpp	/^const int ITERM = 0, IINT = 1, IALRM = 2;$/;"	m	namespace:SignalHandler
 IINT	utils.hpp	/^const int ITERM = 0, IINT = 1, IALRM = 2;$/;"	m	namespace:SignalHandler
-IMM1	ran2.cpp	/^#define IMM1 /;"	d	file:
-IMM1	ran2.cpp	/^#undef IMM1$/;"	d	file:
-IMR1	ran2.cpp	/^#define IMR1 /;"	d	file:
-IMR1	ran2.cpp	/^#undef IMR1$/;"	d	file:
-IMR2	ran2.cpp	/^#define IMR2 /;"	d	file:
-IMR2	ran2.cpp	/^#undef IMR2$/;"	d	file:
-IQ1	ran2.cpp	/^#define IQ1 /;"	d	file:
-IQ1	ran2.cpp	/^#undef IQ1$/;"	d	file:
-IQ2	ran2.cpp	/^#define IQ2 /;"	d	file:
-IQ2	ran2.cpp	/^#undef IQ2$/;"	d	file:
-IR1	ran2.cpp	/^#define IR1 /;"	d	file:
-IR1	ran2.cpp	/^#undef IR1$/;"	d	file:
-IR2	ran2.cpp	/^#define IR2 /;"	d	file:
-IR2	ran2.cpp	/^#undef IR2$/;"	d	file:
+IMM1	ran2.cpp	31;"	d	file:
+IMM1	ran2.cpp	85;"	d	file:
+IMR1	ran2.cpp	28;"	d	file:
+IMR1	ran2.cpp	82;"	d	file:
+IMR2	ran2.cpp	29;"	d	file:
+IMR2	ran2.cpp	83;"	d	file:
+IQ1	ran2.cpp	34;"	d	file:
+IQ1	ran2.cpp	88;"	d	file:
+IQ2	ran2.cpp	35;"	d	file:
+IQ2	ran2.cpp	89;"	d	file:
+IR1	ran2.cpp	36;"	d	file:
+IR1	ran2.cpp	90;"	d	file:
+IR2	ran2.cpp	37;"	d	file:
+IR2	ran2.cpp	91;"	d	file:
 ITERM	utils.hpp	/^const int ITERM = 0, IINT = 1, IALRM = 2;$/;"	m	namespace:SignalHandler
 InterpTable2D	interp_table.cpp	/^InterpTable2D::InterpTable2D(const int nvar, const int nx2, const int nx1) {$/;"	f	class:InterpTable2D
 InterpTable2D	interp_table.hpp	/^class InterpTable2D {$/;"	c
-NDIV	ran2.cpp	/^#define NDIV /;"	d	file:
-NDIV	ran2.cpp	/^#undef NDIV$/;"	d	file:
-NTAB	ran2.cpp	/^#define NTAB /;"	d	file:
-NTAB	ran2.cpp	/^#undef NTAB$/;"	d	file:
+NDIV	ran2.cpp	39;"	d	file:
+NDIV	ran2.cpp	93;"	d	file:
+NTAB	ran2.cpp	38;"	d	file:
+NTAB	ran2.cpp	92;"	d	file:
 PackData	buffer_utils.cpp	/^template <typename T> void PackData(AthenaArray<T> &src, T *buf,$/;"	f	namespace:BufferUtility
 Quadrature	gl_quadrature.cpp	/^struct Quadrature {$/;"	s	namespace:GaussLegendre	file:
-RNMX	ran2.cpp	/^#define RNMX /;"	d	file:
-RNMX	ran2.cpp	/^#undef RNMX$/;"	d	file:
+RNMX	ran2.cpp	40;"	d	file:
+RNMX	ran2.cpp	94;"	d	file:
 ReadAsciiTable	eos_table_class.cpp	/^void ReadAsciiTable(std::string fn, EosTable *peos_table, ParameterInput *pin) {$/;"	f
 ReadBinaryTable	eos_table_class.cpp	/^void ReadBinaryTable(std::string fn, EosTable *peos_table) {$/;"	f
 ReadHDF5Table	eos_table_class.cpp	/^void ReadHDF5Table(std::string fn, EosTable *peos_table, ParameterInput *pin) {$/;"	f
@@ -63,10 +63,10 @@ ShowConfig	show_config.cpp	/^void ShowConfig() {$/;"	f
 SignalHandler	signal_handler.cpp	/^namespace SignalHandler {$/;"	n	file:
 SignalHandler	utils.hpp	/^namespace SignalHandler {$/;"	n
 SignalHandlerInit	signal_handler.cpp	/^void SignalHandlerInit() {$/;"	f	namespace:SignalHandler
-UTILS_BUFFER_UTILS_HPP_	buffer_utils.hpp	/^#define UTILS_BUFFER_UTILS_HPP_$/;"	d
-UTILS_GL_QUADRATURE_HPP_	gl_quadrature.hpp	/^#define UTILS_GL_QUADRATURE_HPP_$/;"	d
-UTILS_INTERP_TABLE_HPP_	interp_table.hpp	/^#define UTILS_INTERP_TABLE_HPP_$/;"	d
-UTILS_UTILS_HPP_	utils.hpp	/^#define UTILS_UTILS_HPP_$/;"	d
+UTILS_BUFFER_UTILS_HPP_	buffer_utils.hpp	2;"	d
+UTILS_GL_QUADRATURE_HPP_	gl_quadrature.hpp	2;"	d
+UTILS_INTERP_TABLE_HPP_	interp_table.hpp	2;"	d
+UTILS_UTILS_HPP_	utils.hpp	2;"	d
 UnpackData	buffer_utils.cpp	/^template <typename T> void UnpackData(T *buf, AthenaArray<T> &dst,$/;"	f	namespace:BufferUtility
 abscissa	gl_quadrature.cpp	/^  const Real *abscissa;$/;"	m	struct:GaussLegendre::Quadrature	file:
 abscissa_n0	gl_quadrature.cpp	/^static constexpr Real abscissa_n0[] = {-100.};$/;"	m	namespace:GaussLegendre	file:

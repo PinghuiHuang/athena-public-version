@@ -332,6 +332,11 @@ void Cylindrical::AddCoordTermsDivergence_DustFluids(
 
   DustFluids *pdf = pmy_block->pdustfluids;
   bool do_dustfluids_diffusion = pdf->dfdif.dustfluids_diffusion_defined;
+  Real bool_cs, bool_rho, bool_m2;
+
+  (pdf->SoundSpeed_Flag)  ? bool_cs  = 1.0 : bool_cs  = 0.0;
+  do_dustfluids_diffusion ? bool_rho = 1.0 : bool_rho = 0.0;
+  (do_dustfluids_diffusion && pdf->dfdif.Momentum_Diffusion_Flag) ? bool_m2 = 1.0 : bool_m2 = 0.0;
 
   for (int n = 0; n < 4*NDUSTFLUIDS; n+=4) {
     int dust_id = n/4;
@@ -347,27 +352,19 @@ void Cylindrical::AddCoordTermsDivergence_DustFluids(
           Real m_pp = prim_df(rho_id,k,j,i)*prim_df(v2_id,k,j,i)*prim_df(v2_id,k,j,i);
 
           //Sound speed of dust fluids
-          if (pdf->SoundSpeed_Flag) {
-            Real m_pp2 = SQR(pdf->cs_dustfluids_array(dust_id,k,j,i)) * prim_df(rho_id,k,j,i);
-            m_pp += m_pp2;
-          }
+          Real m_pp_cs = bool_cs*SQR(pdf->cs_dustfluids_array(dust_id,k,j,i)) * prim_df(rho_id,k,j,i);
+          m_pp += m_pp_cs;
 
-          if (do_dustfluids_diffusion){
-            // Dust concentration diffusion flux
-            Real m_pp3 = SQR(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](rho_id,k,j+1,i) +
-                  pdf->dfdif.dustfluids_diffusion_flux[X2DIR](rho_id,k,j,i))/
-                  (0.5*(prim_df(rho_id,k,j+1,i)+prim_df(rho_id,k,j,i)));
-            m_pp += m_pp3;
+          // Dust concentration diffusion flux
+          Real m_pp_rho_diff = bool_rho*SQR(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](rho_id,k,j+1,i) +
+                pdf->dfdif.dustfluids_diffusion_flux[X2DIR](rho_id,k,j,i))/(0.5*(prim_df(rho_id,k,j+1,i)+prim_df(rho_id,k,j,i)));
+          m_pp += m_pp_rho_diff;
 
-            // Dust momentum diffusion flux
-            if (pdf->dfdif.Momentum_Diffusion_Flag) {
-              Real m_pp_m2 = 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j+1,i) +
-                    pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j,i));
-              m_pp += m_pp_m2;
-            }
-          }
+          // Dust momentum diffusion flux
+          Real m_pp_m2_diff = bool_m2*0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j+1,i) +
+                pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j,i));
+          m_pp += m_pp_m2_diff;
 
-          //std::cout << "The total m_pp is " << m_pp << std::endl;
           cons_df(v1_id,k,j,i) += dt*coord_src1_i_(i)*m_pp;
 
           // src_2 = -< M_{phi r} ><1/r>

@@ -34,11 +34,12 @@
 
 //----------------------------------------------------------------------------------------
 //! \fn void DustFluids::HLLE_RiemannSolver_DustFluids
-//  \brief The HLLE Riemann solver for Dust Fluids (spatially isothermal)
+//  \brief The HLLE Riemann solver for Dust Fluids (no dust sound speed)
 
-void DustFluids::NoCs_RiemannSolver_DustFluids(const int k, const int j, const int il, const int iu,
+void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
                           const int index, AthenaArray<Real> &df_prim_l,
                           AthenaArray<Real> &df_prim_r, AthenaArray<Real> &dust_flux) {
+
   Real df_prim_li[(num_dust_var)], df_prim_ri[(num_dust_var)], df_prim_roe[(num_dust_var)];
   Real df_fl[(num_dust_var)],      df_fr[(num_dust_var)],      df_flxi[(num_dust_var)];
 
@@ -51,6 +52,7 @@ void DustFluids::NoCs_RiemannSolver_DustFluids(const int k, const int j, const i
 #pragma omp simd private(df_prim_li, df_prim_ri, df_prim_roe, df_fl, df_fr, df_flxi)
     for (int i=il; i<=iu; ++i) {
       const Real &nu_d   = nu_dustfluids_array(dust_id,k,j,i);
+
       df_prim_li[rho_id] = df_prim_l(rho_id,i);
       df_prim_li[ivx]    = df_prim_l(ivx,i);
       df_prim_li[ivy]    = df_prim_l(ivy,i);

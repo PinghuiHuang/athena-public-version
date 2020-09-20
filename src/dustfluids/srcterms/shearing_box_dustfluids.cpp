@@ -43,7 +43,7 @@ class ParameterInput;
 //  FluxDivergence) to give predictions of the conservative variables for either the
 //  next step or the final update.
 
-void DustFluidsSourceTerms::ShearingBoxSourceTerms_DustFluids(const Real dt,
+void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,
             const AthenaArray<Real> *flux_df, const AthenaArray<Real> &prim_df,
                                               AthenaArray<Real> &cons_df) {
   if (Omega_0_==0.0 || qshear_==0.0 ) {
@@ -69,10 +69,10 @@ void DustFluidsSourceTerms::ShearingBoxSourceTerms_DustFluids(const Real dt,
       for (int k=pmb->ks; k<=pmb->ke; ++k) {
         for (int j=pmb->js; j<=pmb->je; ++j) {
           for (int i=pmb->is; i<=pmb->ie; ++i) {
-            const Real &den_dust = prim_df(rho_id,k,j,i);
-            const Real &v1_dust  = prim_df(v1_id,k,j,i);
-            const Real &v2_dust  = prim_df(v2_id,k,j,i);
-            const Real &v3_dust  = prim_df(v3_id,k,j,i);
+            const Real &den_dust = prim_df(rho_id, k, j, i);
+            const Real &v1_dust  = prim_df(v1_id,  k, j, i);
+            const Real &v2_dust  = prim_df(v2_id,  k, j, i);
+            const Real &v3_dust  = prim_df(v3_id,  k, j, i);
             cons_df(v1_id,k,j,i) += dt*(2.0*qshear_*Omega_0_*Omega_0_*den_dust*pmb->pcoord->x1v(i)
                                    +2.0*Omega_0_*den_dust*v2_dust);
             cons_df(v2_id,k,j,i) -= dt*2.0*Omega_0_*den_dust*v1_dust;
@@ -90,10 +90,10 @@ void DustFluidsSourceTerms::ShearingBoxSourceTerms_DustFluids(const Real dt,
       int v3_id   = rho_id + 3;
       for (int j=pmb->js; j<=pmb->je; ++j) {
         for (int i=pmb->is; i<=pmb->ie; ++i) {
-          const Real &den_dust = prim_df(rho_id,ks,j,i);
-          const Real &v1_dust  = prim_df(v1_id,ks,j,i);
-          const Real &v2_dust  = prim_df(v2_id,ks,j,i);
-          const Real &v3_dust  = prim_df(v3_id,ks,j,i);
+          const Real &den_dust = prim_df(rho_id, ks, j, i);
+          const Real &v1_dust  = prim_df(v1_id,  ks, j, i);
+          const Real &v2_dust  = prim_df(v2_id,  ks, j, i);
+          const Real &v3_dust  = prim_df(v3_id,  ks, j, i);
           cons_df(v1_id,ks,j,i) += dt*(2.0*qshear_*Omega_0_*Omega_0_*den_dust
                                   *pmb->pcoord->x1v(i)+2.0*Omega_0_*den_dust*v3_dust);
           cons_df(v3_id,ks,j,i) -= dt*2.0*Omega_0_*den_dust*v1_dust;

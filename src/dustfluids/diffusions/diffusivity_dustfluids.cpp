@@ -48,7 +48,7 @@ void DustFluidsDiffusion::GetCylCoord(Coordinates *pco, Real &rad, Real &phi, Re
 }
 
 
-void DustFluidsDiffusion::Constant_DustDiffusivity(const AthenaArray<Real> &nu_gas,
+void DustFluidsDiffusion::ConstantDustDiffusivity(const AthenaArray<Real> &nu_gas,
   const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
   const AthenaArray<Real> &stopping_time,
   AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs){
@@ -57,7 +57,7 @@ void DustFluidsDiffusion::Constant_DustDiffusivity(const AthenaArray<Real> &nu_g
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
-        for (int i=il; i<=iu; ++i) { //TODO check the index
+        for (int i=il; i<=iu; ++i) {
           Real rad, phi, z;
           GetCylCoord(pco_, rad, phi, z, i, j, k);
           Real &diffusivity = dust_diffusivity(dust_id,k,j,i);
@@ -72,7 +72,7 @@ void DustFluidsDiffusion::Constant_DustDiffusivity(const AthenaArray<Real> &nu_g
 }
 
 
-void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &nu_gas,
+void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu_gas,
             const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
             const AthenaArray<Real> &stopping_time,
             AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs){
@@ -97,7 +97,7 @@ void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &n
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
-          for (int i=il; i<=iu; ++i) { //TODO check the index
+          for (int i=il; i<=iu; ++i) {
             Real rad, phi, z;
             GetCylCoord(pco_, rad, phi, z, i, j, k);
             Real &diffusivity  = dust_diffusivity(dust_id,k,j,i);
@@ -117,7 +117,7 @@ void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &n
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
-          for (int i=il; i<=iu; ++i) { //TODO check the index
+          for (int i=il; i<=iu; ++i) {
             Real rad, phi, z;
             GetCylCoord(pco_, rad, phi, z, i, j, k);
             Real &diffusivity  = dust_diffusivity(dust_id,k,j,i);
@@ -137,7 +137,7 @@ void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &n
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
-          for (int i=il; i<=iu; ++i) { //TODO check the index
+          for (int i=il; i<=iu; ++i) {
             Real rad, phi, z;
             GetCylCoord(pco_, rad, phi, z, i, j, k);
             Real &diffusivity  = dust_diffusivity(dust_id,k,j,i);
@@ -157,7 +157,7 @@ void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &n
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
-          for (int i=il; i<=iu; ++i) { //TODO check the index
+          for (int i=il; i<=iu; ++i) {
             Real rad, phi, z;
             GetCylCoord(pco_, rad, phi, z, i, j, k);
             Real &diffusivity  = dust_diffusivity(dust_id,k,j,i);

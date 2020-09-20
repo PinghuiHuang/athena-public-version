@@ -3,23 +3,15 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
-AutoMinorLocator	section_5_1_1.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
-AutoMinorLocator	section_5_1_2.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 EvolvedCosineProfile	section_5_1_2.py	/^def EvolvedCosineProfile(x2, a, b, t):$/;"	f
 EvolvedGaussianProfile	section_5_1_1.py	/^def EvolvedGaussianProfile(x1, a, b, m, t):$/;"	f
-FormatStrFormatter	section_5_1_1.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
-FormatStrFormatter	section_5_1_2.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
 InitialCosineProfile	section_5_1_2.py	/^def InitialCosineProfile(x2, a, b):$/;"	f
 InitialGaussianProfile	section_5_1_1.py	/^def InitialGaussianProfile(x1, a, b):$/;"	f
-Line2D	section_5_1_1.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
-Line2D	section_5_1_2.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
 a_params	section_5_1_1.py	/^a_params = [10.0, 16.0]$/;"	v
 a_params	section_5_1_2.py	/^a_params = [10.0, 16.0]$/;"	v
 alpha	section_5_1_1.py	/^alpha = 1$/;"	v
 alpha	section_5_1_2.py	/^alpha = 1$/;"	v
-athena_read	section_5_1_1.py	/^import athena_read                             # noqa$/;"	i
-athena_read	section_5_1_2.py	/^import athena_read                             # noqa$/;"	i
 b_params	section_5_1_1.py	/^b_params = [0.0, 0.5]$/;"	v
 b_params	section_5_1_2.py	/^b_params = [0.0, 0.196349540849362077]$/;"	v
 case_xlims	section_5_1_1.py	/^case_xlims = [$/;"	v
@@ -44,16 +36,10 @@ iprob	section_5_1_1.py	/^iprob = 1$/;"	v
 iprob	section_5_1_2.py	/^iprob = 2$/;"	v
 legend_handles	section_5_1_1.py	/^legend_handles = [$/;"	v
 legend_handles	section_5_1_2.py	/^legend_handles = [$/;"	v
-logging	section_5_1_1.py	/^import logging$/;"	i
-logging	section_5_1_2.py	/^import logging$/;"	i
 major_yticks	section_5_1_1.py	/^major_yticks = [$/;"	v
 major_yticks	section_5_1_2.py	/^major_yticks = [$/;"	v
 markeredgecolor	section_5_1_1.py	/^           markeredgecolor=xorder_colors[xorder_],$/;"	v
 markeredgecolor	section_5_1_2.py	/^           markeredgecolor=xorder_colors[xorder_],$/;"	v
-matplotlib	section_5_1_1.py	/^import matplotlib               # noqa$/;"	i
-matplotlib	section_5_1_1.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
-matplotlib	section_5_1_2.py	/^import matplotlib               # noqa$/;"	i
-matplotlib	section_5_1_2.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
 minor_yticks	section_5_1_1.py	/^minor_yticks = [$/;"	v
 minor_yticks	section_5_1_2.py	/^minor_yticks = [$/;"	v
 minor_yticks_auto	section_5_1_1.py	/^minor_yticks_auto = [$/;"	v
@@ -64,31 +50,13 @@ n2_xrange	section_5_1_1.py	/^n2_xrange = np.array([70., 300.])$/;"	v
 n2_xrange	section_5_1_2.py	/^n2_xrange = np.array([70., 300.])$/;"	v
 n3_xrange	section_5_1_1.py	/^n3_xrange = np.array([32., 110.])$/;"	v
 n3_xrange	section_5_1_2.py	/^n3_xrange = np.array([32., 110.])$/;"	v
-noqa	section_5_1_1.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
-noqa	section_5_1_1.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
-noqa	section_5_1_1.py	/^import athena_read                             # noqa$/;"	i
-noqa	section_5_1_1.py	/^import matplotlib               # noqa$/;"	i
-noqa	section_5_1_1.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
-noqa	section_5_1_2.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
-noqa	section_5_1_2.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
-noqa	section_5_1_2.py	/^import athena_read                             # noqa$/;"	i
-noqa	section_5_1_2.py	/^import matplotlib               # noqa$/;"	i
-noqa	section_5_1_2.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
-np	section_5_1_1.py	/^import numpy as np$/;"	i
-np	section_5_1_2.py	/^import numpy as np$/;"	i
 nsamples	section_5_1_1.py	/^nsamples = 1000    # x1 samples for analytic solution$/;"	v
 nsamples	section_5_1_2.py	/^nsamples = 1000    # x2 samples for analytic solution$/;"	v
 nx1_profile	section_5_1_1.py	/^nx1_profile = 64   # resolution of Athena++ output to compare w\/ analytic solution$/;"	v
 nx2_profile	section_5_1_2.py	/^nx2_profile = 64   # resolution of Athena++ output to compare w\/ analytic solution$/;"	v
-os	section_5_1_1.py	/^import os$/;"	i
-os	section_5_1_2.py	/^import os$/;"	i
 plot_profiles	section_5_1_2.py	/^def plot_profiles():$/;"	f
-plt	section_5_1_1.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
-plt	section_5_1_2.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
 profile_legend_handles	section_5_1_1.py	/^profile_legend_handles = [$/;"	v
 profile_legend_handles	section_5_1_2.py	/^profile_legend_handles = [$/;"	v
-sys	section_5_1_1.py	/^import sys$/;"	i
-sys	section_5_1_2.py	/^import sys$/;"	i
 xorder_colors	section_5_1_1.py	/^xorder_colors = {$/;"	v
 xorder_colors	section_5_1_2.py	/^xorder_colors = {$/;"	v
 xorder_strs	section_5_1_1.py	/^xorder_strs = ['PLM', r'$\\mathrm{PPM}_{4}$']$/;"	v

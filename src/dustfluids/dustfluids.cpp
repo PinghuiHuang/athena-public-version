@@ -35,10 +35,14 @@ class DustFluidsSourceTerms;
 // constructor, initializes data structures and parameters
 DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   pmy_block(pmb), pco_(pmb->pcoord),
-  df_cons(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons1(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_prim(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_flux{{num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
+  df_cons(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons1(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim1(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim_n(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons_n(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons_p(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_flux{{num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
             {num_dust_var, pmb->ncells3, pmb->ncells2+1, pmb->ncells1,
             (pmb->pmy_mesh->f2 ? AthenaArray<Real>::DataStatus::allocated :
             AthenaArray<Real>::DataStatus::empty)},
@@ -65,7 +69,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   Mesh *pm = pmy_block->pmy_mesh;
   pmb->RegisterMeshBlockData(df_cons);
 
-  ConstStoppingTime_Flag = pin->GetBoolean("dust", "Const_StoppingTime_Flag");
+  ConstStoppingTime_Flag = pin->GetBoolean("dust",      "Const_StoppingTime_Flag");
   SoundSpeed_Flag        = pin->GetOrAddBoolean("dust", "Dust_SoundSpeed_Flag", false);
 
   for (int n=0; n<NDUSTFLUIDS; n++){
@@ -139,14 +143,14 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   }
 }
 
-void DustFluids::Constant_StoppingTime(const int kl, const int ku, const int jl, const int ju,
+void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, const int ju,
               const int il, const int iu, AthenaArray<Real> &stopping_time){
   for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
     int &dust_id = n;
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
-        for (int i=il; i<=iu; ++i) { //TODO check the index
+        for (int i=il; i<=iu; ++i) {
           Real rad, phi, z;
           dfdif.GetCylCoord(pco_, rad, phi, z, i, j, k);
           Real &st_time = stopping_time(dust_id,k,j,i);
@@ -158,7 +162,7 @@ void DustFluids::Constant_StoppingTime(const int kl, const int ku, const int jl,
   return;
 }
 
-void DustFluids::UserDefined_StoppingTime(const int kl, const int ku, const int jl, const int ju,
+void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
             const int il, const int iu, const AthenaArray<Real> particle_density,
             const AthenaArray<Real> &w, AthenaArray<Real> &stopping_time){
   for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
@@ -167,7 +171,7 @@ void DustFluids::UserDefined_StoppingTime(const int kl, const int ku, const int 
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
-        for (int i=il; i<=iu; ++i) { //TODO check the index
+        for (int i=il; i<=iu; ++i) {
           Real &dust_den = df_prim(rho_id,k,j,i);
           Real &st_time  = stopping_time(dust_id,k,j,i);
           const Real &wd = w(IDN,k,j,i);
@@ -185,7 +189,8 @@ void DustFluids::UserDefined_StoppingTime(const int kl, const int ku, const int 
 }
 
 
-void DustFluids::SetDustFluidsProperties(){
+void DustFluids::SetDustFluidsProperties(AthenaArray<Real> &stopping_time,
+    AthenaArray<Real> &nu_dust, AthenaArray<Real> &cs_dust) {
   int il = pmy_block->is - NGHOST; int jl = pmy_block->js; int kl = pmy_block->ks;
   int iu = pmy_block->ie + NGHOST; int ju = pmy_block->je; int ku = pmy_block->ke;
   Hydro *phyd        = pmy_block->phydro;
@@ -200,18 +205,18 @@ void DustFluids::SetDustFluidsProperties(){
   }
 
   if ( ConstStoppingTime_Flag )
-    Constant_StoppingTime(kl, ku, jl, ju, il, iu, stopping_time_array);
+    ConstantStoppingTime(kl, ku, jl, ju, il, iu, stopping_time);
   else
-    UserDefined_StoppingTime(kl, ku, jl, ju, il, iu, particle_density_,
-        phyd->w, stopping_time_array);
+    UserDefinedStoppingTime(kl, ku, jl, ju, il, iu, particle_density_,
+        phyd->w, stopping_time);
 
   if ( dfdif.dustfluids_diffusion_defined ) {
     if ( dfdif.ConstNu_Flag )
-      dfdif.Constant_DustDiffusivity(hd.nu, kl, ku, jl, ju, il, iu,
-        stopping_time_array, nu_dustfluids_array, cs_dustfluids_array);
+      dfdif.ConstantDustDiffusivity(hd.nu, kl, ku, jl, ju, il, iu,
+        stopping_time, nu_dust, cs_dust);
     else
-      dfdif.UserDefined_DustDiffusivity(hd.nu, kl, ku, jl, ju, il, iu,
-        stopping_time_array, nu_dustfluids_array, cs_dustfluids_array);
+      dfdif.UserDefinedDustDiffusivity(hd.nu, kl, ku, jl, ju, il, iu,
+        stopping_time, nu_dust, cs_dust);
   }
 
   return;

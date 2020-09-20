@@ -336,7 +336,7 @@ void BoundaryValues::ApplyPhysicalBoundaries(const Real time, const Real dt) {
                                     pmb->is-NGHOST, pmb->is-1, bjs, bje, bks, bke);
     if (NDUSTFLUIDS > 0) {
       pmb->peos->DustFluidsPrimitiveToConserved(
-          pdf->df_prim, ph->w, pdf->df_cons, pco, pmb->is-NGHOST, pmb->is-1, bjs, bje, bks, bke);
+          pdf->df_prim, pdf->df_cons, pco, pmb->is-NGHOST, pmb->is-1, bjs, bje, bks, bke);
     }
   }
 
@@ -355,7 +355,7 @@ void BoundaryValues::ApplyPhysicalBoundaries(const Real time, const Real dt) {
                                     pmb->ie+1, pmb->ie+NGHOST, bjs, bje, bks, bke);
     if (NDUSTFLUIDS > 0) {
       pmb->peos->DustFluidsPrimitiveToConserved(
-          pdf->df_prim, ph->w, pdf->df_cons, pco, pmb->ie+1, pmb->ie+NGHOST, bjs, bje, bks, bke);
+          pdf->df_prim, pdf->df_cons, pco, pmb->ie+1, pmb->ie+NGHOST, bjs, bje, bks, bke);
     }
   }
 
@@ -375,7 +375,7 @@ void BoundaryValues::ApplyPhysicalBoundaries(const Real time, const Real dt) {
                                       bis, bie, pmb->js-NGHOST, pmb->js-1, bks, bke);
       if (NDUSTFLUIDS > 0) {
         pmb->peos->DustFluidsPrimitiveToConserved(
-            pdf->df_prim, ph->w, pdf->df_cons, pco, bis, bie, pmb->js-NGHOST, pmb->js-1, bks, bke);
+            pdf->df_prim, pdf->df_cons, pco, bis, bie, pmb->js-NGHOST, pmb->js-1, bks, bke);
       }
     }
 
@@ -394,7 +394,7 @@ void BoundaryValues::ApplyPhysicalBoundaries(const Real time, const Real dt) {
                                       bis, bie, pmb->je+1, pmb->je+NGHOST, bks, bke);
       if (NDUSTFLUIDS > 0) {
         pmb->peos->DustFluidsPrimitiveToConserved(
-            pdf->df_prim, ph->w, pdf->df_cons, pco, bis, bie, pmb->je+1, pmb->je+NGHOST, bks, bke);
+            pdf->df_prim, pdf->df_cons, pco, bis, bie, pmb->je+1, pmb->je+NGHOST, bks, bke);
       }
     }
   }
@@ -418,7 +418,7 @@ void BoundaryValues::ApplyPhysicalBoundaries(const Real time, const Real dt) {
                                       bis, bie, bjs, bje, pmb->ks-NGHOST, pmb->ks-1);
       if (NDUSTFLUIDS > 0) {
         pmb->peos->DustFluidsPrimitiveToConserved(
-            pdf->df_prim, ph->w, pdf->df_cons, pco, bis, bie, bjs, bje, pmb->ks-NGHOST, pmb->ks-1);
+            pdf->df_prim, pdf->df_cons, pco, bis, bie, bjs, bje, pmb->ks-NGHOST, pmb->ks-1);
       }
     }
 
@@ -437,7 +437,7 @@ void BoundaryValues::ApplyPhysicalBoundaries(const Real time, const Real dt) {
                                       bis, bie, bjs, bje, pmb->ke+1, pmb->ke+NGHOST);
       if (NDUSTFLUIDS > 0) {
         pmb->peos->DustFluidsPrimitiveToConserved(
-            pdf->df_prim, ph->w, pdf->df_cons, pco, bis, bie, bjs, bje, pmb->ke+1, pmb->ke+NGHOST);
+            pdf->df_prim, pdf->df_cons, pco, bis, bie, bjs, bje, pmb->ke+1, pmb->ke+NGHOST);
       }
     }
   }

@@ -3,27 +3,15 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 analyze	hydro_linwave_2d.py	/^def analyze():$/;"	f
 analyze	hydro_linwave_3d.py	/^def analyze():$/;"	f
-athena	hydro_linwave_2d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	hydro_linwave_3d.py	/^import scripts.utils.athena as athena$/;"	i
-athena_read	hydro_linwave_2d.py	/^import athena_read                             # noqa$/;"	i
-athena_read	hydro_linwave_3d.py	/^import athena_read                             # noqa$/;"	i
 error_formatter	hydro_linwave_2d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
 error_formatter	hydro_linwave_3d.py	/^error_formatter = lambda x: "{:.2e}".format(x)$/;"	v
 error_tols	hydro_linwave_2d.py	/^error_tols = [((1.4e-7, 4.6e-8, 1.1e-8, 2.5e-9), (1.1e-7, 3.7e-8, 9.3e-9, 2.2e-9)),$/;"	v
 error_tols	hydro_linwave_3d.py	/^error_tols = [((5.6e-9, 3.6e-10), (4.05e-9, 2.65e-10)),$/;"	v
-log	hydro_linwave_2d.py	/^from math import log$/;"	i
-log	hydro_linwave_3d.py	/^from math import log$/;"	i
 logger	hydro_linwave_2d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	hydro_linwave_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
-logging	hydro_linwave_2d.py	/^import logging$/;"	i
-logging	hydro_linwave_3d.py	/^import logging$/;"	i
-noqa	hydro_linwave_2d.py	/^import athena_read                             # noqa$/;"	i
-noqa	hydro_linwave_3d.py	/^import athena_read                             # noqa$/;"	i
-np	hydro_linwave_2d.py	/^import numpy as np$/;"	i
-np	hydro_linwave_3d.py	/^import numpy as np$/;"	i
 nrows_per_solver	hydro_linwave_2d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
 nrows_per_solver	hydro_linwave_3d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
 num_nx1	hydro_linwave_2d.py	/^num_nx1 = len(resolution_range)$/;"	v
@@ -38,11 +26,5 @@ resolution_range	hydro_linwave_2d.py	/^resolution_range = [16, 32, 64, 128, 256]
 resolution_range	hydro_linwave_3d.py	/^resolution_range = [16, 32, 64]$/;"	v
 run	hydro_linwave_2d.py	/^def run(**kwargs):$/;"	f
 run	hydro_linwave_3d.py	/^def run(**kwargs):$/;"	f
-scripts	hydro_linwave_2d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	hydro_linwave_3d.py	/^import scripts.utils.athena as athena$/;"	i
 solvers	hydro_linwave_2d.py	/^solvers = [('vl2', '2c'), ('vl2', '3'), ('rk2', '3c'),$/;"	v
 solvers	hydro_linwave_3d.py	/^solvers = [('rk4', '4c'), ('ssprk5_4', '4')]$/;"	v
-sys	hydro_linwave_2d.py	/^import sys$/;"	i
-sys	hydro_linwave_3d.py	/^import sys$/;"	i
-utils	hydro_linwave_2d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	hydro_linwave_3d.py	/^import scripts.utils.athena as athena$/;"	i

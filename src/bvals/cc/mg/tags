@@ -3,9 +3,9 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ApplyPhysicalBoundaries	bvals_mg.cpp	/^void MGBoundaryValues::ApplyPhysicalBoundaries() {$/;"	f	class:MGBoundaryValues
-BVALS_CC_MG_BVALS_MG_HPP_	bvals_mg.hpp	/^#define BVALS_CC_MG_BVALS_MG_HPP_$/;"	d
+BVALS_CC_MG_BVALS_MG_HPP_	bvals_mg.hpp	2;"	d
 ClearBoundaryMultigrid	bvals_mg.cpp	/^void MGBoundaryValues::ClearBoundaryMultigrid(BoundaryQuantity type) {$/;"	f	class:MGBoundaryValues
 CopyNeighborInfoFromMeshBlock	bvals_mg.cpp	/^void MGBoundaryValues::CopyNeighborInfoFromMeshBlock() {$/;"	f	class:MGBoundaryValues
 DestroyBoundaryData	bvals_mg.cpp	/^void MGBoundaryValues::DestroyBoundaryData(BoundaryData<> &bd) {$/;"	f	class:MGBoundaryValues

@@ -40,11 +40,11 @@ class DustFluidsSourceTerms {
         AthenaArray<Real> &cons_df);
 
     // shearing box src terms
-    void ShearingBoxSourceTerms_DustFluids(const Real dt, const AthenaArray<Real> *flux_df,
+    void ShearingBoxSourceTermsDustFluids(const Real dt, const AthenaArray<Real> *flux_df,
                                   const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df);
 
     // Central stellar gravity source term in disk problem
-    void PointMass_DustFluids(const Real dt, const AthenaArray<Real> *flux_df,
+    void PointMassDustFluids(const Real dt, const AthenaArray<Real> *flux_df,
                               const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df);
 
   //void EnrollSrcTermFunction(SrcTermFunc my_func);

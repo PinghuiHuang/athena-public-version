@@ -23,13 +23,13 @@
 
 //----------------------------------------------------------------------------------------
 // \!fn void EquationOfState::DustFluidsConservedToPrimitive(AthenaArray<Real> &cons_df,
-//           const AthenaArray<Real> &w, const AthenaArray<Real> &r_old,
+//           const AthenaArray<Real> &r_old,
 //           AthenaArray<Real> &r, Coordinates *pco,
 //           int il, int iu, int jl, int ju, int kl, int ku)
 // \brief Converts conserved into primitive dust fluids variables
 
 void EquationOfState::DustFluidsConservedToPrimitive(
-  AthenaArray<Real> &cons_df, const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df_old,
+  AthenaArray<Real> &cons_df, const AthenaArray<Real> &prim_df_old,
   AthenaArray<Real> &prim_df,
   Coordinates *pco, int il, int iu, int jl, int ju, int kl, int ku) {
   const int num_dustvar = 4*NDUSTFLUIDS;
@@ -87,7 +87,7 @@ void EquationOfState::DustFluidsConservedToPrimitiveCellAverage(
   Real C = (h*h)/24.0;
 
   // Fourth-order accurate approx to cell-centered conserved and primitive variables
-  AthenaArray<Real> &w_cc = ph->w_cc, &w = ph->w; // &u_cc = ph->u_cc;
+  //AthenaArray<Real> &w_cc = ph->w_cc, &w = ph->w; // &u_cc = ph->u_cc;
   AthenaArray<Real> &prim_df_cc = pdf->df_prim_cc, &cons_df_cc = pdf->df_cons_cc;
   // Laplacians of cell-averaged conserved and 2nd order accurate primitive variables
   AthenaArray<Real> &laplacian_cc = pdf->scr1_nkji_;
@@ -113,7 +113,7 @@ void EquationOfState::DustFluidsConservedToPrimitiveCellAverage(
   pco->Laplacian(prim_df, laplacian_cc, il, iu, jl, ju, kl, ku, nl, nu);
 
   // Convert cell-centered conserved values to cell-centered primitive values
-  DustFluidsConservedToPrimitive(cons_df_cc, w_cc, prim_df_old, prim_df_cc, pco, il, iu, jl, ju, kl, ku);
+  DustFluidsConservedToPrimitive(cons_df_cc, prim_df_old, prim_df_cc, pco, il, iu, jl, ju, kl, ku);
 
   for (int n=nl; n<=nu; ++n) {
     for (int k=kl; k<=ku; ++k) {
@@ -134,7 +134,7 @@ void EquationOfState::DustFluidsConservedToPrimitiveCellAverage(
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
         for (int i=il; i<=iu; ++i) {
-          ApplyDustFluidsPrimitiveConservedFloors(cons_df, w, prim_df, n, k, j, i);
+          ApplyDustFluidsPrimitiveConservedFloors(cons_df, prim_df, n, k, j, i);
         }
       }
     }
@@ -145,12 +145,12 @@ void EquationOfState::DustFluidsConservedToPrimitiveCellAverage(
 
 //----------------------------------------------------------------------------------------
 // \!fn void EquationOfState::DustFluidsPrimitiveToConserved(const AthenaArray<Real> &prim_df
-//           const AthenaArray<Real> &w, AthenaArray<Real> &cons_df, Coordinates *pco,
+//           AthenaArray<Real> &cons_df, Coordinates *pco,
 //           int il, int iu, int jl, int ju, int kl, int ku);
 // \brief Converts primitive variables into conservative variables
 
 void EquationOfState::DustFluidsPrimitiveToConserved(
-    const AthenaArray<Real> &prim_df, const AthenaArray<Real> &w,
+    const AthenaArray<Real> &prim_df,
     AthenaArray<Real> &cons_df, Coordinates *pco,
     int il, int iu, int jl, int ju, int kl, int ku) {
     const int num_dustvar = 4*NDUSTFLUIDS;
@@ -210,7 +210,7 @@ void EquationOfState::ApplyDustFluidsFloors(AthenaArray<Real> &prim_df, int n, i
 // DustFluidsConservedToPrimitiveCellAverage()
 
 void EquationOfState::ApplyDustFluidsPrimitiveConservedFloors(
-    AthenaArray<Real> &cons_df, const AthenaArray<Real> &w, AthenaArray<Real> &prim_df,
+    AthenaArray<Real> &cons_df, AthenaArray<Real> &prim_df,
     int n, int k, int j, int i) {
   int rho_id      = n/4;
   Real& cons_df_n = cons_df(rho_id,k,j,i);
@@ -231,9 +231,6 @@ void EquationOfState::ApplyDustFluidsPrimitiveConservedFloors(
 //Real EquationOfState::SoundSpeed_DustFluids(const Real dust_nu, const Real t_eddy) {
 Real EquationOfState::SoundSpeed_DustFluids(const Real prim_df[(4*NDUSTFLUIDS)],
         const Real nu_dust, const Real eddy_time) {
-    //nu_gas_iso_ = pin->GetOrAddReal("problem", "nu_iso", 1e-12);
-    //t_eddy_     = pin->GetOrAddReal("problem", "eddy_time", 2*PI);
-    //const Real &dust_vis = dust_nu(n,k,j,i);
     Real iso_dustfluids_sound_speed = std::sqrt(nu_dust/eddy_time);
     return iso_dustfluids_sound_speed;
 }

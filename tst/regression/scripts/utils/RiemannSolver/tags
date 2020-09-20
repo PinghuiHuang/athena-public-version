@@ -3,17 +3,10 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
-Ideal	AthenaWrapper.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
-Ideal	tests.py	/^        from .eos import Ideal$/;"	i
-Ideal	tests.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 RareInt	riemann.py	/^class RareInt(object):$/;"	c
 RiemannSol	riemann.py	/^class RiemannSol(object):$/;"	c
-RiemannSol	tests.py	/^from .riemann import RiemannSol, StateVector$/;"	i
-SimpleHydrogen	AthenaWrapper.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
-SimpleHydrogen	tests.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
 StateVector	riemann.py	/^class StateVector(object):$/;"	c
-StateVector	tests.py	/^from .riemann import RiemannSol, StateVector$/;"	i
 __call__	riemann.py	/^    def __call__(self, p):$/;"	m	class:RareInt	file:
 __getitem__	riemann.py	/^    def __getitem__(self, item):$/;"	m	class:StateVector	file:
 __init__	riemann.py	/^    def __init__(self, left, right, eos):$/;"	m	class:RiemannSol
@@ -25,11 +18,8 @@ _get_mids	riemann.py	/^    def _get_mids(self, p):$/;"	m	class:RiemannSol
 _rare_ode	riemann.py	/^    def _rare_ode(self, y, p):$/;"	m	class:RareInt
 _shock_jump	riemann.py	/^    def _shock_jump(self, edge, mid):$/;"	m	class:RiemannSol
 a	riemann.py	/^    def a(self):$/;"	m	class:StateVector
-athena_read	AthenaWrapper.py	/^import athena_read  # noqa$/;"	i
 athinput2riemann	AthenaWrapper.py	/^def athinput2riemann(athinput, eos=None):$/;"	f
 brent_opt	__init__.py	/^brent_opt = dict(full_output=True, disp=True)  # Set options for scipy.optimize.brentq$/;"	v
-brent_opt	riemann.py	/^from . import brent_opt, ode_opt$/;"	i
-brentq	riemann.py	/^from scipy.optimize import brentq$/;"	i
 characteristic	riemann.py	/^    def characteristic(self, xi):$/;"	m	class:RareInt
 complete	riemann.py	/^    def complete(self, ignore_u=False):$/;"	m	class:StateVector
 d	riemann.py	/^    def d(self):$/;"	m	class:StateVector
@@ -47,27 +37,13 @@ gen_sol	riemann.py	/^    def gen_sol(self):$/;"	m	class:RiemannSol
 get_state	riemann.py	/^    def get_state(self, xi):$/;"	m	class:RiemannSol
 ic	riemann.py	/^    def ic(self):$/;"	m	class:RiemannSol
 init_data	riemann.py	/^    def init_data(self, pmin, pmax, bp=12):$/;"	m	class:RareInt
-interp1d	riemann.py	/^from scipy.interpolate import interp1d$/;"	i
-matplotlib	riemann.py	/^        import matplotlib.pyplot as plt$/;"	i
-matplotlib	tests.py	/^        import matplotlib.pyplot as plt$/;"	i
-noqa	AthenaWrapper.py	/^import athena_read  # noqa$/;"	i
-np	riemann.py	/^import numpy as np$/;"	i
-np	tests.py	/^import numpy as np$/;"	i
 ode_opt	__init__.py	/^ode_opt = dict(mxstep=5000000, rtol=1e-15, atol=1e-13)  # Set options for odeint$/;"	v
-ode_opt	riemann.py	/^from . import brent_opt, ode_opt$/;"	i
-odeint	riemann.py	/^from scipy.integrate import odeint$/;"	i
-os	AthenaWrapper.py	/^import os$/;"	i
 p_min	riemann.py	/^    def p_min(self):$/;"	m	class:StateVector
-parse_eos	riemann.py	/^from scripts.utils.EquationOfState.eos import parse_eos$/;"	i
 plot_sol	riemann.py	/^    def plot_sol(self, var=None, xi_min=None, xi_max=None, nsimp=100, speeds=True,$/;"	m	class:RiemannSol
-plt	riemann.py	/^        import matplotlib.pyplot as plt$/;"	i
-plt	tests.py	/^        import matplotlib.pyplot as plt$/;"	i
 print_waves	riemann.py	/^    def print_waves(self):$/;"	m	class:RiemannSol
 ram	riemann.py	/^    def ram(self):$/;"	m	class:StateVector
 rare_sol	riemann.py	/^    def rare_sol(self):$/;"	m	class:RiemannSol
-re	riemann.py	/^    import re$/;"	i
 rho	riemann.py	/^            def rho(p):$/;"	f	function:RareInt.__init__
-riemann_problem	AthenaWrapper.py	/^from .riemann import riemann_problem$/;"	i
 riemann_problem	riemann.py	/^def riemann_problem(states, eos):$/;"	f
 sanitize_lbl	riemann.py	/^def sanitize_lbl(label):$/;"	f
 show	riemann.py	/^    def show(self):$/;"	m	class:StateVector
@@ -77,7 +53,6 @@ speed_row	riemann.py	/^    def speed_row(self, sep=None, fmt='.7e'):$/;"	m	class
 speeds	riemann.py	/^    def speeds(self):$/;"	m	class:RiemannSol
 state_tbl	riemann.py	/^    def state_tbl(self, row_sep=None, col_sep=None, eol='', fmt='.7e', speeds=False):$/;"	m	class:RiemannSol
 states	riemann.py	/^    def states(self):$/;"	m	class:RiemannSol
-sys	AthenaWrapper.py	/^import sys$/;"	i
 tmp	riemann.py	/^            def tmp(p):$/;"	f	function:RareInt.__init__
 u	riemann.py	/^            def u(p):$/;"	f	function:RareInt.__init__
 vector_get_state	riemann.py	/^    def vector_get_state(self, xi, add_var=None, inc_xi=False):$/;"	m	class:RiemannSol

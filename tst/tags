@@ -3,17 +3,11 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AddFilters	style/cpplint.py	/^    def AddFilters(self, filters):$/;"	m	class:_CppLintState
 AddJUnitFailure	style/cpplint.py	/^    def AddJUnitFailure(self, filename, linenum, message, category, confidence):$/;"	m	class:_CppLintState
-Athena	regression/scripts/tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-Athena	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-Athena	regression/scripts/tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
-Athena	regression/scripts/tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
 AthenaError	regression/scripts/utils/athena.py	/^class AthenaError(RuntimeError):$/;"	c
 AthenaTable	regression/scripts/utils/EquationOfState/eos.py	/^class AthenaTable(EOS):$/;"	c
-AutoMinorLocator	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
-AutoMinorLocator	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
 BackupFilters	style/cpplint.py	/^    def BackupFilters(self):$/;"	m	class:_CppLintState
 BaseName	style/cpplint.py	/^    def BaseName(self):$/;"	m	class:FileInfo
 Begin	style/cpplint.py	/^    def Begin(self, function_name):$/;"	m	class:_FunctionState
@@ -71,7 +65,6 @@ CloseExpression	style/cpplint.py	/^def CloseExpression(clean_lines, linenum, pos
 Count	style/cpplint.py	/^    def Count(self):$/;"	m	class:_FunctionState
 CriticalExceptionFilter	regression/run_tests.py	/^class CriticalExceptionFilter(logging.Filter):$/;"	c
 EOS	regression/scripts/utils/EquationOfState/eos.py	/^class EOS(object):$/;"	c
-ElementTree	style/cpplint.py	/^import xml.etree.ElementTree$/;"	i
 End	style/cpplint.py	/^    def End(self):$/;"	m	class:_FunctionState
 Error	style/cpplint.py	/^def Error(filename, linenum, category, confidence, message):$/;"	f
 EvolvedCosineProfile	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^def EvolvedCosineProfile(x2, a, b, t):$/;"	f
@@ -90,8 +83,6 @@ FixupPathFromRoot	style/cpplint.py	/^    def FixupPathFromRoot():$/;"	f	function
 FlagCxx11Features	style/cpplint.py	/^def FlagCxx11Features(filename, clean_lines, linenum, error):$/;"	f
 FlagCxx14Features	style/cpplint.py	/^def FlagCxx14Features(filename, clean_lines, linenum, error):$/;"	f
 FormatJUnitXML	style/cpplint.py	/^    def FormatJUnitXML(self):$/;"	m	class:_CppLintState
-FormatStrFormatter	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
-FormatStrFormatter	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
 FullName	style/cpplint.py	/^    def FullName(self):$/;"	m	class:FileInfo
 GetAllExtensions	style/cpplint.py	/^def GetAllExtensions():$/;"	f
 GetHeaderExtensions	style/cpplint.py	/^def GetHeaderExtensions():$/;"	f
@@ -101,9 +92,6 @@ GetLineWidth	style/cpplint.py	/^def GetLineWidth(line):$/;"	f
 GetNonHeaderExtensions	style/cpplint.py	/^def GetNonHeaderExtensions():$/;"	f
 GetPreviousNonBlankLine	style/cpplint.py	/^def GetPreviousNonBlankLine(clean_lines, linenum):$/;"	f
 Ideal	regression/scripts/utils/EquationOfState/eos.py	/^class Ideal(EOS):$/;"	c
-Ideal	regression/scripts/utils/RiemannSolver/AthenaWrapper.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
-Ideal	regression/scripts/utils/RiemannSolver/tests.py	/^        from .eos import Ideal$/;"	i
-Ideal	regression/scripts/utils/RiemannSolver/tests.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
 InAsmBlock	style/cpplint.py	/^    def InAsmBlock(self):$/;"	m	class:NestingState
 InClassDeclaration	style/cpplint.py	/^    def InClassDeclaration(self):$/;"	m	class:NestingState
 InExternC	style/cpplint.py	/^    def InExternC(self):$/;"	m	class:NestingState
@@ -127,21 +115,15 @@ IsInitializerList	style/cpplint.py	/^def IsInitializerList(clean_lines, linenum)
 IsMacroDefinition	style/cpplint.py	/^def IsMacroDefinition(clean_lines, linenum):$/;"	f
 IsOutOfLineMethodDefinition	style/cpplint.py	/^def IsOutOfLineMethodDefinition(clean_lines, linenum):$/;"	f
 IsSource	style/cpplint.py	/^    def IsSource(self):$/;"	m	class:FileInfo
-Line2D	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
-Line2D	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
-LogPipe	regression/scripts/utils/athena.py	/^from .log_pipe import LogPipe$/;"	i
 LogPipe	regression/scripts/utils/log_pipe.py	/^class LogPipe(threading.Thread):$/;"	c
 MakeFilter	regression/run_tests.py	/^class MakeFilter(logging.Filter):$/;"	c
 Match	style/cpplint.py	/^def Match(pattern, s):$/;"	f
 NestingState	style/cpplint.py	/^class NestingState(object):$/;"	c
 NoExtension	style/cpplint.py	/^    def NoExtension(self):$/;"	m	class:FileInfo
 NumLines	style/cpplint.py	/^    def NumLines(self):$/;"	m	class:CleansedLines
-OrderedDict	regression/run_tests.py	/^from collections import OrderedDict$/;"	i
 ParseArguments	style/cpplint.py	/^def ParseArguments(args):$/;"	f
 ParseNolintSuppressions	style/cpplint.py	/^def ParseNolintSuppressions(filename, raw_line, linenum, error):$/;"	f
 PathSplitToList	style/cpplint.py	/^def PathSplitToList(path):$/;"	f
-Polynomial	regression/scripts/tests/diffusion/linear_wave3d.py	/^from numpy.polynomial import Polynomial$/;"	i
-Polynomial	regression/scripts/tests/diffusion/thermal_attenuation.py	/^from numpy.polynomial import Polynomial$/;"	i
 PrintCategories	style/cpplint.py	/^def PrintCategories():$/;"	f
 PrintError	style/cpplint.py	/^    def PrintError(self, message):$/;"	m	class:_CppLintState
 PrintErrorCounts	style/cpplint.py	/^    def PrintErrorCounts(self):$/;"	m	class:_CppLintState
@@ -154,12 +136,6 @@ ProcessFileData	style/cpplint.py	/^def ProcessFileData(filename, file_extension,
 ProcessGlobalSuppresions	style/cpplint.py	/^def ProcessGlobalSuppresions(lines):$/;"	f
 ProcessHppHeadersOption	style/cpplint.py	/^def ProcessHppHeadersOption(val):$/;"	f
 ProcessLine	style/cpplint.py	/^def ProcessLine(filename, file_extension, clean_lines, line,$/;"	f
-Python	regression/scripts/tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-Python	regression/scripts/tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-Python	regression/scripts/tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-Python	regression/scripts/tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
-Python	regression/scripts/utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-RBS	regression/scripts/utils/EquationOfState/eos.py	/^from scipy.interpolate import RectBivariateSpline as RBS$/;"	i
 RareInt	regression/scripts/utils/RiemannSolver/riemann.py	/^class RareInt(object):$/;"	c
 RemoveMultiLineComments	style/cpplint.py	/^def RemoveMultiLineComments(filename, lines, error):$/;"	f
 RemoveMultiLineCommentsFromRange	style/cpplint.py	/^def RemoveMultiLineCommentsFromRange(lines, begin, end):$/;"	f
@@ -171,7 +147,6 @@ ResetSection	style/cpplint.py	/^    def ResetSection(self, directive):$/;"	m	cla
 RestoreFilters	style/cpplint.py	/^    def RestoreFilters(self):$/;"	m	class:_CppLintState
 ReverseCloseExpression	style/cpplint.py	/^def ReverseCloseExpression(clean_lines, linenum, pos):$/;"	f
 RiemannSol	regression/scripts/utils/RiemannSolver/riemann.py	/^class RiemannSol(object):$/;"	c
-RiemannSol	regression/scripts/utils/RiemannSolver/tests.py	/^from .riemann import RiemannSol, StateVector$/;"	i
 Search	style/cpplint.py	/^def Search(pattern, s):$/;"	f
 SeenOpenBrace	style/cpplint.py	/^    def SeenOpenBrace(self):$/;"	m	class:NestingState
 SetCountingStyle	style/cpplint.py	/^    def SetCountingStyle(self, counting_style):$/;"	m	class:_CppLintState
@@ -182,11 +157,8 @@ SetQuiet	style/cpplint.py	/^    def SetQuiet(self, quiet):$/;"	m	class:_CppLintS
 SetVerboseLevel	style/cpplint.py	/^    def SetVerboseLevel(self, level):$/;"	m	class:_CppLintState
 ShouldCheckNamespaceIndentation	style/cpplint.py	/^def ShouldCheckNamespaceIndentation(nesting_state, is_namespace_indent_item,$/;"	f
 SimpleHydrogen	regression/scripts/utils/EquationOfState/eos.py	/^class SimpleHydrogen(EOS):$/;"	c
-SimpleHydrogen	regression/scripts/utils/RiemannSolver/AthenaWrapper.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
-SimpleHydrogen	regression/scripts/utils/RiemannSolver/tests.py	/^from scripts.utils.EquationOfState.eos import Ideal, SimpleHydrogen$/;"	i
 Split	style/cpplint.py	/^    def Split(self):$/;"	m	class:FileInfo
 StateVector	regression/scripts/utils/RiemannSolver/riemann.py	/^class StateVector(object):$/;"	c
-StateVector	regression/scripts/utils/RiemannSolver/tests.py	/^from .riemann import RiemannSol, StateVector$/;"	i
 StripListPrefix	style/cpplint.py	/^        def StripListPrefix(lst, prefix):$/;"	f	function:GetHeaderGuardCPPVariable.FixupPathFromRoot
 T_of_rho_ei	regression/scripts/utils/EquationOfState/eos.py	/^    def T_of_rho_ei(self, rho, ei):$/;"	m	class:Ideal
 T_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def T_of_rho_p(self, rho, p):$/;"	m	class:Ideal
@@ -357,15 +329,12 @@ _repository	style/cpplint.py	/^_repository = None$/;"	v
 _root	style/cpplint.py	/^_root = None$/;"	v
 _root_debug	style/cpplint.py	/^_root_debug = False$/;"	v
 _shock_jump	regression/scripts/utils/RiemannSolver/riemann.py	/^    def _shock_jump(self, edge, mid):$/;"	m	class:RiemannSol
-_states	regression/scripts/tests/eos/eos_mhd.py	/^from .eos_riemann import _tests, _thresh, _states$/;"	i
 _states	regression/scripts/tests/eos/eos_riemann.py	/^_states = [dict(zip(tmp, i[:-1])) for i in _tests]$/;"	v
 _t0	regression/scripts/tests/diffusion/resistive_diffusion.py	/^_t0 = 0.5$/;"	v
 _t0	regression/scripts/tests/diffusion/viscous_diffusion.py	/^_t0 = 0.5$/;"	v
 _test_suffixes	style/cpplint.py	/^_test_suffixes = ['_test', '_regtest', '_unittest']$/;"	v
-_tests	regression/scripts/tests/eos/eos_mhd.py	/^from .eos_riemann import _tests, _thresh, _states$/;"	i
 _tests	regression/scripts/tests/eos/eos_riemann.py	/^_tests = [[1e-07, 0.00, 0.150, 1.25e-8, 0., 0.062, .25],$/;"	v
 _tests	regression/scripts/tests/eos/eos_riemann.py	/^_tests = [dict(zip(tmp, i)) for i in _tests]$/;"	v
-_thresh	regression/scripts/tests/eos/eos_mhd.py	/^from .eos_riemann import _tests, _thresh, _states$/;"	i
 _thresh	regression/scripts/tests/eos/eos_riemann.py	/^_thresh = [[5.1e-10, 6.5e-11, 0.0039],$/;"	v
 _thresh	regression/scripts/tests/eos/eos_riemann.py	/^_thresh = [dict(zip(['rho', 'press', 'vel'], i)) for i in _thresh]$/;"	v
 _valid_extensions	style/cpplint.py	/^_valid_extensions = set([])$/;"	v
@@ -447,7 +416,6 @@ analyze	regression/scripts/tests/turb/turb_3d.py	/^def analyze():$/;"	f
 analyze_code_coverage	regression/scripts/utils/athena.py	/^def analyze_code_coverage(test_name, lcov_test_suffix=None):$/;"	f
 arg_res	regression/scripts/tests/grav/unstable_jeans_3d_fft.py	/^    def arg_res(res):$/;"	f	function:run
 arg_res	regression/scripts/tests/grav/unstable_jeans_3d_mg.py	/^    def arg_res(res):$/;"	f	function:run
-argparse	regression/run_tests.py	/^import argparse$/;"	i
 args	regression/run_tests.py	/^    args = parser.parse_args()$/;"	v
 asq_of_rho_T	regression/scripts/utils/EquationOfState/eos.py	/^    def asq_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
 asq_of_rho_h	regression/scripts/utils/EquationOfState/eos.py	/^    def asq_of_rho_h(self, rho, h):$/;"	m	class:SimpleHydrogen
@@ -455,124 +423,6 @@ asq_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def asq_of_rh
 asq_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:EOS
 asq_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:Ideal
 asq_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def asq_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
-athena	regression/run_tests.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-athena	regression/scripts/tests/amr/amr_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/curvilinear/blast_cyl.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/curvilinear/blast_sph.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/diffusion/linear_wave3d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/diffusion/linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-athena	regression/scripts/tests/diffusion/resistive_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/diffusion/resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-athena	regression/scripts/tests/diffusion/thermal_attenuation.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/diffusion/thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-athena	regression/scripts/tests/diffusion/viscous_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/diffusion/viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-athena	regression/scripts/tests/eos/eos_comparison.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/eos/eos_hdf5_table.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/eos/eos_mhd.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/eos/eos_riemann.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-athena	regression/scripts/tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-athena	regression/scripts/tests/gr/compile_kerr-schild.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/compile_minkowski.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/compile_schwarzschild.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/grav/jeans_3d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/grav/unstable_jeans_3d_fft.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/grav/unstable_jeans_3d_mg.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/hybrid/hybrid_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/hydro/hydro_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/hydro/sod_shock.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/mhd/cpaw.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/mhd/mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/mhd/rj2a_shock.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/mpi/mpi_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/omp/omp_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/outputs/all_outputs.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/pgen/pgen_compile.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/scalars/mignone_radial_1d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/scalars/restart.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/shearingbox/mri2d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/shearingbox/mri3d.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/sr/hydro_convergence.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/sr/mhd_convergence.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/sr/sr_mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^import scripts.utils.athena as athena$/;"	i
-athena	regression/scripts/tests/turb/turb_3d.py	/^import scripts.utils.athena as athena$/;"	i
-athena_read	regression/scripts/tests/amr/amr_linwave.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/curvilinear/blast_cyl.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/curvilinear/blast_sph.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/diffusion/linear_wave3d.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/diffusion/resistive_diffusion.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/diffusion/thermal_attenuation.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/diffusion/viscous_diffusion.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/eos/eos_comparison.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/eos/eos_hdf5_table.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/eos/eos_mhd.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/eos/eos_riemann.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-athena_read	regression/scripts/tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
-athena_read	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/grav/jeans_3d.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/grav/unstable_jeans_3d_fft.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/grav/unstable_jeans_3d_mg.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/hybrid/hybrid_linwave.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/hydro/hydro_linwave.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/hydro/sod_shock.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/mhd/cpaw.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/mhd/mhd_linwave.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/mhd/rj2a_shock.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/mpi/mpi_linwave.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/omp/omp_linwave.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/outputs/all_outputs.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/scalars/mignone_radial_1d.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/scalars/restart.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/shearingbox/mri2d.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/shearingbox/mri3d.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/sr/hydro_convergence.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/sr/mhd_convergence.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/tests/sr/sr_mhd_linwave.py	/^import athena_read                            # noqa$/;"	i
-athena_read	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/tests/turb/turb_3d.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/utils/RiemannSolver/AthenaWrapper.py	/^import athena_read  # noqa$/;"	i
-athena_read	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import athena_read                             # noqa$/;"	i
-athena_read	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import athena_read                             # noqa$/;"	i
 athena_rel_path	regression/scripts/utils/athena.py	/^athena_rel_path = '..\/..\/'$/;"	v
 athinput2riemann	regression/scripts/utils/RiemannSolver/AthenaWrapper.py	/^def athinput2riemann(athinput, eos=None):$/;"	f
 b_params	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^b_params = [0.0, 0.5]$/;"	v
@@ -580,11 +430,7 @@ b_params	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^b_params = [0.
 base_x1rat	regression/scripts/tests/scalars/mignone_radial_1d.py	/^base_x1rat = 1.0$/;"	v
 base_x2rat	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^base_x2rat = 1.0$/;"	v
 brent_opt	regression/scripts/utils/EquationOfState/__init__.py	/^brent_opt = dict(full_output=True, disp=True)$/;"	v
-brent_opt	regression/scripts/utils/EquationOfState/eos.py	/^from . import brent_opt$/;"	i
 brent_opt	regression/scripts/utils/RiemannSolver/__init__.py	/^brent_opt = dict(full_output=True, disp=True)  # Set options for scipy.optimize.brentq$/;"	v
-brent_opt	regression/scripts/utils/RiemannSolver/riemann.py	/^from . import brent_opt, ode_opt$/;"	i
-brentq	regression/scripts/utils/EquationOfState/eos.py	/^from scipy.optimize import brentq$/;"	i
-brentq	regression/scripts/utils/RiemannSolver/riemann.py	/^from scipy.optimize import brentq$/;"	i
 bx	regression/scripts/tests/sr/mhd_convergence.py	/^bx = 2.5$/;"	v
 by	regression/scripts/tests/sr/mhd_convergence.py	/^by = 1.8$/;"	v
 bz	regression/scripts/tests/sr/mhd_convergence.py	/^bz = -1.2$/;"	v
@@ -595,38 +441,10 @@ cases	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^cases = {$/;"	
 cases	regression/scripts/tests/scalars/mignone_radial_1d.py	/^cases = {$/;"	v
 cases	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^cases = ['A', 'B']$/;"	v
 cases	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^cases = ['A', 'B']$/;"	v
-change	regression/scripts/tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-change	regression/scripts/tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
 characteristic	regression/scripts/utils/RiemannSolver/riemann.py	/^    def characteristic(self, xi):$/;"	m	class:RareInt
 choices	regression/run_tests.py	/^                        choices=['mpirun', 'mpiexec', 'srun', 'qsub', 'lsrun', 'aprun'],$/;"	v
 close	regression/scripts/utils/log_pipe.py	/^    def close(self):$/;"	m	class:LogPipe
-codecs	style/cpplint.py	/^import codecs$/;"	i
-colorama	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^    import colorama$/;"	i
-colorama	regression/scripts/tests/scalars/mignone_radial_1d.py	/^    import colorama$/;"	i
-colored	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^    from termcolor import colored$/;"	i
-colored	regression/scripts/tests/scalars/mignone_radial_1d.py	/^    from termcolor import colored$/;"	i
-comparison	regression/scripts/tests/eos/eos_comparison.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/eos/eos_hdf5_table.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/eos/eos_mhd.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/eos/eos_riemann.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-comparison	regression/scripts/tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-comparison	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-comparison	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
 complete	regression/scripts/utils/RiemannSolver/riemann.py	/^    def complete(self, ignore_u=False):$/;"	m	class:StateVector
-config	regression/run_tests.py	/^import logging.config$/;"	i
 configure	regression/scripts/utils/athena.py	/^def configure(*args, **kwargs):$/;"	f
 const	regression/run_tests.py	/^                        const=logging.DEBUG,$/;"	v
 convergence_y0	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^convergence_y0 = [$/;"	v
@@ -635,13 +453,10 @@ coord_m	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^coord_m = [1, 2
 coord_ylims	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^coord_ylims = [$/;"	v
 coords	regression/scripts/tests/scalars/mignone_radial_1d.py	/^coords = ['cylindrical', 'spherical_polar']$/;"	v
 coords	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^coords = ['cylindrical', 'spherical_polar']$/;"	v
-copy	style/cpplint.py	/^import copy$/;"	i
 current_dir	regression/scripts/tests/pgen/pgen_compile.py	/^current_dir = os.getcwd()$/;"	v
 cutoff	regression/scripts/tests/sr/hydro_convergence.py	/^cutoff = 1.8$/;"	v
 cutoff	regression/scripts/tests/sr/mhd_convergence.py	/^cutoff = 1.8$/;"	v
 d	regression/scripts/utils/RiemannSolver/riemann.py	/^    def d(self):$/;"	m	class:StateVector
-data	regression/scripts/tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-data	regression/scripts/tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
 data_array	regression/scripts/utils/RiemannSolver/riemann.py	/^    def data_array(self, xi, add_var=None):$/;"	m	class:RiemannSol
 dataset_b1	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^dataset_b1 = 'b1'$/;"	v
 dataset_b1	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^dataset_b1 = 'b1'$/;"	v
@@ -661,10 +476,6 @@ dest	regression/run_tests.py	/^                        dest="loglevel",$/;"	v
 dest	regression/run_tests.py	/^                        dest='global_silent',$/;"	v
 diff_threshold	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
 diff_threshold	regression/scripts/tests/scalars/mignone_radial_1d.py	/^diff_threshold = 0.005  # tolerate up to 0.5% difference of L1 errors vs. Table 1 values$/;"	v
-diffusion	regression/scripts/tests/diffusion/linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
-diffusion	regression/scripts/tests/diffusion/resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
-diffusion	regression/scripts/tests/diffusion/thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
-diffusion	regression/scripts/tests/diffusion/viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
 dpi_global	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^dpi_global = 300$/;"	v
 dpi_global	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^dpi_global = 300$/;"	v
 ei_of_rho_T	regression/scripts/utils/EquationOfState/eos.py	/^    def ei_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
@@ -672,7 +483,6 @@ ei_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def ei_of_rho_
 ei_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:EOS
 ei_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:Ideal
 ei_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def ei_of_rho_p(self, rho, p):$/;"	m	class:SimpleHydrogen
-eos	regression/scripts/utils/EquationOfState/writeEOS.py	/^from . import eos$/;"	i
 eos_eval	regression/scripts/utils/RiemannSolver/riemann.py	/^    def eos_eval(self, func):$/;"	m	class:StateVector
 eos_rj2a	regression/scripts/tests/eos/eos_mhd.py	/^eos_rj2a = [[1.08, 1.2, 1.0e-2, 0.5, 1.0155412503859613, 0.5641895835477563, 0.95],$/;"	v
 eos_rj2a	regression/scripts/tests/eos/eos_mhd.py	/^eos_rj2a = np.array(eos_rj2a)$/;"	v
@@ -688,9 +498,6 @@ error_tols	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^error_tols = [(
 es	regression/scripts/utils/RiemannSolver/riemann.py	/^    def es(self):$/;"	m	class:StateVector
 es_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def es_of_rho_p(self, rho, p):$/;"	m	class:AthenaTable
 es_of_rho_p	regression/scripts/utils/EquationOfState/eos.py	/^    def es_of_rho_p(self, rho, p):$/;"	m	class:EOS
-etree	style/cpplint.py	/^import xml.etree.ElementTree$/;"	i
-explicitly	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-explicitly	regression/scripts/tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
 f	regression/scripts/utils/EquationOfState/eos.py	/^        def f(y):   # function to find root of$/;"	f	function:SimpleHydrogen._T_of_rho_ei
 f	regression/scripts/utils/EquationOfState/eos.py	/^        def f(y):  # function to find root of$/;"	f	function:SimpleHydrogen._T_of_rho_p
 f	regression/scripts/utils/EquationOfState/eos.py	/^        def f(y):$/;"	f	function:SimpleHydrogen._T_of_rho_h
@@ -701,32 +508,18 @@ f	regression/scripts/utils/RiemannSolver/riemann.py	/^        def f(p):$/;"	f	fu
 fan_plot	regression/scripts/utils/RiemannSolver/riemann.py	/^    def fan_plot(self, xlim=None, ylim=None, fig=True):$/;"	m	class:RiemannSol
 figsize	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^figsize = (12.8, 9.6)$/;"	v
 figsize	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^figsize = (12.8, 9.6)$/;"	v
-figure2_profiles	regression/scripts/tests/scalars/mignone_radial_1d.py	/^        figure2_profiles, figure3_convergence # noqa$/;"	i
 figure2_profiles	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^def figure2_profiles():$/;"	f
-figure3_convergence	regression/scripts/tests/scalars/mignone_radial_1d.py	/^        figure2_profiles, figure3_convergence # noqa$/;"	i
 figure3_convergence	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^def figure3_convergence():$/;"	f
-figure4_convergence	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^        plot_profiles, figure4_convergence # noqa$/;"	i
 figure4_convergence	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^def figure4_convergence():$/;"	f
 filename_input	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^filename_input = 'initial_data.hdf5'$/;"	v
 filename_input	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^filename_input = 'initial_data.hdf5'$/;"	v
 filename_output	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^filename_output = 'from_array.cons.00000.athdf'$/;"	v
 filename_output	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^filename_output = 'from_array.cons.00000.athdf'$/;"	v
 fileno	regression/scripts/utils/log_pipe.py	/^    def fileno(self):$/;"	m	class:LogPipe
-files	regression/scripts/tests/eos/eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
 fill_to_refined	regression/scripts/utils/comparison.py	/^    def fill_to_refined(faces, vals, faces_refined):$/;"	f	function:l1_diff
 filter	regression/run_tests.py	/^    def filter(self, record):$/;"	m	class:CriticalExceptionFilter
 filter	regression/run_tests.py	/^    def filter(self, record):$/;"	m	class:MakeFilter
 flux	regression/scripts/utils/RiemannSolver/riemann.py	/^    def flux(self):$/;"	m	class:StateVector
-for	regression/scripts/tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-for	regression/scripts/tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-for	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-for	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-for	regression/scripts/tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
-for	regression/scripts/tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-for	regression/scripts/tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-for	regression/scripts/tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-for	regression/scripts/utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-for	style/cpplint.py	/^import math  # for log$/;"	i
 gamma	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^gamma = 5.0\/3.0$/;"	v
 gamma	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^gamma = 5.0\/3.0$/;"	v
 gamma	regression/scripts/utils/EquationOfState/eos.py	/^    def gamma(self):$/;"	m	class:Ideal
@@ -735,18 +528,12 @@ gamma_adi	regression/scripts/tests/sr/hydro_convergence.py	/^gamma_adi = 4.0\/3.
 gamma_adi	regression/scripts/tests/sr/mhd_convergence.py	/^gamma_adi = 4.0\/3.0$/;"	v
 gen_sol	regression/scripts/utils/RiemannSolver/riemann.py	/^    def gen_sol(self):$/;"	m	class:RiemannSol
 get_state	regression/scripts/utils/RiemannSolver/riemann.py	/^    def get_state(self, xi):$/;"	m	class:RiemannSol
-getopt	style/cpplint.py	/^import getopt$/;"	i
-glob	regression/scripts/tests/pgen/pgen_compile.py	/^import glob$/;"	i
-glob	style/cpplint.py	/^import glob$/;"	i
 global_config_args	regression/scripts/utils/athena.py	/^global_config_args = []$/;"	v
 global_coverage_cmd	regression/scripts/utils/athena.py	/^global_coverage_cmd = None$/;"	v
 global_run_args	regression/scripts/utils/athena.py	/^global_run_args = []$/;"	v
 global_silent	regression/scripts/utils/athena.py	/^global_silent = False$/;"	v
 global_test_name	regression/scripts/utils/athena.py	/^global_test_name = None$/;"	v
 gr_probs	regression/scripts/tests/pgen/pgen_compile.py	/^gr_probs = set([pgen for pgen in pgen_choices if pgen[0:3] == 'gr_'])$/;"	v
-h5py	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^import h5py$/;"	i
-h5py	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^import h5py$/;"	i
-h5py	regression/scripts/utils/EquationOfState/writeEOS.py	/^        import h5py$/;"	i
 help	regression/run_tests.py	/^                        help="print all output, timestamps and logging information")$/;"	v
 help	regression/run_tests.py	/^                        help="print debugging information",$/;"	v
 help	regression/run_tests.py	/^                        help='Hide output from make command')$/;"	v
@@ -766,25 +553,18 @@ ic	regression/scripts/utils/RiemannSolver/riemann.py	/^    def ic(self):$/;"	m	c
 init_data	regression/scripts/utils/RiemannSolver/riemann.py	/^    def init_data(self, pmin, pmax, bp=12):$/;"	m	class:RareInt
 integrator	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^integrator = 'rk3'$/;"	v
 integrator	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^integrator = 'rk3'$/;"	v
-interp1d	regression/scripts/utils/RiemannSolver/riemann.py	/^from scipy.interpolate import interp1d$/;"	i
 iprob	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^iprob = 2  # 1 = meridional 1D tests, section 5.1.2 from Mignone (2014)$/;"	v
 iprob	regression/scripts/tests/scalars/mignone_radial_1d.py	/^iprob = 1  # 1 = radial 1D tests, section 5.1.1 from Mignone (2014)$/;"	v
 iprob	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^iprob = 1$/;"	v
 iprob	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^iprob = 2$/;"	v
-iter_modules	regression/run_tests.py	/^from pkgutil import iter_modules$/;"	i
 iteritems	style/cpplint.py	/^    iteritems = dict.items$/;"	v
 iteritems	style/cpplint.py	/^    iteritems = dict.iteritems$/;"	v
-itertools	style/cpplint.py	/^import itertools$/;"	i
 itervalues	style/cpplint.py	/^    itervalues = dict.itervalues$/;"	v
 itervalues	style/cpplint.py	/^    itervalues = dict.values$/;"	v
 l1_diff	regression/scripts/utils/comparison.py	/^def l1_diff(faces_1, vals_1, faces_2, vals_2):$/;"	f
 l1_norm	regression/scripts/utils/comparison.py	/^def l1_norm(faces, vals):$/;"	f
 legend_handles	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^legend_handles = [$/;"	v
 legend_handles	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^legend_handles = [$/;"	v
-linear_wave3d	regression/scripts/tests/diffusion/linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
-log	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^from math import log$/;"	i
-log	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^from math import log$/;"	i
-log	style/cpplint.py	/^import math  # for log$/;"	i
 log_init	regression/run_tests.py	/^def log_init(args):$/;"	f
 logger	regression/run_tests.py	/^logger = logging.getLogger('athena')$/;"	v
 logger	regression/scripts/tests/amr/amr_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
@@ -842,71 +622,6 @@ logger	regression/scripts/tests/sr/mhd_shocks_llf.py	/^logger = logging.getLogge
 logger	regression/scripts/tests/sr/sr_mhd_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	regression/scripts/tests/turb/turb_3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
-logging	regression/run_tests.py	/^import logging$/;"	i
-logging	regression/run_tests.py	/^import logging.config$/;"	i
-logging	regression/scripts/tests/amr/amr_linwave.py	/^import logging$/;"	i
-logging	regression/scripts/tests/curvilinear/blast_cyl.py	/^import logging$/;"	i
-logging	regression/scripts/tests/curvilinear/blast_sph.py	/^import logging$/;"	i
-logging	regression/scripts/tests/diffusion/linear_wave3d.py	/^import logging$/;"	i
-logging	regression/scripts/tests/diffusion/linear_wave3d_sts.py	/^import logging$/;"	i
-logging	regression/scripts/tests/diffusion/resistive_diffusion.py	/^import logging$/;"	i
-logging	regression/scripts/tests/diffusion/resistive_diffusion_sts.py	/^import logging$/;"	i
-logging	regression/scripts/tests/diffusion/thermal_attenuation.py	/^import logging$/;"	i
-logging	regression/scripts/tests/diffusion/thermal_attenuation_sts.py	/^import logging$/;"	i
-logging	regression/scripts/tests/diffusion/viscous_diffusion.py	/^import logging$/;"	i
-logging	regression/scripts/tests/diffusion/viscous_diffusion_sts.py	/^import logging$/;"	i
-logging	regression/scripts/tests/eos/eos_comparison.py	/^import logging$/;"	i
-logging	regression/scripts/tests/eos/eos_hdf5_table.py	/^import logging$/;"	i
-logging	regression/scripts/tests/eos/eos_mhd.py	/^import logging$/;"	i
-logging	regression/scripts/tests/eos/eos_riemann.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/compile_kerr-schild.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/compile_minkowski.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/compile_schwarzschild.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import logging$/;"	i
-logging	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import logging$/;"	i
-logging	regression/scripts/tests/grav/jeans_3d.py	/^import logging$/;"	i
-logging	regression/scripts/tests/grav/unstable_jeans_3d_fft.py	/^import logging$/;"	i
-logging	regression/scripts/tests/grav/unstable_jeans_3d_mg.py	/^import logging$/;"	i
-logging	regression/scripts/tests/hybrid/hybrid_linwave.py	/^import logging$/;"	i
-logging	regression/scripts/tests/hydro/hydro_linwave.py	/^import logging$/;"	i
-logging	regression/scripts/tests/hydro/sod_shock.py	/^import logging$/;"	i
-logging	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^import logging$/;"	i
-logging	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^import logging$/;"	i
-logging	regression/scripts/tests/mhd/cpaw.py	/^import logging$/;"	i
-logging	regression/scripts/tests/mhd/mhd_linwave.py	/^import logging$/;"	i
-logging	regression/scripts/tests/mhd/rj2a_shock.py	/^import logging$/;"	i
-logging	regression/scripts/tests/mpi/mpi_linwave.py	/^import logging$/;"	i
-logging	regression/scripts/tests/omp/omp_linwave.py	/^import logging$/;"	i
-logging	regression/scripts/tests/outputs/all_outputs.py	/^import logging$/;"	i
-logging	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^import logging$/;"	i
-logging	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^import logging$/;"	i
-logging	regression/scripts/tests/pgen/pgen_compile.py	/^import logging$/;"	i
-logging	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^import logging$/;"	i
-logging	regression/scripts/tests/scalars/mignone_radial_1d.py	/^import logging$/;"	i
-logging	regression/scripts/tests/scalars/restart.py	/^import logging$/;"	i
-logging	regression/scripts/tests/shearingbox/mri2d.py	/^import logging$/;"	i
-logging	regression/scripts/tests/shearingbox/mri3d.py	/^import logging$/;"	i
-logging	regression/scripts/tests/sr/hydro_convergence.py	/^import logging$/;"	i
-logging	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import logging$/;"	i
-logging	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import logging$/;"	i
-logging	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import logging$/;"	i
-logging	regression/scripts/tests/sr/mhd_convergence.py	/^import logging$/;"	i
-logging	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import logging$/;"	i
-logging	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import logging$/;"	i
-logging	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import logging$/;"	i
-logging	regression/scripts/tests/sr/sr_mhd_linwave.py	/^import logging$/;"	i
-logging	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^import logging$/;"	i
-logging	regression/scripts/tests/turb/turb_3d.py	/^import logging$/;"	i
-logging	regression/scripts/utils/athena.py	/^import logging$/;"	i
-logging	regression/scripts/utils/log_pipe.py	/^import logging$/;"	i
-logging	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import logging$/;"	i
-logging	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import logging$/;"	i
 long	style/cpplint.py	/^    long = int$/;"	v
 main	regression/run_tests.py	/^def main(**kwargs):$/;"	f
 main	style/cpplint.py	/^def main():$/;"	f
@@ -915,16 +630,6 @@ major_yticks	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^major_ytic
 make	regression/scripts/utils/athena.py	/^def make(clean_first=True, obj_only=False):$/;"	f
 markeredgecolor	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^           markeredgecolor=xorder_colors[xorder_],$/;"	v
 markeredgecolor	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^           markeredgecolor=xorder_colors[xorder_],$/;"	v
-math	regression/scripts/tests/sr/hydro_convergence.py	/^import math$/;"	i
-math	regression/scripts/tests/sr/mhd_convergence.py	/^import math$/;"	i
-math	regression/scripts/utils/comparison.py	/^import math$/;"	i
-math	style/cpplint.py	/^import math  # for log$/;"	i
-matplotlib	regression/scripts/utils/RiemannSolver/riemann.py	/^        import matplotlib.pyplot as plt$/;"	i
-matplotlib	regression/scripts/utils/RiemannSolver/tests.py	/^        import matplotlib.pyplot as plt$/;"	i
-matplotlib	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import matplotlib               # noqa$/;"	i
-matplotlib	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
-matplotlib	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import matplotlib               # noqa$/;"	i
-matplotlib	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
 method	regression/scripts/tests/diffusion/linear_wave3d.py	/^method = 'Explicit'$/;"	v
 method	regression/scripts/tests/diffusion/resistive_diffusion.py	/^method = 'Explicit'$/;"	v
 method	regression/scripts/tests/diffusion/thermal_attenuation.py	/^method = 'Explicit'$/;"	v
@@ -937,27 +642,7 @@ minor_yticks	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^minor_ytic
 minor_yticks	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^minor_yticks = [$/;"	v
 minor_yticks_auto	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^minor_yticks_auto = [$/;"	v
 minor_yticks_auto	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^minor_yticks_auto = [$/;"	v
-mk_ideal	regression/scripts/tests/eos/eos_comparison.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
-mk_ideal	regression/scripts/tests/eos/eos_hdf5_table.py	/^from .eos_comparison import mk_ideal, write_H$/;"	i
-mk_ideal	regression/scripts/tests/eos/eos_table_test.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
 mk_ideal	regression/scripts/utils/EquationOfState/writeEOS.py	/^def mk_ideal(gamma=5.\/3., n=2, fn=None, out_type=None):$/;"	f
-module	regression/scripts/tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-module	regression/scripts/tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-module	regression/scripts/tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-module	regression/scripts/tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
-module	regression/scripts/utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-more	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-more	regression/scripts/tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-move	regression/scripts/tests/eos/eos_comparison.py	/^from shutil import move$/;"	i
-move	regression/scripts/tests/eos/eos_hdf5_table.py	/^from shutil import move$/;"	i
-move	regression/scripts/tests/eos/eos_riemann.py	/^from shutil import move$/;"	i
-move	regression/scripts/tests/eos/eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
-move	regression/scripts/tests/hydro/hydro_linwave.py	/^from shutil import move$/;"	i
-move	regression/scripts/tests/hydro/sod_shock.py	/^from shutil import move$/;"	i
-move	regression/scripts/tests/mhd/mhd_linwave.py	/^from shutil import move$/;"	i
-move	regression/scripts/tests/mhd/rj2a_shock.py	/^from shutil import move$/;"	i
-move	regression/scripts/tests/scalars/restart.py	/^from shutil import move$/;"	i
-moves	regression/scripts/tests/eos/eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
 mpirun	regression/scripts/utils/athena.py	/^def mpirun(mpirun_cmd, mpirun_opts, nproc, input_filename, arguments,$/;"	f
 mpl_logger	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^mpl_logger = logging.getLogger('matplotlib')$/;"	v
 mpl_logger	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^mpl_logger = logging.getLogger('matplotlib')$/;"	v
@@ -968,125 +653,6 @@ n3_xrange	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^n3_xrange = n
 nargs	regression/run_tests.py	/^                        nargs='*',$/;"	v
 nb1	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^nb1 = 4$/;"	v
 nb1	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^nb1 = 4$/;"	v
-noqa	regression/run_tests.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-noqa	regression/scripts/tests/amr/amr_linwave.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/curvilinear/blast_cyl.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/curvilinear/blast_sph.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/diffusion/linear_wave3d.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/diffusion/linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-noqa	regression/scripts/tests/diffusion/resistive_diffusion.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/diffusion/resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-noqa	regression/scripts/tests/diffusion/thermal_attenuation.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/diffusion/thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-noqa	regression/scripts/tests/diffusion/viscous_diffusion.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/diffusion/viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-noqa	regression/scripts/tests/eos/eos_comparison.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/eos/eos_hdf5_table.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/eos/eos_mhd.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/eos/eos_riemann.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-noqa	regression/scripts/tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
-noqa	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/grav/jeans_3d.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/grav/unstable_jeans_3d_fft.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/grav/unstable_jeans_3d_mg.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/hybrid/hybrid_linwave.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/hydro/hydro_linwave.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/hydro/sod_shock.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/mhd/cpaw.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/mhd/mhd_linwave.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/mhd/rj2a_shock.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/mpi/mpi_linwave.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/omp/omp_linwave.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/outputs/all_outputs.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^        plot_profiles, figure4_convergence # noqa$/;"	i
-noqa	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/scalars/mignone_radial_1d.py	/^        figure2_profiles, figure3_convergence # noqa$/;"	i
-noqa	regression/scripts/tests/scalars/mignone_radial_1d.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/scalars/restart.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/shearingbox/mri2d.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/shearingbox/mri3d.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/sr/hydro_convergence.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/sr/mhd_convergence.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/tests/sr/sr_mhd_linwave.py	/^import athena_read                            # noqa$/;"	i
-noqa	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/tests/turb/turb_3d.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/utils/RiemannSolver/AthenaWrapper.py	/^import athena_read  # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import matplotlib               # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^from matplotlib.lines import Line2D  # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^from matplotlib.ticker import AutoMinorLocator, FormatStrFormatter  # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import athena_read                             # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import matplotlib               # noqa$/;"	i
-noqa	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
-np	regression/scripts/tests/diffusion/linear_wave3d.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/diffusion/resistive_diffusion.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/diffusion/thermal_attenuation.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/diffusion/viscous_diffusion.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/eos/eos_comparison.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/eos/eos_hdf5_table.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/eos/eos_mhd.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-np	regression/scripts/tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-np	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/grav/unstable_jeans_3d_fft.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/grav/unstable_jeans_3d_mg.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/hydro/sod_shock.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/mhd/rj2a_shock.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/outputs/all_outputs.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/scalars/mignone_radial_1d.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/shearingbox/mri2d.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/shearingbox/mri3d.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/sr/hydro_convergence.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/sr/mhd_convergence.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/sr/sr_mhd_linwave.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^import numpy as np$/;"	i
-np	regression/scripts/tests/turb/turb_3d.py	/^import numpy as np$/;"	i
-np	regression/scripts/utils/EquationOfState/eos.py	/^import numpy as np$/;"	i
-np	regression/scripts/utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-np	regression/scripts/utils/RiemannSolver/riemann.py	/^import numpy as np$/;"	i
-np	regression/scripts/utils/RiemannSolver/tests.py	/^import numpy as np$/;"	i
-np	regression/scripts/utils/comparison.py	/^import numpy as np$/;"	i
-np	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import numpy as np$/;"	i
-np	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import numpy as np$/;"	i
 nrows_per_solver	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
 nrows_per_solver	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^nrows_per_solver = 2*num_nx1 + 2$/;"	v
 nrows_per_solver	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^nrows_per_solver = 1*num_nx2 + 2$/;"	v
@@ -1100,9 +666,6 @@ num_nx1	regression/scripts/tests/scalars/mignone_radial_1d.py	/^num_nx1 = len(re
 num_nx1	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^num_nx1 = len(resolution_range)$/;"	v
 num_nx2	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^num_nx2 = len(resolution_range)$/;"	v
 num_ranks	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^num_ranks = 3$/;"	v
-numerics	regression/scripts/tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-numerics	regression/scripts/tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-numerics	regression/scripts/utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
 nx1	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^nx1 = 4$/;"	v
 nx1	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^nx1 = 4$/;"	v
 nx1_profile	regression/scripts/tests/scalars/mignone_radial_1d.py	/^nx1_profile = 64$/;"	v
@@ -1115,32 +678,6 @@ nx3	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^nx3 = 4$/;"	v
 nx3	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^nx3 = 4$/;"	v
 ode_opt	regression/scripts/utils/EquationOfState/__init__.py	/^ode_opt = dict(mxstep=5000000, rtol=1e-15, atol=1e-13)$/;"	v
 ode_opt	regression/scripts/utils/RiemannSolver/__init__.py	/^ode_opt = dict(mxstep=5000000, rtol=1e-15, atol=1e-13)  # Set options for odeint$/;"	v
-ode_opt	regression/scripts/utils/RiemannSolver/riemann.py	/^from . import brent_opt, ode_opt$/;"	i
-odeint	regression/scripts/utils/RiemannSolver/riemann.py	/^from scipy.integrate import odeint$/;"	i
-os	regression/run_tests.py	/^import os$/;"	i
-os	regression/scripts/tests/eos/eos_comparison.py	/^import os$/;"	i
-os	regression/scripts/tests/eos/eos_hdf5_table.py	/^import os$/;"	i
-os	regression/scripts/tests/eos/eos_riemann.py	/^import os$/;"	i
-os	regression/scripts/tests/eos/eos_table_test.py	/^import os$/;"	i
-os	regression/scripts/tests/grav/jeans_3d.py	/^import os$/;"	i
-os	regression/scripts/tests/hybrid/hybrid_linwave.py	/^import os$/;"	i
-os	regression/scripts/tests/hydro/hydro_linwave.py	/^import os$/;"	i
-os	regression/scripts/tests/hydro/sod_shock.py	/^import os$/;"	i
-os	regression/scripts/tests/mhd/mhd_linwave.py	/^import os$/;"	i
-os	regression/scripts/tests/mhd/rj2a_shock.py	/^import os$/;"	i
-os	regression/scripts/tests/mpi/mpi_linwave.py	/^import os$/;"	i
-os	regression/scripts/tests/omp/omp_linwave.py	/^import os$/;"	i
-os	regression/scripts/tests/pgen/pgen_compile.py	/^import os$/;"	i
-os	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^import os$/;"	i
-os	regression/scripts/tests/scalars/mignone_radial_1d.py	/^import os$/;"	i
-os	regression/scripts/tests/scalars/restart.py	/^import os$/;"	i
-os	regression/scripts/tests/turb/turb_3d.py	/^import os$/;"	i
-os	regression/scripts/utils/RiemannSolver/AthenaWrapper.py	/^import os$/;"	i
-os	regression/scripts/utils/athena.py	/^import os$/;"	i
-os	regression/scripts/utils/log_pipe.py	/^import os$/;"	i
-os	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import os$/;"	i
-os	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import os$/;"	i
-os	style/cpplint.py	/^import os$/;"	i
 p_min	regression/scripts/utils/RiemannSolver/riemann.py	/^    def p_min(self):$/;"	m	class:StateVector
 p_of_rho_T	regression/scripts/utils/EquationOfState/eos.py	/^    def p_of_rho_T(self, rho, T):$/;"	m	class:Ideal
 p_of_rho_T	regression/scripts/utils/EquationOfState/eos.py	/^    def p_of_rho_T(self, rho, T):$/;"	m	class:SimpleHydrogen
@@ -1151,10 +688,7 @@ p_of_rho_es	regression/scripts/utils/EquationOfState/eos.py	/^    def p_of_rho_e
 p_of_rho_es	regression/scripts/utils/EquationOfState/eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:Ideal
 p_of_rho_es	regression/scripts/utils/EquationOfState/eos.py	/^    def p_of_rho_es(self, rho, es):$/;"	m	class:SimpleHydrogen
 parse_eos	regression/scripts/utils/EquationOfState/eos.py	/^def parse_eos(eos):$/;"	f
-parse_eos	regression/scripts/utils/RiemannSolver/riemann.py	/^from scripts.utils.EquationOfState.eos import parse_eos$/;"	i
 parser	regression/run_tests.py	/^    parser = argparse.ArgumentParser()$/;"	v
-path	regression/scripts/tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-path	regression/scripts/tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
 percentage_formatter	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
 percentage_formatter	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^    percentage_formatter = lambda x: colored($/;"	v
 percentage_formatter	regression/scripts/tests/scalars/mignone_radial_1d.py	/^    percentage_formatter = lambda x: "{:.2%}".format(x)$/;"	v
@@ -1166,15 +700,10 @@ pgen_choices	regression/scripts/tests/pgen/pgen_compile.py	/^pgen_choices = set(
 pgen_directory	regression/scripts/tests/pgen/pgen_compile.py	/^pgen_directory = test + 'src\/pgen\/'$/;"	v
 plot_convergence	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^plot_convergence = False$/;"	v
 plot_convergence	regression/scripts/tests/scalars/mignone_radial_1d.py	/^plot_convergence = False$/;"	v
-plot_profiles	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^        plot_profiles, figure4_convergence # noqa$/;"	i
 plot_profiles	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^plot_profiles = False$/;"	v
 plot_profiles	regression/scripts/tests/scalars/mignone_radial_1d.py	/^plot_profiles = False$/;"	v
 plot_profiles	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^def plot_profiles():$/;"	f
 plot_sol	regression/scripts/utils/RiemannSolver/riemann.py	/^    def plot_sol(self, var=None, xi_min=None, xi_max=None, nsimp=100, speeds=True,$/;"	m	class:RiemannSol
-plt	regression/scripts/utils/RiemannSolver/riemann.py	/^        import matplotlib.pyplot as plt$/;"	i
-plt	regression/scripts/utils/RiemannSolver/tests.py	/^        import matplotlib.pyplot as plt$/;"	i
-plt	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
-plt	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import matplotlib.pyplot as plt  # noqa$/;"	i
 prepare	regression/scripts/tests/amr/amr_linwave.py	/^def prepare(**kwargs):$/;"	f
 prepare	regression/scripts/tests/curvilinear/blast_cyl.py	/^def prepare(**kwargs):$/;"	f
 prepare	regression/scripts/tests/curvilinear/blast_sph.py	/^def prepare(**kwargs):$/;"	f
@@ -1236,7 +765,6 @@ prepare	regression/scripts/tests/sr/mhd_shocks_llf.py	/^def prepare(**kwargs):$/
 prepare	regression/scripts/tests/sr/sr_mhd_linwave.py	/^def prepare(**kwargs):$/;"	f
 prepare	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^def prepare(**kwargs):$/;"	f
 prepare	regression/scripts/tests/turb/turb_3d.py	/^def prepare(**kwargs):$/;"	f
-print_function	regression/run_tests.py	/^from __future__ import print_function$/;"	i
 print_waves	regression/scripts/utils/RiemannSolver/riemann.py	/^    def print_waves(self):$/;"	m	class:RiemannSol
 profile_legend_handles	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^profile_legend_handles = [$/;"	v
 profile_legend_handles	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^profile_legend_handles = [$/;"	v
@@ -1249,16 +777,10 @@ rate_tols	regression/scripts/tests/diffusion/resistive_diffusion.py	/^rate_tols 
 rate_tols	regression/scripts/tests/diffusion/viscous_diffusion.py	/^rate_tols = [-1.99]$/;"	v
 rate_tols	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^rate_tols = [(2.0, 1.9), (2.0, 2.0), (1.95, 1.85),$/;"	v
 rate_tols	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^rate_tols = [(3.95, 3.94),  (3.95, 3.94)]$/;"	v
-re	regression/scripts/utils/RiemannSolver/riemann.py	/^    import re$/;"	i
-re	style/cpplint.py	/^import re$/;"	i
-reading	regression/scripts/tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-reading	regression/scripts/tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
-renames	regression/scripts/tests/eos/eos_table_test.py	/^from shutil import move                        # moves\/renames files$/;"	i
 res_high	regression/scripts/tests/sr/hydro_convergence.py	/^res_high = 512$/;"	v
 res_high	regression/scripts/tests/sr/mhd_convergence.py	/^res_high = 512$/;"	v
 res_low	regression/scripts/tests/sr/hydro_convergence.py	/^res_low = 64$/;"	v
 res_low	regression/scripts/tests/sr/mhd_convergence.py	/^res_low = 64$/;"	v
-resistive_diffusion	regression/scripts/tests/diffusion/resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
 resolution_range	regression/scripts/tests/diffusion/linear_wave3d.py	/^resolution_range = [32, 64]$/;"	v
 resolution_range	regression/scripts/tests/diffusion/resistive_diffusion.py	/^resolution_range = [64, 128]$/;"	v
 resolution_range	regression/scripts/tests/diffusion/thermal_attenuation.py	/^resolution_range = [32, 64]$/;"	v
@@ -1273,9 +795,6 @@ restore_files	regression/scripts/utils/athena.py	/^def restore_files():$/;"	f
 rho	regression/scripts/tests/sr/hydro_convergence.py	/^rho = 4.0$/;"	v
 rho	regression/scripts/tests/sr/mhd_convergence.py	/^rho = 4.0$/;"	v
 rho	regression/scripts/utils/RiemannSolver/riemann.py	/^            def rho(p):$/;"	f	function:RareInt.__init__
-riemann_problem	regression/scripts/tests/eos/eos_mhd.py	/^from scripts.utils.RiemannSolver.riemann import riemann_problem$/;"	i
-riemann_problem	regression/scripts/tests/eos/eos_riemann.py	/^from scripts.utils.RiemannSolver.riemann import riemann_problem$/;"	i
-riemann_problem	regression/scripts/utils/RiemannSolver/AthenaWrapper.py	/^from .riemann import riemann_problem$/;"	i
 riemann_problem	regression/scripts/utils/RiemannSolver/riemann.py	/^def riemann_problem(states, eos):$/;"	f
 run	regression/scripts/tests/amr/amr_linwave.py	/^def run(**kwargs):$/;"	f
 run	regression/scripts/tests/curvilinear/blast_cyl.py	/^def run(**kwargs):$/;"	f
@@ -1340,98 +859,10 @@ run	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^def run(**kwarg
 run	regression/scripts/tests/turb/turb_3d.py	/^def run(**kwargs):$/;"	f
 run	regression/scripts/utils/athena.py	/^def run(input_filename, arguments, lcov_test_suffix=None):$/;"	f
 run	regression/scripts/utils/log_pipe.py	/^    def run(self):$/;"	m	class:LogPipe
-running	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-running	regression/scripts/tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
 sanitize_lbl	regression/scripts/utils/RiemannSolver/riemann.py	/^def sanitize_lbl(label):$/;"	f
 save_files	regression/scripts/utils/athena.py	/^def save_files():$/;"	f
 saved_filenames	regression/scripts/utils/athena.py	/^saved_filenames = ['src\/defs.hpp', 'Makefile']$/;"	v
 saved_files	regression/scripts/utils/athena.py	/^saved_files = []$/;"	v
-scripts	regression/run_tests.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-scripts	regression/scripts/tests/amr/amr_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/curvilinear/blast_cyl.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/curvilinear/blast_sph.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/diffusion/linear_wave3d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/diffusion/linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
-scripts	regression/scripts/tests/diffusion/linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-scripts	regression/scripts/tests/diffusion/resistive_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/diffusion/resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
-scripts	regression/scripts/tests/diffusion/resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-scripts	regression/scripts/tests/diffusion/thermal_attenuation.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/diffusion/thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
-scripts	regression/scripts/tests/diffusion/thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-scripts	regression/scripts/tests/diffusion/viscous_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/diffusion/viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
-scripts	regression/scripts/tests/diffusion/viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-scripts	regression/scripts/tests/eos/eos_comparison.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/eos/eos_comparison.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/eos/eos_hdf5_table.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/eos/eos_hdf5_table.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/eos/eos_mhd.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/eos/eos_mhd.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/eos/eos_riemann.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/eos/eos_riemann.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-scripts	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-scripts	regression/scripts/tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-scripts	regression/scripts/tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-scripts	regression/scripts/tests/gr/compile_kerr-schild.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/compile_minkowski.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/compile_schwarzschild.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/grav/jeans_3d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/grav/unstable_jeans_3d_fft.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/grav/unstable_jeans_3d_mg.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/hybrid/hybrid_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/hydro/hydro_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/hydro/sod_shock.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/mhd/cpaw.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/mhd/mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/mhd/rj2a_shock.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/mpi/mpi_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/omp/omp_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/outputs/all_outputs.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/pgen/pgen_compile.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/scalars/mignone_radial_1d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/scalars/restart.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/shearingbox/mri2d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/shearingbox/mri3d.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/sr/hydro_convergence.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/sr/mhd_convergence.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-scripts	regression/scripts/tests/sr/sr_mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	regression/scripts/tests/turb/turb_3d.py	/^import scripts.utils.athena as athena$/;"	i
 shear_args	regression/scripts/tests/pgen/pgen_compile.py	/^shear_args = ['b', 'shear']$/;"	v
 shear_probs	regression/scripts/tests/pgen/pgen_compile.py	/^shear_probs = set(['hb3', 'hgb', 'ssheet', 'strat'])$/;"	v
 show	regression/scripts/utils/RiemannSolver/riemann.py	/^    def show(self):$/;"	m	class:StateVector
@@ -1444,188 +875,18 @@ solvers	regression/scripts/tests/scalars/mignone_radial_1d.py	/^solvers = [('rk3
 solvers	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^solvers = [('vl2', '2'), ('rk3', '4c'), ('ssprk5_4', '4')]$/;"	v
 speed_row	regression/scripts/utils/RiemannSolver/riemann.py	/^    def speed_row(self, sep=None, fmt='.7e'):$/;"	m	class:RiemannSol
 speeds	regression/scripts/utils/RiemannSolver/riemann.py	/^    def speeds(self):$/;"	m	class:RiemannSol
-sre_compile	style/cpplint.py	/^import sre_compile$/;"	i
-standard	regression/scripts/tests/eos/eos_table_test.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-standard	regression/scripts/tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-standard	regression/scripts/tests/example.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
-standard	regression/scripts/tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
-standard	regression/scripts/utils/EquationOfState/writeEOS.py	/^import numpy as np                             # standard Python module for numerics$/;"	i
 state_tbl	regression/scripts/utils/RiemannSolver/riemann.py	/^    def state_tbl(self, row_sep=None, col_sep=None, eol='', fmt='.7e', speeds=False):$/;"	m	class:RiemannSol
 states	regression/scripts/utils/RiemannSolver/riemann.py	/^    def states(self):$/;"	m	class:RiemannSol
-string	style/cpplint.py	/^import string$/;"	i
-subprocess	regression/scripts/utils/athena.py	/^import subprocess$/;"	i
-sys	regression/run_tests.py	/^import sys$/;"	i
-sys	regression/scripts/tests/amr/amr_linwave.py	/^import sys$/;"	i
-sys	regression/scripts/tests/curvilinear/blast_cyl.py	/^import sys$/;"	i
-sys	regression/scripts/tests/curvilinear/blast_sph.py	/^import sys$/;"	i
-sys	regression/scripts/tests/diffusion/linear_wave3d.py	/^import sys$/;"	i
-sys	regression/scripts/tests/diffusion/resistive_diffusion.py	/^import sys$/;"	i
-sys	regression/scripts/tests/diffusion/thermal_attenuation.py	/^import sys$/;"	i
-sys	regression/scripts/tests/diffusion/viscous_diffusion.py	/^import sys$/;"	i
-sys	regression/scripts/tests/eos/eos_comparison.py	/^import sys$/;"	i
-sys	regression/scripts/tests/eos/eos_hdf5_table.py	/^import sys$/;"	i
-sys	regression/scripts/tests/eos/eos_mhd.py	/^import sys$/;"	i
-sys	regression/scripts/tests/eos/eos_riemann.py	/^import sys$/;"	i
-sys	regression/scripts/tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-sys	regression/scripts/tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
-sys	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import sys$/;"	i
-sys	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import sys$/;"	i
-sys	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import sys$/;"	i
-sys	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import sys$/;"	i
-sys	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import sys$/;"	i
-sys	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import sys$/;"	i
-sys	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import sys$/;"	i
-sys	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import sys$/;"	i
-sys	regression/scripts/tests/grav/jeans_3d.py	/^import sys$/;"	i
-sys	regression/scripts/tests/grav/unstable_jeans_3d_fft.py	/^import sys$/;"	i
-sys	regression/scripts/tests/grav/unstable_jeans_3d_mg.py	/^import sys$/;"	i
-sys	regression/scripts/tests/hybrid/hybrid_linwave.py	/^import sys$/;"	i
-sys	regression/scripts/tests/hydro/hydro_linwave.py	/^import sys$/;"	i
-sys	regression/scripts/tests/hydro/sod_shock.py	/^import sys$/;"	i
-sys	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^import sys$/;"	i
-sys	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^import sys$/;"	i
-sys	regression/scripts/tests/mhd/cpaw.py	/^import sys$/;"	i
-sys	regression/scripts/tests/mhd/mhd_linwave.py	/^import sys$/;"	i
-sys	regression/scripts/tests/mhd/rj2a_shock.py	/^import sys$/;"	i
-sys	regression/scripts/tests/mpi/mpi_linwave.py	/^import sys$/;"	i
-sys	regression/scripts/tests/omp/omp_linwave.py	/^import sys$/;"	i
-sys	regression/scripts/tests/outputs/all_outputs.py	/^import sys$/;"	i
-sys	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^import sys$/;"	i
-sys	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^import sys$/;"	i
-sys	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^import sys$/;"	i
-sys	regression/scripts/tests/scalars/mignone_radial_1d.py	/^import sys$/;"	i
-sys	regression/scripts/tests/scalars/restart.py	/^import sys$/;"	i
-sys	regression/scripts/tests/shearingbox/mri2d.py	/^import sys$/;"	i
-sys	regression/scripts/tests/shearingbox/mri3d.py	/^import sys$/;"	i
-sys	regression/scripts/tests/sr/hydro_convergence.py	/^import sys$/;"	i
-sys	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import sys$/;"	i
-sys	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import sys$/;"	i
-sys	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import sys$/;"	i
-sys	regression/scripts/tests/sr/mhd_convergence.py	/^import sys$/;"	i
-sys	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import sys$/;"	i
-sys	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import sys$/;"	i
-sys	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import sys$/;"	i
-sys	regression/scripts/tests/sr/sr_mhd_linwave.py	/^import sys$/;"	i
-sys	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^import sys$/;"	i
-sys	regression/scripts/tests/turb/turb_3d.py	/^import sys$/;"	i
-sys	regression/scripts/utils/EquationOfState/eos.py	/^import sys$/;"	i
-sys	regression/scripts/utils/RiemannSolver/AthenaWrapper.py	/^import sys$/;"	i
-sys	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^import sys$/;"	i
-sys	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^import sys$/;"	i
-sys	style/cpplint.py	/^import sys$/;"	i
-sysconfig	style/cpplint.py	/^import sysconfig$/;"	i
 test	regression/scripts/tests/pgen/pgen_compile.py	/^test = current_dir[0:(len(current_dir) - 14)]$/;"	v
-testing	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-testing	regression/scripts/tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-tests	regression/scripts/tests/diffusion/linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
-tests	regression/scripts/tests/diffusion/resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
-tests	regression/scripts/tests/diffusion/thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
-tests	regression/scripts/tests/diffusion/viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
-thermal_attenuation	regression/scripts/tests/diffusion/thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
-threading	regression/scripts/utils/log_pipe.py	/^import threading$/;"	i
-timer	regression/run_tests.py	/^from timeit import default_timer as timer$/;"	i
-timer	regression/scripts/utils/athena.py	/^from timeit import default_timer as timer$/;"	i
 tmp	regression/scripts/tests/eos/eos_riemann.py	/^tmp = ['dl', 'ul', 'Tl', 'dr', 'ur', 'Tr']$/;"	v
 tmp	regression/scripts/tests/eos/eos_riemann.py	/^tmp = ['problem\/' + i for i in tmp] + ['time\/tlim']$/;"	v
 tmp	regression/scripts/utils/RiemannSolver/riemann.py	/^            def tmp(p):$/;"	f	function:RareInt.__init__
-to	regression/scripts/tests/eos/eos_table_test.py	/^import sys                                     # standard Python module to change path$/;"	i
-to	regression/scripts/tests/example.py	/^import sys                                     # standard Python module to change path$/;"	i
 type	regression/run_tests.py	/^                        type=str,$/;"	v
 u	regression/scripts/utils/RiemannSolver/riemann.py	/^            def u(p):$/;"	f	function:RareInt.__init__
 unicode_escape_decode	style/cpplint.py	/^def unicode_escape_decode(x):$/;"	f
-unicodedata	style/cpplint.py	/^import unicodedata$/;"	i
-utilities	regression/scripts/tests/eos/eos_table_test.py	/^import athena_read  # noqa                     # utilities for reading Athena++ data$/;"	i
-utilities	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-utilities	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-utilities	regression/scripts/tests/example.py	/^import athena_read                             # utilities for reading Athena++ data # noqa$/;"	i
-utilities	regression/scripts/tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-utilities	regression/scripts/tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-utils	regression/run_tests.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-utils	regression/scripts/tests/amr/amr_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/curvilinear/blast_cyl.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/curvilinear/blast_sph.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/diffusion/linear_wave3d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/diffusion/linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-utils	regression/scripts/tests/diffusion/resistive_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/diffusion/resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-utils	regression/scripts/tests/diffusion/thermal_attenuation.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/diffusion/thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-utils	regression/scripts/tests/diffusion/viscous_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/diffusion/viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
-utils	regression/scripts/tests/eos/eos_comparison.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/eos/eos_comparison.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/eos/eos_hdf5_table.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/eos/eos_hdf5_table.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/eos/eos_mhd.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/eos/eos_mhd.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/eos/eos_riemann.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/eos/eos_riemann.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-utils	regression/scripts/tests/eos/eos_table_test.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-utils	regression/scripts/tests/example.py	/^import scripts.utils.athena as athena          # utilities for running Athena++$/;"	i
-utils	regression/scripts/tests/example.py	/^import scripts.utils.comparison as comparison  # more utilities explicitly for testing$/;"	i
-utils	regression/scripts/tests/gr/compile_kerr-schild.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/compile_minkowski.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/compile_schwarzschild.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_hlle_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/hydro_shocks_llf_no_transform.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/gr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/grav/jeans_3d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/grav/unstable_jeans_3d_fft.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/grav/unstable_jeans_3d_mg.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/hybrid/hybrid_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/hydro/hydro_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/hydro/sod_shock.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/hydro4/hydro_linwave_2d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/hydro4/hydro_linwave_3d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/mhd/cpaw.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/mhd/mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/mhd/rj2a_shock.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/mpi/mpi_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/omp/omp_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/outputs/all_outputs.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/pgen/hdf5_reader_parallel.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/pgen/hdf5_reader_serial.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/pgen/pgen_compile.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/scalars/mignone_meridional_1d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/scalars/mignone_radial_1d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/scalars/restart.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/shearingbox/mri2d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/shearingbox/mri3d.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/sr/hydro_convergence.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/sr/hydro_shocks_hllc.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/sr/hydro_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/sr/hydro_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/sr/mhd_convergence.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/sr/mhd_shocks_hlld.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/sr/mhd_shocks_hlle.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/sr/mhd_shocks_llf.py	/^import scripts.utils.comparison as comparison$/;"	i
-utils	regression/scripts/tests/sr/sr_mhd_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/symmetry/hydro_linwave_aligned.py	/^import scripts.utils.athena as athena$/;"	i
-utils	regression/scripts/tests/turb/turb_3d.py	/^import scripts.utils.athena as athena$/;"	i
 valid	regression/scripts/utils/EquationOfState/eos.py	/^    def valid(self):$/;"	m	class:EOS
 vector_get_state	regression/scripts/utils/RiemannSolver/riemann.py	/^    def vector_get_state(self, xi, add_var=None, inc_xi=False):$/;"	m	class:RiemannSol
 vector_state_names	regression/scripts/utils/RiemannSolver/riemann.py	/^vector_state_names = ['rho', 'p', 'u']$/;"	v
-viscous_diffusion	regression/scripts/tests/diffusion/viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
 vx	regression/scripts/tests/sr/hydro_convergence.py	/^vx = 0.1$/;"	v
 vx	regression/scripts/tests/sr/mhd_convergence.py	/^vx = 0.1$/;"	v
 vy	regression/scripts/tests/sr/hydro_convergence.py	/^vy = 0.3$/;"	v
@@ -1637,12 +898,8 @@ wave_flags	regression/scripts/tests/sr/mhd_convergence.py	/^wave_flags = range(7
 wave_speeds	regression/scripts/tests/eos/eos_mhd.py	/^wave_speeds = [-0.8236630408305421, 0.15084012571797972, 0.29445281898990067,$/;"	v
 wavespeeds_hydro	regression/scripts/tests/sr/hydro_convergence.py	/^def wavespeeds_hydro():$/;"	f
 wavespeeds_mhd	regression/scripts/tests/sr/mhd_convergence.py	/^def wavespeeds_mhd():$/;"	f
-write_H	regression/scripts/tests/eos/eos_comparison.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
-write_H	regression/scripts/tests/eos/eos_hdf5_table.py	/^from .eos_comparison import mk_ideal, write_H$/;"	i
-write_H	regression/scripts/tests/eos/eos_table_test.py	/^from scripts.utils.EquationOfState.writeEOS import mk_ideal, write_H$/;"	i
 write_H	regression/scripts/utils/EquationOfState/writeEOS.py	/^def write_H(nEspec=256, nRho=64, logEspecLim=None, logRhoLim=None, eOp=1.5,$/;"	f
 write_varlist	regression/scripts/utils/EquationOfState/writeEOS.py	/^def write_varlist(dlim, elim, varlist, fn=None, out_type=None, eOp=1.5,$/;"	f
-xml	style/cpplint.py	/^import xml.etree.ElementTree$/;"	i
 xorder_colors	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^xorder_colors = {$/;"	v
 xorder_colors	regression/scripts/utils/plot_mignone/section_5_1_2.py	/^xorder_colors = {$/;"	v
 xorder_strs	regression/scripts/utils/plot_mignone/section_5_1_1.py	/^xorder_strs = ['PLM', r'$\\mathrm{PPM}_{4}$']$/;"	v

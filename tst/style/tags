@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AddFilters	cpplint.py	/^    def AddFilters(self, filters):$/;"	m	class:_CppLintState
 AddJUnitFailure	cpplint.py	/^    def AddJUnitFailure(self, filename, linenum, message, category, confidence):$/;"	m	class:_CppLintState
 BackupFilters	cpplint.py	/^    def BackupFilters(self):$/;"	m	class:_CppLintState
@@ -61,7 +61,6 @@ CleanseRawStrings	cpplint.py	/^def CleanseRawStrings(raw_lines):$/;"	f
 CleansedLines	cpplint.py	/^class CleansedLines(object):$/;"	c
 CloseExpression	cpplint.py	/^def CloseExpression(clean_lines, linenum, pos):$/;"	f
 Count	cpplint.py	/^    def Count(self):$/;"	m	class:_FunctionState
-ElementTree	cpplint.py	/^import xml.etree.ElementTree$/;"	i
 End	cpplint.py	/^    def End(self):$/;"	m	class:_FunctionState
 Error	cpplint.py	/^def Error(filename, linenum, category, confidence, message):$/;"	f
 ExpectingFunctionArgs	cpplint.py	/^def ExpectingFunctionArgs(clean_lines, linenum):$/;"	f
@@ -259,28 +258,11 @@ _root	cpplint.py	/^_root = None$/;"	v
 _root_debug	cpplint.py	/^_root_debug = False$/;"	v
 _test_suffixes	cpplint.py	/^_test_suffixes = ['_test', '_regtest', '_unittest']$/;"	v
 _valid_extensions	cpplint.py	/^_valid_extensions = set([])$/;"	v
-codecs	cpplint.py	/^import codecs$/;"	i
-copy	cpplint.py	/^import copy$/;"	i
-etree	cpplint.py	/^import xml.etree.ElementTree$/;"	i
-for	cpplint.py	/^import math  # for log$/;"	i
-getopt	cpplint.py	/^import getopt$/;"	i
-glob	cpplint.py	/^import glob$/;"	i
 iteritems	cpplint.py	/^    iteritems = dict.items$/;"	v
 iteritems	cpplint.py	/^    iteritems = dict.iteritems$/;"	v
-itertools	cpplint.py	/^import itertools$/;"	i
 itervalues	cpplint.py	/^    itervalues = dict.itervalues$/;"	v
 itervalues	cpplint.py	/^    itervalues = dict.values$/;"	v
-log	cpplint.py	/^import math  # for log$/;"	i
 long	cpplint.py	/^    long = int$/;"	v
 main	cpplint.py	/^def main():$/;"	f
-math	cpplint.py	/^import math  # for log$/;"	i
-os	cpplint.py	/^import os$/;"	i
-re	cpplint.py	/^import re$/;"	i
-sre_compile	cpplint.py	/^import sre_compile$/;"	i
-string	cpplint.py	/^import string$/;"	i
-sys	cpplint.py	/^import sys$/;"	i
-sysconfig	cpplint.py	/^import sysconfig$/;"	i
 unicode_escape_decode	cpplint.py	/^def unicode_escape_decode(x):$/;"	f
-unicodedata	cpplint.py	/^import unicodedata$/;"	i
-xml	cpplint.py	/^import xml.etree.ElementTree$/;"	i
 xrange	cpplint.py	/^    xrange = range  # Python 3$/;"	v

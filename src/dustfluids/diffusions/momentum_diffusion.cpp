@@ -28,15 +28,14 @@
 // Van Leer flux limiter
 Real DustFluidsDiffusion::VanLeerLimiter(const Real a, const Real b){
   Real c = a * b;
-  return c > 0.0? (2.0*c)/(a+b): 0.0;
+  return (c > 0.0) ? (2.0*c)/(a+b) : 0.0;
 }
 
 void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real> &prim_df,
             const AthenaArray<Real> &w, AthenaArray<Real> *df_diff_flux) {
-  DustFluids *pdf        = pmb_->pdustfluids;
-  const bool f2          = pmb_->pmy_mesh->f2;
-  const bool f3          = pmb_->pmy_mesh->f3;
-  //Coordinates *pco       = pmb_->pcoord;
+  DustFluids *pdf = pmb_->pdustfluids;
+  const bool f2   = pmb_->pmy_mesh->f2;
+  const bool f3   = pmb_->pmy_mesh->f3;
   // rho_id: concentration diffusive flux; v1_id, v2_id, v3_id: momentum diffusive flux
   AthenaArray<Real> &x1flux = df_diff_flux[X1DIR];
   AthenaArray<Real> &x2flux = df_diff_flux[X2DIR];

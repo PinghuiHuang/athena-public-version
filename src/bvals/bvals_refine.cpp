@@ -367,7 +367,7 @@ void BoundaryValues::ApplyPhysicalBoundariesOnCoarseLevel(
                                   si-f1m, ei+f1p, sj-f2m, ej+f2p, sk-f3m, ek+f3p);
   if (NDUSTFLUIDS > 0) {
     DustFluids *pdf = pmb->pdustfluids;
-    pmb->peos->DustFluidsConservedToPrimitive(pdf->coarse_df_cons_, ph->coarse_prim_,
+    pmb->peos->DustFluidsConservedToPrimitive(pdf->coarse_df_cons_,
                                                  pdf->coarse_df_prim_, pdf->coarse_df_prim_,
                                                  pmr->pcoarsec,
                                                  si-f1m, ei+f1p, sj-f2m, ej+f2p,
@@ -525,7 +525,7 @@ void BoundaryValues::ProlongateGhostCells(const NeighborBlock& nb,
                                   fsi, fei, fsj, fej, fsk, fek);
   if (NDUSTFLUIDS > 0) {
     DustFluids *pdf = pmb->pdustfluids;
-    pmb->peos->DustFluidsPrimitiveToConserved(pdf->df_prim, ph->w, pdf->df_cons, pmb->pcoord,
+    pmb->peos->DustFluidsPrimitiveToConserved(pdf->df_prim, pdf->df_cons, pmb->pcoord,
                                                  fsi, fei, fsj, fej, fsk, fek);
   }
   return;

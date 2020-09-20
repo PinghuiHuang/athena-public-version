@@ -3,16 +3,16 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ApplyKernel	fft_gravity.cpp	/^void FFTGravity::ApplyKernel(int mode) {$/;"	f	class:FFTGravity
 CalculateDefect	mg_gravity.cpp	/^void MGGravity::CalculateDefect() {$/;"	f	class:MGGravity
 FFTGravity	fft_gravity.hpp	/^  FFTGravity(FFTDriver *pfd, LogicalLocation iloc, int igid,$/;"	f	class:FFTGravity
 FFTGravity	fft_gravity.hpp	/^class FFTGravity : public FFTBlock {$/;"	c
 FFTGravityDriver	fft_gravity.cpp	/^FFTGravityDriver::FFTGravityDriver(Mesh *pm, ParameterInput *pin)$/;"	f	class:FFTGravityDriver
 FFTGravityDriver	fft_gravity.hpp	/^class FFTGravityDriver : public FFTDriver{$/;"	c
-GRAVITY_FFT_GRAVITY_HPP_	fft_gravity.hpp	/^#define GRAVITY_FFT_GRAVITY_HPP_$/;"	d
-GRAVITY_GRAVITY_HPP_	gravity.hpp	/^#define GRAVITY_GRAVITY_HPP_$/;"	d
-GRAVITY_MG_GRAVITY_HPP_	mg_gravity.hpp	/^#define GRAVITY_MG_GRAVITY_HPP_$/;"	d
+GRAVITY_FFT_GRAVITY_HPP_	fft_gravity.hpp	2;"	d
+GRAVITY_GRAVITY_HPP_	gravity.hpp	2;"	d
+GRAVITY_MG_GRAVITY_HPP_	mg_gravity.hpp	2;"	d
 Gravity	gravity.cpp	/^Gravity::Gravity(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:Gravity
 Gravity	gravity.hpp	/^class Gravity {$/;"	c
 MGGravity	mg_gravity.hpp	/^  MGGravity(MultigridDriver *pmd, MeshBlock *pmb) : Multigrid(pmd, pmb, 1, 1)$/;"	f	class:MGGravity

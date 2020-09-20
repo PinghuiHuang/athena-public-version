@@ -1490,7 +1490,7 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
                                         il, iu, jl, ju, kl, ku);
         if (NDUSTFLUIDS > 0) {
           // r1/r_old for GR is currently unused:
-          pmb->peos->DustFluidsConservedToPrimitive(pdf->df_cons, ph->w, pdf->df_prim, pdf->df_prim,
+          pmb->peos->DustFluidsConservedToPrimitive(pdf->df_cons, pdf->df_prim1, pdf->df_prim,
                                                        pmb->pcoord, il, iu, jl, ju, kl, ku);
         }
         // --------------------------
@@ -1511,7 +1511,7 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
                                                      il, iu, jl, ju, kl, ku);
           if (NDUSTFLUIDS > 0) {
             pmb->peos->DustFluidsConservedToPrimitiveCellAverage(
-                pdf->df_cons, pdf->df_prim, pdf->df_prim, pmb->pcoord, il, iu, jl, ju, kl, ku);
+                pdf->df_cons, pdf->df_prim1, pdf->df_prim, pmb->pcoord, il, iu, jl, ju, kl, ku);
           }
         }
         // --------------------------

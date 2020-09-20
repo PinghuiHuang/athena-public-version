@@ -12,6 +12,8 @@
 // C headers
 
 // C++ headers
+#include <cstring>    // strcmp
+#include <sstream>
 
 // Athena++ headers
 #include "../../athena.hpp"
@@ -29,56 +31,88 @@ class DustGasDrag {
     DustGasDrag(DustFluids *pdf, ParameterInput *pin);
 
     // data
-    bool DustFeedback_Flag;           // true or false, the flag of dust feedback term
+    bool DustFeedback_Flag; // true or false, the flag of dust feedback term
 
     // functions
-    void Aerodynamics_Drag(MeshBlock *pmb, const Real dt, const AthenaArray<Real> &stopping_time,
-        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    // Implicit Schemes
-    void SingleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,
-        const AthenaArray<Real> &stopping_time,
-        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    void SingleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
+    void AerodynamicDrag(MeshBlock *pmb, const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    void MultipleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,
-        const AthenaArray<Real> &stopping_time,
-        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    void MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,
-        const AthenaArray<Real> &stopping_time,
-        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    // Semi-Implicit Schemes
-    void SingleDust_NoFeedback_SemiImplicit(MeshBlock *pmb, const Real dt,
-        const AthenaArray<Real> &stopping_time,
-        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    void SingleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt,
-        const AthenaArray<Real> &stopping_time,
-        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    //void MultipleDust_NoFeedback_SemiImplicit(MeshBlock *pmb, const Real dt,
-        //const AthenaArray<Real> &stopping_time,
+    //// Implicit Schemes
+    //void SingleDustNoFeedbackImplicit(MeshBlock *pmb, const int stage,
+        //const Real dt, const AthenaArray<Real> &stopping_time,
         //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         //const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    //void MultipleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt,
-        //const AthenaArray<Real> &stopping_time,
+    //void SingleDustFeedbackImplicit(MeshBlock *pmb, const int stage,
+        //const Real dt, const AthenaArray<Real> &stopping_time,
         //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         //AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // The functions on calculating the drags-matrix
+    //void MultipleDustNoFeedbackImplicit(MeshBlock *pmb, const int stage,
+        //const Real dt, const AthenaArray<Real> &stopping_time,
+        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        //const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    //void MultipleDustFeedbackImplicit(MeshBlock *pmb, const int stage,
+        //const Real dt, const AthenaArray<Real> &stopping_time,
+        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        //AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    //// Semi-Implicit Schemes
+    //void SingleDustNoFeedbackSemiImplicit(MeshBlock *pmb, const int stage,
+        //const Real dt, const AthenaArray<Real> &stopping_time,
+        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        //const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    //void SingleDustFeedbackSemiImplicit(MeshBlock *pmb, const int stage,
+        //const Real dt, const AthenaArray<Real> &stopping_time,
+        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        //AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    // 2-order implicit drag scheme, depends on the time integrator
+    void VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
+        const Real dt, const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    //void VL2ImplicitNoFeedback(MeshBlock *pmb, const int stage,
+        //const Real dt, const AthenaArray<Real> &stopping_time,
+        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        //const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    void RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
+        const Real dt, const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    //void RK2ImplicitNoFeedback(MeshBlock *pmb, const int stage,
+        //const Real dt, const AthenaArray<Real> &stopping_time,
+        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        //const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    // Functions worked on calculating drag-matrixes
+    // Matrix Addition
+    void Addition(const AthenaArray<Real> &a_matrix, const Real b_num,
+                  const AthenaArray<Real> &b_matrix, AthenaArray<Real> &c_matrix);
+
+    void Addition(AthenaArray<Real> &a_matrix, const Real b_num, const AthenaArray<Real> &b_matrix);
+
+    void Addition(const Real a_num, const Real b_num,
+                  const AthenaArray<Real> &b_matrix, AthenaArray<Real> &c_matrix);
+
+    void Addition(const Real a_num, const Real b_num, AthenaArray<Real> &b_matrix);
+
+    // Matrix Multiplication
+    void Multiplication(const AthenaArray<Real> &a_matrix, const AthenaArray<Real> &b_matrix,
+                                          AthenaArray<Real> &c_matrix);
+
+    void Multiplication(const Real a_num, const AthenaArray<Real> &b_matrix,
+                                          AthenaArray<Real> &c_matrix);
+
+    void Multiplication(const Real a_num, AthenaArray<Real> &b_matrix);
+
     // LU decompose on the drags matrix
     void LUdecompose(const AthenaArray<Real> &a_matrix);
 
@@ -86,18 +120,16 @@ class DustGasDrag {
 
     void SolveMultipleLinearEquation(AthenaArray<Real> &b_matrix, AthenaArray<Real> &x_matrix);
 
-    // Calculate the inverse of drags matrix
-    AthenaArray<Real> InverseMatrix(AthenaArray<Real> &a_matrix);
+    // Calculate the inverse of matrix
+    void Inverse(AthenaArray<Real> &a_matrix, AthenaArray<Real> &a_inv_matrix);
 
     // calculate the determinant of drags matrix
     Real Determinant();
 
-    // Iterative improve the precision of solve linear equations
-    void IterativeImprove(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector);
-
   private:
     static const int num_species  = NDUSTFLUIDS + 1; // gas and n dust fluids
     static const int num_dust_var = 4*NDUSTFLUIDS;   // Number of dust variables (rho, v1, v2, v3)*4
+    std::string integrator;                          // Time Integrator
     DustFluids  *pmy_dustfluids_;                    // ptr to DustFluids containing this DustGasDrag
     MeshBlock   *pmb_;                               // ptr to meshblock containing this DustGasDrag
     Coordinates *pco_;                               // ptr to coordinates class

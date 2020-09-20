@@ -81,14 +81,14 @@ void DustFluidsSourceTerms::AddDustFluidsSourceTerms(const Real time, const Real
 
   // accleration due to point mass (MUST BE AT ORIGIN)
   if (gm_ != 0.0)
-    PointMass_DustFluids(dt, flux_df, prim_df, cons_df);
+    PointMassDustFluids(dt, flux_df, prim_df, cons_df);
 
   // Add new source terms here
   //if (SELF_GRAVITY_ENABLED) SelfGravity(dt, flux, prim, cons);
 
   // shearing box source terms: tidal and Coriolis forces
   if ((Omega_0_ !=0.0) && (qshear_ != 0.0))
-    ShearingBoxSourceTerms_DustFluids(dt, flux_df, prim_df, cons_df);
+    ShearingBoxSourceTermsDustFluids(dt, flux_df, prim_df, cons_df);
   // MyNewSourceTerms()
 
   ////  user-defined source terms

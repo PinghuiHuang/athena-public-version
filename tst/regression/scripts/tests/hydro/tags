@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 _exec	hydro_linwave.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
 _exec	sod_shock.py	/^_exec = os.path.join('bin', 'athena')$/;"	v
 _fluxes	hydro_linwave.py	/^_fluxes = ['hlle', 'hllc', 'roe']$/;"	v
@@ -12,28 +12,9 @@ _nxs	sod_shock.py	/^_nxs = [128, 256]  # resolutions to test (ascending)$/;"	v
 _xdirs	sod_shock.py	/^_xdirs = [1, 2, 3]$/;"	v
 analyze	hydro_linwave.py	/^def analyze():$/;"	f
 analyze	sod_shock.py	/^def analyze():$/;"	f
-athena	hydro_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-athena	sod_shock.py	/^import scripts.utils.athena as athena$/;"	i
-athena_read	hydro_linwave.py	/^import athena_read                             # noqa$/;"	i
-athena_read	sod_shock.py	/^import athena_read                             # noqa$/;"	i
 logger	hydro_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	sod_shock.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
-logging	hydro_linwave.py	/^import logging$/;"	i
-logging	sod_shock.py	/^import logging$/;"	i
-move	hydro_linwave.py	/^from shutil import move$/;"	i
-move	sod_shock.py	/^from shutil import move$/;"	i
-noqa	hydro_linwave.py	/^import athena_read                             # noqa$/;"	i
-noqa	sod_shock.py	/^import athena_read                             # noqa$/;"	i
-np	sod_shock.py	/^import numpy as np$/;"	i
-os	hydro_linwave.py	/^import os$/;"	i
-os	sod_shock.py	/^import os$/;"	i
 prepare	hydro_linwave.py	/^def prepare(**kwargs):$/;"	f
 prepare	sod_shock.py	/^def prepare(**kwargs):$/;"	f
 run	hydro_linwave.py	/^def run(**kwargs):$/;"	f
 run	sod_shock.py	/^def run(**kwargs):$/;"	f
-scripts	hydro_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-scripts	sod_shock.py	/^import scripts.utils.athena as athena$/;"	i
-sys	hydro_linwave.py	/^import sys$/;"	i
-sys	sod_shock.py	/^import sys$/;"	i
-utils	hydro_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-utils	sod_shock.py	/^import scripts.utils.athena as athena$/;"	i

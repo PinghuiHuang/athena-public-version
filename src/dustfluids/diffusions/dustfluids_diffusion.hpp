@@ -62,18 +62,16 @@ class DustFluidsDiffusion {
 
     // Diffusivity
     // Calculate the dust diffusivity varied with the gas surface density and gas viscosity
-    void UserDefined_DustDiffusivity(const AthenaArray<Real> &nu_gas,
+    void UserDefinedDustDiffusivity(const AthenaArray<Real> &nu_gas,
       const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
       const AthenaArray<Real> &stopping_time,
-      AthenaArray<Real> &dust_diffusivity,
-      AthenaArray<Real> &dust_cs);
+      AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs);
 
     // Set the constant dust diffusivity
-    void Constant_DustDiffusivity(const AthenaArray<Real> &nu_gas,
+    void ConstantDustDiffusivity(const AthenaArray<Real> &nu_gas,
       const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
       const AthenaArray<Real> &stopping_time,
-      AthenaArray<Real> &dust_diffusivity,
-      AthenaArray<Real> &dust_cs);
+      AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs);
 
     // Concentration and Momentum diffusivity
     void DustFluidsConcentrationDiffusiveFlux(const AthenaArray<Real> &prim_df,
@@ -87,8 +85,8 @@ class DustFluidsDiffusion {
     DustFluids  *pmy_dustfluids_;                   // ptr to DustFluids containing this DustFluidsDiffusion
     MeshBlock   *pmb_;                              // ptr to meshblock containing this DustFluidsDiffusion
     Coordinates *pco_;                              // ptr to coordinates class
-    AthenaArray<Real> x1area_, x2area_, x2area_p1_, x3area_, x3area_p1_;
-    AthenaArray<Real> vol_;
+    //AthenaArray<Real> x1area_, x2area_, x2area_p1_, x3area_, x3area_p1_;
+    //AthenaArray<Real> vol_;
     AthenaArray<Real> dx1_, dx2_, dx3_; // scratch arrays used in NewTimeStep
     AthenaArray<Real> diff_tot_;
 

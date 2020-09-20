@@ -32,33 +32,33 @@ DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :
   pmy_dustfluids_(pdf), pmb_(pmy_dustfluids_->pmy_block), pco_(pmb_->pcoord) {
 
   //hydro_gamma_      = pin->GetReal("hydro", "gamma");
-  DustFeedback_Flag = pin->GetBoolean("dust",     "DustFeedback_Flag");
+  DustFeedback_Flag = pin->GetBoolean("dust", "DustFeedback_Flag");
   integrator        = pin->GetOrAddString("time", "integrator", "vl2");
 }
 
-void DustGasDrag::AerodynamicDrag(MeshBlock *pmb, const int stage, const Real dt,
-      const AthenaArray<Real> &stopping_time,
+
+void DustGasDrag::Aerodynamic_Drag(MeshBlock *pmb, const Real dt, const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-      AthenaArray<Real> &u, AthenaArray<Real> &cons_df)
-{
-  if (integrator == "vl2") {
-    if (DustFeedback_Flag)
-      VL2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-    else
-      VL2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-      //VL2ImplicitNoFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
+      AthenaArray<Real> &u, AthenaArray<Real> &cons_df){
+  if ( NDUSTFLUIDS == 1 ) { // If the nudstfluids == 1, update the cons by analytical formulas, see eq 6&7 in Stone (1997).
+    if (DustFeedback_Flag) {
+      SingleDust_Feedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+      //SingleDust_Feedback_SemiImplicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+    }
+    else {
+      SingleDust_NoFeedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+      //SingleDust_NoFeedback_SemiImplicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+    }
   }
-  else if ( (integrator == "rk2") || (integrator == "rk1") ) {
-    if (DustFeedback_Flag)
-      RK2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-    else
-      RK2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-      //RK2ImplicitNoFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-  }
-  else {
-    std::stringstream msg;
-    msg << "Right now, the time integrator of dust fluids must be \"RK1\" or \"RK2\" or \"VL2\"!" << std::endl;
-    ATHENA_ERROR(msg);
+  else { // If NDUSTFLUIDS > 1, then LU decompose the drags matrix, see Benitez-Llambay et al. 2019
+    if (DustFeedback_Flag) {
+      MultipleDust_Feedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+      //MultipleDust_Feedback_SemiImplicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+    }
+    else {
+      MultipleDust_NoFeedback_Implicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+      //MultipleDust_NoFeedback_SemiImplicit(pmb, dt, stopping_time, w, prim_df, u, cons_df);
+    }
   }
 
   return;

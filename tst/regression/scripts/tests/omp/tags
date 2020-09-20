@@ -3,16 +3,8 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 analyze	omp_linwave.py	/^def analyze():$/;"	f
-athena	omp_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-athena_read	omp_linwave.py	/^import athena_read                             # noqa$/;"	i
 logger	omp_linwave.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
-logging	omp_linwave.py	/^import logging$/;"	i
-noqa	omp_linwave.py	/^import athena_read                             # noqa$/;"	i
-os	omp_linwave.py	/^import os$/;"	i
 prepare	omp_linwave.py	/^def prepare(**kwargs):$/;"	f
 run	omp_linwave.py	/^def run(**kwargs):$/;"	f
-scripts	omp_linwave.py	/^import scripts.utils.athena as athena$/;"	i
-sys	omp_linwave.py	/^import sys$/;"	i
-utils	omp_linwave.py	/^import scripts.utils.athena as athena$/;"	i

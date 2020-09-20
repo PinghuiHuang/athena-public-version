@@ -83,9 +83,9 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
 
       // If the sound speed flag is turned on, choose the solver with sound speed, or choose the one without sound speed
       if (SoundSpeed_Flag)
-        HLLE_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
+        HLLERiemannSolverDustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
       else
-        NoCs_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
+        HLLENoCsRiemannSolverDustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
 
       if (order == 4) {
         for (int n=0; n<num_dust_var; n++) {
@@ -123,12 +123,11 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           }
         }
 
-
           // Compute x1 interface fluxes from face-centered primitive variables
         if (SoundSpeed_Flag)
-          HLLE_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
+          HLLERiemannSolverDustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
         else
-          NoCs_RiemannSolver_DustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
+          HLLENoCsRiemannSolverDustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
 
         // Apply Laplacian of second-order accurate face-averaged flux on x1 faces
         for (int n=0; n<num_dust_var; ++n) {
@@ -193,9 +192,9 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         }
 
         if (SoundSpeed_Flag)
-          HLLE_RiemannSolver_DustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
+          HLLERiemannSolverDustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
         else
-          NoCs_RiemannSolver_DustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
+          HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
 
         if (order == 4) {
           for (int n=0; n<num_dust_var; n++) {
@@ -238,9 +237,9 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
 
           // Compute x2 interface fluxes from face-centered primitive variables
           if (SoundSpeed_Flag)
-            HLLE_RiemannSolver_DustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
+            HLLERiemannSolverDustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
           else
-            NoCs_RiemannSolver_DustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
+            HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
 
           // Apply Laplacian of second-order accurate face-averaged flux on x1 faces
           for (int n=0; n<num_dust_var; ++n) {
@@ -298,9 +297,9 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         }
 
         if (SoundSpeed_Flag)
-          HLLE_RiemannSolver_DustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
+          HLLERiemannSolverDustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
         else
-          NoCs_RiemannSolver_DustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
+          HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
 
         if (order == 4) {
           for (int n=0; n<num_dust_var; n++) {
@@ -343,9 +342,9 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
 
           // Compute x3 interface fluxes from face-centered primitive variables
           if (SoundSpeed_Flag)
-            HLLE_RiemannSolver_DustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
+            HLLERiemannSolverDustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
           else
-            NoCs_RiemannSolver_DustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
+            HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
 
           // Apply Laplacian of second-order accurate face-averaged flux on x3 faces
           for (int n=0; n<num_dust_var; ++n) {
@@ -372,8 +371,8 @@ void DustFluids::CalculateDustFluidsFluxes_STS() {
 
 void DustFluids::AddDiffusionFluxes() {
   // add diffusion fluxes
-  if (dfdif.dustfluids_diffusion_defined) {
+  if (dfdif.dustfluids_diffusion_defined)
     dfdif.AddDustFluidsDiffusionFlux(dfdif.dustfluids_diffusion_flux, df_flux);
-  }
+
   return;
 }

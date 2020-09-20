@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 CalculateDefectNorm	multigrid.cpp	/^Real Multigrid::CalculateDefectNorm(int n, int nrm) {$/;"	f	class:Multigrid
 CalculateDefectNorm	multigrid_driver.cpp	/^Real MultigridDriver::CalculateDefectNorm(int n, int nrm) {$/;"	f	class:MultigridDriver
 CalculateTotal	multigrid.cpp	/^Real Multigrid::CalculateTotal(int type, int n) {$/;"	f	class:Multigrid
@@ -28,7 +28,7 @@ MGPeriodicOuterX1	multigrid.cpp	/^void MGPeriodicOuterX1(AthenaArray<Real> &dst,
 MGPeriodicOuterX2	multigrid.cpp	/^void MGPeriodicOuterX2(AthenaArray<Real> &dst,Real time, int nvar,$/;"	f
 MGPeriodicOuterX3	multigrid.cpp	/^void MGPeriodicOuterX3(AthenaArray<Real> &dst,Real time, int nvar,$/;"	f
 MPI_COMM_MULTIGRID	multigrid.hpp	/^  MPI_Comm MPI_COMM_MULTIGRID;$/;"	m	class:MultigridDriver
-MULTIGRID_MULTIGRID_HPP_	multigrid.hpp	/^#define MULTIGRID_MULTIGRID_HPP_$/;"	d
+MULTIGRID_MULTIGRID_HPP_	multigrid.hpp	2;"	d
 Multigrid	multigrid.cpp	/^Multigrid::Multigrid(MultigridDriver *pmd, MeshBlock *pmb, int invar, int nghost) {$/;"	f	class:Multigrid
 Multigrid	multigrid.hpp	/^class Multigrid {$/;"	c
 MultigridDriver	multigrid.hpp	/^class MultigridDriver {$/;"	c

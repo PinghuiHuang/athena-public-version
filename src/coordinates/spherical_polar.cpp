@@ -526,8 +526,12 @@ void SphericalPolar::AddCoordTermsDivergence_DustFluids(const Real dt, const Ath
 
   DustFluids *pdf = pmy_block->pdustfluids;
   bool do_dustfluids_diffusion = pdf->dfdif.dustfluids_diffusion_defined;
-      //&& (pdf->particle_density > 0.0 || pdf->nu_dustfluids_iso > 0.0 || pdf->nu_dustfluids_aniso > 0.0));
 
+  Real bool_cs, bool_rho, bool_m2;
+
+  (pdf->SoundSpeed_Flag)  ? bool_cs  = 1.0 : bool_cs  = 0.0;
+  do_dustfluids_diffusion ? bool_rho = 1.0 : bool_rho = 0.0;
+  (do_dustfluids_diffusion && pdf->dfdif.Momentum_Diffusion_Flag) ? bool_m2 = 1.0 : bool_m2 = 0.0;
 
   // Go through cells
   for (int n = 0; n < 4*NDUSTFLUIDS; n+=4) {
@@ -543,17 +547,13 @@ void SphericalPolar::AddCoordTermsDivergence_DustFluids(const Real dt, const Ath
           // src_1 = < M_{theta theta} + M_{phi phi} ><1/r>
           Real m_ii = prim_df(rho_id,k,j,i)*(SQR(prim_df(v2_id,k,j,i)) + SQR(prim_df(v3_id,k,j,i)));
 
-          if (pdf->SoundSpeed_Flag) {
-            m_ii += SQR(pdf->cs_dustfluids_array(dust_id,k,j,i)) * prim_df(rho_id,k,j,i);
-          }
+          m_ii += bool_cs*SQR(pdf->cs_dustfluids_array(dust_id,k,j,i)) * prim_df(rho_id,k,j,i);
 
-          if (do_dustfluids_diffusion && pdf->dfdif.Momentum_Diffusion_Flag) {
-            // Dust Momentum diffusion flux
-            m_ii += 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j+1,i) +
-                pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j,i));
-            m_ii += 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k+1,j,i) +
-                pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k,j,i));
-          }
+          // Dust Momentum diffusion flux
+          m_ii += bool_m2*0.5*(pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j+1,i) +
+              pdf->dfdif.dustfluids_diffusion_flux[X2DIR](v2_id,k,j,i));
+          m_ii += bool_m2*0.5*(pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k+1,j,i) +
+              pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k,j,i));
 
 
           cons_df(v1_id,k,j,i) += dt*coord_src1_i_(i)*m_ii;
@@ -572,9 +572,8 @@ void SphericalPolar::AddCoordTermsDivergence_DustFluids(const Real dt, const Ath
           Real m_pp = prim_df(rho_id,k,j,i)*SQR(prim_df(v3_id,k,j,i));
           m_pp += SQR(pdf->cs_dustfluids_array(dust_id,k,j,i))*prim_df(rho_id,k,j,i);
 
-          if (do_dustfluids_diffusion && pdf->dfdif.Momentum_Diffusion_Flag)
-            m_pp += 0.5*(pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k+1,j,i) +
-                pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k,j,i));
+          m_pp += bool_m2*0.5*(pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k+1,j,i) +
+              pdf->dfdif.dustfluids_diffusion_flux[X3DIR](v3_id,k,j,i));
 
           cons_df(v2_id,k,j,i) += dt*coord_src1_i_(i)*coord_src1_j_(j)*m_pp;
 

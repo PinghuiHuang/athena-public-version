@@ -24,7 +24,7 @@ class ParameterInput;
 //! \fn void DustFluidsSourceTerms::PointMass_DustFluids
 //  \brief Adds source terms due to point mass AT ORIGIN
 
-void DustFluidsSourceTerms::PointMass_DustFluids(const Real dt, const AthenaArray<Real> *flux_df,
+void DustFluidsSourceTerms::PointMassDustFluids(const Real dt, const AthenaArray<Real> *flux_df,
                                  const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df) {
   MeshBlock *pmb = pmy_dustfluids_->pmy_block;
   for (int n=0;n<num_dust_var;n+=4) {

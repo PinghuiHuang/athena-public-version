@@ -50,12 +50,11 @@ class EquationOfState {
   //   int iu, int jl, int ju, int kl, int ku);
 
   void DustFluidsConservedToPrimitive(
-    AthenaArray<Real> &cons_df, const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df_old,
+    AthenaArray<Real> &cons_df, const AthenaArray<Real> &prim_df_old,
     AthenaArray<Real> &prim_df,
     Coordinates *pco, int il, int iu, int jl, int ju, int kl, int ku);
   void DustFluidsPrimitiveToConserved(
-    const AthenaArray<Real> &prim_df, const AthenaArray<Real> &w,
-    AthenaArray<Real> &cons_df, Coordinates *pco,
+    const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df, Coordinates *pco,
     int il, int iu, int jl, int ju, int kl, int ku);
   void DustFluidsConservedToPrimitiveCellAverage(
     AthenaArray<Real> &cons_df, const AthenaArray<Real> &prim_df_old, AthenaArray<Real> &prim_df,
@@ -71,7 +70,7 @@ class EquationOfState {
 
 #pragma omp declare simd simdlen(SIMD_WIDTH) uniform(this,df_cons,w,df_prim,n,k,j) linear(i)
   void ApplyDustFluidsPrimitiveConservedFloors(
-    AthenaArray<Real> &cons_df, const AthenaArray<Real> &w, AthenaArray<Real> &prim_df,
+    AthenaArray<Real> &cons_df, AthenaArray<Real> &prim_df,
     int n, int k, int j, int i);
 
   // Sound speed functions in different regimes

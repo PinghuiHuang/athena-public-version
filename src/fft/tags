@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ApplyKernel	athena_fft.cpp	/^void FFTBlock::ApplyKernel(int mode) {$/;"	f	class:FFTBlock
 AthenaFFTDirection	athena_fft.hpp	/^  enum class AthenaFFTDirection {forward=-1, backward=1};$/;"	c	class:FFTBlock
 AthenaFFTIndex	athena_fft.cpp	/^AthenaFFTIndex::AthenaFFTIndex(const AthenaFFTIndex *psrc) {$/;"	f	class:AthenaFFTIndex
@@ -25,12 +25,12 @@ FFTBlock	athena_fft.cpp	/^FFTBlock::FFTBlock(FFTDriver *pfd, LogicalLocation ilo
 FFTBlock	athena_fft.hpp	/^class FFTBlock {$/;"	c
 FFTDriver	athena_fft.hpp	/^class FFTDriver {$/;"	c	class:FFTBlock
 FFTDriver	fft_driver.cpp	/^FFTDriver::FFTDriver(Mesh *pm, ParameterInput *pin) : nranks_(Globals::nranks),$/;"	f	class:FFTDriver
-FFT_ATHENA_FFT_HPP_	athena_fft.hpp	/^#define FFT_ATHENA_FFT_HPP_$/;"	d
+FFT_ATHENA_FFT_HPP_	athena_fft.hpp	2;"	d
 FFT_DATA	plimpton/fft_2d.h	/^typedef fftw_complex FFT_DATA;$/;"	t
 FFT_DATA	plimpton/fft_3d.h	/^typedef fftw_complex FFT_DATA;$/;"	t
-FFT_PRECISION	plimpton/fft_2d.h	/^#define FFT_PRECISION /;"	d
-FFT_PRECISION	plimpton/fft_3d.h	/^#define FFT_PRECISION /;"	d
-FFT_TURBULENCE_HPP_	turbulence.hpp	/^#define FFT_TURBULENCE_HPP_$/;"	d
+FFT_PRECISION	plimpton/fft_2d.h	26;"	d
+FFT_PRECISION	plimpton/fft_3d.h	26;"	d
+FFT_TURBULENCE_HPP_	turbulence.hpp	2;"	d
 Generate	turbulence.cpp	/^void TurbulenceDriver::Generate() {$/;"	f	class:TurbulenceDriver
 GetGlobalIndex	athena_fft.cpp	/^std::int64_t FFTBlock::GetGlobalIndex(const int i, const int j, const int k) {$/;"	f	class:FFTBlock
 GetIndex	athena_fft.cpp	/^std::int64_t FFTBlock::GetIndex(const int i, const int j, const int k) {$/;"	f	class:FFTBlock
@@ -41,26 +41,26 @@ InitializeFFTBlock	fft_driver.cpp	/^void FFTDriver::InitializeFFTBlock(bool set_
 InitializeMPI	athena_fft.cpp	/^void FFTBlock::InitializeMPI() {$/;"	f	class:FFTBlock
 LoadSource	athena_fft.cpp	/^void FFTBlock::LoadSource(const AthenaArray<Real> &src, bool nu, int ngh,$/;"	f	class:FFTBlock
 Lx	athena_fft.hpp	/^  Real Lx[3];$/;"	m	class:AthenaFFTIndex
-MAX	plimpton/fft_2d.cpp	/^#define MAX(/;"	d	file:
-MAX	plimpton/fft_3d.cpp	/^#define MAX(/;"	d	file:
-MAX	plimpton/remap_2d.cpp	/^#define MAX(/;"	d	file:
-MAX	plimpton/remap_3d.cpp	/^#define MAX(/;"	d	file:
-MIN	plimpton/fft_2d.cpp	/^#define MIN(/;"	d	file:
-MIN	plimpton/fft_3d.cpp	/^#define MIN(/;"	d	file:
-MIN	plimpton/remap_2d.cpp	/^#define MIN(/;"	d	file:
-MIN	plimpton/remap_3d.cpp	/^#define MIN(/;"	d	file:
+MAX	plimpton/fft_2d.cpp	27;"	d	file:
+MAX	plimpton/fft_3d.cpp	30;"	d	file:
+MAX	plimpton/remap_2d.cpp	24;"	d	file:
+MAX	plimpton/remap_3d.cpp	24;"	d	file:
+MIN	plimpton/fft_2d.cpp	26;"	d	file:
+MIN	plimpton/fft_3d.cpp	29;"	d	file:
+MIN	plimpton/remap_2d.cpp	23;"	d	file:
+MIN	plimpton/remap_3d.cpp	23;"	d	file:
 MPI_COMM_FFT	athena_fft.hpp	/^  MPI_Comm MPI_COMM_FFT;$/;"	m	class:FFTBlock::FFTDriver
 Nx	athena_fft.hpp	/^  int Nx[3], nx[3], disp[3];$/;"	m	class:FFTBlock::AthenaFFTDirection
 Nx	athena_fft.hpp	/^  int Nx[3];$/;"	m	class:AthenaFFTIndex
 OUProcess	turbulence.cpp	/^void TurbulenceDriver::OUProcess(Real dt) {$/;"	f	class:TurbulenceDriver
-PACK_ARRAY	plimpton/pack_2d.cpp	/^#define PACK_ARRAY$/;"	d	file:
-PACK_ARRAY	plimpton/pack_3d.cpp	/^#define PACK_ARRAY$/;"	d	file:
-PLIMPTON_FFT_2D	plimpton/fft_2d.h	/^#define PLIMPTON_FFT_2D$/;"	d
-PLIMPTON_FFT_3D	plimpton/fft_3d.h	/^#define PLIMPTON_FFT_3D$/;"	d
-PLIMPTON_PACK_3D	plimpton/pack_2d.h	/^#define PLIMPTON_PACK_3D$/;"	d
-PLIMPTON_PACK_3D	plimpton/pack_3d.h	/^#define PLIMPTON_PACK_3D$/;"	d
-PLIMPTON_REMAP_2D	plimpton/remap_2d.h	/^#define PLIMPTON_REMAP_2D$/;"	d
-PLIMPTON_REMAP_3D	plimpton/remap_3d.h	/^#define PLIMPTON_REMAP_3D$/;"	d
+PACK_ARRAY	plimpton/pack_2d.cpp	18;"	d	file:
+PACK_ARRAY	plimpton/pack_3d.cpp	18;"	d	file:
+PLIMPTON_FFT_2D	plimpton/fft_2d.h	2;"	d
+PLIMPTON_FFT_3D	plimpton/fft_3d.h	2;"	d
+PLIMPTON_PACK_3D	plimpton/pack_2d.h	2;"	d
+PLIMPTON_PACK_3D	plimpton/pack_3d.h	2;"	d
+PLIMPTON_REMAP_2D	plimpton/remap_2d.h	2;"	d
+PLIMPTON_REMAP_3D	plimpton/remap_3d.h	2;"	d
 PermuteAxis	athena_fft.cpp	/^void AthenaFFTIndex::PermuteAxis(int npermute) {$/;"	f	class:AthenaFFTIndex
 PermuteProc	athena_fft.cpp	/^void AthenaFFTIndex::PermuteProc(int npermute) {$/;"	f	class:AthenaFFTIndex
 Permute_	athena_fft.cpp	/^template <typename T> void AthenaFFTIndex::Permute_(T loc[], int npermute) {$/;"	f	class:AthenaFFTIndex
@@ -256,19 +256,19 @@ recv_proc	plimpton/remap_3d.h	/^  int *recv_proc;                   \/* proc to 
 recv_size	plimpton/remap_2d.h	/^  int *recv_size;                   \/* size of each recv message *\/$/;"	m	struct:remap_plan_2d
 recv_size	plimpton/remap_3d.h	/^  int *recv_size;                   \/* size of each recv message *\/$/;"	m	struct:remap_plan_3d
 remap_2d	plimpton/remap_2d.cpp	/^void remap_2d(double *in, double *out, double *buf,$/;"	f
-remap_2d_	plimpton/remap_2d.h	/^#define remap_2d_ /;"	d
+remap_2d_	plimpton/remap_2d.h	63;"	d
 remap_2d_collide	plimpton/remap_2d.cpp	/^int remap_2d_collide(struct extent_2d *block1, struct extent_2d *block2,$/;"	f
 remap_2d_create_plan	plimpton/remap_2d.cpp	/^struct remap_plan_2d *remap_2d_create_plan($/;"	f
-remap_2d_create_plan_	plimpton/remap_2d.h	/^#define remap_2d_create_plan_ /;"	d
+remap_2d_create_plan_	plimpton/remap_2d.h	64;"	d
 remap_2d_destroy_plan	plimpton/remap_2d.cpp	/^void remap_2d_destroy_plan(struct remap_plan_2d *plan)$/;"	f
-remap_2d_destroy_plan_	plimpton/remap_2d.h	/^#define remap_2d_destroy_plan_ /;"	d
+remap_2d_destroy_plan_	plimpton/remap_2d.h	65;"	d
 remap_3d	plimpton/remap_3d.cpp	/^void remap_3d(double *in, double *out, double *buf,$/;"	f
-remap_3d_	plimpton/remap_3d.h	/^#define remap_3d_ /;"	d
+remap_3d_	plimpton/remap_3d.h	64;"	d
 remap_3d_collide	plimpton/remap_3d.cpp	/^int remap_3d_collide(struct extent_3d *block1, struct extent_3d *block2,$/;"	f
 remap_3d_create_plan	plimpton/remap_3d.cpp	/^struct remap_plan_3d *remap_3d_create_plan($/;"	f
-remap_3d_create_plan_	plimpton/remap_3d.h	/^#define remap_3d_create_plan_ /;"	d
+remap_3d_create_plan_	plimpton/remap_3d.h	65;"	d
 remap_3d_destroy_plan	plimpton/remap_3d.cpp	/^void remap_3d_destroy_plan(struct remap_plan_3d *plan)$/;"	f
-remap_3d_destroy_plan_	plimpton/remap_3d.h	/^#define remap_3d_destroy_plan_ /;"	d
+remap_3d_destroy_plan_	plimpton/remap_3d.h	66;"	d
 remap_plan_2d	plimpton/remap_2d.h	/^struct remap_plan_2d {$/;"	s
 remap_plan_3d	plimpton/remap_3d.h	/^struct remap_plan_3d {$/;"	s
 request	plimpton/remap_2d.h	/^  MPI_Request *request;             \/* MPI request for each posted recv *\/$/;"	m	struct:remap_plan_2d

@@ -43,10 +43,10 @@ class DustFluids {
 
     // public data:
     // "conservative vars" = density, momentums of dust fluids
-    AthenaArray<Real> df_cons, df_cons1, df_cons2;      // time-integrator memory register #1
+    AthenaArray<Real> df_cons, df_cons1, df_cons2, df_cons_n, df_cons_p; // time-integrator memory register #1
     // "primitive vars" = density, velocities of dust fluids
-    AthenaArray<Real> df_prim, df_prim1;        // time-integrator memory register #3
-    AthenaArray<Real> df_flux[3];               // face-averaged flux vector
+    AthenaArray<Real> df_prim, df_prim1, df_prim_n;          // time-integrator memory register #3
+    AthenaArray<Real> df_flux[3];                            // face-averaged flux vector
 
     AthenaArray<Real> stopping_time_array;      // Arrays of stopping time of dust
     AthenaArray<Real> nu_dustfluids_array;      // Arrays of dust diffusivity array, nu_d
@@ -78,12 +78,12 @@ class DustFluids {
 
     // Stopping time
     // Calculate the user defined stopping time, varied with the properties of gas and dust
-    void UserDefined_StoppingTime(const int kl, const int ku, const int jl, const int ju,
+    void UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
         const int il, const int iu, const AthenaArray<Real> particle_density,
         const AthenaArray<Real> &w, AthenaArray<Real> &stopping_time);
 
     // Set the constant stopping time of dust
-    void Constant_StoppingTime(const int kl, const int ku, const int jl, const int ju,
+    void ConstantStoppingTime(const int kl, const int ku, const int jl, const int ju,
         const int il, const int iu, AthenaArray<Real> &stopping_time);
 
     // Calculate dust fluids flux
@@ -93,12 +93,12 @@ class DustFluids {
 
     // Riemann Solvers for dust fluids
     // HLLE solver without sound speed of dust
-    void NoCs_RiemannSolver_DustFluids( const int k, const int j, const int il, const int iu,
+    void HLLENoCsRiemannSolverDustFluids( const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &df_prim_l,
         AthenaArray<Real> &df_prim_r, AthenaArray<Real> &dust_flux);
 
     // HLLE solver with sound speed of dust
-    void HLLE_RiemannSolver_DustFluids(const int k, const int j, const int il, const int iu,
+    void HLLERiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &df_prim_l,
         AthenaArray<Real> &df_prim_r, AthenaArray<Real> &dust_flux);
 
@@ -106,7 +106,8 @@ class DustFluids {
     Real NewAdvectionDt();
 
     // Set up stopping time, diffusivity and sound speed of dust fluids
-    void SetDustFluidsProperties();
+    void SetDustFluidsProperties(AthenaArray<Real> &stopping_time,
+        AthenaArray<Real> &nu_dust, AthenaArray<Real> &cs_dust);
 
 
   private:

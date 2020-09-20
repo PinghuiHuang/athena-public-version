@@ -44,7 +44,7 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
   dustfluids_diffusion_defined = false;
 
   // TODO, set dust fluids as inviscid
-  ConstNu_Flag            = pin->GetBoolean("dust", "Const_Nu_Dust_Flag");
+  ConstNu_Flag            = pin->GetBoolean("dust",      "Const_Nu_Dust_Flag");
   Momentum_Diffusion_Flag = pin->GetOrAddBoolean("dust", "Momentum_Diffusion_Flag", false);
 
   // Set dust diffusions if the gas diffusion is defined or constant nu diffusion flag is true.
@@ -54,23 +54,22 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
   // eddy time is Omega_K^-1 for disk problems, or it is 1.0 for other problems
   eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 1.0);
 
-
   if (dustfluids_diffusion_defined) {
-    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(num_dust_var, nc3, nc2, nc1+1); // Face centered
-    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(num_dust_var, nc3, nc2+1, nc1); // Face centered
-    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(num_dust_var, nc3+1, nc2, nc1); // Face centered
+    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(num_dust_var, nc3,   nc2,   nc1+1); // Face centered
+    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(num_dust_var, nc3,   nc2+1, nc1);   // Face centered
+    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(num_dust_var, nc3+1, nc2,   nc1);   // Face centered
 
     dx1_.NewAthenaArray(nc1);
     dx2_.NewAthenaArray(nc1);
     dx3_.NewAthenaArray(nc1);
     diff_tot_.NewAthenaArray(nc1);
 
-    x1area_.NewAthenaArray(nc1+1);
-    x2area_.NewAthenaArray(nc1);
-    x3area_.NewAthenaArray(nc1);
-    x2area_p1_.NewAthenaArray(nc1);
-    x3area_p1_.NewAthenaArray(nc1);
-    vol_.NewAthenaArray(nc1);
+    //x1area_.NewAthenaArray(nc1+1);
+    //x2area_.NewAthenaArray(nc1);
+    //x3area_.NewAthenaArray(nc1);
+    //x2area_p1_.NewAthenaArray(nc1);
+    //x3area_p1_.NewAthenaArray(nc1);
+    //vol_.NewAthenaArray(nc1);
   }
 
   if (std::strcmp(PROBLEM_GENERATOR, "disk") == 0)

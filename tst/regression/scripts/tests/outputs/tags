@@ -3,16 +3,8 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 analyze	all_outputs.py	/^def analyze():$/;"	f
-athena	all_outputs.py	/^import scripts.utils.athena as athena$/;"	i
-athena_read	all_outputs.py	/^import athena_read  # noqa$/;"	i
 logger	all_outputs.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
-logging	all_outputs.py	/^import logging$/;"	i
-noqa	all_outputs.py	/^import athena_read  # noqa$/;"	i
-np	all_outputs.py	/^import numpy as np$/;"	i
 prepare	all_outputs.py	/^def prepare(**kwargs):$/;"	f
 run	all_outputs.py	/^def run(**kwargs):$/;"	f
-scripts	all_outputs.py	/^import scripts.utils.athena as athena$/;"	i
-sys	all_outputs.py	/^import sys$/;"	i
-utils	all_outputs.py	/^import scripts.utils.athena as athena$/;"	i

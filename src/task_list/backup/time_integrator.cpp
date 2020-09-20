@@ -1202,6 +1202,9 @@ TaskStatus TimeIntegratorTaskList::CalculateDustFluidsFlux(MeshBlock *pmb, int s
   DustFluids *pdf = pmb->pdustfluids;
   Hydro *ph       = pmb->phydro;
 
+  if (STS_ENABLED)
+    pdf->SetDustFluidsProperties();
+
   if (stage <= nstages) {
     if ((stage == 1) && (integrator == "vl2")) {
       pdf->CalculateDustFluidsFluxes(1, pdf->df_prim);
