@@ -274,12 +274,12 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               phydro->u(IM3,k,j,i) = wl[IVZ]*wl[IDN];
 
               if (NDUSTFLUIDS > 0) {
-                for (int n = 0; n<4*NDUSTFLUIDS; n+=4){
+                for (int n = 0; n<NDUSTFLUIDS; n++){
                   int dust_id = n;
-                  int rho_id = 4*n;
-                  int v1_id = rho_id + 1;
-                  int v2_id = rho_id + 2;
-                  int v3_id = rho_id + 3;
+                  int rho_id  = 4*dust_id;
+                  int v1_id   = rho_id + 1;
+                  int v2_id   = rho_id + 2;
+                  int v3_id   = rho_id + 3;
                   pdustfluids->df_cons(rho_id,k,j,i) = wl_d[0];
                   pdustfluids->df_cons(v1_id,k,j,i)  = wl_d[1]*wl_d[0];
                   pdustfluids->df_cons(v2_id,k,j,i)  = wl_d[2]*wl_d[0];
@@ -302,12 +302,12 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               phydro->u(IM3,k,j,i) = wr[IVZ]*wr[IDN];
 
               if (NDUSTFLUIDS > 0) {
-                for (int n = 0; n<4*NDUSTFLUIDS; n+=4){
+                for (int n = 0; n<NDUSTFLUIDS; n++){
                   int dust_id = n;
-                  int rho_id = 4*n;
-                  int v1_id = rho_id + 1;
-                  int v2_id = rho_id + 2;
-                  int v3_id = rho_id + 3;
+                  int rho_id  = 4*dust_id;
+                  int v1_id   = rho_id + 1;
+                  int v2_id   = rho_id + 2;
+                  int v3_id   = rho_id + 3;
                   pdustfluids->df_cons(rho_id,k,j,i) = wr_d[0];
                   pdustfluids->df_cons(v1_id,k,j,i)  = wr_d[1]*wr_d[0];
                   pdustfluids->df_cons(v2_id,k,j,i)  = wr_d[2]*wr_d[0];

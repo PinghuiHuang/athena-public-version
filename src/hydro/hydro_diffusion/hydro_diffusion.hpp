@@ -40,19 +40,20 @@ class HydroDiffusion {
   HydroDiffusion(Hydro *phyd, ParameterInput *pin);
 
   // data
-  bool hydro_diffusion_defined;
+  bool hydro_diffusion_defined;    // true or false
+  bool alpha_disk_model;           // true or false
   Real nu_iso, nu_aniso, nu_alpha; // viscosity coeff
-  Real r0, pslope, p0_over_r0; // The length unit r0, temperature slope, temperatue at r0 in disk problem
-  AthenaArray<Real> visflx[3]; // viscous stress tensor
-  AthenaArray<Real> nu; // viscosity array
+  Real r0, pslope, p0_over_r0;     // The length unit r0, temperature slope, temperatue at r0 in disk problem
+  AthenaArray<Real> visflx[3];     // viscous stress tensor
+  AthenaArray<Real> nu;            // viscosity array
 
   Real kappa_iso, kappa_aniso; // thermal conduction coeff
   AthenaArray<Real> cndflx[3]; // thermal stress tensor
-  AthenaArray<Real> kappa; // conduction array
+  AthenaArray<Real> kappa;     // conduction array
 
   // array indices for hydro diffusion (conduction & viscosity) variants: directionality
   // should not be scoped (C++11) since enumerators are only used as "int" to index arrays
-  enum DiffProcess {iso=0, aniso=1, alpha=2}; // TODO: PH: I added the third index "alpha" for alpha disk model.
+  enum DiffProcess {iso=0, aniso=1, alpha=2};
 
   // functions
   void CalcDiffusionFlux(const AthenaArray<Real> &prim, const AthenaArray<Real> &cons,

@@ -38,8 +38,8 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
   DustFluids  *pdf = pmb->pdustfluids;
   Hydro       *ph  = pmb->phydro;
 
-  AthenaArray<Real> &u_p = ph->u_p;
   AthenaArray<Real> &u_n = ph->u_n;
+  AthenaArray<Real> &u_p = ph->u_p;
 
   AthenaArray<Real> &cons_df_n = pdf->df_cons_n;
   AthenaArray<Real> &cons_df_p = pdf->df_cons_p;
@@ -51,6 +51,7 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
   AthenaArray<Real> cons_df_d(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1);
 
   if ( stage == 1 ) {
+    //std::cout << "Stage 1: The time step is " << dt << std::endl;
     // Step 1a: All the explicit source terms are added before the drags task
     // ^(') is marked as "_p", ^(n) is marked as "_n", ^(n+1) is marked as "_n1". prim: w^(n), cons: u^(')
     AthenaArray<Real> force_x1_n(num_species);
@@ -66,11 +67,12 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
     AthenaArray<Real> delta_m2(num_species);
     AthenaArray<Real> delta_m3(num_species);
 
-    // Step 2a: Calculate the differences between u^(') and u^(n), u_d = u_p - u_n, "_d" means "differences"
+    // Step 1b: Calculate the differences between u^(') and u^(n), u_d = u_p - u_n, "_d" means "differences", dt = h/2
     Real wghts[3] = {0.0, 1.0, -1.0};
     pmb->WeightedAve(u_d,       u_p,       u_n,       wghts);
     pmb->WeightedAve(cons_df_d, cons_df_p, cons_df_n, wghts);
     Real inv_dt = 1.0/dt;
+    //std::cout << "Stage 0: The time step is " << dt << std::endl;
 
     for (int k=ks; k<=ke; ++k) {
       for (int j=js; j<=je; ++j) {
@@ -90,60 +92,50 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
           delta_m3.ZeroClear();
 
           // Set the drag force, depends on the stage of u^(n), f(M^(n), V^(n))
-          for (int index = NDUSTFLUIDS; index >= 0; index--) {
-            if (index != 0) {
-              int dust_id          = index - 1;
-              int rho_id           = 4*dust_id;
-              int v1_id            = rho_id + 1;
-              int v2_id            = rho_id + 2;
-              int v3_id            = rho_id + 3;
-              const Real &dust_d_n = prim_df(rho_id, k, j, i);
-              const Real &gas_d_n  = w(IDN, k, j, i);
-              Real alpha_n         = 1.0/stopping_time(dust_id,k,j,i);
-              Real epsilon_n       = dust_d_n/gas_d_n;
+          for (int index = 1; index <= NDUSTFLUIDS; index++) {
+            int dust_id          = index - 1;
+            int rho_id           = 4*dust_id;
+            int v1_id            = rho_id + 1;
+            int v2_id            = rho_id + 2;
+            int v3_id            = rho_id + 3;
+            const Real &dust_d_n = prim_df(rho_id, k, j, i);
+            const Real &gas_d_n  = w(IDN, k, j, i);
+            Real alpha_n         = 1.0/stopping_time(dust_id,k,j,i);
+            Real epsilon_n       = dust_d_n/gas_d_n;
 
-              force_x1_n(index) = epsilon_n * alpha_n * u_n(IM1, k, j, i) - alpha_n * cons_df_n(v1_id, k, j, i);
-              force_x2_n(index) = epsilon_n * alpha_n * u_n(IM2, k, j, i) - alpha_n * cons_df_n(v2_id, k, j, i);
-              force_x3_n(index) = epsilon_n * alpha_n * u_n(IM3, k, j, i) - alpha_n * cons_df_n(v3_id, k, j, i);
-            }
-            else {
-              for (int dust_index = NDUSTFLUIDS; dust_index >= 1; dust_index--) {
-                force_x1_n(0) -= force_x1_n(dust_index);
-                force_x2_n(0) -= force_x2_n(dust_index);
-                force_x3_n(0) -= force_x3_n(dust_index);
-              }
-            }
+            force_x1_n(index) = epsilon_n * alpha_n * u_n(IM1, k, j, i) - alpha_n * cons_df_n(v1_id, k, j, i);
+            force_x2_n(index) = epsilon_n * alpha_n * u_n(IM2, k, j, i) - alpha_n * cons_df_n(v2_id, k, j, i);
+            force_x3_n(index) = epsilon_n * alpha_n * u_n(IM3, k, j, i) - alpha_n * cons_df_n(v3_id, k, j, i);
           }
 
-          // Add the delta momentum caused by the other source terms, \Delta Gm = (u^(') - u^(n))/dt
-          for (int index = NDUSTFLUIDS; index >= 0; index--) {
-            if (index != 0) {
-              int dust_id = index - 1;
-              int rho_id  = 4*dust_id;
-              int v1_id   = rho_id + 1;
-              int v2_id   = rho_id + 2;
-              int v3_id   = rho_id + 3;
-
-              force_x1_n(index) += cons_df_d(v1_id, k, j, i) * inv_dt;
-              force_x2_n(index) += cons_df_d(v2_id, k, j, i) * inv_dt;
-              force_x3_n(index) += cons_df_d(v3_id, k, j, i) * inv_dt;
-            }
-            else {
-              force_x1_n(0) += u_d(IM1, k, j, i) * inv_dt;
-              force_x2_n(0) += u_d(IM2, k, j, i) * inv_dt;
-              force_x3_n(0) += u_d(IM3, k, j, i) * inv_dt;
-            }
+          for (int dust_index = 1; dust_index <= NDUSTFLUIDS; dust_index++) {
+            force_x1_n(0) -= force_x1_n(dust_index);
+            force_x2_n(0) -= force_x2_n(dust_index);
+            force_x3_n(0) -= force_x3_n(dust_index);
           }
+
+          //std::cout << "Stage 1: " << std::endl;
+          //for (int mm = 0; mm <= NDUSTFLUIDS; mm++)
+            //std::cout << "force_x1_n("<< mm << ") is " << force_x1_n(mm) << std::endl;
+
+          //// Add the delta momentum caused by the other source terms, \Delta Gm = (u^(') - u^(n))/dt
+          //for (int index = 1; index <= NDUSTFLUIDS; index++) {
+            //int dust_id = index - 1;
+            //int rho_id  = 4*dust_id;
+            //int v1_id   = rho_id + 1;
+            //int v2_id   = rho_id + 2;
+            //int v3_id   = rho_id + 3;
+
+            //force_x1_n(index) += cons_df_d(v1_id, k, j, i) * inv_dt;
+            //force_x2_n(index) += cons_df_d(v2_id, k, j, i) * inv_dt;
+            //force_x3_n(index) += cons_df_d(v3_id, k, j, i) * inv_dt;
+          //}
+
+          //force_x1_n(0) += u_d(IM1, k, j, i) * inv_dt;
+          //force_x2_n(0) += u_d(IM2, k, j, i) * inv_dt;
+          //force_x3_n(0) += u_d(IM3, k, j, i) * inv_dt;
 
           // Calculate the jacobi matrix of the drag forces, df/dM|^(n)
-          // Set the jacobi_matrix_n(0,0) at stage (n), use the w^(n) and prim^(n)
-          for (int dust_id = 0; dust_id < NDUSTFLUIDS; dust_id++) {
-            int rho_id             = 4*dust_id;
-            const Real &dust_d_n   = prim_df(rho_id, k, j, i);
-            const Real &gas_d_n    = w(IDN, k, j, i);
-            jacobi_matrix_n(0, 0) -= dust_d_n/gas_d_n * 1.0/stopping_time(dust_id, k, j, i);
-          }
-
           // Set the jacobi_matrix_n(0, col), except jacobi_matrix_n(0, 0)
           for (int col = 1; col <= NDUSTFLUIDS; col++) {
             int dust_id             = col - 1;
@@ -159,13 +151,29 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
             jacobi_matrix_n(row, 0) = dust_d_n/gas_d_n * 1.0/stopping_time(dust_id, k, j, i);
           }
 
-          // Set the other pivots, except jacobi_matrix_n(0, 0)
-          for (int pivot = 1; pivot <= NDUSTFLUIDS; pivot++) {
-            int dust_id                   = pivot - 1;
-            jacobi_matrix_n(pivot, pivot) = -1.0/stopping_time(dust_id, k, j, i);
+          // Set the jacobi_matrix_n(0,0) at stage (n), use the w^(n) and prim^(n)
+          for (int dust_id = 0; dust_id < NDUSTFLUIDS; dust_id++) {
+            int rho_id             = 4*dust_id;
+            int row                = dust_id + 1;
+            jacobi_matrix_n(0, 0) -= jacobi_matrix_n(row, 0);
           }
 
-          // calculate lambda_matrix = I - h/2*jacobi_matrix, dt = h/2
+          // Set the other pivots, except jacobi_matrix_n(0, 0)
+          for (int pivot = 1; pivot <= NDUSTFLUIDS; pivot++) {
+            int dust_id                    = pivot - 1;
+            int col                        = pivot;
+            jacobi_matrix_n(pivot, pivot)  = -1.0*jacobi_matrix_n(0, col);
+          }
+
+          //for (int mm = 0; mm <= NDUSTFLUIDS; mm++) {
+            //std::cout << "Stage 1: " << std::endl;
+            //for (int nn = 0; nn <= NDUSTFLUIDS; nn++) {
+              //std::cout << "jacobi_n("<< mm << ',' << nn << ") is " << jacobi_matrix_n(mm, nn) << "; ";
+            //}
+            //std::cout << std::endl;
+          //}
+
+          // calculate lambda_matrix_n = I - h/2*jacobi_matrix_n, dt = h/2
           Multiplication(dt, jacobi_matrix_n, lambda_matrix_n);
           Addition(1.0, -1.0, lambda_matrix_n);
 
@@ -174,7 +182,7 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
           Inverse(lambda_matrix_n, lambda_inv_matrix_n);
 
           // Step 1c && 1d: calculate delta momentum (Delta_M) caused by the drags, update the conserves
-          // Delta_M = h/2 * (1-h/2 df/dM|^(n))^(-1) * f(M^(n), V^(n))
+          // Delta_M = h/2 * (lambda_matrix_n)^(-1) * f(M^(n), V^(n)), dt = h/2
           Multiplication(dt, lambda_inv_matrix_n);
           Multiplication(lambda_inv_matrix_n, force_x1_n, delta_m1);
           Multiplication(lambda_inv_matrix_n, force_x2_n, delta_m2);
@@ -192,16 +200,20 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
           Real &gas_m3_p = u(IM3, k, j, i);
           Real &gas_e_p  = u(IEN, k, j, i);
 
-          // Add the delta momentum caused by drags on the gas conserves, u^(') -> M^(')
-          gas_m1_p += delta_m1(0);
-          gas_m2_p += delta_m2(0);
-          gas_m3_p += delta_m3(0);
+          //// Add the delta momentum caused by drags on the gas conserves, u^(') -> M^(')
+          //gas_m1_p += delta_m1(0);
+          //gas_m2_p += delta_m2(0);
+          //gas_m3_p += delta_m3(0);
+
+          pdf->u_s1(IM1, k, j, i) = gas_m1_p + delta_m1(0);
+          pdf->u_s1(IM2, k, j, i) = gas_m2_p + delta_m2(0);
+          pdf->u_s1(IM3, k, j, i) = gas_m3_p + delta_m3(0);
 
           // Update the energy of gas if the gas is non barotropic. dE = dM * v^(n)
           if (NON_BAROTROPIC_EOS)
             gas_e_p += delta_m1(0)*gas_v1_n + delta_m2(0)*gas_v2_n + delta_m3(0)*gas_v3_n;
 
-          for (int n = 1; n <= NDUSTFLUIDS; n++){
+          for (int n = 1; n <= NDUSTFLUIDS; n++) {
             int dust_id = n - 1;
             int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
@@ -213,12 +225,22 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
             Real &dust_m2_p = cons_df(v2_id, k, j, i);
             Real &dust_m3_p = cons_df(v3_id, k, j, i);
 
-            // Add the delta momentum caused by drags on the dust conserves, u^(') -> M^(')
-            dust_m1_p += delta_m1(n);
-            dust_m2_p += delta_m2(n);
-            dust_m3_p += delta_m3(n);
+            //// Add the delta momentum caused by drags on the dust conserves, u^(') -> M^(')
+            //dust_m1_p += delta_m1(n);
+            //dust_m2_p += delta_m2(n);
+            //dust_m3_p += delta_m3(n);
+
+            pdf->df_cons_s1(v1_id, k, j, i) = dust_m1_p + delta_m1(n);
+            pdf->df_cons_s1(v2_id, k, j, i) = dust_m2_p + delta_m2(n);
+            pdf->df_cons_s1(v3_id, k, j, i) = dust_m3_p + delta_m3(n);
           }
 
+          //Real total_mom = 0.0;
+          //for (int mm = 0; mm <=NDUSTFLUIDS; mm++) {
+            //total_mom += delta_m1(mm);
+          //}
+          //std::cout << "Stage 1: Total_mom = " << total_mom << std::endl;
+          //std::cout << std::endl;
         }
       }
     }
@@ -247,6 +269,7 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
     pmb->WeightedAve(u_d,       u,       u_n,       wghts);
     pmb->WeightedAve(cons_df_d, cons_df, cons_df_n, wghts);
     Real inv_dt = 1.0/dt;
+    //std::cout << "Stage 2: The time step is " << dt << std::endl;
 
     for (int k=ks; k<=ke; ++k) {
       for (int j=js; j<=je; ++j) {
@@ -269,60 +292,62 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
           lambda_matrix_p.ZeroClear();
           lambda_inv_matrix_p.ZeroClear();
 
-          for (int index = NDUSTFLUIDS; index >= 0; index--) {
-            if (index != 0) {
-              int dust_id          = index - 1;
-              int rho_id           = 4*dust_id;
-              int v1_id            = rho_id + 1;
-              int v2_id            = rho_id + 2;
-              int v3_id            = rho_id + 3;
-              const Real &dust_d_p = prim_df(rho_id, k, j, i);
-              const Real &gas_d_p  = w(IDN, k, j, i);
-              Real alpha_p         = 1.0/stopping_time(dust_id,k,j,i);
-              Real epsilon_p       = dust_d_p/gas_d_p;
+          for (int index = 1; index <= NDUSTFLUIDS; index++) {
+            int dust_id          = index - 1;
+            int rho_id           = 4*dust_id;
+            int v1_id            = rho_id + 1;
+            int v2_id            = rho_id + 2;
+            int v3_id            = rho_id + 3;
+            const Real &dust_d_p = prim_df(rho_id, k, j, i);
+            const Real &gas_d_p  = w(IDN, k, j, i);
+            Real alpha_p         = 1.0/stopping_time(dust_id,k,j,i);
+            Real epsilon_p       = dust_d_p/gas_d_p;
 
-              force_x1_p(index) = epsilon_p * alpha_p * u_n(IM1, k, j, i) - alpha_p * cons_df_n(v1_id, k, j, i);
-              force_x2_p(index) = epsilon_p * alpha_p * u_n(IM2, k, j, i) - alpha_p * cons_df_n(v2_id, k, j, i);
-              force_x3_p(index) = epsilon_p * alpha_p * u_n(IM3, k, j, i) - alpha_p * cons_df_n(v3_id, k, j, i);
-            }
-            else {
-              for (int dust_index = NDUSTFLUIDS; dust_index >= 1; dust_index--) {
-                force_x1_p(0) -= force_x1_p(dust_index);
-                force_x2_p(0) -= force_x2_p(dust_index);
-                force_x3_p(0) -= force_x3_p(dust_index);
-              }
-            }
+            //force_x1_p(index) = epsilon_p * alpha_p * u_n(IM1, k, j, i) - alpha_p * cons_df_n(v1_id, k, j, i);
+            //force_x2_p(index) = epsilon_p * alpha_p * u_n(IM2, k, j, i) - alpha_p * cons_df_n(v2_id, k, j, i);
+            //force_x3_p(index) = epsilon_p * alpha_p * u_n(IM3, k, j, i) - alpha_p * cons_df_n(v3_id, k, j, i);
+
+            force_x1_p(index) = epsilon_p * alpha_p * pdf->u_s1(IM1, k, j, i) - alpha_p * pdf->df_cons_s1(v1_id, k, j, i);
+            force_x2_p(index) = epsilon_p * alpha_p * pdf->u_s1(IM2, k, j, i) - alpha_p * pdf->df_cons_s1(v2_id, k, j, i);
+            force_x3_p(index) = epsilon_p * alpha_p * pdf->u_s1(IM3, k, j, i) - alpha_p * pdf->df_cons_s1(v3_id, k, j, i);
+
+            //std::cout << "u_n is " << u_n(IM1, k, j, i) << std::endl;
+            //std::cout << "u_p is " << u_p(IM1, k, j, i) << std::endl;
+            //std::cout << "u_s1 is " << pdf->u_s1(IM1, k, j, i) << std::endl;
+
+            //std::cout << "pdf->df_cons_n is " << cons_df_n(v1_id, k, j, i) << std::endl;
+            //std::cout << "pdf->df_cons_p is " << cons_df_p(v1_id, k, j, i) << std::endl;
+            //std::cout << "pdf->df_cons_s1 is " << pdf->df_cons_s1(v1_id, k, j, i) << std::endl;
           }
 
-          // Add the delta momentum caused by the other source terms, \Delta Gm = (u^(n+1) - u^(n))/dt
-          for (int index = NDUSTFLUIDS; index >= 0; index--) {
-            if (index != 0) {
-              int dust_id = index - 1;
-              int rho_id  = 4*dust_id;
-              int v1_id   = rho_id + 1;
-              int v2_id   = rho_id + 2;
-              int v3_id   = rho_id + 3;
-
-              force_x1_p(index) += cons_df_d(v1_id, k, j, i) * inv_dt;
-              force_x2_p(index) += cons_df_d(v2_id, k, j, i) * inv_dt;
-              force_x3_p(index) += cons_df_d(v3_id, k, j, i) * inv_dt;
-            }
-            else {
-              force_x1_p(0) += u_d(IM1, k, j, i) * inv_dt;
-              force_x2_p(0) += u_d(IM2, k, j, i) * inv_dt;
-              force_x3_p(0) += u_d(IM3, k, j, i) * inv_dt;
-            }
+          for (int dust_index = 1; dust_index <= NDUSTFLUIDS; dust_index++) {
+            force_x1_p(0) -= force_x1_p(dust_index);
+            force_x2_p(0) -= force_x2_p(dust_index);
+            force_x3_p(0) -= force_x3_p(dust_index);
           }
+
+          //std::cout << "Stage 2: " << std::endl;
+          //for (int mm = 0; mm <= NDUSTFLUIDS; mm++)
+            //std::cout << "force_x1_p("<< mm << ") is " << force_x1_p(mm) << std::endl;
+
+          //// Add the delta momentum caused by the other source terms, \Delta Gm = (u^(n+1) - u^(n))/h, dt = h
+          //for (int index = 1; index <= NDUSTFLUIDS; index++) {
+            //int dust_id = index - 1;
+            //int rho_id  = 4*dust_id;
+            //int v1_id   = rho_id + 1;
+            //int v2_id   = rho_id + 2;
+            //int v3_id   = rho_id + 3;
+
+            //force_x1_p(index) += cons_df_d(v1_id, k, j, i) * inv_dt;
+            //force_x2_p(index) += cons_df_d(v2_id, k, j, i) * inv_dt;
+            //force_x3_p(index) += cons_df_d(v3_id, k, j, i) * inv_dt;
+          //}
+
+          //force_x1_p(0) += u_d(IM1, k, j, i) * inv_dt;
+          //force_x2_p(0) += u_d(IM2, k, j, i) * inv_dt;
+          //force_x3_p(0) += u_d(IM3, k, j, i) * inv_dt;
 
           // Calculate the jacobi matrix of the drag forces, \partial f/\partial M|^(')
-          // Set the jacobi_matrix_p(0,0) at stage ('), use the w^(') and prim^(')
-          for (int dust_id = 0; dust_id < NDUSTFLUIDS; dust_id++) {
-            int rho_id             = 4*dust_id;
-            const Real &dust_d_p   = prim_df(rho_id, k, j, i);
-            const Real &gas_d_p    = w(IDN, k, j, i);
-            jacobi_matrix_p(0, 0) -= dust_d_p/gas_d_p * 1.0/stopping_time(dust_id, k, j, i);
-          }
-
           // Set the jacobi_matrix_p(0, col), except jacobi_matrix_p(0, 0)
           for (int col = 1; col <= NDUSTFLUIDS; col++) {
             int dust_id             = col - 1;
@@ -338,30 +363,80 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
             jacobi_matrix_p(row, 0) = dust_d_p/gas_d_p * 1.0/stopping_time(dust_id, k, j, i);
           }
 
+          // Set the jacobi_matrix_p(0,0) at stage ('), use the w^(') and prim^(')
+          for (int dust_id = 0; dust_id < NDUSTFLUIDS; dust_id++) {
+            int rho_id             = 4*dust_id;
+            int row                = dust_id + 1;
+            jacobi_matrix_p(0, 0) -= jacobi_matrix_p(row, 0);
+          }
+
           // Set the other pivots, except jacobi_matrix_p(0, 0)
           for (int pivot = 1; pivot <= NDUSTFLUIDS; pivot++) {
             int dust_id                   = pivot - 1;
-            jacobi_matrix_p(pivot, pivot) = -1.0/stopping_time(dust_id, k, j, i);
+            int col                       = pivot;
+            jacobi_matrix_p(pivot, pivot) = -1.0*jacobi_matrix_p(0, col);
           }
 
-          // calculate temp_A_matrix = I - h/2*jacobi, dt = h
-          Multiplication(0.5*dt, jacobi_matrix_p, temp_A_matrix_p);
-          Addition(1.0, -1.0, temp_A_matrix_p);
+          //for (int mm = 0; mm <= NDUSTFLUIDS; mm++) {
+            //std::cout << "Stage 2: " << std::endl;
+            //for (int nn = 0; nn <= NDUSTFLUIDS; nn++) {
+              //std::cout << "jacobi_p("<< mm << ',' << nn << ") is " << jacobi_matrix_p(mm,nn) << "; ";
+            //}
+            //std::cout << std::endl;
+          //}
 
-          // calculate the lambda_matrix = I - h*jacobi * (I - h/2*jacobi)
-          Multiplication(jacobi_matrix_p, temp_A_matrix_p, lambda_matrix_p);
+          // Step 2c && 2d: calculate delta momentum (Delta_M) caused by the drags, update the conserves
+          // calculate temp_A_matrix = I - h*jacobi_matrix_p, dt = h
+          Multiplication(dt, jacobi_matrix_p, temp_A_matrix_p);
+          Addition(1.0, -0.5, temp_A_matrix_p);
+
+          //for (int mm = 0; mm <= NDUSTFLUIDS; mm++) {
+            //std::cout << "Stage 2: " << std::endl;
+            //for (int nn = 0; nn <= NDUSTFLUIDS; nn++) {
+              //std::cout << "temp_A_matrix_p("<< mm << ',' << nn << ") is " << temp_A_matrix_p(mm,nn) << "; ";
+            //}
+            //std::cout << std::endl;
+          //}
+
+
+          // calculate the lambda_matrix = I - h*temp_A_matrix*jacobi_matrix_p, dt = h
+          Multiplication(temp_A_matrix_p, jacobi_matrix_p, lambda_matrix_p);
           Addition(1.0, -1.0*dt, lambda_matrix_p);
+
+          //for (int mm = 0; mm <= NDUSTFLUIDS; mm++) {
+            //std::cout << "Stage 2: " << std::endl;
+            //for (int nn = 0; nn <= NDUSTFLUIDS; nn++) {
+              //std::cout << "lambda_matrix_p("<< mm << ',' << nn << ") is " << lambda_matrix_p(mm,nn) << "; ";
+            //}
+            //std::cout << std::endl;
+          //}
+
 
           // cauculate the inverse matrix of lambda_matrix
           LUdecompose(lambda_matrix_p);
           Inverse(lambda_matrix_p, lambda_inv_matrix_p);
 
-          // Step 2c && 2d: calculate delta momentum (Delta_M) caused by the drags, update the conserves
-          // calculate temp_B_matrix = h * temp_A * lambda^-1
-          // Delta_M = temp_B_matrix * f(M^(n), V^(n))
-          Multiplication(dt, temp_A_matrix_p);
-          Multiplication(temp_A_matrix_p, lambda_inv_matrix_p, temp_B_matrix_p);
+          //for (int mm = 0; mm <= NDUSTFLUIDS; mm++) {
+            //std::cout << "Stage 2: " << std::endl;
+            //for (int nn = 0; nn <= NDUSTFLUIDS; nn++) {
+              //std::cout << "lambda_inv_matrix_p("<< mm << ',' << nn << ") is " << lambda_inv_matrix_p(mm,nn) << "; ";
+            //}
+            //std::cout << std::endl;
+          //}
 
+          // calculate temp_B_matrix = h * lambda^-1 * temp_A_matrix, dt = h
+          Multiplication(lambda_inv_matrix_p, temp_A_matrix_p, temp_B_matrix_p);
+          Multiplication(dt, temp_B_matrix_p);
+
+          //for (int mm = 0; mm <= NDUSTFLUIDS; mm++) {
+            //std::cout << "Stage 2: " << std::endl;
+            //for (int nn = 0; nn <= NDUSTFLUIDS; nn++) {
+              //std::cout << "temp_B_matrix_p("<< mm << ',' << nn << ") is " << temp_B_matrix_p(mm,nn) << "; ";
+            //}
+            //std::cout << std::endl;
+          //}
+
+          // Delta_M = temp_B_matrix * f(M^(n), V^(n))
           Multiplication(temp_B_matrix_p, force_x1_p, delta_m1);
           Multiplication(temp_B_matrix_p, force_x2_p, delta_m2);
           Multiplication(temp_B_matrix_p, force_x3_p, delta_m3);
@@ -405,6 +480,13 @@ void DustGasDrag::VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
             dust_m3_n1 += delta_m3(n);
           }
 
+          //Real total_mom = 0.0;
+          //for (int mm = 0; mm <=NDUSTFLUIDS; mm++) {
+            //total_mom += delta_m1(mm);
+            //std::cout << "Stage 2: delta_m1(" << mm << ") is " << delta_m1(mm) << std::endl;
+          //}
+          //std::cout << "Stage 2: Total_mom = " << total_mom << std::endl;
+          //std::cout << std::endl;
         }
       }
     }

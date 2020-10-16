@@ -48,12 +48,10 @@ void DustGasDrag::Addition(const AthenaArray<Real> &a_matrix, const Real b_num,
     ATHENA_ERROR(msg);
   }
 
-	c_matrix.ZeroClear();
-
   for(int m=0; m<m_a; m++) {
 #pragma omp simd
     for(int n=0; n<n_a; n++) {
-			c_matrix(m,n) = a_matrix(m,n) + b_matrix(m,n);
+			c_matrix(m,n) = a_matrix(m,n) + b_num*b_matrix(m,n);
     }
   }
   return;
@@ -82,6 +80,8 @@ void DustGasDrag::Addition(AthenaArray<Real> &a_matrix, const Real b_num, const 
   }
   return;
 }
+
+
 void DustGasDrag::Addition(const Real a_num, const Real b_num,
                       const AthenaArray<Real> &b_matrix, AthenaArray<Real> &c_matrix)
 {
@@ -97,9 +97,7 @@ void DustGasDrag::Addition(const Real a_num, const Real b_num,
     ATHENA_ERROR(msg);
   }
 
-	c_matrix.ZeroClear();
   Real delta;
-
   for(int m=0; m<m_b; m++) {
 #pragma omp simd
     for(int n=0; n<n_b; n++) {
@@ -109,6 +107,7 @@ void DustGasDrag::Addition(const Real a_num, const Real b_num,
   }
   return;
 }
+
 
 void DustGasDrag::Addition(const Real a_num, const Real b_num,
                             AthenaArray<Real> &b_matrix)

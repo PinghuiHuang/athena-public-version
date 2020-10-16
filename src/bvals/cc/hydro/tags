@@ -3,9 +3,9 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AddHydroShearForInit	bvals_shear_hydro.cpp	/^void HydroBoundaryVariable::AddHydroShearForInit() {$/;"	f	class:HydroBoundaryVariable
-BVALS_CC_HYDRO_BVALS_HYDRO_HPP_	bvals_hydro.hpp	2;"	d
+BVALS_CC_HYDRO_BVALS_HYDRO_HPP_	bvals_hydro.hpp	/^#define BVALS_CC_HYDRO_BVALS_HYDRO_HPP_$/;"	d
 HydroBoundaryVariable	bvals_hydro.cpp	/^HydroBoundaryVariable::HydroBoundaryVariable($/;"	f	class:HydroBoundaryVariable
 HydroBoundaryVariable	bvals_hydro.hpp	/^class HydroBoundaryVariable : public CellCenteredBoundaryVariable {$/;"	c
 ReflectInnerX1	reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectInnerX1($/;"	f	class:HydroBoundaryVariable

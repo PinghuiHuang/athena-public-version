@@ -32,9 +32,8 @@ void EquationOfState::DustFluidsConservedToPrimitive(
   AthenaArray<Real> &cons_df, const AthenaArray<Real> &prim_df_old,
   AthenaArray<Real> &prim_df,
   Coordinates *pco, int il, int iu, int jl, int ju, int kl, int ku) {
-  const int num_dustvar = 4*NDUSTFLUIDS;
-  for (int n=0; n<num_dustvar; n+=4) {
-  int dust_id = n/4;
+  for (int n=0; n<NDUSTFLUIDS; n++) {
+  int dust_id = n;
   int rho_id  = 4*dust_id;
   int v1_id   = rho_id + 1;
   int v2_id   = rho_id + 2;
@@ -153,9 +152,8 @@ void EquationOfState::DustFluidsPrimitiveToConserved(
     const AthenaArray<Real> &prim_df,
     AthenaArray<Real> &cons_df, Coordinates *pco,
     int il, int iu, int jl, int ju, int kl, int ku) {
-    const int num_dustvar = 4*NDUSTFLUIDS;
-  for (int n=0; n<num_dustvar; n+=4) {
-    int dust_id = n/4;
+  for (int n=0; n<NDUSTFLUIDS; n++) {
+    int dust_id = n;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
     int v2_id   = rho_id + 2;
@@ -221,7 +219,7 @@ void EquationOfState::ApplyDustFluidsPrimitiveConservedFloors(
 
   // this next line, when applied indiscriminately, erases the accuracy gains performed in
   // the 4th order stencils, since <r> != <s>*<1/di>, in general
-  //prim_df_n = cons_df_n*di;
+  // prim_df_n = cons_df_n*di;
   // however, if r_n is riding the variable floor, it probably should be applied so that
   // s_n = rho*r_n is consistent (more concerned with conservation than order of accuracy
   // when quantities are floored)

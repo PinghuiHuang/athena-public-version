@@ -36,17 +36,21 @@ DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :
   integrator        = pin->GetOrAddString("time", "integrator", "vl2");
 }
 
+
 void DustGasDrag::AerodynamicDrag(MeshBlock *pmb, const int stage, const Real dt,
       const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df)
 {
   if (integrator == "vl2") {
-    if (DustFeedback_Flag)
-      VL2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-    else
-      VL2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-      //VL2ImplicitNoFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
+    if (DustFeedback_Flag) {
+      SingleDustFeedbackImplicit(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
+      //VL2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
+    }
+    else {
+      SingleDustNoFeedbackImplicit(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
+      //VL2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
+    }
   }
   else if ( (integrator == "rk2") || (integrator == "rk1") ) {
     if (DustFeedback_Flag)

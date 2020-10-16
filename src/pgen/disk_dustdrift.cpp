@@ -194,8 +194,8 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
         }
 
         if (NDUSTFLUIDS > 0){
-          for (int n = 0; n < 4*NDUSTFLUIDS; n+=4){
-            int dust_id = n/4;
+          for (int n = 0; n<NDUSTFLUIDS; n++){
+            int dust_id = n;
             int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
@@ -296,8 +296,8 @@ void potentialwell(MeshBlock *pmb, const Real time, const Real dt,
             cons(IEN,k,j,i) += (mom_r*prim(IM1,k,j,i) + mom_phi*prim(IM2,k,j,i));
 
           if (NDUSTFLUIDS > 0){
-            for (int n=0;n<4*NDUSTFLUIDS;n+=4){
-              int dust_id = n/4;
+            for (int n=0;n<NDUSTFLUIDS;n++){
+              int dust_id = n;
               int rho_id  = 4*dust_id;
               int v1_id   = rho_id + 1;
               int v2_id   = rho_id + 2;
@@ -368,8 +368,8 @@ void wavedamping(MeshBlock *pmb, const Real time, const Real dt,
           }
 
           if ( NDUSTFLUIDS > 0 ) {
-            for (int n=0;n<4*NDUSTFLUIDS;n+=4){
-              int dust_id = n/4;
+            for (int n=0;n<NDUSTFLUIDS;n++){
+              int dust_id = n;
               int rho_id  = 4*dust_id;
               int v1_id   = rho_id + 1;
               int v2_id   = rho_id + 2;
@@ -430,8 +430,8 @@ void wavedamping(MeshBlock *pmb, const Real time, const Real dt,
           }
 
           //if ( NDUSTFLUIDS > 0 ) {
-            //for (int n=0;n<4*NDUSTFLUIDS;n+=4){
-              //int dust_id = n/4;
+            //for (int n=0;n<NDUSTFLUIDS;n++){
+              //int dust_id = n;
               //int rho_id  = 4*dust_id;
               //int v1_id   = rho_id + 1;
               //int v2_id   = rho_id + 2;
@@ -485,8 +485,8 @@ void corotate(MeshBlock *pmb, const Real time, const Real dt,
         //cons(IM2,k,j,i) += dt * prim(IDN,k,j,i)* acor2;
         cons(IM2,k,j,i) += dt * prim(IDN,k,j,i)*work_planet;
         if (NDUSTFLUIDS > 0){
-          for (int n=0;n<4*NDUSTFLUIDS;n+=4){
-            int dust_id = n/4;
+          for (int n=0;n<NDUSTFLUIDS;n++){
+            int dust_id = n;
             int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
@@ -674,8 +674,8 @@ void InnerX1_NoMatterInput(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &p
         if (NDUSTFLUIDS > 0) {
           VelProfileCyl_DustFluids(rad,    phi,    z,    df_v1,    df_v2,    df_v3);
           VelProfileCyl_DustFluids(rad_ac, phi_ac, z_ac, df_v1_ac, df_v2_ac, df_v3_ac);
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
+          for (int n=0; n<NDUSTFLUIDS; n++) {
+            int dust_id = n;
             int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
@@ -752,8 +752,8 @@ void OuterX1_NoMatterInput(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &p
           GetCylCoord(pco, rad_ac, phi_ac, z_ac, iu,   j, k);
           GetCylCoord(pco, rad,    phi,    z,    iu+i, j, k);
           VelProfileCyl_DustFluids(rad, phi, z, df_v1, df_v2, df_v3);
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
+          for (int n=0; n<NDUSTFLUIDS; n++) {
+            int dust_id = n;
             int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
@@ -824,8 +824,8 @@ void MeshBlock::UserWorkInLoop() {
         }
 
         //if (NDUSTFLUIDS > 0)
-          //for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            //int dust_id = n/4;
+          //for (int n=0; n<NDUSTFLUIDS; n++) {
+            //int dust_id = n;
             //int rho_id  = 4*dust_id;
             //int v1_id   = rho_id + 1;
             //int v2_id   = rho_id + 2;

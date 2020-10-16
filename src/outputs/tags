@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 ATHDF5Output	outputs.hpp	/^  explicit ATHDF5Output(OutputParameters oparams) : OutputType(oparams) {}$/;"	f	class:ATHDF5Output
 ATHDF5Output	outputs.hpp	/^class ATHDF5Output : public OutputType {$/;"	c
 AppendOutputDataNode	outputs.cpp	/^void OutputType::AppendOutputDataNode(OutputData *pnew_data) {$/;"	f	class:OutputType
@@ -14,7 +14,7 @@ FileMode	io_wrapper.hpp	/^  enum class FileMode {read, write};$/;"	c	class:IOWra
 FormattedTableOutput	outputs.hpp	/^  explicit FormattedTableOutput(OutputParameters oparams) : OutputType(oparams) {}$/;"	f	class:FormattedTableOutput
 FormattedTableOutput	outputs.hpp	/^class FormattedTableOutput : public OutputType {$/;"	c
 GetPosition	io_wrapper.cpp	/^IOWrapperSizeT IOWrapper::GetPosition() {$/;"	f	class:IOWrapper
-H5T_NATIVE_REAL	athena_hdf5.cpp	45;"	d	file:
+H5T_NATIVE_REAL	athena_hdf5.cpp	/^#define H5T_NATIVE_REAL /;"	d	file:
 HistoryOutput	outputs.hpp	/^  explicit HistoryOutput(OutputParameters oparams) : OutputType(oparams) {}$/;"	f	class:HistoryOutput
 HistoryOutput	outputs.hpp	/^class HistoryOutput : public OutputType {$/;"	c
 IOWrapper	io_wrapper.hpp	/^  IOWrapper() : fh_(nullptr), comm_(MPI_COMM_WORLD) {}$/;"	f	class:IOWrapper
@@ -23,9 +23,9 @@ IsBigEndian	vtk.cpp	/^int IsBigEndian() {$/;"	f
 LoadOutputData	outputs.cpp	/^void OutputType::LoadOutputData(MeshBlock *pmb) {$/;"	f	class:OutputType
 MakeOutputs	outputs.cpp	/^void Outputs::MakeOutputs(Mesh *pm, ParameterInput *pin, bool wtflag) {$/;"	f	class:Outputs
 MakeXDMF	athena_hdf5.cpp	/^void ATHDF5Output::MakeXDMF() {$/;"	f	class:ATHDF5Output
-NHISTORY_VARS	history.cpp	38;"	d	file:
-OUTPUTS_IO_WRAPPER_HPP_	io_wrapper.hpp	2;"	d
-OUTPUTS_OUTPUTS_HPP_	outputs.hpp	2;"	d
+NHISTORY_VARS	history.cpp	/^#define NHISTORY_VARS /;"	d	file:
+OUTPUTS_IO_WRAPPER_HPP_	io_wrapper.hpp	/^#define OUTPUTS_IO_WRAPPER_HPP_$/;"	d
+OUTPUTS_OUTPUTS_HPP_	outputs.hpp	/^#define OUTPUTS_OUTPUTS_HPP_$/;"	d
 Open	io_wrapper.cpp	/^int IOWrapper::Open(const char* fname, FileMode rw) {$/;"	f	class:IOWrapper
 OutputData	outputs.hpp	/^  OutputData() : pnext(nullptr),  pprev(nullptr) {}$/;"	f	struct:OutputData
 OutputData	outputs.hpp	/^struct OutputData {$/;"	s

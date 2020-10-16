@@ -3,14 +3,26 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AthenaError	athena_read.py	/^class AthenaError(RuntimeError):$/;"	c
 AthenaWarning	athena_read.py	/^class AthenaWarning(RuntimeWarning):$/;"	c
+Axes3D	plot_mesh.py	/^    from mpl_toolkits.mplot3d import Axes3D  # noqa$/;"	i
+Consistent	athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
+I	athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
+O	athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
+Python	athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
 action	plot_lines.py	/^        action='store_true',$/;"	v
 action	plot_slice.py	/^                        action='store_true',$/;"	v
 action	spherical_refinement.py	/^        action='store_true',$/;"	v
 action	uniform.py	/^                        action='store_false',$/;"	v
 action	uniform.py	/^                        action='store_true',$/;"	v
+and	athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
+argparse	plot_lines.py	/^import argparse$/;"	i
+argparse	plot_mesh.py	/^import argparse$/;"	i
+argparse	plot_slice.py	/^import argparse$/;"	i
+argparse	plot_spherical.py	/^import argparse$/;"	i
+argparse	spherical_refinement.py	/^import argparse$/;"	i
+argparse	uniform.py	/^import argparse$/;"	i
 args	plot_lines.py	/^    args = parser.parse_args()$/;"	v
 args	plot_mesh.py	/^    args = parser.parse_args()$/;"	v
 args	plot_slice.py	/^    args = parser.parse_args()$/;"	v
@@ -18,7 +30,13 @@ args	plot_spherical.py	/^    args = parser.parse_args()$/;"	v
 args	spherical_refinement.py	/^    args = parser.parse_args()$/;"	v
 args	uniform.py	/^    args = parser.parse_args()$/;"	v
 athdf	athena_read.py	/^def athdf(filename, raw=False, data=None, quantities=None, dtype=None, level=None,$/;"	f
+athena_read	plot_lines.py	/^import athena_read$/;"	i
+athena_read	plot_slice.py	/^import athena_read$/;"	i
+athena_read	plot_spherical.py	/^import athena_read$/;"	i
+athena_read	uniform.py	/^import athena_read$/;"	i
 athinput	athena_read.py	/^def athinput(filename):$/;"	f
+binary	athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
+brentq	spherical_refinement.py	/^    from scipy.optimize import brentq$/;"	i
 center_func_1	athena_read.py	/^                def center_func_1(xm, xp):$/;"	f	function:athdf
 center_func_2	athena_read.py	/^                def center_func_2(xm, xp):$/;"	f	function:athdf
 center_func_3	athena_read.py	/^                def center_func_3(xm, xp):$/;"	f	function:athdf
@@ -26,6 +44,10 @@ check_nan	athena_read.py	/^def check_nan(data):$/;"	f
 check_nan_flag	athena_read.py	/^check_nan_flag = False$/;"	v
 choices	plot_slice.py	/^                        choices=(1, 2, 3),$/;"	v
 choices	spherical_refinement.py	/^                        choices=('schwarzschild', 'boyer-lindquist', 'kerr-schild',),$/;"	v
+cm	spherical_refinement.py	/^    import matplotlib.cm as cm$/;"	i
+colors	plot_slice.py	/^    import matplotlib.colors as colors$/;"	i
+colors	plot_spherical.py	/^    import matplotlib.colors as colors$/;"	i
+colors	spherical_refinement.py	/^    import matplotlib.colors as colors$/;"	i
 default	plot_lines.py	/^      default='-',$/;"	v
 default	plot_mesh.py	/^                        default='mesh_structure.dat',$/;"	v
 default	plot_mesh.py	/^                        default='show',$/;"	v
@@ -38,6 +60,9 @@ default	spherical_refinement.py	/^        default=0,$/;"	v
 default	spherical_refinement.py	/^        default=1.0,$/;"	v
 default	uniform.py	/^                        default=0,$/;"	v
 error_dat	athena_read.py	/^def error_dat(filename, **kwargs):$/;"	f
+from	athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
+h5py	athena_read.py	/^    import h5py$/;"	i
+h5py	uniform.py	/^import h5py$/;"	i
 help	plot_lines.py	/^                        help='label to use for x-axis')$/;"	v
 help	plot_lines.py	/^                        help='label to use for y-axis')$/;"	v
 help	plot_lines.py	/^                        help='maximum for x-axis')$/;"	v
@@ -111,8 +136,32 @@ main	plot_slice.py	/^def main(**kwargs):$/;"	f
 main	plot_spherical.py	/^def main(**kwargs):$/;"	f
 main	spherical_refinement.py	/^def main(**kwargs):$/;"	f
 main	uniform.py	/^def main(**kwargs):$/;"	f
+map_coordinates	plot_spherical.py	/^        from scipy.ndimage import map_coordinates$/;"	i
+math	spherical_refinement.py	/^import math$/;"	i
+matplotlib	plot_lines.py	/^        import matplotlib$/;"	i
+matplotlib	plot_lines.py	/^    import matplotlib.pyplot as plt$/;"	i
+matplotlib	plot_mesh.py	/^        import matplotlib$/;"	i
+matplotlib	plot_mesh.py	/^    import matplotlib.pyplot as plt$/;"	i
+matplotlib	plot_slice.py	/^        import matplotlib$/;"	i
+matplotlib	plot_slice.py	/^    import matplotlib.colors as colors$/;"	i
+matplotlib	plot_slice.py	/^    import matplotlib.pyplot as plt$/;"	i
+matplotlib	plot_spherical.py	/^        import matplotlib$/;"	i
+matplotlib	plot_spherical.py	/^    import matplotlib.colors as colors$/;"	i
+matplotlib	plot_spherical.py	/^    import matplotlib.pyplot as plt$/;"	i
+matplotlib	spherical_refinement.py	/^    import matplotlib$/;"	i
+matplotlib	spherical_refinement.py	/^    import matplotlib.cm as cm$/;"	i
+matplotlib	spherical_refinement.py	/^    import matplotlib.colors as colors$/;"	i
+matplotlib	spherical_refinement.py	/^    import matplotlib.patches as patches$/;"	i
+matplotlib	spherical_refinement.py	/^    import matplotlib.pyplot as plt$/;"	i
 nargs	spherical_refinement.py	/^        nargs='+',$/;"	v
 nargs	uniform.py	/^                        nargs='+',$/;"	v
+noqa	plot_mesh.py	/^    from mpl_toolkits.mplot3d import Axes3D  # noqa$/;"	i
+np	athena_read.py	/^import numpy as np$/;"	i
+np	plot_slice.py	/^import numpy as np$/;"	i
+np	plot_spherical.py	/^import numpy as np$/;"	i
+np	spherical_refinement.py	/^import numpy as np$/;"	i
+open	athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
+os	uniform.py	/^import os$/;"	i
 parse_line	athena_read.py	/^    def parse_line(line):$/;"	f	function:athinput
 parser	plot_lines.py	/^    parser = argparse.ArgumentParser()$/;"	v
 parser	plot_mesh.py	/^    parser = argparse.ArgumentParser()$/;"	v
@@ -120,14 +169,23 @@ parser	plot_slice.py	/^    parser = argparse.ArgumentParser()$/;"	v
 parser	plot_spherical.py	/^    parser = argparse.ArgumentParser()$/;"	v
 parser	spherical_refinement.py	/^    parser = argparse.ArgumentParser()$/;"	v
 parser	uniform.py	/^    parser = argparse.ArgumentParser()$/;"	v
+patches	spherical_refinement.py	/^    import matplotlib.patches as patches$/;"	i
 plot_grid	spherical_refinement.py	/^def plot_grid(refinement, r_bounds, theta_bounds, output, colormap, grid_refined, log):$/;"	f
+plt	plot_lines.py	/^    import matplotlib.pyplot as plt$/;"	i
+plt	plot_mesh.py	/^    import matplotlib.pyplot as plt$/;"	i
+plt	plot_slice.py	/^    import matplotlib.pyplot as plt$/;"	i
+plt	plot_spherical.py	/^    import matplotlib.pyplot as plt$/;"	i
+plt	spherical_refinement.py	/^    import matplotlib.pyplot as plt$/;"	i
 pos_face	spherical_refinement.py	/^def pos_face(x1, x2, ratio, n, n_face):$/;"	f
+re	athena_read.py	/^import re$/;"	i
 read_cell_scalars	athena_read.py	/^    def read_cell_scalars():$/;"	f	function:vtk
 read_cell_vectors	athena_read.py	/^    def read_cell_vectors():$/;"	f	function:vtk
 read_faces	athena_read.py	/^    def read_faces(letter, num_faces):$/;"	f	function:vtk
 res	spherical_refinement.py	/^    def res(ratio): return ($/;"	f	function:log_ratio
 restrict_like	athena_read.py	/^def restrict_like(vals, levels, vols=None):$/;"	f
 skip_string	athena_read.py	/^    def skip_string(expected_string):$/;"	f	function:vtk
+struct	athena_read.py	/^import struct$/;"	i
+sys	athena_read.py	/^import sys$/;"	i
 tab	athena_read.py	/^def tab(filename, raw=False, dimensions=None):$/;"	f
 theta_adjust	spherical_refinement.py	/^def theta_adjust(theta_unadjusted, theta_compress):$/;"	f
 theta_func	plot_spherical.py	/^    def theta_func(xmin, xmax, _, nf):$/;"	f	function:main
@@ -145,4 +203,7 @@ vol_func	athena_read.py	/^                    def vol_func(rm, rp, phim, phip, z
 vol_func	athena_read.py	/^                    def vol_func(rm, rp, thetam, thetap, phim, phip):$/;"	f	function:athdf
 vol_func	athena_read.py	/^                    def vol_func(xm, xp, ym, yp, zm, zp):$/;"	f	function:athdf
 vtk	athena_read.py	/^def vtk(filename):$/;"	f
+warnings	athena_read.py	/^import warnings$/;"	i
+warnings	plot_slice.py	/^import warnings$/;"	i
+warnings	plot_spherical.py	/^import warnings$/;"	i
 widths	spherical_refinement.py	/^def widths(r1, r2, theta1, theta2, delta_phi, metric, parameters):$/;"	f

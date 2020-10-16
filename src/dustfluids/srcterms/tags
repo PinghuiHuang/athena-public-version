@@ -3,16 +3,16 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AddDustFluidsSourceTerms	dustfluids_srcterms.cpp	/^void DustFluidsSourceTerms::AddDustFluidsSourceTerms(const Real time, const Real dt,$/;"	f	class:DustFluidsSourceTerms
-DUSTFLUIDS_SRCTERMS_HPP_	dustfluids_srcterms.hpp	2;"	d
+DUSTFLUIDS_SRCTERMS_HPP_	dustfluids_srcterms.hpp	/^#define DUSTFLUIDS_SRCTERMS_HPP_$/;"	d
 DustFluidsSourceTerms	dustfluids_srcterms.cpp	/^DustFluidsSourceTerms::DustFluidsSourceTerms(DustFluids *pdf, ParameterInput *pin) {$/;"	f	class:DustFluidsSourceTerms
 DustFluidsSourceTerms	dustfluids_srcterms.hpp	/^class DustFluidsSourceTerms {$/;"	c
 GetGM	dustfluids_srcterms.hpp	/^    Real GetGM() const {return gm_;}$/;"	f	class:DustFluidsSourceTerms
 Omega_0_	dustfluids_srcterms.hpp	/^    Real Omega_0_, qshear_;                        \/\/ Orbital freq and shear rate in shearing box$/;"	m	class:DustFluidsSourceTerms
-PointMass_DustFluids	pointmass_dustfluids.cpp	/^void DustFluidsSourceTerms::PointMass_DustFluids(const Real dt, const AthenaArray<Real> *flux_df,$/;"	f	class:DustFluidsSourceTerms
+PointMassDustFluids	pointmass_dustfluids.cpp	/^void DustFluidsSourceTerms::PointMassDustFluids(const Real dt, const AthenaArray<Real> *flux_df,$/;"	f	class:DustFluidsSourceTerms
 ShBoxCoord_	dustfluids_srcterms.hpp	/^    int  ShBoxCoord_;                              \/\/ ShearCoordinate type: 1=xy (default), 2=xz$/;"	m	class:DustFluidsSourceTerms
-ShearingBoxSourceTerms_DustFluids	shearing_box_dustfluids.cpp	/^void DustFluidsSourceTerms::ShearingBoxSourceTerms_DustFluids(const Real dt,$/;"	f	class:DustFluidsSourceTerms
+ShearingBoxSourceTermsDustFluids	shearing_box_dustfluids.cpp	/^void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,$/;"	f	class:DustFluidsSourceTerms
 dustfluids_sourceterms_defined	dustfluids_srcterms.hpp	/^    bool dustfluids_sourceterms_defined;$/;"	m	class:DustFluidsSourceTerms
 gm_	dustfluids_srcterms.hpp	/^    Real gm_;                                      \/\/ GM for point mass MUST BE LOCATED AT ORIGIN$/;"	m	class:DustFluidsSourceTerms
 num_dust_var	dustfluids_srcterms.hpp	/^    static const int num_dust_var = 4*NDUSTFLUIDS; \/\/ Number of dust variables (rho, v1, v2, v3)*4$/;"	m	class:DustFluidsSourceTerms

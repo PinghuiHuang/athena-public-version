@@ -361,11 +361,12 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
             Real concentration = 0.5*(std::tanh((pcoord->x2v(j) - z2)/a)  // 8e)
                                       - std::tanh((pcoord->x2v(j) - z1)/a) + 2.0);
             // uniformly fill all dustfluids
-            for (int n = 0; n<4*NDUSTFLUIDS; n+=4){
-              int rho_id = n;
-              int v1_id = rho_id + 1;
-              int v2_id = rho_id + 2;
-              int v3_id = rho_id + 3;
+            for (int n = 0; n<NDUSTFLUIDS; n++){
+              int dust_id = n;
+              int rho_id  = 4*dust_id;
+              int v1_id   = rho_id + 1;
+              int v2_id   = rho_id + 2;
+              int v3_id   = rho_id + 3;
               pdustfluids->df_cons(rho_id,k,j,i) = concentration*phydro->u(IDN,k,j,i);
               pdustfluids->df_cons(v1_id,k,j,i)  = 0;
               pdustfluids->df_cons(v2_id,k,j,i)  = 0;
@@ -518,9 +519,11 @@ Real DustFluidsDyeEntropy(MeshBlock *pmb, int iout) {
       pmb->pcoord->CellVolume(k, j, pmb->is, pmb->ie, volume);
       for (int i=is; i<=ie; i++) {
         // no loop over NSCALARS; hardcode assumption that NSCALARS=1
-        for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-          Real specific_entropy = -df_prim(n,k,j,i)/(df_prim(n,k,j,i)+w(IDN,k,j,i))
-            *std::log(df_prim(n,k,j,i)/(df_prim(n,k,j,i)+w(IDN,k,j,i)));
+        for (int n=0; n<NDUSTFLUIDS; n++) {
+          int dust_id = n;
+          int rho_id  = 4*dust_id;
+          Real specific_entropy = -df_prim(rho_id,k,j,i)/(df_prim(rho_id,k,j,i)+w(IDN,k,j,i))
+            *std::log(df_prim(rho_id,k,j,i)/(df_prim(rho_id,k,j,i)+w(IDN,k,j,i)));
           total_entropy += volume(i)*w(IDN,k,j,i)*specific_entropy;  // Lecoanet (2016) eq 5
         }
       }

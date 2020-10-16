@@ -31,15 +31,15 @@ class DustFluidsDiffusion {
   public:
     DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin);
 
-    // true or false, the bool value of the dust diffusion
     bool dustfluids_diffusion_defined; // true or false
-    bool ConstNu_Flag;                // true or false, the flag of using the constant diffusivity of dust
-    bool Momentum_Diffusion_Flag;     // true or false, the flag of momentum diffusion of dust fluids due to concentration diffusion.
+    bool Diffusion_Flag;               // true or false, the flag of inviscid dust fluids
+    bool ConstNu_Flag;                 // true or false, the flag of using the constant diffusivity of dust
+    bool Momentum_Diffusion_Flag;      // true or false, the flag of momentum diffusion of dust fluids
 
     // The flux tensor of dust fluids caused by diffusions
     AthenaArray<Real> dustfluids_diffusion_flux[3];
 
-    // functions
+    // Functions
     // Calculate the diffusion flux
     void CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &cons_df);
@@ -51,11 +51,12 @@ class DustFluidsDiffusion {
     // reset the diffusion flux of dust as zero.
     void ClearDustFluidsFlux(AthenaArray<Real> *flux_diff);
 
-    // calculate the new parabolic dt, make sure it won't conflict the CFL condition
+    // calculate the new parabolic dt, make sure the simulation won't conflict with the CFL condition
     Real NewDiffusionDt();
 
     // Other functions
-    Real VanLeerLimiter(const Real a, const Real b); // Van Leer Flux Limiter on the momentum diffusion
+    // Van Leer Flux Limiter on the momentum diffusions
+    Real VanLeerLimiter(const Real a, const Real b);
 
     // Transfer the coordinate into cylindrical, used in disk problem
     void GetCylCoord(Coordinates *pco, Real &rad, Real &phi, Real &z, int i, int j, int k);
@@ -73,6 +74,12 @@ class DustFluidsDiffusion {
       const AthenaArray<Real> &stopping_time,
       AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs);
 
+    // Set the zero dust diffusivity
+    void ZeroDustDiffusivity(const AthenaArray<Real> &nu_gas,
+      const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
+      const AthenaArray<Real> &stopping_time,
+      AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs);
+
     // Concentration and Momentum diffusivity
     void DustFluidsConcentrationDiffusiveFlux(const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &w, AthenaArray<Real> *df_diff_flux);
@@ -85,16 +92,13 @@ class DustFluidsDiffusion {
     DustFluids  *pmy_dustfluids_;                   // ptr to DustFluids containing this DustFluidsDiffusion
     MeshBlock   *pmb_;                              // ptr to meshblock containing this DustFluidsDiffusion
     Coordinates *pco_;                              // ptr to coordinates class
-    //AthenaArray<Real> x1area_, x2area_, x2area_p1_, x3area_, x3area_p1_;
-    //AthenaArray<Real> vol_;
-    AthenaArray<Real> dx1_, dx2_, dx3_; // scratch arrays used in NewTimeStep
+    AthenaArray<Real> dx1_, dx2_, dx3_;             // scratch arrays used in NewTimeStep
     AthenaArray<Real> diff_tot_;
 
-    Real eddy_timescale_r0;      // The eddy timescale (turn over time of eddy) at r0
-    Real r0_;                    // The length unit of radial direction in disk problem
+    Real eddy_timescale_r0;                         // The eddy timescale (turn over time of eddy) at r0
+    Real r0_;                                       // The length unit of radial direction in disk problem
 
     // functions pointer to calculate spatial dependent coefficients
     //DustFluidsDiffusionCoeffFunc CalcDustFluidsDiffusivityCoeff_;
-
 };
 #endif // DUSTFLUIDS_DIFFUSION_HPP_

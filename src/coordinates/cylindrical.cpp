@@ -338,8 +338,8 @@ void Cylindrical::AddCoordTermsDivergence_DustFluids(
   do_dustfluids_diffusion ? bool_rho = 1.0 : bool_rho = 0.0;
   (do_dustfluids_diffusion && pdf->dfdif.Momentum_Diffusion_Flag) ? bool_m2 = 1.0 : bool_m2 = 0.0;
 
-  for (int n = 0; n < 4*NDUSTFLUIDS; n+=4) {
-    int dust_id = n/4;
+  for (int n=0; n<NDUSTFLUIDS; n++) {
+    int dust_id = n;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
     int v2_id   = rho_id + 2;

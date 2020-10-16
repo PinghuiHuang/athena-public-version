@@ -670,8 +670,7 @@ void ConstViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Rea
     }
   }
 
-  bool alpha_disk_model = ((phdif->nu_alpha > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0));
-  if (alpha_disk_model) {
+  if (phdif->alpha_disk_model) {
     Real rad, phi, z;
     for (int k=ks; k<=ke; ++k) {
       for (int j=js; j<=je; ++j) {
@@ -680,7 +679,7 @@ void ConstViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Rea
           GetCylCoord(pmb->pcoord,rad,phi,z,i,j,k);
           if (NON_BAROTROPIC_EOS)
             phdif->nu(HydroDiffusion::DiffProcess::alpha,k,j,i) =
-            phdif->nu_alpha* phdif->p0_over_r0 *pow(rad/(phdif->r0),phdif->pslope+1.5);
+            phdif->nu_alpha* phdif->p0_over_r0 *pow(rad/(phdif->r0),phdif->pslope+1.5); // 1.5, the shear rate of Keplerian disks
           else
             phdif->nu(HydroDiffusion::DiffProcess::alpha,k,j,i) =
             phdif->nu_alpha* phdif->p0_over_r0 *pow(rad/(phdif->r0),1.5);

@@ -43,25 +43,25 @@ void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const
   Real df_prim_li[(num_dust_var)], df_prim_ri[(num_dust_var)], df_prim_roe[(num_dust_var)];
   Real df_fl[(num_dust_var)],      df_fr[(num_dust_var)],      df_flxi[(num_dust_var)];
 
-  for (int n=0; n<num_dust_var; n+=4) {
-    int dust_id = n/4;
+  for (int n=0; n<NDUSTFLUIDS; n++) {
+    int dust_id = n;
     int rho_id  = 4*dust_id;
     int ivx     = (IVX + ((index-IVX))%3)   + rho_id;
     int ivy     = (IVX + ((index-IVX)+1)%3) + rho_id;
     int ivz     = (IVX + ((index-IVX)+2)%3) + rho_id;
 #pragma omp simd private(df_prim_li, df_prim_ri, df_prim_roe, df_fl, df_fr, df_flxi)
     for (int i=il; i<=iu; ++i) {
-      const Real &nu_d   = nu_dustfluids_array(dust_id,k,j,i);
+      const Real &nu_d   = nu_dustfluids_array(dust_id, k, j, i);
 
-      df_prim_li[rho_id] = df_prim_l(rho_id,i);
-      df_prim_li[ivx]    = df_prim_l(ivx,i);
-      df_prim_li[ivy]    = df_prim_l(ivy,i);
-      df_prim_li[ivz]    = df_prim_l(ivz,i);
+      df_prim_li[rho_id] = df_prim_l(rho_id, i);
+      df_prim_li[ivx]    = df_prim_l(ivx,    i);
+      df_prim_li[ivy]    = df_prim_l(ivy,    i);
+      df_prim_li[ivz]    = df_prim_l(ivz,    i);
 
-      df_prim_ri[rho_id] = df_prim_r(rho_id,i);
-      df_prim_ri[ivx]    = df_prim_r(ivx,i);
-      df_prim_ri[ivy]    = df_prim_r(ivy,i);
-      df_prim_ri[ivz]    = df_prim_r(ivz,i);
+      df_prim_ri[rho_id] = df_prim_r(rho_id, i);
+      df_prim_ri[ivx]    = df_prim_r(ivx,    i);
+      df_prim_ri[ivy]    = df_prim_r(ivy,    i);
+      df_prim_ri[ivz]    = df_prim_r(ivz,    i);
 
       //Compute middle state estimates with PVRS (Toro 10.5.2)
       //Real al, ar, el, er;
@@ -70,7 +70,7 @@ void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const
       Real isdlpdr = 1.0/(sqrtdl + sqrtdr);
 
       df_prim_roe[rho_id] = sqrtdl*sqrtdr;
-      df_prim_roe[ivx]    = (sqrtdl*df_prim_li[ivx]+ sqrtdr*df_prim_ri[ivx])*isdlpdr;
+      df_prim_roe[ivx]    = (sqrtdl*df_prim_li[ivx] + sqrtdr*df_prim_ri[ivx])*isdlpdr;
       //Compute the max/min wave speeds based on L/R and Roe-averaged values
       Real al = std::min(df_prim_roe[ivx],df_prim_li[ivx]);
       Real ar = std::max(df_prim_roe[ivx],df_prim_ri[ivx]);
@@ -82,17 +82,17 @@ void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const
       Real vxl = df_prim_li[ivx] - bm;
       Real vxr = df_prim_ri[ivx] - bp;
 
-      df_fl[rho_id] = vxl *df_prim_li[rho_id];
-      df_fr[rho_id] = vxr *df_prim_ri[rho_id];
+      df_fl[rho_id] = vxl * df_prim_li[rho_id];
+      df_fr[rho_id] = vxr * df_prim_ri[rho_id];
 
-      df_fl[ivx]    = df_prim_li[ivx]*df_fl[rho_id];
-      df_fr[ivx]    = df_prim_ri[ivx]*df_fr[rho_id];
+      df_fl[ivx]    = df_prim_li[ivx] * df_fl[rho_id];
+      df_fr[ivx]    = df_prim_ri[ivx] * df_fr[rho_id];
 
-      df_fl[ivy]    = df_prim_li[ivy]*df_fl[rho_id];
-      df_fr[ivy]    = df_prim_ri[ivy]*df_fr[rho_id];
+      df_fl[ivy]    = df_prim_li[ivy] * df_fl[rho_id];
+      df_fr[ivy]    = df_prim_ri[ivy] * df_fr[rho_id];
 
-      df_fl[ivz]    = df_prim_li[ivz]*df_fl[rho_id];
-      df_fr[ivz]    = df_prim_ri[ivz]*df_fr[rho_id];
+      df_fl[ivz]    = df_prim_li[ivz] * df_fl[rho_id];
+      df_fr[ivz]    = df_prim_ri[ivz] * df_fr[rho_id];
 
       //Compute the HLLE df_flux at interface.
       Real tmp  = 0.0;

@@ -3,13 +3,13 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AddDustFluidsDiffusionFlux	dustfluids_diffusion.cpp	/^void DustFluidsDiffusion::AddDustFluidsDiffusionFlux(AthenaArray<Real> *flux_diff,$/;"	f	class:DustFluidsDiffusion
 CalcDustFluidsDiffusionFlux	dustfluids_diffusion.cpp	/^void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &prim_df,$/;"	f	class:DustFluidsDiffusion
 ClearDustFluidsFlux	dustfluids_diffusion.cpp	/^void DustFluidsDiffusion::ClearDustFluidsFlux(AthenaArray<Real> *flux_diff) {$/;"	f	class:DustFluidsDiffusion
 ConstNu_Flag	dustfluids_diffusion.hpp	/^    bool ConstNu_Flag;                \/\/ true or false, the flag of using the constant diffusivity of dust$/;"	m	class:DustFluidsDiffusion
-Constant_DustDiffusivity	diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::Constant_DustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
-DUSTFLUIDS_DIFFUSION_HPP_	dustfluids_diffusion.hpp	2;"	d
+ConstantDustDiffusivity	diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::ConstantDustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
+DUSTFLUIDS_DIFFUSION_HPP_	dustfluids_diffusion.hpp	/^#define DUSTFLUIDS_DIFFUSION_HPP_$/;"	d
 DustFluidsConcentrationDiffusiveFlux	concentration_diffusion.cpp	/^void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray<Real> &prim_df,$/;"	f	class:DustFluidsDiffusion
 DustFluidsDiffusion	dustfluids_diffusion.cpp	/^DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :$/;"	f	class:DustFluidsDiffusion
 DustFluidsDiffusion	dustfluids_diffusion.hpp	/^class DustFluidsDiffusion {$/;"	c
@@ -17,7 +17,7 @@ DustFluidsMomentumDiffusiveFlux	momentum_diffusion.cpp	/^void DustFluidsDiffusio
 GetCylCoord	diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::GetCylCoord(Coordinates *pco, Real &rad, Real &phi, Real &z, int i, int j, int k) {$/;"	f	class:DustFluidsDiffusion
 Momentum_Diffusion_Flag	dustfluids_diffusion.hpp	/^    bool Momentum_Diffusion_Flag;     \/\/ true or false, the flag of momentum diffusion of dust fluids due to concentration diffusion.$/;"	m	class:DustFluidsDiffusion
 NewDiffusionDt	dustfluids_diffusion.cpp	/^Real DustFluidsDiffusion::NewDiffusionDt() {$/;"	f	class:DustFluidsDiffusion
-UserDefined_DustDiffusivity	diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::UserDefined_DustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
+UserDefinedDustDiffusivity	diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
 VanLeerLimiter	momentum_diffusion.cpp	/^Real DustFluidsDiffusion::VanLeerLimiter(const Real a, const Real b){$/;"	f	class:DustFluidsDiffusion
 diff_tot_	dustfluids_diffusion.hpp	/^    AthenaArray<Real> diff_tot_;$/;"	m	class:DustFluidsDiffusion
 dustfluids_diffusion_defined	dustfluids_diffusion.hpp	/^    bool dustfluids_diffusion_defined; \/\/ true or false$/;"	m	class:DustFluidsDiffusion

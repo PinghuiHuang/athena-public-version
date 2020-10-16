@@ -71,6 +71,17 @@ void DustFluidsDiffusion::ConstantDustDiffusivity(const AthenaArray<Real> &nu_ga
   return;
 }
 
+void DustFluidsDiffusion::ZeroDustDiffusivity(const AthenaArray<Real> &nu_gas,
+  const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
+  const AthenaArray<Real> &stopping_time,
+  AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs){
+
+  dust_diffusivity.ZeroClear();
+  dust_cs.ZeroClear();
+
+  return;
+}
+
 
 void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu_gas,
             const int kl, const int ku, const int jl, const int ju, const int il, const int iu,

@@ -250,7 +250,7 @@ TimeIntegratorTaskList::TimeIntegratorTaskList(ParameterInput *pin, Mesh *pm) {
       }
       if (NDUSTFLUIDS > 0) {
         AddTask(DIFFUSE_DUSTFLUIDS,DIFFUSE_HYD);
-        AddTask(CALC_DUSTFLUIDSFLX,DIFFUSE_DUSTFLUIDS);
+        AddTask(CALC_DUSTFLUIDSFLX,(DIFFUSE_DUSTFLUIDS|DIFFUSE_HYD));
       }
     } else { // STS enabled:
       AddTask(CALC_HYDFLX,NONE);
@@ -786,11 +786,11 @@ TaskStatus TimeIntegratorTaskList::IntegrateHydro(MeshBlock *pmb, int stage) {
   if (NDUSTFLUIDS > 0) {
     if (stage <= nstages) {
       // Backup the u^(n), w^(n) at the stage 1
-      if ( stage == 1 ){
-        Real wghts[3] = {0.0, 1.0, 0.0};
-        pmb->WeightedAve(ph->u_n, ph->u, ph->u, wghts);
-        pmb->WeightedAve(ph->w_n, ph->w, ph->w, wghts);
-      }
+      //if ( stage == 1 ){
+        //Real wghts[3] = {0.0, 1.0, 0.0};
+        //pmb->WeightedAve(ph->u_n, ph->u, ph->u, wghts);
+        //pmb->WeightedAve(ph->w_n, ph->w, ph->w, wghts);
+      //}
 
       // This time-integrator-specific averaging operation logic is identical to FieldInt
       Real ave_wghts[3];
@@ -916,12 +916,12 @@ TaskStatus TimeIntegratorTaskList::AddSourceTermsHydro(MeshBlock *pmb, int stage
   // return if there are no source terms to be added
   if (!(ph->hsrc.hydro_sourceterms_defined) || pmb->pmy_mesh->fluid_setup != FluidFormulation::evolve) {
     // Backup the u^(') at the stage 1
-    if (NDUSTFLUIDS > 0) {
-      if ( stage == 1 ){
-        Real wghts[3] = {0.0, 1.0, 0.0};
-        pmb->WeightedAve(ph->u_p, ph->u, ph->u, wghts);
-      }
-    }
+    //if (NDUSTFLUIDS > 0) {
+      //if ( stage == 1 ) {
+        //Real wghts[3] = {0.0, 1.0, 0.0};
+        //pmb->WeightedAve(ph->u_p, ph->u, ph->u, wghts);
+      //}
+    //}
     return TaskStatus::next;
   }
 
@@ -934,12 +934,12 @@ TaskStatus TimeIntegratorTaskList::AddSourceTermsHydro(MeshBlock *pmb, int stage
     ph->hsrc.AddHydroSourceTerms(t_start_stage, dt, ph->flux, ph->w, pf->bcc, ph->u);
 
     // Backup the u^(') at the stage 1
-    if (NDUSTFLUIDS > 0) {
-      if ( stage == 1 ){
-        Real wghts[3] = {0.0, 1.0, 0.0};
-        pmb->WeightedAve(ph->u_p, ph->u, ph->u, wghts);
-      }
-    }
+    //if (NDUSTFLUIDS > 0) {
+      //if ( stage == 1 ) {
+        //Real wghts[3] = {0.0, 1.0, 0.0};
+        //pmb->WeightedAve(ph->u_p, ph->u, ph->u, wghts);
+      //}
+    //}
   } else {
     return TaskStatus::fail;
   }
@@ -1305,11 +1305,11 @@ TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage
   Hydro *ph       = pmb->phydro;
   if (stage <= nstages) {
     // Backup the u^(n), w^(n) at the stage 1
-    if ( stage == 1 ){
-      Real wghts[3] = {0.0, 1.0, 0.0};
-      pmb->WeightedAve(pdf->df_cons_n, pdf->df_cons, pdf->df_cons, wghts);
-      pmb->WeightedAve(pdf->df_prim_n, pdf->df_prim, pdf->df_prim, wghts);
-    }
+    //if ( stage == 1 ){
+      //Real wghts[3] = {0.0, 1.0, 0.0};
+      //pmb->WeightedAve(pdf->df_cons_n, pdf->df_cons, pdf->df_cons, wghts);
+      //pmb->WeightedAve(pdf->df_prim_n, pdf->df_prim, pdf->df_prim, wghts);
+    //}
 
     // This time-integrator-specific averaging operation logic is identical to
     // IntegrateHydro, IntegrateField
@@ -1395,18 +1395,19 @@ TaskStatus TimeIntegratorTaskList::SetBoundariesDustFluids(MeshBlock *pmb, int s
 TaskStatus TimeIntegratorTaskList::DiffuseDustFluids(MeshBlock *pmb, int stage) {
   DustFluids *pdf           = pmb->pdustfluids;
   Hydro      *phyd          = pmb->phydro;
-  DustFluidsDiffusion dfdif = pdf->dfdif;
 
-  //TODO: Update the properties of dust fluids in every cycle
+  //TODO: Maybe put the "SetDustFluidsProperties" at other places?
+  // Update the properties of dust fluids in every cycle
   pdf->SetDustFluidsProperties(pdf->stopping_time_array, pdf->nu_dustfluids_array,
       pdf->cs_dustfluids_array);
 
   // return if there are no diffusion to be added
-  if (!(pdf->dfdif.dustfluids_diffusion_defined))
+  if (!(pdf->dfdif.dustfluids_diffusion_defined)) {
     return TaskStatus::next;
+  }
 
   if (stage <= nstages) {
-    dfdif.CalcDustFluidsDiffusionFlux(pdf->df_prim, pdf->df_cons);
+    pdf->dfdif.CalcDustFluidsDiffusionFlux(pdf->df_prim, pdf->df_cons);
   } else {
     return TaskStatus::fail;
   }
@@ -1422,10 +1423,10 @@ TaskStatus TimeIntegratorTaskList::AddSourceTermsDustFluids(MeshBlock *pmb, int 
       || pmb->pmy_mesh->fluid_setup != FluidFormulation::evolve)
   {
     // Backup the u^(') at the stage 1
-    if ( stage == 1 ){
-      Real wghts[3] = {0.0, 1.0, 0.0};
-      pmb->WeightedAve(pdf->df_cons_p, pdf->df_cons, pdf->df_cons, wghts);
-    }
+    //if ( stage == 1 ) {
+      //Real wghts[3] = {0.0, 1.0, 0.0};
+      //pmb->WeightedAve(pdf->df_cons_p, pdf->df_cons, pdf->df_cons, wghts);
+    //}
     return TaskStatus::next;
   }
 
@@ -1438,11 +1439,10 @@ TaskStatus TimeIntegratorTaskList::AddSourceTermsDustFluids(MeshBlock *pmb, int 
     pdf->dfsrc.AddDustFluidsSourceTerms(t_start_stage, dt, pdf->df_flux, pdf->df_prim, pdf->df_cons);
 
     // Backup the u^(') at the stage 1
-    if ( stage == 1 ){
-      Real wghts[3] = {0.0, 1.0, 0.0};
-      pmb->WeightedAve(pdf->df_cons_p, pdf->df_cons, pdf->df_cons, wghts);
-    }
-
+    //if ( stage == 1 ) {
+      //Real wghts[3] = {0.0, 1.0, 0.0};
+      //pmb->WeightedAve(pdf->df_cons_p, pdf->df_cons, pdf->df_cons, wghts);
+    //}
   } else {
     return TaskStatus::fail;
   }
@@ -1451,10 +1451,12 @@ TaskStatus TimeIntegratorTaskList::AddSourceTermsDustFluids(MeshBlock *pmb, int 
 
 
 TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsShear(MeshBlock *pmb, int stage) {
+  DustFluids *pdf = pmb->pdustfluids;
   bool ret;
   ret = false;
+
   if (stage <= nstages) {
-    ret = pmb->pdustfluids->dfbvar.ReceiveShearingBoxBoundaryBuffers();
+    ret = pdf->dfbvar.ReceiveShearingBoxBoundaryBuffers();
   } else {
     return TaskStatus::fail;
   }
@@ -1465,6 +1467,7 @@ TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsShear(MeshBlock *pmb, int st
   }
 }
 
+
 TaskStatus TimeIntegratorTaskList::SendDustFluidsShear(MeshBlock *pmb, int stage) {
   if (stage <= nstages) {
     pmb->pdustfluids->dfbvar.SendShearingBoxBoundaryBuffers();
@@ -1474,16 +1477,18 @@ TaskStatus TimeIntegratorTaskList::SendDustFluidsShear(MeshBlock *pmb, int stage
   return TaskStatus::success;
 }
 
+
 TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
-  DustFluids *pdf     = pmb->pdustfluids;
-  Hydro *ph           = pmb->phydro;
+  DustFluids *pdf = pmb->pdustfluids;
+  Hydro      *ph  = pmb->phydro;
 
   if (stage <= nstages) {
     Real dt = (stage_wghts[(stage-1)].beta)*(pmb->pmy_mesh->dt);
     pdf->dfdrag.AerodynamicDrag(pmb, stage, dt, pdf->stopping_time_array,
-                                  ph->w, pdf->df_prim, ph->u, pdf->df_cons);
+                              ph->w, pdf->df_prim, ph->u, pdf->df_cons);
+  } else {
+    return TaskStatus::fail;
   }
   return TaskStatus::next;
-
 }
 //TaskStatus TimeIntegratorTaskList::

@@ -60,8 +60,8 @@ void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,
   //    dM1/dt = 2\Omega(\rho v_y)
   //    dM2/dt = -2\Omega(\rho v_x)
   if (pmb->block_size.nx3 > 1 || ShBoxCoord_ == 1) {
-    for (int n = 0; n<num_dust_var; n+=4) {
-      int dust_id = n/4;
+    for (int n=0; n < NDUSTFLUIDS; n++) {
+      int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
       int v2_id   = rho_id + 2;
@@ -82,8 +82,8 @@ void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,
     }
   } else if (pmb->block_size.nx3 == 1 && ShBoxCoord_ == 2) {
     int ks = pmb->ks;
-    for (int n = 0; n<num_dust_var; n+=4) {
-      int dust_id = n/4;
+    for (int n=0; n<NDUSTFLUIDS; n++) {
+      int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
       int v2_id   = rho_id + 2;
@@ -94,8 +94,8 @@ void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,
           const Real &v1_dust  = prim_df(v1_id,  ks, j, i);
           const Real &v2_dust  = prim_df(v2_id,  ks, j, i);
           const Real &v3_dust  = prim_df(v3_id,  ks, j, i);
-          cons_df(v1_id,ks,j,i) += dt*(2.0*qshear_*Omega_0_*Omega_0_*den_dust
-                                  *pmb->pcoord->x1v(i)+2.0*Omega_0_*den_dust*v3_dust);
+          cons_df(v1_id,ks,j,i) += dt*(2.0*qshear_*Omega_0_*Omega_0_*den_dust*pmb->pcoord->x1v(i)
+                                   +2.0*Omega_0_*den_dust*v3_dust);
           cons_df(v3_id,ks,j,i) -= dt*2.0*Omega_0_*den_dust*v1_dust;
         }
       }

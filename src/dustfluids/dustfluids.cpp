@@ -39,9 +39,11 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   df_cons1(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_prim(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_prim1(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_prim_n(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim_n(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_cons_n(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_cons_p(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons_s1(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  u_s1(NHYDRO, pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_flux{{num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
             {num_dust_var, pmb->ncells3, pmb->ncells2+1, pmb->ncells1,
             (pmb->pmy_mesh->f2 ? AthenaArray<Real>::DataStatus::allocated :
@@ -69,8 +71,12 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   Mesh *pm = pmy_block->pmy_mesh;
   pmb->RegisterMeshBlockData(df_cons);
 
-  ConstStoppingTime_Flag = pin->GetBoolean("dust",      "Const_StoppingTime_Flag");
+  ConstStoppingTime_Flag = pin->GetBoolean("dust", "Const_StoppingTime_Flag");
   SoundSpeed_Flag        = pin->GetOrAddBoolean("dust", "Dust_SoundSpeed_Flag", false);
+
+  // If the dust is inviscid, then sound speed flag is set as false
+  if (!(dfdif.Diffusion_Flag))
+    SoundSpeed_Flag = false;
 
   for (int n=0; n<NDUSTFLUIDS; n++){
     // read the dust internal density, stopping time, nu_dust
@@ -143,6 +149,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   }
 }
 
+
 void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, const int ju,
               const int il, const int iu, AthenaArray<Real> &stopping_time){
   for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
@@ -161,6 +168,7 @@ void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, 
   }
   return;
 }
+
 
 void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
             const int il, const int iu, const AthenaArray<Real> particle_density,
@@ -217,6 +225,10 @@ void DustFluids::SetDustFluidsProperties(AthenaArray<Real> &stopping_time,
     else
       dfdif.UserDefinedDustDiffusivity(hd.nu, kl, ku, jl, ju, il, iu,
         stopping_time, nu_dust, cs_dust);
+  }
+  else { // If the dust fluids are inviscid, then set the diffusivities and sound speed as zeros.
+    dfdif.ZeroDustDiffusivity(hd.nu, kl, ku, jl, ju, il, iu,
+      stopping_time, nu_dust, cs_dust);
   }
 
   return;

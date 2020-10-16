@@ -91,28 +91,28 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
             x3=pcoord->x3v(k);
             phydro->u(IDN,k,j,i) = A0;
             //phydro->u(IDN,k,j,i) = A0*std::exp(-SQR(x1-x0)/(2.0*SQR(sig_x1)) -SQR(x2-x0)/(2.0*SQR(sig_x2)))+1.0;
-            phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*v1;
+            v1 = v0;
+            //phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*v1;
             //v2 = v0/std::sqrt(4.0*PI*nuiso*t0)*std::exp(-SQR(x1-x0)/(4.0*nuiso*t0));
             //v1 = v0;
-            v2 = v0;
-            phydro->u(IM2,k,j,i) = phydro->u(IDN,k,j,i)*v2;
-            phydro->u(IM3,k,j,i) = phydro->u(IDN,k,j,i)*v3;
+            //v2 = v0;
+            phydro->u(IM1,k,j,i) = 0.0;
+            phydro->u(IM2,k,j,i) = 0.0;
+            phydro->u(IM3,k,j,i) = 0.0;
             if (NDUSTFLUIDS > 0) {
               Real concentration = A0*std::exp(-SQR(x1-x0)/(2.0*SQR(sig_x1)) -SQR(x2-x0)/(2.0*SQR(sig_x2)));
               //Real concentration = (x1 <= 0.2 && x1 >= -0.2 && x2 <=0.2 && x2 >=-0.2) ? A0 : 0.0;
               //Real concentration = 0.5;
-              for (int n=0; n<num_dust_var; n+=4) {
-                int dust_id = n/4;
+              for (int n=0; n<NDUSTFLUIDS; n++) {
+                int dust_id = n;
                 int rho_id  = 4*dust_id;
                 int v1_id   = rho_id + 1;
                 int v2_id   = rho_id + 2;
                 int v3_id   = rho_id + 3;
                 pdustfluids->df_cons(rho_id,k,j,i) = concentration*phydro->u(IDN,k,j,i);
-                //pdustfluids->df_cons(v1_id,k,j,i)  = pdustfluids->df_cons(rho_id,k,j,i)*v0;
-                //pdustfluids->df_cons(v2_id,k,j,i)  = pdustfluids->df_cons(rho_id,k,j,i)*v2;
-                pdustfluids->df_cons(v1_id,k,j,i)  = 0.0;
-                pdustfluids->df_cons(v2_id,k,j,i)  = 0.0;
-                pdustfluids->df_cons(v3_id,k,j,i)  = 0.0;
+                //pdustfluids->df_cons(v1_id,k,j,i)  = 0.0;
+                //pdustfluids->df_cons(v2_id,k,j,i)  = 0.0;
+                //pdustfluids->df_cons(v3_id,k,j,i)  = 0.0;
               }
             }
           } else if (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0) {
@@ -134,15 +134,16 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               //Real concentration = A0*std::exp(-SQR(x1-cen1)/(2.0*SQR(sig_x1)) -SQR(x2-cen2)/(2.0*SQR(sig_x2)));
               //Real concentration = (x1 <= 0.2 && x1 >= -0.2 && x2 <=0.2 && x2 >=-0.2) ? A0 : 0.0;
               Real concentration = 0.5;
-              for (int n=0; n<num_dust_var; n+=4) {
-                //pdustfluids->df_cons(n,k,j,i)   = concentration*phydro->u(IDN,k,j,i);
-                //pdustfluids->df_cons(n+1,k,j,i) = concentration*phydro->u(IM1,k,j,i);
-                //pdustfluids->df_cons(n+2,k,j,i) = concentration*phydro->u(IM2,k,j,i);
-                //pdustfluids->df_cons(n+3,k,j,i) = concentration*phydro->u(IM3,k,j,i);
-                pdustfluids->df_cons(n,k,j,i)   = concentration*phydro->u(IDN,k,j,i);
-                pdustfluids->df_cons(n+1,k,j,i) = 0.0;
-                pdustfluids->df_cons(n+2,k,j,i) = 0.0;
-                pdustfluids->df_cons(n+3,k,j,i) = 0.0;
+              for (int n=0; n<NDUSTFLUIDS; n++) {
+                int dust_id = n;
+                int rho_id  = 4*dust_id;
+                int v1_id   = rho_id + 1;
+                int v2_id   = rho_id + 2;
+                int v3_id   = rho_id + 3;
+                pdustfluids->df_cons(rho_id,k,j,i)   = concentration*phydro->u(IDN,k,j,i);
+                pdustfluids->df_cons(v1_id,k,j,i) = 0.0;
+                pdustfluids->df_cons(v2_id,k,j,i) = 0.0;
+                pdustfluids->df_cons(v3_id,k,j,i) = 0.0;
               }
             }
           } else { // (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0) {

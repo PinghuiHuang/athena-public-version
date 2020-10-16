@@ -68,7 +68,7 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
     AthenaArray<Real> delta_m2(num_species);
     AthenaArray<Real> delta_m3(num_species);
 
-    // Step 2a: Calculate the differences between u^(') and u^(n), u_d = u_p - u_n, "_d" means "differences"
+    // Step 2a: Calculate the differences between u^(') and u^(n), u_d = u_p - u_n, "_d" means "differences", dt = h
     Real wghts[3] = {0.0, 1.0, -1.0};
     pmb->WeightedAve(u_d,       u_p,       u_n,       wghts);
     pmb->WeightedAve(cons_df_d, cons_df_p, cons_df_n, wghts);
@@ -138,14 +138,6 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           }
 
           // Calculate the jacobi matrix of the drag forces, df/dM|^(n)
-          // Set the jacobi_matrix_n(0,0) at stage (n), use the w^(n) and prim^(n)
-          for (int dust_id = 0; dust_id < NDUSTFLUIDS; dust_id++) {
-            int rho_id             = 4*dust_id;
-            const Real &dust_d_n   = prim_df(rho_id, k, j, i);
-            const Real &gas_d_n    = w(IDN, k, j, i);
-            jacobi_matrix_n(0, 0) -= dust_d_n/gas_d_n * 1.0/stopping_time(dust_id, k, j, i);
-          }
-
           // Set the jacobi_matrix_n(0, col), except jacobi_matrix_n(0, 0)
           for (int col = 1; col <= NDUSTFLUIDS; col++) {
             int dust_id             = col - 1;
@@ -161,13 +153,21 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
             jacobi_matrix_n(row, 0) = dust_d_n/gas_d_n * 1.0/stopping_time(dust_id, k, j, i);
           }
 
-          // Set the other pivots, except jacobi_matrix_n(0, 0)
-          for (int pivot = 1; pivot <= NDUSTFLUIDS; pivot++) {
-            int dust_id                   = pivot - 1;
-            jacobi_matrix_n(pivot, pivot) = -1.0/stopping_time(dust_id, k, j, i);
+          // Set the jacobi_matrix_n(0,0) at stage (n), use the w^(n) and prim^(n)
+          for (int dust_id = 0; dust_id < NDUSTFLUIDS; dust_id++) {
+            int rho_id             = 4*dust_id;
+            int row                = dust_id + 1;
+            jacobi_matrix_n(0, 0) -= jacobi_matrix_n(row, 0);
           }
 
-          // calculate lambda_matrix = I - h*jacobi_matrix, dt = h
+          // Set the other pivots, except jacobi_matrix_n(0, 0)
+          for (int pivot = 1; pivot <= NDUSTFLUIDS; pivot++) {
+            int dust_id                    = pivot - 1;
+            int col                        = pivot;
+            jacobi_matrix_n(pivot, pivot) -= jacobi_matrix_n(0, col);
+          }
+
+          // calculate lambda_matrix_n = I - h*jacobi_matrix_n, dt = h
           Multiplication(dt, jacobi_matrix_n, lambda_matrix_n);
           Addition(1.0, -1.0, lambda_matrix_n);
 
@@ -176,7 +176,7 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           Inverse(lambda_matrix_n, lambda_inv_matrix_n);
 
           // Step 1c && 1d: calculate delta momentum (Delta_M) caused by the drags, update the conserves
-          // Delta_M = h * (1-h df/dM|^(n))^(-1) * f(M^(n), V^(n))
+          // Delta_M = h * lambda_matrix_n^(-1) * f(M^(n), V^(n))
           Multiplication(dt, lambda_inv_matrix_n);
           Multiplication(lambda_inv_matrix_n, force_x1_n, delta_m1);
           Multiplication(lambda_inv_matrix_n, force_x2_n, delta_m2);
@@ -220,7 +220,6 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
             dust_m2_p += delta_m2(n);
             dust_m3_p += delta_m3(n);
           }
-
         }
       }
     }
@@ -333,7 +332,7 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
             }
           }
 
-          // Add the delta momentum caused by the other source terms, \Delta Gm = (u^(n+1) - u^(n))/dt
+          // Add the delta momentum caused by the other source terms, \Delta Gm = (u^(n+1) - u^(n))/dt, dt = h/2
           for (int index = NDUSTFLUIDS; index >= 0; index--) {
             if (index != 0) {
               int dust_id = index - 1;
@@ -362,18 +361,6 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           }
 
           // Calculate the jacobi matrix of the drag forces, \partial f/\partial M|^(')
-          // Set the jacobi_matrix_p(0,0) at stage ('), use the w^(') and prim^(')
-          for (int dust_id = 0; dust_id < NDUSTFLUIDS; dust_id++) {
-            int rho_id             = 4*dust_id;
-            const Real &dust_d_p   = prim_df(rho_id, k, j, i);
-            const Real &gas_d_p    = w(IDN, k, j, i);
-            jacobi_matrix_p(0, 0) -= dust_d_p/gas_d_p * 1.0/stopping_time(dust_id, k, j, i);
-
-            const Real &dust_d_n   = prim_df_n(rho_id, k, j, i);
-            const Real &gas_d_n    = w_n(IDN, k, j, i);
-            jacobi_matrix_n(0, 0) -= dust_d_n/gas_d_n * 1.0/stopping_time(dust_id, k, j, i);
-          }
-
           // Set the jacobi_matrix_p(0, col), except jacobi_matrix_p(0, 0)
           for (int col = 1; col <= NDUSTFLUIDS; col++) {
             int dust_id             = col - 1;
@@ -394,11 +381,20 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
             jacobi_matrix_n(row, 0) = dust_d_n/gas_d_n * 1.0/stopping_time(dust_id, k, j, i);
           }
 
+          // Set the jacobi_matrix_p(0,0) at stage (n), use the w^(n) and prim^(n)
+          for (int dust_id = 0; dust_id < NDUSTFLUIDS; dust_id++) {
+            int rho_id             = 4*dust_id;
+            int row                = dust_id + 1;
+            jacobi_matrix_p(0, 0) -= jacobi_matrix_p(row, 0);
+            jacobi_matrix_n(0, 0) -= jacobi_matrix_n(row, 0);
+          }
+
           // Set the other pivots, except jacobi_matrix_p(0, 0)
           for (int pivot = 1; pivot <= NDUSTFLUIDS; pivot++) {
-            int dust_id                   = pivot - 1;
-            jacobi_matrix_p(pivot, pivot) = -1.0/stopping_time(dust_id, k, j, i);
-            jacobi_matrix_n(pivot, pivot) = -1.0/stopping_time(dust_id, k, j, i);
+            int dust_id                    = pivot - 1;
+            int col                        = pivot;
+            jacobi_matrix_p(pivot, pivot) -= jacobi_matrix_p(0, col);
+            jacobi_matrix_n(pivot, pivot) -= jacobi_matrix_n(0, col);
           }
 
           // calculate temp_A_matrix_n = h/2*jacobi|^(n), dt = h/2
@@ -425,7 +421,7 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           Multiplication(dt, jacobi_matrix_n, temp_C_matrix);
           Addition(1.0, -2.0, temp_C_matrix);
 
-          // total_force = force_p + temp_C_matrix * force_n
+          // total_force = temp_C_matrix * force_n + force_p
           Multiplication(temp_C_matrix, force_x1_n, total_force_x1);
           Multiplication(temp_C_matrix, force_x2_n, total_force_x2);
           Multiplication(temp_C_matrix, force_x3_n, total_force_x3);
@@ -440,11 +436,11 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           Multiplication(lambda_inv_matrix, total_force_x2, delta_m2);
           Multiplication(lambda_inv_matrix, total_force_x3, delta_m3);
 
-          // Alias the primitives of gas, w^(')
-          const Real &gas_d_p  = w(IDN, k, j, i);
-          const Real &gas_v1_p = w(IVX, k, j, i);
-          const Real &gas_v2_p = w(IVY, k, j, i);
-          const Real &gas_v3_p = w(IVZ, k, j, i);
+          // Calculate the primitives of gas at w^(')
+          const Real gas_d_p  = w(IDN, k, j, i);
+          const Real gas_v1_p = w(IVX, k, j, i);
+          const Real gas_v2_p = w(IVY, k, j, i);
+          const Real gas_v3_p = w(IVZ, k, j, i);
 
           // Alias the conserves of gas, u^(n+1)
           Real &gas_m1_n1 = u(IM1, k, j, i);

@@ -51,8 +51,8 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
     }
   }
 
-  for (int n=0; n<num_dust_var; n+=4) {
-    int dust_id = n/4;
+  for (int n=0; n<NDUSTFLUIDS; n++) {
+    int dust_id = n;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
     int v2_id   = rho_id + 2;
@@ -67,7 +67,7 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
           // df_d11 = D(rho_d/rho_g)_x1/D(x1)
           df_d11   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j,i-1)/w(IDN,k,j,i-1))
                       /pco_->dx1v(i-1);
-          x1flux(rho_id,k,j,i) = -nu_face*rho_face*df_d11;
+          x1flux(rho_id,k,j,i) -= nu_face*rho_face*df_d11;
         }
       }
     }
@@ -84,8 +84,8 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
 
   if (f2) { // 2D or 3D
     AthenaArray<Real> &x2flux = df_diff_flux[X2DIR];
-    for (int n=0; n<num_dust_var; n+=4) {
-      int dust_id = n/4;
+    for (int n=0; n<NDUSTFLUIDS; n++) {
+      int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
       int v2_id   = rho_id + 2;
@@ -100,7 +100,7 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
             // df_d22 = D(rho_d/rho_g)_x2/D(x2)
             df_d22   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j-1,i)/w(IDN,k,j-1,i))
                                       /pco_->h2v(i)/pco_->dx2v(j-1);
-            x2flux(rho_id,k,j,i) = -nu_face*rho_face*df_d22;
+            x2flux(rho_id,k,j,i) -= nu_face*rho_face*df_d22;
           }
         }
       }
@@ -118,8 +118,8 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
 
   if (f3) { // 3D
     AthenaArray<Real> &x3flux = df_diff_flux[X3DIR];
-    for (int n=0; n<num_dust_var; n+=4) {
-      int dust_id = n/4;
+    for (int n=0; n<NDUSTFLUIDS; n++) {
+      int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
       int v2_id   = rho_id + 2;
@@ -134,7 +134,7 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
             // df_d33 = D(rho_d/rho_g)_x3/D(x3)
             df_d33   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k-1,j,i)/w(IDN,k-1,j,i))
                               /pco_->dx3v(k-1)/pco_->h31v(i)/pco_->h32v(j);
-            x3flux(rho_id,k,j,i) = -nu_face*rho_face*df_d33;
+            x3flux(rho_id,k,j,i) -= nu_face*rho_face*df_d33;
           }
         }
       }

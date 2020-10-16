@@ -35,7 +35,7 @@
 
 // problem parameters which are useful to make global to this file
 namespace {
-Real v0, t0, x0, user_dt;
+Real v0, t0, x0, user_dt, iso_cs;
 Real MyTimeStep(MeshBlock *pmb);
 } // namespace
 
@@ -49,6 +49,7 @@ Real MyTimeStep(MeshBlock *pmb);
 void Mesh::InitUserMeshData(ParameterInput *pin) {
   // Get parameters for gravitatonal potential of central point mass
   user_dt = pin->GetOrAddReal("problem", "user_dt", 1e-1);
+  iso_cs  = pin->GetOrAddReal("hydro", "iso_sound_speed", 1e-1);
   EnrollUserTimeStepFunction(MyTimeStep);
   return;
 }
@@ -57,13 +58,6 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 namespace {
 Real MyTimeStep(MeshBlock *pmb)
 {
-  //for (int k=pmb->ks; k<=pmb->ke; ++k) {
-    //for (int j=pmb->js; j<=pmb->je; ++j) {
-      //for (int i=pmb->is; i<=pmb->ie; ++i) {
-        //min_user_dt = 1e-4;
-      //}
-    //}
-  //}
   Real min_user_dt = user_dt;
   return min_user_dt;
 }
@@ -157,3 +151,16 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   }
   return;
 }
+
+//void MeshBlock::UserWorkInLoop() {
+  //for (int k=ks; k<=ke; ++k) {
+    //for (int j=js; j<=je; ++j) {
+      //for (int i=is; i<=ie; ++i) {
+        //if (NON_BAROTROPIC_EOS) {
+          //phydro->w(IPR,k,j,i) = SQR(iso_cs)*phydro->w(IDN,k,j,i);
+        //}
+      //}
+    //}
+  //}
+  //return;
+//}

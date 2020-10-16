@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AddMultigridTask	backup/mg_task_list.cpp	/^void MultigridTaskList::AddMultigridTask(const TaskID& id, const TaskID& dep) {$/;"	f	class:MultigridTaskList
 AddMultigridTask	mg_task_list.cpp	/^void MultigridTaskList::AddMultigridTask(const TaskID& id, const TaskID& dep) {$/;"	f	class:MultigridTaskList
 AddSourceTermsDustFluids	backup/time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::AddSourceTermsDustFluids(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
@@ -202,12 +202,12 @@ SuperTimeStepTaskList	backup/sts_task_list.cpp	/^SuperTimeStepTaskList::SuperTim
 SuperTimeStepTaskList	backup/task_list.hpp	/^class SuperTimeStepTaskList : public TaskList {$/;"	c
 SuperTimeStepTaskList	sts_task_list.cpp	/^SuperTimeStepTaskList::SuperTimeStepTaskList($/;"	f	class:SuperTimeStepTaskList
 SuperTimeStepTaskList	task_list.hpp	/^class SuperTimeStepTaskList : public TaskList {$/;"	c
-TASK_LIST_FFT_GRAV_TASK_LIST_HPP_	backup/fft_grav_task_list.hpp	2;"	d
-TASK_LIST_FFT_GRAV_TASK_LIST_HPP_	fft_grav_task_list.hpp	2;"	d
-TASK_LIST_MG_TASK_LIST_HPP_	backup/mg_task_list.hpp	2;"	d
-TASK_LIST_MG_TASK_LIST_HPP_	mg_task_list.hpp	2;"	d
-TASK_LIST_TASK_LIST_HPP_	backup/task_list.hpp	2;"	d
-TASK_LIST_TASK_LIST_HPP_	task_list.hpp	2;"	d
+TASK_LIST_FFT_GRAV_TASK_LIST_HPP_	backup/fft_grav_task_list.hpp	/^#define TASK_LIST_FFT_GRAV_TASK_LIST_HPP_$/;"	d
+TASK_LIST_FFT_GRAV_TASK_LIST_HPP_	fft_grav_task_list.hpp	/^#define TASK_LIST_FFT_GRAV_TASK_LIST_HPP_$/;"	d
+TASK_LIST_MG_TASK_LIST_HPP_	backup/mg_task_list.hpp	/^#define TASK_LIST_MG_TASK_LIST_HPP_$/;"	d
+TASK_LIST_MG_TASK_LIST_HPP_	mg_task_list.hpp	/^#define TASK_LIST_MG_TASK_LIST_HPP_$/;"	d
+TASK_LIST_TASK_LIST_HPP_	backup/task_list.hpp	/^#define TASK_LIST_TASK_LIST_HPP_$/;"	d
+TASK_LIST_TASK_LIST_HPP_	task_list.hpp	/^#define TASK_LIST_TASK_LIST_HPP_$/;"	d
 Task	backup/task_list.hpp	/^struct Task { \/\/ aggregate and POD$/;"	s
 Task	task_list.hpp	/^struct Task { \/\/ aggregate and POD$/;"	s
 TaskFunc	backup/mg_task_list.hpp	/^  TaskStatus (MultigridTaskList::*TaskFunc)(Multigrid*);  \/\/ ptr to a task$/;"	m	struct:MGTask

@@ -3,27 +3,27 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 FFT_DATA	fft_2d.h	/^typedef fftw_complex FFT_DATA;$/;"	t
 FFT_DATA	fft_3d.h	/^typedef fftw_complex FFT_DATA;$/;"	t
-FFT_PRECISION	fft_2d.h	26;"	d
-FFT_PRECISION	fft_3d.h	26;"	d
-MAX	fft_2d.cpp	27;"	d	file:
-MAX	fft_3d.cpp	30;"	d	file:
-MAX	remap_2d.cpp	24;"	d	file:
-MAX	remap_3d.cpp	24;"	d	file:
-MIN	fft_2d.cpp	26;"	d	file:
-MIN	fft_3d.cpp	29;"	d	file:
-MIN	remap_2d.cpp	23;"	d	file:
-MIN	remap_3d.cpp	23;"	d	file:
-PACK_ARRAY	pack_2d.cpp	18;"	d	file:
-PACK_ARRAY	pack_3d.cpp	18;"	d	file:
-PLIMPTON_FFT_2D	fft_2d.h	2;"	d
-PLIMPTON_FFT_3D	fft_3d.h	2;"	d
-PLIMPTON_PACK_3D	pack_2d.h	2;"	d
-PLIMPTON_PACK_3D	pack_3d.h	2;"	d
-PLIMPTON_REMAP_2D	remap_2d.h	2;"	d
-PLIMPTON_REMAP_3D	remap_3d.h	2;"	d
+FFT_PRECISION	fft_2d.h	/^#define FFT_PRECISION /;"	d
+FFT_PRECISION	fft_3d.h	/^#define FFT_PRECISION /;"	d
+MAX	fft_2d.cpp	/^#define MAX(/;"	d	file:
+MAX	fft_3d.cpp	/^#define MAX(/;"	d	file:
+MAX	remap_2d.cpp	/^#define MAX(/;"	d	file:
+MAX	remap_3d.cpp	/^#define MAX(/;"	d	file:
+MIN	fft_2d.cpp	/^#define MIN(/;"	d	file:
+MIN	fft_3d.cpp	/^#define MIN(/;"	d	file:
+MIN	remap_2d.cpp	/^#define MIN(/;"	d	file:
+MIN	remap_3d.cpp	/^#define MIN(/;"	d	file:
+PACK_ARRAY	pack_2d.cpp	/^#define PACK_ARRAY$/;"	d	file:
+PACK_ARRAY	pack_3d.cpp	/^#define PACK_ARRAY$/;"	d	file:
+PLIMPTON_FFT_2D	fft_2d.h	/^#define PLIMPTON_FFT_2D$/;"	d
+PLIMPTON_FFT_3D	fft_3d.h	/^#define PLIMPTON_FFT_3D$/;"	d
+PLIMPTON_PACK_3D	pack_2d.h	/^#define PLIMPTON_PACK_3D$/;"	d
+PLIMPTON_PACK_3D	pack_3d.h	/^#define PLIMPTON_PACK_3D$/;"	d
+PLIMPTON_REMAP_2D	remap_2d.h	/^#define PLIMPTON_REMAP_2D$/;"	d
+PLIMPTON_REMAP_3D	remap_3d.h	/^#define PLIMPTON_REMAP_3D$/;"	d
 bifactor	factor.cpp	/^void bifactor(int n, int *factor1, int *factor2)$/;"	f
 comm	remap_2d.h	/^  MPI_Comm comm;                    \/* group of procs performing remap *\/$/;"	m	struct:remap_plan_2d
 comm	remap_3d.h	/^  MPI_Comm comm;                    \/* group of procs performing remap *\/$/;"	m	struct:remap_plan_3d
@@ -119,19 +119,19 @@ recv_proc	remap_3d.h	/^  int *recv_proc;                   \/* proc to recv each
 recv_size	remap_2d.h	/^  int *recv_size;                   \/* size of each recv message *\/$/;"	m	struct:remap_plan_2d
 recv_size	remap_3d.h	/^  int *recv_size;                   \/* size of each recv message *\/$/;"	m	struct:remap_plan_3d
 remap_2d	remap_2d.cpp	/^void remap_2d(double *in, double *out, double *buf,$/;"	f
-remap_2d_	remap_2d.h	63;"	d
+remap_2d_	remap_2d.h	/^#define remap_2d_ /;"	d
 remap_2d_collide	remap_2d.cpp	/^int remap_2d_collide(struct extent_2d *block1, struct extent_2d *block2,$/;"	f
 remap_2d_create_plan	remap_2d.cpp	/^struct remap_plan_2d *remap_2d_create_plan($/;"	f
-remap_2d_create_plan_	remap_2d.h	64;"	d
+remap_2d_create_plan_	remap_2d.h	/^#define remap_2d_create_plan_ /;"	d
 remap_2d_destroy_plan	remap_2d.cpp	/^void remap_2d_destroy_plan(struct remap_plan_2d *plan)$/;"	f
-remap_2d_destroy_plan_	remap_2d.h	65;"	d
+remap_2d_destroy_plan_	remap_2d.h	/^#define remap_2d_destroy_plan_ /;"	d
 remap_3d	remap_3d.cpp	/^void remap_3d(double *in, double *out, double *buf,$/;"	f
-remap_3d_	remap_3d.h	64;"	d
+remap_3d_	remap_3d.h	/^#define remap_3d_ /;"	d
 remap_3d_collide	remap_3d.cpp	/^int remap_3d_collide(struct extent_3d *block1, struct extent_3d *block2,$/;"	f
 remap_3d_create_plan	remap_3d.cpp	/^struct remap_plan_3d *remap_3d_create_plan($/;"	f
-remap_3d_create_plan_	remap_3d.h	65;"	d
+remap_3d_create_plan_	remap_3d.h	/^#define remap_3d_create_plan_ /;"	d
 remap_3d_destroy_plan	remap_3d.cpp	/^void remap_3d_destroy_plan(struct remap_plan_3d *plan)$/;"	f
-remap_3d_destroy_plan_	remap_3d.h	66;"	d
+remap_3d_destroy_plan_	remap_3d.h	/^#define remap_3d_destroy_plan_ /;"	d
 remap_plan_2d	remap_2d.h	/^struct remap_plan_2d {$/;"	s
 remap_plan_3d	remap_3d.h	/^struct remap_plan_3d {$/;"	s
 request	remap_2d.h	/^  MPI_Request *request;             \/* MPI request for each posted recv *\/$/;"	m	struct:remap_plan_2d

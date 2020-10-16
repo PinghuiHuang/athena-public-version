@@ -39,38 +39,7 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    //// Implicit Schemes
-    //void SingleDustNoFeedbackImplicit(MeshBlock *pmb, const int stage,
-        //const Real dt, const AthenaArray<Real> &stopping_time,
-        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        //const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    //void SingleDustFeedbackImplicit(MeshBlock *pmb, const int stage,
-        //const Real dt, const AthenaArray<Real> &stopping_time,
-        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        //AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    //void MultipleDustNoFeedbackImplicit(MeshBlock *pmb, const int stage,
-        //const Real dt, const AthenaArray<Real> &stopping_time,
-        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        //const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    //void MultipleDustFeedbackImplicit(MeshBlock *pmb, const int stage,
-        //const Real dt, const AthenaArray<Real> &stopping_time,
-        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        //AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    //// Semi-Implicit Schemes
-    //void SingleDustNoFeedbackSemiImplicit(MeshBlock *pmb, const int stage,
-        //const Real dt, const AthenaArray<Real> &stopping_time,
-        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        //const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
-    //void SingleDustFeedbackSemiImplicit(MeshBlock *pmb, const int stage,
-        //const Real dt, const AthenaArray<Real> &stopping_time,
-        //const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
-        //AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
-
+    // Implicit Schemes
     // 2-order implicit drag scheme, depends on the time integrator
     void VL2ImplicitFeedback(MeshBlock *pmb, const int stage,
         const Real dt, const AthenaArray<Real> &stopping_time,
@@ -125,6 +94,16 @@ class DustGasDrag {
 
     // calculate the determinant of drags matrix
     Real Determinant();
+
+    void SingleDustNoFeedbackImplicit(MeshBlock *pmb, const int stage, const Real dt,
+        const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    void SingleDustFeedbackImplicit(MeshBlock *pmb, const int stage, const Real dt,
+        const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
   private:
     static const int num_species  = NDUSTFLUIDS + 1; // gas and n dust fluids

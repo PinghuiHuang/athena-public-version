@@ -10,6 +10,8 @@
 // C++ headers
 #include <algorithm>  // min()
 #include <limits>
+#include <cstring>    // strcmp()
+#include <string>     // c_str()
 
 // Athena++ headers
 #include "../../athena.hpp"
@@ -35,7 +37,12 @@ HydroDiffusion::HydroDiffusion(Hydro *phyd, ParameterInput *pin) :
   pmy_hydro_(phyd), pmb_(pmy_hydro_->pmy_block), pco_(pmb_->pcoord) {
   int nc1 = pmb_->ncells1, nc2 = pmb_->ncells2, nc3 = pmb_->ncells3;
 
-  bool alpha_disk_model = ((nu_alpha > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0));
+  std::string disk_string = "disk";
+  std::string::size_type idx = std::string(PROBLEM_GENERATOR).find(disk_string);
+  bool disk_problem;
+  (idx != std::string::npos) ? disk_problem = true : disk_problem = false;
+  alpha_disk_model = ((nu_alpha > 0.0) && (disk_problem));
+
   // Check if viscous process are active
   if (alpha_disk_model || nu_iso > 0.0 || nu_aniso  > 0.0) {
     hydro_diffusion_defined = true;
@@ -102,7 +109,6 @@ void HydroDiffusion::CalcDiffusionFlux(const AthenaArray<Real> &prim,
 
   SetDiffusivity(ph->w, pf->bcc);
 
-  bool alpha_disk_model = ((nu_alpha > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0));
   if (alpha_disk_model || nu_iso > 0.0 || nu_aniso > 0.0) ClearFlux(visflx);
   if (alpha_disk_model) ViscousFluxAlpha(prim, cons, visflx);
   if (nu_iso > 0.0) ViscousFluxIso(prim, cons, visflx);
@@ -214,7 +220,6 @@ void HydroDiffusion::SetDiffusivity(AthenaArray<Real> &w, AthenaArray<Real> &bc)
     kl -= NGHOST; ku += NGHOST;
   }
 
-  bool alpha_disk_model = ((nu_alpha > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0));
   // set viscosity using func ptr
   if (alpha_disk_model || nu_iso > 0.0 || nu_aniso > 0.0)
     CalcViscCoeff_(this, pmb_, w, bc, il, iu, jl, ju, kl, ku);
@@ -249,7 +254,6 @@ void HydroDiffusion::NewDiffusionDt(Real &dt_vis, Real &dt_cnd) {
   AthenaArray<Real> &kappa_t = kappa_tot_;
   AthenaArray<Real> &len = dx1_, &dx2 = dx2_, &dx3 = dx3_;
 
-  bool alpha_disk_model = ((nu_alpha > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0));
   for (int k=kl; k<=ku; ++k) {
     for (int j=jl; j<=ju; ++j) {
 #pragma omp simd

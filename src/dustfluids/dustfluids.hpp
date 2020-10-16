@@ -44,6 +44,8 @@ class DustFluids {
     // public data:
     // "conservative vars" = density, momentums of dust fluids
     AthenaArray<Real> df_cons, df_cons1, df_cons2, df_cons_n, df_cons_p; // time-integrator memory register #1
+    AthenaArray<Real> df_cons_s1; // time-integrator memory register at stage 1
+    AthenaArray<Real> u_s1;       // time-integrator memory register at stage 1
     // "primitive vars" = density, velocities of dust fluids
     AthenaArray<Real> df_prim, df_prim1, df_prim_n;          // time-integrator memory register #3
     AthenaArray<Real> df_flux[3];                            // face-averaged flux vector

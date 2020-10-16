@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AddHydroShearForInit	cc/hydro/bvals_shear_hydro.cpp	/^void HydroBoundaryVariable::AddHydroShearForInit() {$/;"	f	class:HydroBoundaryVariable
 AdvanceCounterPhysID	bvals.cpp	/^int BoundaryValues::AdvanceCounterPhysID(int num_phys) {$/;"	f	class:BoundaryValues
 ApplyPhysicalBoundaries	bvals.cpp	/^void BoundaryValues::ApplyPhysicalBoundaries(const Real time, const Real dt) {$/;"	f	class:BoundaryValues
@@ -14,12 +14,12 @@ BLOCK_BNDRY	bvals_interfaces.hpp	/^enum {BLOCK_BNDRY = -1, BNDRY_UNDEF, REFLECTI
 BLOCK_BNDRY	bvals_interfaces.hpp	/^enum {BLOCK_BNDRY __attribute__((deprecated)) = -1,$/;"	e	enum:__anon2
 BNDRY_UNDEF	bvals_interfaces.hpp	/^      BNDRY_UNDEF __attribute__((deprecated)),$/;"	e	enum:__anon2
 BNDRY_UNDEF	bvals_interfaces.hpp	/^enum {BLOCK_BNDRY = -1, BNDRY_UNDEF, REFLECTING_BNDRY, OUTFLOW_BNDRY, USER_BNDRY,$/;"	e	enum:__anon4
-BVALS_BVALS_HPP_	bvals.hpp	2;"	d
-BVALS_BVALS_INTERFACES_HPP_	bvals_interfaces.hpp	2;"	d
-BVALS_CC_BVALS_CC_HPP_	cc/bvals_cc.hpp	2;"	d
-BVALS_CC_HYDRO_BVALS_HYDRO_HPP_	cc/hydro/bvals_hydro.hpp	2;"	d
-BVALS_CC_MG_BVALS_MG_HPP_	cc/mg/bvals_mg.hpp	2;"	d
-BVALS_FC_BVALS_FC_HPP_	fc/bvals_fc.hpp	2;"	d
+BVALS_BVALS_HPP_	bvals.hpp	/^#define BVALS_BVALS_HPP_$/;"	d
+BVALS_BVALS_INTERFACES_HPP_	bvals_interfaces.hpp	/^#define BVALS_BVALS_INTERFACES_HPP_$/;"	d
+BVALS_CC_BVALS_CC_HPP_	cc/bvals_cc.hpp	/^#define BVALS_CC_BVALS_CC_HPP_$/;"	d
+BVALS_CC_HYDRO_BVALS_HYDRO_HPP_	cc/hydro/bvals_hydro.hpp	/^#define BVALS_CC_HYDRO_BVALS_HYDRO_HPP_$/;"	d
+BVALS_CC_MG_BVALS_MG_HPP_	cc/mg/bvals_mg.hpp	/^#define BVALS_CC_MG_BVALS_MG_HPP_$/;"	d
+BVALS_FC_BVALS_FC_HPP_	fc/bvals_fc.hpp	/^#define BVALS_FC_BVALS_FC_HPP_$/;"	d
 BoundaryBase	bvals.hpp	/^class BoundaryBase {$/;"	c
 BoundaryBase	bvals_base.cpp	/^BoundaryBase::BoundaryBase(Mesh *pm, LogicalLocation iloc, RegionSize isize,$/;"	f	class:BoundaryBase
 BoundaryBuffer	bvals_interfaces.hpp	/^  BoundaryBuffer() {}$/;"	f	class:BoundaryBuffer

@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AddEMF	field_diffusion.cpp	/^void FieldDiffusion::AddEMF(const EdgeField &e_src, EdgeField &e_des) {$/;"	f	class:FieldDiffusion
 AddPoyntingFlux	field_diffusion.cpp	/^void FieldDiffusion::AddPoyntingFlux(FaceField &p_src) {$/;"	f	class:FieldDiffusion
 AmbipolarEMF	diffusivity.cpp	/^void FieldDiffusion::AmbipolarEMF(const FaceField &b, const AthenaArray<Real> &bc,$/;"	f	class:FieldDiffusion
@@ -13,7 +13,7 @@ CalcMagDiffCoeff_	field_diffusion.hpp	/^  FieldDiffusionCoeffFunc CalcMagDiffCoe
 ClearEMF	field_diffusion.cpp	/^void FieldDiffusion::ClearEMF(EdgeField &e) {$/;"	f	class:FieldDiffusion
 ConstDiffusivity	diffusivity.cpp	/^void ConstDiffusivity(FieldDiffusion *pfdif, MeshBlock *pmb, const AthenaArray<Real> &w,$/;"	f
 DiffProcess	field_diffusion.hpp	/^  enum DiffProcess {ohmic=0, hall=1, ambipolar=2};$/;"	g	class:FieldDiffusion
-FIELD_FIELD_DIFFUSION_FIELD_DIFFUSION_HPP_	field_diffusion.hpp	2;"	d
+FIELD_FIELD_DIFFUSION_FIELD_DIFFUSION_HPP_	field_diffusion.hpp	/^#define FIELD_FIELD_DIFFUSION_FIELD_DIFFUSION_HPP_$/;"	d
 FieldDiffusion	field_diffusion.cpp	/^FieldDiffusion::FieldDiffusion(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:FieldDiffusion
 FieldDiffusion	field_diffusion.hpp	/^class FieldDiffusion {$/;"	c
 NewDiffusionDt	field_diffusion.cpp	/^void FieldDiffusion::NewDiffusionDt(Real &dt_oa, Real &dt_h) {$/;"	f	class:FieldDiffusion

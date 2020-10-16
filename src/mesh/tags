@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
 AMRFlag_	mesh.hpp	/^  AMRFlagFunc AMRFlag_;$/;"	m	class:Mesh
 AMRFlag_	mesh_refinement.hpp	/^  AMRFlagFunc AMRFlag_; \/\/ duplicate of Mesh class member$/;"	m	class:MeshRefinement
 AddMeshBlock	meshblock_tree.cpp	/^void MeshBlockTree::AddMeshBlock(LogicalLocation rloc, int &nnew) {$/;"	f	class:MeshBlockTree
@@ -63,9 +63,9 @@ GetNumberOfMeshBlockCells	mesh.hpp	/^  int GetNumberOfMeshBlockCells() {$/;"	f	c
 GetTotalCells	mesh.hpp	/^  std::int64_t GetTotalCells() {return static_cast<std::int64_t> (nbtotal)*$/;"	f	class:Mesh
 Initialize	mesh.cpp	/^void Mesh::Initialize(int res_flag, ParameterInput *pin) {$/;"	f	class:Mesh
 LoadBalancingAndAdaptiveMeshRefinement	amr_loadbalance.cpp	/^void Mesh::LoadBalancingAndAdaptiveMeshRefinement(ParameterInput *pin) {$/;"	f	class:Mesh
-MESH_MESHBLOCK_TREE_HPP_	meshblock_tree.hpp	2;"	d
-MESH_MESH_HPP_	mesh.hpp	2;"	d
-MESH_MESH_REFINEMENT_HPP_	mesh_refinement.hpp	2;"	d
+MESH_MESHBLOCK_TREE_HPP_	meshblock_tree.hpp	/^#define MESH_MESHBLOCK_TREE_HPP_$/;"	d
+MESH_MESH_HPP_	mesh.hpp	/^#define MESH_MESH_HPP_$/;"	d
+MESH_MESH_REFINEMENT_HPP_	mesh_refinement.hpp	/^#define MESH_MESH_REFINEMENT_HPP_$/;"	d
 MGGravityBoundaryFunction_	mesh.hpp	/^  MGBoundaryFunc MGGravityBoundaryFunction_[6];$/;"	m	class:Mesh
 Mesh	mesh.cpp	/^Mesh::Mesh(ParameterInput *pin, IOWrapper& resfile, int mesh_test) :$/;"	f	class:Mesh
 Mesh	mesh.cpp	/^Mesh::Mesh(ParameterInput *pin, int mesh_test) :$/;"	f	class:Mesh

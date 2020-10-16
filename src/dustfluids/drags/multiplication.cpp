@@ -52,7 +52,7 @@ void DustGasDrag::Multiplication(const AthenaArray<Real> &a_matrix,
     c_matrix.ZeroClear();
 
     for(int m=0; m<m_a; m++) {
-      for(int n=0; n<n_c; n++) {
+      for(int n=0; n<n_b; n++) {
 #pragma omp simd
         for(int s=0; s<m_b; s++) {
           c_matrix(m,n) += a_matrix(m,s)*b_matrix(s,n);
@@ -61,24 +61,24 @@ void DustGasDrag::Multiplication(const AthenaArray<Real> &a_matrix,
     }
   }
   else {
-    if ( (n_a != n_b) || (n_a != n_c) ) {
+    if ( (n_a != n_b) || (n_a != n_c) || (m_c != 1) ) {
       std::stringstream msg;
       msg << "### FATAL ERROR in DustGasDrag::Multiplication, Bad Dimensions." << std::endl;
       ATHENA_ERROR(msg);
     }
 
     c_matrix.ZeroClear();
-
     for(int m=0; m<m_a; m++) {
 #pragma omp simd
-      for(int n=0; n<n_a; n++) {
-        c_matrix(m) += a_matrix(m,n)*b_matrix(n);
+      for(int n=0; n<n_b; n++) {
+        c_matrix(n) += a_matrix(m,n)*b_matrix(n);
       }
     }
   }
 
   return;
 }
+
 
 void DustGasDrag::Multiplication(const Real a_num, const AthenaArray<Real> &b_matrix,
                                   AthenaArray<Real> &c_matrix)
@@ -96,7 +96,6 @@ void DustGasDrag::Multiplication(const Real a_num, const AthenaArray<Real> &b_ma
   }
 
 	c_matrix.ZeroClear();
-
   for(int m=0; m<m_b; m++) {
 #pragma omp simd
     for(int n=0; n<n_c; n++) {
@@ -106,6 +105,7 @@ void DustGasDrag::Multiplication(const Real a_num, const AthenaArray<Real> &b_ma
   return;
 }
 
+
 void DustGasDrag::Multiplication(const Real a_num, AthenaArray<Real> &b_matrix)
 {
   const int m_b = b_matrix.GetDim2();
@@ -114,7 +114,7 @@ void DustGasDrag::Multiplication(const Real a_num, AthenaArray<Real> &b_matrix)
   for(int m=0; m<m_b; m++) {
 #pragma omp simd
     for(int n=0; n<n_b; n++) {
-			b_matrix(m,n) = a_num*b_matrix(m,n);
+			b_matrix(m,n) *= a_num;
 		}
 	}
   return;

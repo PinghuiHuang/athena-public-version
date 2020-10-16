@@ -121,12 +121,12 @@ void OuterX1_Average(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, 
 
 void Mesh::InitUserMeshData(ParameterInput *pin) {
   // Get parameters for gravitatonal potential of central point mass
-  gm0 = pin->GetOrAddReal("problem","GM",0.0);
-  r0  = pin->GetOrAddReal("problem","r0",1.0);
+  gm0 = pin->GetOrAddReal("problem", "GM", 0.0);
+  r0  = pin->GetOrAddReal("problem", "r0", 1.0);
 
   // Get parameters for initial density and velocity
   rho0            = pin->GetReal("problem",      "rho0");
-  dslope          = pin->GetOrAddReal("problem", "dslope", 0.0);
+  dslope          = pin->GetOrAddReal("problem", "dslope",          0.0);
   dust_dens_slope = pin->GetOrAddReal("problem", "dust_dens_slope", 0.0);
 
   // The parameters of the amplitude of random perturbation on the radial velocity
@@ -181,7 +181,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   Real float_min = std::numeric_limits<float>::min();
   dfloor         = pin->GetOrAddReal("hydro","dfloor",(1024*(float_min)));
 
-  //if (gmp > 0.0)
+  if (gmp > 0.0)
     EnrollUserExplicitSourceFunction(MySource);
 
   // enroll user-defined boundary condition
@@ -227,9 +227,9 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
         }
 
         if (NDUSTFLUIDS > 0){
-          for (int n = 0; n < 4*NDUSTFLUIDS; n+=4){
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n = 0; n<NDUSTFLUIDS; n++){
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -260,8 +260,8 @@ void MySource(MeshBlock *pmb, const Real time, const Real dt,
   //cooling(pmb,       time, dt, prim, bcc, cons);
   //potentialwell(pmb, time, dt, prim, bcc, cons);
   //corotate(pmb,      time, dt, prim, bcc, cons);
-  if (WaveDamping_Flag)
-    wavedamping(pmb,   time, dt, prim, bcc, cons);
+  //if (WaveDamping_Flag)
+    //wavedamping(pmb,   time, dt, prim, bcc, cons);
   return;
 }
 //----------------------------------------------------------------------------------------
@@ -296,11 +296,12 @@ void potentialwell(MeshBlock *pmb, const Real time, const Real dt,
   Real rad, phi, z, acc_r, acc_phi, dis, dis_r, dis_phi, mom_r, mom_phi, sec_g, forth_g, sixth_g;
   if (time>=t0pot){
     phi_planet = sqrt(gm0/pow(rad_planet,3))*time; // omega*time, only turn on when no call of corotate
+
     //phi_planet = PI;
-    for (int k=pmb->ks; k<=pmb->ke; ++k){
-      for (int j=pmb->js; j<=pmb->je; ++j){
+    for (int k=pmb->ks; k<=pmb->ke; ++k) {
+      for (int j=pmb->js; j<=pmb->je; ++j) {
 #pragma omp simd
-        for (int i=pmb->is; i<=pmb->ie; ++i){
+        for (int i=pmb->is; i<=pmb->ie; ++i) {
           GetCylCoord(pmb->pcoord,rad,phi,z,i,j,k);
           dis     = sqrt(SQR(rad*cos(phi)-rad_planet*cos(phi_planet))+
                     SQR(rad*sin(phi)-rad_planet*sin(phi_planet)));//dist btw cell&planet
@@ -330,9 +331,9 @@ void potentialwell(MeshBlock *pmb, const Real time, const Real dt,
             cons(IEN,k,j,i) += (mom_r*prim(IM1,k,j,i) + mom_phi*prim(IM2,k,j,i));
 
           if (NDUSTFLUIDS > 0){
-            for (int n=0;n<4*NDUSTFLUIDS;n+=4){
-              int dust_id = n/4;
-              int rho_id  = n;
+            for (int n=0;n<NDUSTFLUIDS;n++){
+              int dust_id = n;
+              int rho_id  = 4*dust_id;
               int v1_id   = rho_id + 1;
               int v2_id   = rho_id + 2;
               int v3_id   = rho_id + 3;
@@ -340,9 +341,11 @@ void potentialwell(MeshBlock *pmb, const Real time, const Real dt,
               pmb->pdustfluids->df_cons(v2_id,k,j,i) -= dt*pmb->pdustfluids->df_prim(rho_id,k,j,i)*acc_phi;
             }
           }
+
         }
       }
     }
+
   }
   return;
 }
@@ -367,16 +370,16 @@ void wavedamping(MeshBlock *pmb, const Real time, const Real dt,
       for (int i=is; i<=ie; ++i){
         GetCylCoord(pmb->pcoord,rad,phi,z,i,j,k);
         if (rad >= x1min && rad < radius_inner_damping){
-          Real omega_dyn     = sqrt(gm0/pow(rad,3));
-          Real rho0 = DenProfileCyl(rad,phi,z);
+          Real omega_dyn = sqrt(gm0/pow(rad,3));
+          Real rho0      = DenProfileCyl(rad,phi,z);
           VelProfileCyl(rad,            phi, z, vel10,    vel20,    vel30);
           VelProfileCyl_DustFluids(rad, phi, z, df_vel10, df_vel20, df_vel30);
 
           // See de Val-Borro et al. 2006 & 2007
           Real R_func        = SQR((rad - radius_inner_damping)/inner_width_damping);
           Real damping_speed = damping_rate*omega_dyn*R_func;
-          Real temp1         = 1./(1. + dt*damping_speed);
-          Real temp2         = 1.-temp1;
+          Real alpha1        = 1./(1. + dt*damping_speed);
+          Real alpha2        = 1.-alpha1;
 
           const Real &rho  = prim(IDN,k,j,i);
           const Real &vel1 = prim(IVX,k,j,i);
@@ -389,26 +392,26 @@ void wavedamping(MeshBlock *pmb, const Real time, const Real dt,
           Real &mom3 = cons(IM3,k,j,i);
           Real &eng  = cons(IEN,k,j,i);
 
-          //den  = den*temp1 + rho0*temp2;
-          mom1 = mom1*temp1 + (rho0*vel10)*temp2;
-          //mom2 = mom2*temp1 + (rho0*vel20)*temp2;
-          //mom3 = mom3*temp1 + (rho0*vel30)*temp2;
+          den  = den*alpha1 + rho0*alpha2;
+          mom1 = mom1*alpha1 + (rho0*vel10)*alpha2;
+          mom2 = mom2*alpha1 + (rho0*vel20)*alpha2;
+          mom3 = mom3*alpha1 + (rho0*vel30)*alpha2;
 
-          //if (NON_BAROTROPIC_EOS) {
-            //Real p_over_r_0  = PoverR(rad,phi,z);
-            //Real eng_0       = p_over_r_0*rho0/(gamma_gas - 1.0);
-            //eng_0           += 0.5*(SQR(rho0*vel10) + SQR(rho0*vel20) + SQR(rho0*vel30))/rho0;
-            //eng              = eng*temp1 + eng_0*temp2;
-          //}
+          if (NON_BAROTROPIC_EOS) {
+            Real p_over_r_0  = PoverR(rad,phi,z);
+            Real eng_0       = p_over_r_0*rho0/(gamma_gas - 1.0);
+            eng_0           += 0.5*(SQR(rho0*vel10) + SQR(rho0*vel20) + SQR(rho0*vel30))/rho0;
+            eng              = eng*alpha1 + eng_0*alpha2;
+          }
 
           if ( NDUSTFLUIDS > 0 ) {
-            for (int n=0;n<4*NDUSTFLUIDS;n+=4){
-              int dust_id = n/4;
-              int rho_id  = n;
-              int v1_id   = rho_id + 1;
-              int v2_id   = rho_id + 2;
-              int v3_id   = rho_id + 3;
-              Real df_rho0 = initial_D2G(dust_id)*DenProfileCyl(rad,phi,z);
+            for (int n=0;n<NDUSTFLUIDS;n++){
+              int dust_id  = n;
+              int rho_id   = 4*dust_id;
+              int v1_id    = rho_id + 1;
+              int v2_id    = rho_id + 2;
+              int v3_id    = rho_id + 3;
+              Real df_rho0 = initial_D2G(dust_id) * rho0;
 
               const Real &df_rho  = pdf->df_prim(rho_id,k,j,i);
               const Real &df_vel1 = pdf->df_prim(v1_id,k,j,i);
@@ -420,10 +423,10 @@ void wavedamping(MeshBlock *pmb, const Real time, const Real dt,
               Real &df_mom2 = pdf->df_cons(v2_id,k,j,i);
               Real &df_mom3 = pdf->df_cons(v3_id,k,j,i);
 
-              //df_den  = df_den*temp1 + df_rho0*temp2;
-              df_mom1 = df_mom1*temp1 + (df_rho0*df_vel10)*temp2;
-              //df_mom2 = df_mom2*temp1 + (df_rho0*df_vel20)*temp2;
-              //df_mom3 = df_mom3*temp1 + (df_rho0*df_vel30)*temp2;
+              //df_den  = df_den*alpha1 + df_rho0*alpha2;
+              df_mom1 = df_mom1*alpha1 + (df_rho0*df_vel10)*alpha2;
+              //df_mom2 = df_mom2*alpha1 + (df_rho0*df_vel20)*alpha2;
+              //df_mom3 = df_mom3*alpha1 + (df_rho0*df_vel30)*alpha2;
             }
           }
 
@@ -435,13 +438,12 @@ void wavedamping(MeshBlock *pmb, const Real time, const Real dt,
           VelProfileCyl_DustFluids(rad, phi, z, df_vel10, df_vel20, df_vel30);
 
           Real omega_dyn     = sqrt(gm0/pow(rad,3));
-          // See de Val-Borro et al. 2006 & 2007
-          Real R_func        = SQR((rad - radius_outer_damping)/outer_width_damping);
+          Real R_func        = SQR((rad - radius_outer_damping)/outer_width_damping); // See de Val-Borro et al. 2006 & 2007
           Real damping_speed = damping_rate*omega_dyn*R_func;
-          Real temp1         = 1./(1. + dt*damping_speed);
-          Real temp2         = 1.-temp1;
+          Real alpha1        = 1./(1. + dt*damping_speed);
+          Real alpha2        = 1.-alpha1;
 
-          const Real &rho  = prim(IDN,k,j,i);
+          const Real &rho = prim(IDN,k,j,i);
           const Real &vel1 = prim(IVX,k,j,i);
           const Real &vel2 = prim(IVY,k,j,i);
           const Real &vel3 = prim(IVZ,k,j,i);
@@ -450,45 +452,45 @@ void wavedamping(MeshBlock *pmb, const Real time, const Real dt,
           Real &mom1 = cons(IM1,k,j,i);
           Real &mom2 = cons(IM2,k,j,i);
           Real &mom3 = cons(IM3,k,j,i);
-          Real &eng  = cons(IEN,k,j,i);
+          Real &eng = cons(IEN,k,j,i);
 
-          //den  = den*temp1 + rho0*temp2;
-          mom1 = mom1*temp1 + (rho0*vel10)*temp2;
-          //mom2 = mom2*temp1 + (rho0*vel20)*temp2;
-          //mom3 = mom3*temp1 + (rho0*vel30)*temp2;
+          den  = den*alpha1 + rho0*alpha2;
+          mom1 = mom1*alpha1 + (rho0*vel10)*alpha2;
+          mom2 = mom2*alpha1 + (rho0*vel20)*alpha2;
+          mom3 = mom3*alpha1 + (rho0*vel30)*alpha2;
 
-          //if (NON_BAROTROPIC_EOS) {
-            //Real p_over_r_0  = PoverR(rad,phi,z);
-            //Real eng_0       = p_over_r_0*rho0/(gamma_gas - 1.0);
-            //eng_0           += 0.5*(SQR(rho0*vel10) + SQR(rho0*vel20) + SQR(rho0*vel30))/rho0;
-            //eng              = eng*temp1 + eng_0*temp2;
-          //}
-
-          if ( NDUSTFLUIDS > 0 ) {
-            for (int n=0;n<4*NDUSTFLUIDS;n+=4){
-              int dust_id = n/4;
-              int rho_id  = n;
-              int v1_id   = rho_id + 1;
-              int v2_id   = rho_id + 2;
-              int v3_id   = rho_id + 3;
-              Real df_rho0 = initial_D2G(dust_id)*DenProfileCyl(rad,phi,z);
-
-              const Real &df_rho  = pdf->df_prim(rho_id,k,j,i);
-              const Real &df_vel1 = pdf->df_prim(v1_id,k,j,i);
-              const Real &df_vel2 = pdf->df_prim(v2_id,k,j,i);
-              const Real &df_vel3 = pdf->df_prim(v3_id,k,j,i);
-
-              Real &df_den  = pdf->df_cons(rho_id,k,j,i);
-              Real &df_mom1 = pdf->df_cons(v1_id,k,j,i);
-              Real &df_mom2 = pdf->df_cons(v2_id,k,j,i);
-              Real &df_mom3 = pdf->df_cons(v3_id,k,j,i);
-
-              //df_den  = df_den*temp1 + df_rho0*temp2;
-              df_mom1 = df_mom1*temp1 + (df_rho0*df_vel10)*temp2;
-              //df_mom2 = df_mom2*temp1 + (df_rho0*df_vel20)*temp2;
-              //df_mom3 = df_mom3*temp1 + (df_rho0*df_vel30)*temp2;
-            }
+          if (NON_BAROTROPIC_EOS) {
+            Real p_over_r_0  = PoverR(rad,phi,z);
+            Real eng_0       = p_over_r_0*rho0/(gamma_gas - 1.0);
+            eng_0           += 0.5*(SQR(rho0*vel10) + SQR(rho0*vel20) + SQR(rho0*vel30))/rho0;
+            eng              = eng*alpha1 + eng_0*alpha2;
           }
+
+          //if ( NDUSTFLUIDS > 0 ) {
+            //for (int n=0;n<NDUSTFLUIDS;n++){
+              //int dust_id = n;
+              //int rho_id  = 4*dust_id;
+              //int v1_id   = rho_id + 1;
+              //int v2_id   = rho_id + 2;
+              //int v3_id   = rho_id + 3;
+              //Real df_rho0 = initial_D2G*DenProfileCyl(rad,phi,z);
+
+              //const Real &df_rho  = pdf->df_prim(rho_id,k,j,i);
+              //const Real &df_vel1 = pdf->df_prim(v1_id,k,j,i);
+              //const Real &df_vel2 = pdf->df_prim(v2_id,k,j,i);
+              //const Real &df_vel3 = pdf->df_prim(v3_id,k,j,i);
+
+              //Real &df_den  = pdf->df_cons(rho_id,k,j,i);
+              //Real &df_mom1 = pdf->df_cons(v1_id,k,j,i);
+              //Real &df_mom2 = pdf->df_cons(v2_id,k,j,i);
+              //Real &df_mom3 = pdf->df_cons(v3_id,k,j,i);
+
+              //df_den  = df_den*alpha1  + 0.0*alpha2;
+              //df_mom1 = df_mom1*alpha1 + (0.0*df_vel10)*alpha2;
+              //df_mom2 = df_mom2*alpha1 + (0.0*df_vel20)*alpha2;
+              //df_mom3 = df_mom3*alpha1 + (0.0*df_vel30)*alpha2;
+            //}
+          //}
 
         }
 
@@ -520,9 +522,9 @@ void corotate(MeshBlock *pmb, const Real time, const Real dt,
         //cons(IM2,k,j,i) += dt * prim(IDN,k,j,i)* acor2;
         cons(IM2,k,j,i) += dt * prim(IDN,k,j,i)*work_planet;
         if (NDUSTFLUIDS > 0){
-          for (int n=0;n<4*NDUSTFLUIDS;n+=4){
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n=0; n<NDUSTFLUIDS; n++){
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -598,8 +600,8 @@ Real PoverR(const Real rad, const Real phi, const Real z) {
 void VelProfileCyl(const Real rad, const Real phi, const Real z,
                    Real &v1, Real &v2, Real &v3) {
   Real p_over_r = PoverR(rad, phi, z);
-  //Real vel = (dslope+pslope)*p_over_r/(gm0/rad) + (1.0+pslope) - pslope*rad/std::sqrt(rad*rad+z*z);
-  Real vel = (dslope+pslope)*p_over_r/(gm0/rad) + 1.0;
+  Real vel = (dslope+pslope)*p_over_r/(gm0/rad) + (1.0+pslope) - pslope*rad/std::sqrt(rad*rad+z*z);
+  //Real vel = (dslope+pslope)*p_over_r/(gm0/rad) + 1.0;
   vel = std::sqrt(gm0/rad)*std::sqrt(vel);
   if (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0) {
     v1=0.0;
@@ -700,9 +702,9 @@ void InnerX1_Fixed(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, Fac
 
         if (NDUSTFLUIDS > 0) {
           VelProfileCyl_DustFluids(rad,phi,z,df_v1,df_v2,df_v3);
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n=0; n<NDUSTFLUIDS; n++) {
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -737,9 +739,9 @@ void OuterX1_Fixed(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, Fac
 
         if (NDUSTFLUIDS > 0) {
           VelProfileCyl_DustFluids(rad,phi,z,df_v1,df_v2,df_v3);
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n=0; n<NDUSTFLUIDS; n++) {
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -797,9 +799,9 @@ void InnerX1_NoMatterInput(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &p
         if (NDUSTFLUIDS > 0) {
           VelProfileCyl_DustFluids(rad,    phi,    z,    df_v1,    df_v2,    df_v3);
           VelProfileCyl_DustFluids(rad_ac, phi_ac, z_ac, df_v1_ac, df_v2_ac, df_v3_ac);
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n=0; n<NDUSTFLUIDS; n) {
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -838,6 +840,7 @@ void InnerX1_NoMatterInput(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &p
     }
   }
 }
+
 
 void OuterX1_NoMatterInput(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,
                  Real time, Real dt,
@@ -880,9 +883,9 @@ void OuterX1_NoMatterInput(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &p
           GetCylCoord(pco, rad_ac, phi_ac, z_ac, iu,   j, k);
           GetCylCoord(pco, rad,    phi,    z,    iu+i, j, k);
           VelProfileCyl_DustFluids(rad, phi, z, df_v1, df_v2, df_v3);
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n=0; n<NDUSTFLUIDS; n++) {
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -925,7 +928,6 @@ void OuterX1_NoMatterInput(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &p
     }
   }
 }
-
 
 
 void InnerX1_Linear(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,
@@ -971,9 +973,9 @@ void InnerX1_Linear(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, Fa
           Linear_interpolate(rad_0, rad_1, er_0,  er_1,  rad, er);
 
         if (NDUSTFLUIDS > 0) {
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n=0; n<NDUSTFLUIDS; n++) {
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -1002,6 +1004,7 @@ void InnerX1_Linear(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, Fa
     }
   }
 }
+
 
 void OuterX1_Linear(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,
                  Real time, Real dt,
@@ -1044,9 +1047,9 @@ void OuterX1_Linear(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, Fa
           Linear_interpolate(rad_0, rad_1, er_0,  er_1,  rad, er);
 
         if ( NDUSTFLUIDS > 0 ) {
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n=0; n<NDUSTFLUIDS; n++) {
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -1075,6 +1078,7 @@ void OuterX1_Linear(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, Fa
     }
   }
 }
+
 
 void InnerX1_Powerlaw(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,
                  Real time, Real dt,
@@ -1114,9 +1118,9 @@ void InnerX1_Powerlaw(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, 
           er = PoverR(rad, phi, z)*den;
 
         if (NDUSTFLUIDS > 0) {
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n=0; n<NDUSTFLUIDS; n++) {
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -1146,6 +1150,7 @@ void InnerX1_Powerlaw(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, 
     }
   }
 }
+
 
 void OuterX1_Powerlaw(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,
                  Real time, Real dt,
@@ -1182,9 +1187,9 @@ void OuterX1_Powerlaw(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, 
           er = PoverR(rad, phi, z)*den;
 
         if (NDUSTFLUIDS > 0) {
-          for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            int dust_id = n/4;
-            int rho_id  = n;
+          for (int n=0; n<NDUSTFLUIDS; n++) {
+            int dust_id = n;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
@@ -1214,6 +1219,7 @@ void OuterX1_Powerlaw(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, 
     }
   }
 }
+
 
 void InnerX1_Average(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,
                  Real time, Real dt,
@@ -1260,9 +1266,9 @@ void InnerX1_Average(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, F
   }
 
   if (NDUSTFLUIDS > 0) {
-    for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-      int dust_id = n/4;
-      int rho_id  = n;
+    for (int n=0; n<NDUSTFLUIDS; n++) {
+      int dust_id = n;
+      int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
       int v2_id   = rho_id + 2;
       int v3_id   = rho_id + 3;
@@ -1303,9 +1309,6 @@ void InnerX1_Average(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, F
     }
   }
 }
-
-
-
 
 
 void OuterX1_Average(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,
@@ -1353,9 +1356,9 @@ void OuterX1_Average(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, F
   }
 
   if (NDUSTFLUIDS > 0) {
-    for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-      int dust_id = n/4;
-      int rho_id  = n;
+    for (int n=0; n<NDUSTFLUIDS; n++) {
+      int dust_id = n;
+      int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
       int v2_id   = rho_id + 2;
       int v3_id   = rho_id + 3;
@@ -1397,6 +1400,7 @@ void OuterX1_Average(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, F
   }
 }
 
+
 void MeshBlock::UserWorkInLoop() {
   Real initial_w_IDN(0.0);
   Real initial_u_IM1(0.0), initial_u_IM2(0.0), initial_u_IM3(0.0);
@@ -1427,9 +1431,9 @@ void MeshBlock::UserWorkInLoop() {
         }
 
         //if (NDUSTFLUIDS > 0)
-          //for (int n=0; n<4*NDUSTFLUIDS; n+=4) {
-            //int dust_id = n/4;
-            //int rho_id  = n;
+          //for (int n=0; n<NDUSTFLUIDS; n++) {
+            //int dust_id = n;
+            //int rho_id  = 4*dust_id;
             //int v1_id   = rho_id + 1;
             //int v2_id   = rho_id + 2;
             //int v3_id   = rho_id + 3;

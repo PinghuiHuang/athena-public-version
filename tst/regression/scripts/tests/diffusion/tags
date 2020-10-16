@@ -3,7 +3,9 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+!_TAG_PROGRAM_VERSION	5.8	//
+Polynomial	linear_wave3d.py	/^from numpy.polynomial import Polynomial$/;"	i
+Polynomial	thermal_attenuation.py	/^from numpy.polynomial import Polynomial$/;"	i
 _Lx1	resistive_diffusion.py	/^_Lx1 = 8.0$/;"	v
 _Lx1	viscous_diffusion.py	/^_Lx1 = 8.0$/;"	v
 _amp	resistive_diffusion.py	/^_amp = 1.e-6$/;"	v
@@ -25,16 +27,53 @@ analyze	thermal_attenuation.py	/^def analyze():$/;"	f
 analyze	thermal_attenuation_sts.py	/^def analyze():$/;"	f
 analyze	viscous_diffusion.py	/^def analyze():$/;"	f
 analyze	viscous_diffusion_sts.py	/^def analyze():$/;"	f
+athena	linear_wave3d.py	/^import scripts.utils.athena as athena$/;"	i
+athena	linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+athena	resistive_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+athena	resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+athena	thermal_attenuation.py	/^import scripts.utils.athena as athena$/;"	i
+athena	thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+athena	viscous_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+athena	viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+athena_read	linear_wave3d.py	/^import athena_read  # noqa$/;"	i
+athena_read	resistive_diffusion.py	/^import athena_read  # noqa$/;"	i
+athena_read	thermal_attenuation.py	/^import athena_read  # noqa$/;"	i
+athena_read	viscous_diffusion.py	/^import athena_read  # noqa$/;"	i
+diffusion	linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
+diffusion	resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
+diffusion	thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
+diffusion	viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
 error_rel_tols	linear_wave3d.py	/^error_rel_tols = [0.22, 0.05]$/;"	v
 error_rel_tols	thermal_attenuation.py	/^error_rel_tols = [0.38, 0.10]$/;"	v
+linear_wave3d	linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
 logger	linear_wave3d.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	resistive_diffusion.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	thermal_attenuation.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
 logger	viscous_diffusion.py	/^logger = logging.getLogger('athena' + __name__[7:])  # set logger name based on module$/;"	v
+logging	linear_wave3d.py	/^import logging$/;"	i
+logging	linear_wave3d_sts.py	/^import logging$/;"	i
+logging	resistive_diffusion.py	/^import logging$/;"	i
+logging	resistive_diffusion_sts.py	/^import logging$/;"	i
+logging	thermal_attenuation.py	/^import logging$/;"	i
+logging	thermal_attenuation_sts.py	/^import logging$/;"	i
+logging	viscous_diffusion.py	/^import logging$/;"	i
+logging	viscous_diffusion_sts.py	/^import logging$/;"	i
 method	linear_wave3d.py	/^method = 'Explicit'$/;"	v
 method	resistive_diffusion.py	/^method = 'Explicit'$/;"	v
 method	thermal_attenuation.py	/^method = 'Explicit'$/;"	v
 method	viscous_diffusion.py	/^method = 'Explicit'$/;"	v
+noqa	linear_wave3d.py	/^import athena_read  # noqa$/;"	i
+noqa	linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+noqa	resistive_diffusion.py	/^import athena_read  # noqa$/;"	i
+noqa	resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+noqa	thermal_attenuation.py	/^import athena_read  # noqa$/;"	i
+noqa	thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+noqa	viscous_diffusion.py	/^import athena_read  # noqa$/;"	i
+noqa	viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+np	linear_wave3d.py	/^import numpy as np$/;"	i
+np	resistive_diffusion.py	/^import numpy as np$/;"	i
+np	thermal_attenuation.py	/^import numpy as np$/;"	i
+np	viscous_diffusion.py	/^import numpy as np$/;"	i
 prepare	linear_wave3d.py	/^def prepare(*args, **kwargs):$/;"	f
 prepare	linear_wave3d_sts.py	/^def prepare(*args, **kwargs):$/;"	f
 prepare	resistive_diffusion.py	/^def prepare(*args, **kwargs):$/;"	f
@@ -46,6 +85,7 @@ prepare	viscous_diffusion_sts.py	/^def prepare(*args, **kwargs):$/;"	f
 rate_tols	linear_wave3d.py	/^rate_tols = [2.0]  # convergence rate > 3.0 for this particular resolution, sovler$/;"	v
 rate_tols	resistive_diffusion.py	/^rate_tols = [-1.99]$/;"	v
 rate_tols	viscous_diffusion.py	/^rate_tols = [-1.99]$/;"	v
+resistive_diffusion	resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
 resolution_range	linear_wave3d.py	/^resolution_range = [32, 64]$/;"	v
 resolution_range	resistive_diffusion.py	/^resolution_range = [64, 128]$/;"	v
 resolution_range	thermal_attenuation.py	/^resolution_range = [32, 64]$/;"	v
@@ -58,3 +98,33 @@ run	thermal_attenuation.py	/^def run(**kwargs):$/;"	f
 run	thermal_attenuation_sts.py	/^def run(**kwargs):$/;"	f
 run	viscous_diffusion.py	/^def run(**kwargs):$/;"	f
 run	viscous_diffusion_sts.py	/^def run(**kwargs):$/;"	f
+scripts	linear_wave3d.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
+scripts	linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+scripts	resistive_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
+scripts	resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+scripts	thermal_attenuation.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
+scripts	thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+scripts	viscous_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+scripts	viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
+scripts	viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+sys	linear_wave3d.py	/^import sys$/;"	i
+sys	resistive_diffusion.py	/^import sys$/;"	i
+sys	thermal_attenuation.py	/^import sys$/;"	i
+sys	viscous_diffusion.py	/^import sys$/;"	i
+tests	linear_wave3d_sts.py	/^import scripts.tests.diffusion.linear_wave3d as linear_wave3d$/;"	i
+tests	resistive_diffusion_sts.py	/^import scripts.tests.diffusion.resistive_diffusion as resistive_diffusion$/;"	i
+tests	thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
+tests	viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i
+thermal_attenuation	thermal_attenuation_sts.py	/^import scripts.tests.diffusion.thermal_attenuation as thermal_attenuation$/;"	i
+utils	linear_wave3d.py	/^import scripts.utils.athena as athena$/;"	i
+utils	linear_wave3d_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+utils	resistive_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+utils	resistive_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+utils	thermal_attenuation.py	/^import scripts.utils.athena as athena$/;"	i
+utils	thermal_attenuation_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+utils	viscous_diffusion.py	/^import scripts.utils.athena as athena$/;"	i
+utils	viscous_diffusion_sts.py	/^import scripts.utils.athena as athena  # noqa$/;"	i
+viscous_diffusion	viscous_diffusion_sts.py	/^import scripts.tests.diffusion.viscous_diffusion as viscous_diffusion$/;"	i

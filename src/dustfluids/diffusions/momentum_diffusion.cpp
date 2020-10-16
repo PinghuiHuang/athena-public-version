@@ -58,8 +58,8 @@ void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real
   }
 
   // i-direction loop
-  for (int n=0; n<num_dust_var; n+=4) {
-    int dust_id = n/4;
+  for (int n=0; n<NDUSTFLUIDS; n++) {
+    int dust_id = n;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
     int v2_id   = rho_id + 2;
@@ -84,8 +84,10 @@ void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real
           ((prim_df(v1_id,k,j,i-1) > 0.0) && (prim_df(v1_id,k,j,i) > 0.0)) ? di        = 1   : di        = 0;
 
           x1flux(v1_id,k,j,i)         += same_sign*prim_df(v1_id,k,j,i-di) * x1flux(rho_id,k,j,i);
-          if (f2) x1flux(v1_id,k,j,i) += same_sign*prim_df(v1_id,k,j,i-di) * VanLeerLimiter(x2flux(rho_id,k,j+1,i-di), x2flux(rho_id,k,j,i-di));
-          if (f3) x1flux(v1_id,k,j,i) += same_sign*prim_df(v1_id,k,j,i-di) * VanLeerLimiter(x3flux(rho_id,k+1,j,i-di), x3flux(rho_id,k,j,i-di));
+          if (f2) x1flux(v1_id,k,j,i) += same_sign*prim_df(v1_id,k,j,i-di) *
+            VanLeerLimiter(x2flux(rho_id,k,j+1,i-di), x2flux(rho_id,k,j,i-di));
+          if (f3) x1flux(v1_id,k,j,i) += same_sign*prim_df(v1_id,k,j,i-di) *
+            VanLeerLimiter(x3flux(rho_id,k+1,j,i-di), x3flux(rho_id,k,j,i-di));
 
         }
       }
@@ -102,8 +104,8 @@ void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real
   }
 
   if (f2) { // 2D or 3D
-    for (int n=0; n<num_dust_var; n+=4) {
-      int dust_id = n/4;
+    for (int n=0; n<NDUSTFLUIDS; n++) {
+      int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
       int v2_id   = rho_id + 2;
@@ -127,9 +129,11 @@ void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real
             (prim_df(v2_id,k,j-1,i) * prim_df(v2_id,k,j,i) > 0.0)            ? same_sign = 1.0 : same_sign = 0.0;
             ((prim_df(v2_id,k,j-1,i) > 0.0) && (prim_df(v2_id,k,j,i) > 0.0)) ? dj        = 1   : dj        = 0;
 
-            x2flux(v2_id,k,j,i)         += same_sign*prim_df(v2_id,k,j,i) * VanLeerLimiter(x1flux(rho_id,k,j-dj,i+1), x1flux(rho_id,k,j-dj,i));
+            x2flux(v2_id,k,j,i)         += same_sign*prim_df(v2_id,k,j,i) *
+              VanLeerLimiter(x1flux(rho_id,k,j-dj,i+1), x1flux(rho_id,k,j-dj,i));
             x2flux(v2_id,k,j,i)         += same_sign*prim_df(v2_id,k,j,i) * x2flux(rho_id,k,j,i);
-            if (f3) x2flux(v2_id,k,j,i) += same_sign*prim_df(v2_id,k,j,i) * VanLeerLimiter(x3flux(rho_id,k+1,j-dj,i), x3flux(rho_id,k,j-dj,i));
+            if (f3) x2flux(v2_id,k,j,i) += same_sign*prim_df(v2_id,k,j,i) *
+              VanLeerLimiter(x3flux(rho_id,k+1,j-dj,i), x3flux(rho_id,k,j-dj,i));
           }
         }
       }
@@ -146,8 +150,8 @@ void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real
   }
 
   if (f3) { // 3D
-    for (int n=0; n<num_dust_var; n+=4) {
-      int dust_id = n/4;
+    for (int n=0; n<NDUSTFLUIDS; n++) {
+      int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
       int v2_id   = rho_id + 2;
@@ -171,8 +175,10 @@ void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real
             (prim_df(v3_id,k-1,j,i) * prim_df(v3_id,k,j,i) > 0.0)            ? same_sign = 1.0 : same_sign = 0.0;
             ((prim_df(v3_id,k-1,j,i) > 0.0) && (prim_df(v3_id,k,j,i) > 0.0)) ? dk        = 1   : dk        = 0;
 
-            x3flux(v3_id,k,j,i) += same_sign*prim_df(v3_id,k,j,i) * VanLeerLimiter(x1flux(rho_id,k-dk,j,i+1), x1flux(rho_id,k-dk,j,i));
-            x3flux(v3_id,k,j,i) += same_sign*prim_df(v3_id,k,j,i) * VanLeerLimiter(x2flux(rho_id,k-dk,j+1,i), x2flux(rho_id,k-dk,j,i));
+            x3flux(v3_id,k,j,i) += same_sign*prim_df(v3_id,k,j,i) *
+              VanLeerLimiter(x1flux(rho_id,k-dk,j,i+1), x1flux(rho_id,k-dk,j,i));
+            x3flux(v3_id,k,j,i) += same_sign*prim_df(v3_id,k,j,i) *
+              VanLeerLimiter(x2flux(rho_id,k-dk,j+1,i), x2flux(rho_id,k-dk,j,i));
             x3flux(v3_id,k,j,i) += same_sign*prim_df(v3_id,k,j,i) * x3flux(rho_id,k,j,i);
           }
         }
