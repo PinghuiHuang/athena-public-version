@@ -25,14 +25,19 @@
 #endif
 
 
-void DustGasDrag::SingleDustNoFeedbackImplicit(MeshBlock *pmb, const int stage, const Real dt,
+void DustGasDrag::SingleDustNoFeedbackImplicit(const int stage, const Real dt,
       const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  const bool f2          = pmb->pmy_mesh->f2;
-  const bool f3          = pmb->pmy_mesh->f3;
-  Coordinates *pco       = pmb->pcoord;
+  MeshBlock *pmb = pmy_dustfluids_->pmy_block;
+
+  const bool f2 = pmb->pmy_mesh->f2;
+  const bool f3 = pmb->pmy_mesh->f3;
+
+  DustFluids  *pdf = pmy_dustfluids_;
+  Hydro       *ph  = pmb->phydro;
+
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
@@ -43,14 +48,13 @@ void DustGasDrag::SingleDustNoFeedbackImplicit(MeshBlock *pmb, const int stage, 
   int v3_id   = rho_id + 3;
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {
-#pragma omp simd
+//#pragma omp simd
       for (int i=is; i<=ie; ++i) {
         // Alias the primitives of gas
         const Real &gas_d  = w(IDN, k, j, i);
         const Real &gas_v1 = w(IVX, k, j, i);
         const Real &gas_v2 = w(IVY, k, j, i);
         const Real &gas_v3 = w(IVZ, k, j, i);
-        const Real &gas_p  = w(IPR, k, j, i);
 
         // Alias the primitives of dust
         const Real &dust_d  = prim_df(rho_id, k, j, i);
@@ -64,7 +68,7 @@ void DustGasDrag::SingleDustNoFeedbackImplicit(MeshBlock *pmb, const int stage, 
         Real &dust_m3 = cons_df(v3_id, k, j, i);
 
         // Calculate the collisional parameters of dust and gas
-        Real alpha_dg = 1.0/stopping_time(dust_id,k,j,i);
+        Real alpha_dg = 1.0/(stopping_time(dust_id,k,j,i) + TINY_NUMBER);
         Real alpha_gd = dust_d/gas_d*alpha_dg;
 
         // Update the Momentum of gas and dust
@@ -92,15 +96,19 @@ void DustGasDrag::SingleDustNoFeedbackImplicit(MeshBlock *pmb, const int stage, 
   return;
 }
 
-void DustGasDrag::SingleDustFeedbackImplicit(MeshBlock *pmb, const int stage, const Real dt,
+void DustGasDrag::SingleDustFeedbackImplicit(const int stage, const Real dt,
       const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  DustFluids  *pdf = pmb->pdustfluids;
-  const bool f2          = pmb->pmy_mesh->f2;
-  const bool f3          = pmb->pmy_mesh->f3;
-  Coordinates *pco       = pmb->pcoord;
+  MeshBlock *pmb = pmy_dustfluids_->pmy_block;
+
+  const bool f2 = pmb->pmy_mesh->f2;
+  const bool f3 = pmb->pmy_mesh->f3;
+
+  DustFluids  *pdf = pmy_dustfluids_;
+  Hydro       *ph  = pmb->phydro;
+
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
@@ -111,20 +119,18 @@ void DustGasDrag::SingleDustFeedbackImplicit(MeshBlock *pmb, const int stage, co
   int v3_id   = rho_id + 3;
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {
-#pragma omp simd
+//#pragma omp simd
       for (int i=is; i<=ie; ++i) {
         // Alias the primitives of gas
         const Real &gas_d  = w(IDN, k, j, i);
         const Real &gas_v1 = w(IVX, k, j, i);
         const Real &gas_v2 = w(IVY, k, j, i);
         const Real &gas_v3 = w(IVZ, k, j, i);
-        const Real &gas_p  = w(IPR, k, j, i);
 
         // Alias the conserves of gas
         Real &gas_m1 = u(IM1, k, j, i);
         Real &gas_m2 = u(IM2, k, j, i);
         Real &gas_m3 = u(IM3, k, j, i);
-        Real &gas_e  = u(IEN, k, j, i);
 
         // Alias the primitives of dust
         const Real &dust_d  = prim_df(rho_id, k, j, i);
@@ -138,7 +144,7 @@ void DustGasDrag::SingleDustFeedbackImplicit(MeshBlock *pmb, const int stage, co
         Real &dust_m3  = cons_df(v3_id,  k, j, i);
 
         // Calculate the collisional parameters of dust and gas
-        Real alpha_dg = 1.0/stopping_time(dust_id,k,j,i);
+        Real alpha_dg = 1.0/(stopping_time(dust_id,k,j,i) + TINY_NUMBER);
         Real alpha_gd = dust_d/gas_d*alpha_dg;
 
         // Update the Momentum of gas and dust
@@ -152,29 +158,32 @@ void DustGasDrag::SingleDustFeedbackImplicit(MeshBlock *pmb, const int stage, co
         Real dust_v2_new = (A11*dust_v2 - A21*gas_v2)/deter;
         Real dust_v3_new = (A11*dust_v3 - A21*gas_v3)/deter;
 
-        Real gas_v1_new = (A22*gas_v1  - A12*dust_v1)/deter;
-        Real gas_v2_new = (A22*gas_v2  - A12*dust_v2)/deter;
-        Real gas_v3_new = (A22*gas_v3  - A12*dust_v3)/deter;
+        Real gas_v1_new = (A22*gas_v1 - A12*dust_v1)/deter;
+        Real gas_v2_new = (A22*gas_v2 - A12*dust_v2)/deter;
+        Real gas_v3_new = (A22*gas_v3 - A12*dust_v3)/deter;
 
         Real delta_dust_m1 = dust_d*(dust_v1_new - dust_v1);
         Real delta_dust_m2 = dust_d*(dust_v2_new - dust_v2);
         Real delta_dust_m3 = dust_d*(dust_v3_new - dust_v3);
 
-        Real delta_gas_m1  = gas_d*(gas_v1_new - gas_v1);
-        Real delta_gas_m2  = gas_d*(gas_v2_new - gas_v2);
-        Real delta_gas_m3  = gas_d*(gas_v3_new - gas_v3);
+        Real delta_gas_m1 = gas_d*(gas_v1_new - gas_v1);
+        Real delta_gas_m2 = gas_d*(gas_v2_new - gas_v2);
+        Real delta_gas_m3 = gas_d*(gas_v3_new - gas_v3);
 
         dust_m1 += delta_dust_m1;
-        dust_m2 += delta_dust_m1;
-        dust_m3 += delta_dust_m1;
+        dust_m2 += delta_dust_m2;
+        dust_m3 += delta_dust_m3;
 
         gas_m1  += delta_gas_m1;
-        gas_m2  += delta_gas_m1;
-        gas_m3  += delta_gas_m1;
+        gas_m2  += delta_gas_m2;
+        gas_m3  += delta_gas_m3;
 
         // Update the energy of gas if the gas is non barotropic.
-        if (NON_BAROTROPIC_EOS)
-          gas_e += delta_gas_m1*gas_v1 + delta_gas_m2*gas_v2 + delta_gas_m3*gas_v3;
+        if (NON_BAROTROPIC_EOS) {
+          Real &gas_e     = u(IEN, k, j, i);
+          Real delta_erg  = delta_gas_m1*gas_v1 + delta_gas_m2*gas_v2 + delta_gas_m3*gas_v3;
+          gas_e          += delta_erg;
+        }
 
         }
       }

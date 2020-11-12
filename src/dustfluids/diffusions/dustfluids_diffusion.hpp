@@ -51,18 +51,18 @@ class DustFluidsDiffusion {
     // reset the diffusion flux of dust as zero.
     void ClearDustFluidsFlux(AthenaArray<Real> *flux_diff);
 
-    // calculate the new parabolic dt, make sure the simulation won't conflict with the CFL condition
+    // calculate the new parabolic dt
     Real NewDiffusionDt();
 
     // Other functions
     // Van Leer Flux Limiter on the momentum diffusions
     Real VanLeerLimiter(const Real a, const Real b);
 
-    // Transfer the coordinate into cylindrical, used in disk problem
+    // Transfer the coordinate into cylindrical, used in disk problems
     void GetCylCoord(Coordinates *pco, Real &rad, Real &phi, Real &z, int i, int j, int k);
 
     // Diffusivity
-    // Calculate the dust diffusivity varied with the gas surface density and gas viscosity
+    // Calculate the user defined dust diffusivity, varied with the gas surface density and gas viscosity
     void UserDefinedDustDiffusivity(const AthenaArray<Real> &nu_gas,
       const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
       const AthenaArray<Real> &stopping_time,
@@ -80,7 +80,7 @@ class DustFluidsDiffusion {
       const AthenaArray<Real> &stopping_time,
       AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs);
 
-    // Concentration and Momentum diffusivity
+    // Concentration and Momentum diffusions
     void DustFluidsConcentrationDiffusiveFlux(const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &w, AthenaArray<Real> *df_diff_flux);
 
@@ -89,12 +89,12 @@ class DustFluidsDiffusion {
 
   private:
     static const int num_dust_var = 4*NDUSTFLUIDS;  // Number of dust variables (rho, v1, v2, v3)*4
-    DustFluids  *pmy_dustfluids_;                   // ptr to DustFluids containing this DustFluidsDiffusion
-    MeshBlock   *pmb_;                              // ptr to meshblock containing this DustFluidsDiffusion
-    Coordinates *pco_;                              // ptr to coordinates class
+    bool              disk_problem;
+    DustFluids        *pmy_dustfluids_;             // ptr to DustFluids containing this DustFluidsDiffusion
+    MeshBlock         *pmb_;                        // ptr to meshblock containing this DustFluidsDiffusion
+    Coordinates       *pco_;                        // ptr to coordinates class
     AthenaArray<Real> dx1_, dx2_, dx3_;             // scratch arrays used in NewTimeStep
     AthenaArray<Real> diff_tot_;
-
     Real eddy_timescale_r0;                         // The eddy timescale (turn over time of eddy) at r0
     Real r0_;                                       // The length unit of radial direction in disk problem
 

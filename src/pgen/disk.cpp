@@ -319,7 +319,7 @@ void potentialwell(MeshBlock *pmb, const Real time, const Real dt,
           //acc_phi = forth_g*dis_phi; // asimuthal acceleration
 
           //sixth order gravity
-          sixth_g = gmp*(35*SQR(SQR(rs))+28*SQR(rs)*SQR(dis)+8*SQR(SQR(dis)))/(8*pow(SQR(rs)+SQR(dis), 3.5));
+          sixth_g = gmp*(35.0*SQR(SQR(rs))+28.0*SQR(rs)*SQR(dis)+8.0*SQR(SQR(dis)))/(8.0*pow(SQR(rs)+SQR(dis), 3.5));
           acc_r   = sixth_g*dis_r; // radial acceleration
           acc_phi = sixth_g*dis_phi; // asimuthal acceleration
 

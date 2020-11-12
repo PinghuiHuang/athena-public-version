@@ -3,13 +3,10 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AthenaError	python/athena_read.py	/^class AthenaError(RuntimeError):$/;"	c
 AthenaWarning	python/athena_read.py	/^class AthenaWarning(RuntimeWarning):$/;"	c
-Axes3D	python/plot_mesh.py	/^    from mpl_toolkits.mplot3d import Axes3D  # noqa$/;"	i
-Consistent	python/athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
 Domain_s	vtk/join_vtk++.c	/^typedef struct Domain_s{$/;"	s	file:
-I	python/athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
 IsBigEndian	vtk/join_vtk++.c	/^int IsBigEndian(void)$/;"	f
 NGrid_x	vtk/join_vtk++.c	/^static int NGrid_x, NGrid_y, NGrid_z;$/;"	v	file:
 NGrid_y	vtk/join_vtk++.c	/^static int NGrid_x, NGrid_y, NGrid_z;$/;"	v	file:
@@ -17,8 +14,6 @@ NGrid_z	vtk/join_vtk++.c	/^static int NGrid_x, NGrid_y, NGrid_z;$/;"	v	file:
 Nx	vtk/join_vtk++.c	/^  int Nx, Ny, Nz;    \/* Grid dimensions *\/$/;"	m	struct:Domain_s	file:
 Ny	vtk/join_vtk++.c	/^  int Nx, Ny, Nz;    \/* Grid dimensions *\/$/;"	m	struct:Domain_s	file:
 Nz	vtk/join_vtk++.c	/^  int Nx, Ny, Nz;    \/* Grid dimensions *\/$/;"	m	struct:Domain_s	file:
-O	python/athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
-Python	python/athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
 Swap4Bytes	vtk/join_vtk++.c	/^static inline void Swap4Bytes(void *vdat) {$/;"	f	file:
 VTK_Domain	vtk/join_vtk++.c	/^}VTK_Domain;$/;"	t	typeref:struct:Domain_s	file:
 X	vtk/join_vtk++.c	/^  float *X, *Y, *Z; \/* X,Y,Z coordinates*\/$/;"	m	struct:Domain_s	file:
@@ -29,13 +24,6 @@ action	python/plot_slice.py	/^                        action='store_true',$/;"	v
 action	python/spherical_refinement.py	/^        action='store_true',$/;"	v
 action	python/uniform.py	/^                        action='store_false',$/;"	v
 action	python/uniform.py	/^                        action='store_true',$/;"	v
-and	python/athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
-argparse	python/plot_lines.py	/^import argparse$/;"	i
-argparse	python/plot_mesh.py	/^import argparse$/;"	i
-argparse	python/plot_slice.py	/^import argparse$/;"	i
-argparse	python/plot_spherical.py	/^import argparse$/;"	i
-argparse	python/spherical_refinement.py	/^import argparse$/;"	i
-argparse	python/uniform.py	/^import argparse$/;"	i
 args	python/plot_lines.py	/^    args = parser.parse_args()$/;"	v
 args	python/plot_mesh.py	/^    args = parser.parse_args()$/;"	v
 args	python/plot_slice.py	/^    args = parser.parse_args()$/;"	v
@@ -43,13 +31,7 @@ args	python/plot_spherical.py	/^    args = parser.parse_args()$/;"	v
 args	python/spherical_refinement.py	/^    args = parser.parse_args()$/;"	v
 args	python/uniform.py	/^    args = parser.parse_args()$/;"	v
 athdf	python/athena_read.py	/^def athdf(filename, raw=False, data=None, quantities=None, dtype=None, level=None,$/;"	f
-athena_read	python/plot_lines.py	/^import athena_read$/;"	i
-athena_read	python/plot_slice.py	/^import athena_read$/;"	i
-athena_read	python/plot_spherical.py	/^import athena_read$/;"	i
-athena_read	python/uniform.py	/^import athena_read$/;"	i
 athinput	python/athena_read.py	/^def athinput(filename):$/;"	f
-binary	python/athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
-brentq	python/spherical_refinement.py	/^    from scipy.optimize import brentq$/;"	i
 calloc_3d_array	vtk/join_vtk++.c	/^static void*** calloc_3d_array(size_t nt, size_t nr, size_t nc, size_t size){$/;"	f	file:
 center_func_1	python/athena_read.py	/^                def center_func_1(xm, xp):$/;"	f	function:athdf
 center_func_2	python/athena_read.py	/^                def center_func_2(xm, xp):$/;"	f	function:athdf
@@ -58,10 +40,6 @@ check_nan	python/athena_read.py	/^def check_nan(data):$/;"	f
 check_nan_flag	python/athena_read.py	/^check_nan_flag = False$/;"	v
 choices	python/plot_slice.py	/^                        choices=(1, 2, 3),$/;"	v
 choices	python/spherical_refinement.py	/^                        choices=('schwarzschild', 'boyer-lindquist', 'kerr-schild',),$/;"	v
-cm	python/spherical_refinement.py	/^    import matplotlib.cm as cm$/;"	i
-colors	python/plot_slice.py	/^    import matplotlib.colors as colors$/;"	i
-colors	python/plot_spherical.py	/^    import matplotlib.colors as colors$/;"	i
-colors	python/spherical_refinement.py	/^    import matplotlib.colors as colors$/;"	i
 comment	vtk/join_vtk++.c	/^  char *comment;$/;"	m	struct:Domain_s	file:
 compare_ox	vtk/join_vtk++.c	/^static int compare_ox(const void *p1, const void *p2){$/;"	f	file:
 compare_oy	vtk/join_vtk++.c	/^static int compare_oy(const void *p1, const void *p2){$/;"	f	file:
@@ -87,10 +65,7 @@ file_count	vtk/join_vtk++.c	/^static int file_count; \/* Number of input vtk fil
 fname	vtk/join_vtk++.c	/^  char *fname;$/;"	m	struct:Domain_s	file:
 fp	vtk/join_vtk++.c	/^  FILE *fp;$/;"	m	struct:Domain_s	file:
 free_3d_array	vtk/join_vtk++.c	/^static void free_3d_array(void ***array){$/;"	f	file:
-from	python/athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
 grid_version	vtk/join_vtk++.c	/^static int grid_version; \/* fixed or flexible grids *\/$/;"	v	file:
-h5py	python/athena_read.py	/^    import h5py$/;"	i
-h5py	python/uniform.py	/^import h5py$/;"	i
 help	python/plot_lines.py	/^                        help='label to use for x-axis')$/;"	v
 help	python/plot_lines.py	/^                        help='label to use for y-axis')$/;"	v
 help	python/plot_lines.py	/^                        help='maximum for x-axis')$/;"	v
@@ -167,33 +142,9 @@ main	python/plot_spherical.py	/^def main(**kwargs):$/;"	f
 main	python/spherical_refinement.py	/^def main(**kwargs):$/;"	f
 main	python/uniform.py	/^def main(**kwargs):$/;"	f
 main	vtk/join_vtk++.c	/^int main(int argc, char* argv[]){$/;"	f
-map_coordinates	python/plot_spherical.py	/^        from scipy.ndimage import map_coordinates$/;"	i
-math	python/spherical_refinement.py	/^import math$/;"	i
-matplotlib	python/plot_lines.py	/^        import matplotlib$/;"	i
-matplotlib	python/plot_lines.py	/^    import matplotlib.pyplot as plt$/;"	i
-matplotlib	python/plot_mesh.py	/^        import matplotlib$/;"	i
-matplotlib	python/plot_mesh.py	/^    import matplotlib.pyplot as plt$/;"	i
-matplotlib	python/plot_slice.py	/^        import matplotlib$/;"	i
-matplotlib	python/plot_slice.py	/^    import matplotlib.colors as colors$/;"	i
-matplotlib	python/plot_slice.py	/^    import matplotlib.pyplot as plt$/;"	i
-matplotlib	python/plot_spherical.py	/^        import matplotlib$/;"	i
-matplotlib	python/plot_spherical.py	/^    import matplotlib.colors as colors$/;"	i
-matplotlib	python/plot_spherical.py	/^    import matplotlib.pyplot as plt$/;"	i
-matplotlib	python/spherical_refinement.py	/^    import matplotlib$/;"	i
-matplotlib	python/spherical_refinement.py	/^    import matplotlib.cm as cm$/;"	i
-matplotlib	python/spherical_refinement.py	/^    import matplotlib.colors as colors$/;"	i
-matplotlib	python/spherical_refinement.py	/^    import matplotlib.patches as patches$/;"	i
-matplotlib	python/spherical_refinement.py	/^    import matplotlib.pyplot as plt$/;"	i
 my_strdup	vtk/join_vtk++.c	/^static char *my_strdup(const char *in){$/;"	f	file:
 nargs	python/spherical_refinement.py	/^        nargs='+',$/;"	v
 nargs	python/uniform.py	/^                        nargs='+',$/;"	v
-noqa	python/plot_mesh.py	/^    from mpl_toolkits.mplot3d import Axes3D  # noqa$/;"	i
-np	python/athena_read.py	/^import numpy as np$/;"	i
-np	python/plot_slice.py	/^import numpy as np$/;"	i
-np	python/plot_spherical.py	/^import numpy as np$/;"	i
-np	python/spherical_refinement.py	/^import numpy as np$/;"	i
-open	python/athena_read.py	/^from io import open  # Consistent binary I\/O from Python 2 and 3$/;"	i
-os	python/uniform.py	/^import os$/;"	i
 ox	vtk/join_vtk++.c	/^  double ox, oy, oz; \/* Origin of this particular domain *\/$/;"	m	struct:Domain_s	file:
 oy	vtk/join_vtk++.c	/^  double ox, oy, oz; \/* Origin of this particular domain *\/$/;"	m	struct:Domain_s	file:
 oz	vtk/join_vtk++.c	/^  double ox, oy, oz; \/* Origin of this particular domain *\/$/;"	m	struct:Domain_s	file:
@@ -204,15 +155,8 @@ parser	python/plot_slice.py	/^    parser = argparse.ArgumentParser()$/;"	v
 parser	python/plot_spherical.py	/^    parser = argparse.ArgumentParser()$/;"	v
 parser	python/spherical_refinement.py	/^    parser = argparse.ArgumentParser()$/;"	v
 parser	python/uniform.py	/^    parser = argparse.ArgumentParser()$/;"	v
-patches	python/spherical_refinement.py	/^    import matplotlib.patches as patches$/;"	i
 plot_grid	python/spherical_refinement.py	/^def plot_grid(refinement, r_bounds, theta_bounds, output, colormap, grid_refined, log):$/;"	f
-plt	python/plot_lines.py	/^    import matplotlib.pyplot as plt$/;"	i
-plt	python/plot_mesh.py	/^    import matplotlib.pyplot as plt$/;"	i
-plt	python/plot_slice.py	/^    import matplotlib.pyplot as plt$/;"	i
-plt	python/plot_spherical.py	/^    import matplotlib.pyplot as plt$/;"	i
-plt	python/spherical_refinement.py	/^    import matplotlib.pyplot as plt$/;"	i
 pos_face	python/spherical_refinement.py	/^def pos_face(x1, x2, ratio, n, n_face):$/;"	f
-re	python/athena_read.py	/^import re$/;"	i
 read_cell_scalars	python/athena_read.py	/^    def read_cell_scalars():$/;"	f	function:vtk
 read_cell_vectors	python/athena_read.py	/^    def read_cell_vectors():$/;"	f	function:vtk
 read_faces	python/athena_read.py	/^    def read_faces(letter, num_faces):$/;"	f	function:vtk
@@ -224,8 +168,6 @@ restrict_like	python/athena_read.py	/^def restrict_like(vals, levels, vols=None)
 skip_string	python/athena_read.py	/^    def skip_string(expected_string):$/;"	f	function:vtk
 sort_domain_1d	vtk/join_vtk++.c	/^static void sort_domain_1d(void){$/;"	f	file:
 strip_trail_white	vtk/join_vtk++.c	/^static void strip_trail_white(char *pc){$/;"	f	file:
-struct	python/athena_read.py	/^import struct$/;"	i
-sys	python/athena_read.py	/^import sys$/;"	i
 tab	python/athena_read.py	/^def tab(filename, raw=False, dimensions=None):$/;"	f
 theta_adjust	python/spherical_refinement.py	/^def theta_adjust(theta_unadjusted, theta_compress):$/;"	f
 theta_func	python/plot_spherical.py	/^    def theta_func(xmin, xmax, _, nf):$/;"	f	function:main
@@ -243,8 +185,5 @@ vol_func	python/athena_read.py	/^                    def vol_func(rm, rp, phim, 
 vol_func	python/athena_read.py	/^                    def vol_func(rm, rp, thetam, thetap, phim, phip):$/;"	f	function:athdf
 vol_func	python/athena_read.py	/^                    def vol_func(xm, xp, ym, yp, zm, zp):$/;"	f	function:athdf
 vtk	python/athena_read.py	/^def vtk(filename):$/;"	f
-warnings	python/athena_read.py	/^import warnings$/;"	i
-warnings	python/plot_slice.py	/^import warnings$/;"	i
-warnings	python/plot_spherical.py	/^import warnings$/;"	i
 widths	python/spherical_refinement.py	/^def widths(r1, r2, theta1, theta2, delta_phi, metric, parameters):$/;"	f
 write_joined_vtk	vtk/join_vtk++.c	/^static void write_joined_vtk(const char *out_name){$/;"	f	file:

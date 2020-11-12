@@ -43,9 +43,12 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
 
   dustfluids_diffusion_defined = false;
 
-  Diffusion_Flag          = pin->GetBoolean("dust",      "Diffusion_Flag");
-  ConstNu_Flag            = pin->GetBoolean("dust",      "Const_Nu_Dust_Flag");
-  Momentum_Diffusion_Flag = pin->GetOrAddBoolean("dust", "Momentum_Diffusion_Flag", false);
+  Diffusion_Flag = pin->GetBoolean("dust", "Diffusion_Flag");
+
+  if (Diffusion_Flag) {
+    ConstNu_Flag            = pin->GetBoolean("dust",      "Const_Nu_Dust_Flag");
+    Momentum_Diffusion_Flag = pin->GetOrAddBoolean("dust", "Momentum_Diffusion_Flag", false);
+  }
 
   // Set dust diffusions if the gas diffusion is defined or constant nu diffusion flag is true.
   if ((Diffusion_Flag) && (hd.hydro_diffusion_defined || ConstNu_Flag))
@@ -68,7 +71,6 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
   // If the problem generator is disk problem
   std::string disk_string = "disk";
   std::string::size_type idx = std::string(PROBLEM_GENERATOR).find(disk_string);
-  bool disk_problem;
   (idx != std::string::npos) ? disk_problem = true : disk_problem = false;
   if (disk_problem)
     r0_ = pin->GetOrAddReal("problem", "r0", 1.0);
@@ -153,7 +155,7 @@ Real DustFluidsDiffusion::NewDiffusionDt() {
   AthenaArray<Real> &diff_t = diff_tot_;
   AthenaArray<Real> &len = dx1_, &dx2 = dx2_, &dx3 = dx3_;
 
-  for (int n=0; n<NDUSTFLUIDS; n++){
+  for (int n=0; n<NDUSTFLUIDS; ++n){
     dust_id = n;
     rho_id  = 4*dust_id;
     v1_id   = rho_id + 1;

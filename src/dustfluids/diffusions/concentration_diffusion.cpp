@@ -51,7 +51,7 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
     }
   }
 
-  for (int n=0; n<NDUSTFLUIDS; n++) {
+  for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
@@ -84,7 +84,7 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
 
   if (f2) { // 2D or 3D
     AthenaArray<Real> &x2flux = df_diff_flux[X2DIR];
-    for (int n=0; n<NDUSTFLUIDS; n++) {
+    for (int n=0; n<NDUSTFLUIDS; ++n) {
       int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
@@ -118,7 +118,7 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
 
   if (f3) { // 3D
     AthenaArray<Real> &x3flux = df_diff_flux[X3DIR];
-    for (int n=0; n<NDUSTFLUIDS; n++) {
+    for (int n=0; n<NDUSTFLUIDS; ++n) {
       int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;

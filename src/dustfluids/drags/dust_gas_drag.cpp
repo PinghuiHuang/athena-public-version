@@ -25,45 +25,53 @@
 #endif
 
 DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :
+  pmy_dustfluids_(pdf),
   drags_matrix(num_species, num_species), // The drags matrix
-  lu_matrix(num_species,    num_species), // The LU decomposition matrix
   aref_matrix(num_species,  num_species), // The matrix for iternative calculation
-  indx_array(num_species),                // Stores the permutation
-  pmy_dustfluids_(pdf), pmb_(pmy_dustfluids_->pmy_block), pco_(pmb_->pcoord) {
+  lu_matrix(num_species,    num_species), // The LU decomposition matrix
+  indx_array(num_species) {                // Stores the permutation
 
-  //hydro_gamma_      = pin->GetReal("hydro", "gamma");
-  DustFeedback_Flag = pin->GetBoolean("dust",     "DustFeedback_Flag");
-  integrator        = pin->GetOrAddString("time", "integrator", "vl2");
+  Explicit_Flag     = pin->GetOrAddBoolean("dust", "Explicit_Flag", false);
+  DustFeedback_Flag = pin->GetBoolean("dust",      "DustFeedback_Flag");
+  integrator        = pin->GetOrAddString("time",  "integrator",    "vl2");
 }
 
 
-void DustGasDrag::AerodynamicDrag(MeshBlock *pmb, const int stage, const Real dt,
+void DustGasDrag::DragIntegrate(const Real t_start, const Real dt, const int stage,
       const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df)
 {
-  if (integrator == "vl2") {
-    if (DustFeedback_Flag) {
-      SingleDustFeedbackImplicit(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-      //VL2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-    }
-    else {
-      SingleDustNoFeedbackImplicit(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-      //VL2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-    }
-  }
-  else if ( (integrator == "rk2") || (integrator == "rk1") ) {
+  if (Explicit_Flag) {
     if (DustFeedback_Flag)
-      RK2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
+      ExplitcitFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
     else
-      RK2ImplicitFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
-      //RK2ImplicitNoFeedback(pmb, stage, dt, stopping_time, w, prim_df, u, cons_df);
+      ExplitcitNoFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
   }
   else {
-    std::stringstream msg;
-    msg << "Right now, the time integrator of dust fluids must be \"RK1\" or \"RK2\" or \"VL2\"!" << std::endl;
-    ATHENA_ERROR(msg);
+    if (integrator == "rk1") {
+      if (DustFeedback_Flag)
+        ImplicitFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
+      else
+        ImplicitNoFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
+    }
+    else if (integrator == "vl2") {
+      if (DustFeedback_Flag)
+        TRBDF2Feedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
+      else
+        TRBDF2NoFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
+    }
+    else if (integrator == "rk2") {
+      if (DustFeedback_Flag)
+        TrapezoidFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
+      else
+        TrapezoidNoFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
+    }
+    else {
+      std::stringstream msg;
+      msg << "Right now, the time integrator of dust-gas drag must be \"RK1\" or \"RK2\" or \"VL2\"!" << std::endl;
+      ATHENA_ERROR(msg);
+    }
   }
-
   return;
 }

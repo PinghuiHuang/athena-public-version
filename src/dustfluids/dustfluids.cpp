@@ -37,13 +37,10 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   pmy_block(pmb), pco_(pmb->pcoord),
   df_cons(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_cons1(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons_n(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_prim(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_prim1(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_prim_n(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons_n(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons_p(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons_s1(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  u_s1(NHYDRO, pmb->ncells3, pmb->ncells2, pmb->ncells1),
   df_flux{{num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
             {num_dust_var, pmb->ncells3, pmb->ncells2+1, pmb->ncells1,
             (pmb->pmy_mesh->f2 ? AthenaArray<Real>::DataStatus::allocated :
@@ -67,6 +64,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   dfdrag(this, pin),
   dfdif(this,  pin),
   dfsrc(this,  pin) {
+
   int nc1 = pmb->ncells1, nc2 = pmb->ncells2, nc3 = pmb->ncells3;
   Mesh *pm = pmy_block->pmy_mesh;
   pmb->RegisterMeshBlockData(df_cons);
@@ -78,7 +76,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   if (!(dfdif.Diffusion_Flag))
     SoundSpeed_Flag = false;
 
-  for (int n=0; n<NDUSTFLUIDS; n++){
+  for (int n=0; n<NDUSTFLUIDS; ++n){
     // read the dust internal density, stopping time, nu_dust
     if (ConstStoppingTime_Flag)
       const_stopping_time_(n) = pin->GetReal("dust", "stopping_time_" + std::to_string(n+1));
@@ -123,6 +121,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   df_prim_r_.NewAthenaArray(num_dust_var,  nc1);
   df_prim_lb_.NewAthenaArray(num_dust_var, nc1);
   x1face_area_.NewAthenaArray(nc1+1);
+
   if (pm->f2) {
     x2face_area_.NewAthenaArray(nc1);
     x2face_area_p1_.NewAthenaArray(nc1);
@@ -131,6 +130,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
     x3face_area_.NewAthenaArray(nc1);
     x3face_area_p1_.NewAthenaArray(nc1);
   }
+
   cell_volume_.NewAthenaArray(nc1);
   dflx_.NewAthenaArray(num_dust_var, nc1);
 
@@ -152,8 +152,8 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
 
 void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, const int ju,
               const int il, const int iu, AthenaArray<Real> &stopping_time){
-  for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
-    int &dust_id = n;
+  for (int n=0; n<NDUSTFLUIDS; ++n) { // Calculate the stopping time array and the dust diffusivity array
+    int dust_id = n;
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
@@ -173,9 +173,9 @@ void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, 
 void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
             const int il, const int iu, const AthenaArray<Real> particle_density,
             const AthenaArray<Real> &w, AthenaArray<Real> &stopping_time){
-  for (int n=0; n<NDUSTFLUIDS; n++) { // Calculate the stopping time array and the dust diffusivity array
-    int &dust_id = n;
-    int rho_id   = 4*dust_id;
+  for (int n=0; n<NDUSTFLUIDS; ++n) { // Calculate the stopping time array and the dust diffusivity array
+    int dust_id = n;
+    int rho_id  = 4*dust_id;
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd

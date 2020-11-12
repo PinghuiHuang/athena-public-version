@@ -26,16 +26,17 @@
 #endif
 
 
-void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
+void DustGasDrag::RK2ImplicitFeedback(const int stage,
       const Real dt, const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
+  MeshBlock *pmb = pmy_dustfluids_->pmy_block;
+
   const bool f2 = pmb->pmy_mesh->f2;
   const bool f3 = pmb->pmy_mesh->f3;
 
-  Coordinates *pco = pmb->pcoord;
-  DustFluids  *pdf = pmb->pdustfluids;
+  DustFluids  *pdf = pmy_dustfluids_;
   Hydro       *ph  = pmb->phydro;
 
   AthenaArray<Real> &u_p = ph->u_p;
@@ -83,7 +84,6 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           force_x3_n.ZeroClear();
 
           jacobi_matrix_n.ZeroClear();
-
           lambda_matrix_n.ZeroClear();
           lambda_inv_matrix_n.ZeroClear();
 
@@ -192,7 +192,6 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           Real &gas_m1_p = u(IM1, k, j, i);
           Real &gas_m2_p = u(IM2, k, j, i);
           Real &gas_m3_p = u(IM3, k, j, i);
-          Real &gas_e_p  = u(IEN, k, j, i);
 
           // Add the delta momentum caused by drags on the gas conserves, u^(') -> M^(')
           gas_m1_p += delta_m1(0);
@@ -200,10 +199,12 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           gas_m3_p += delta_m3(0);
 
           // Update the energy of gas if the gas is non barotropic. dE = dM * v^(n)
-          if (NON_BAROTROPIC_EOS)
+          if (NON_BAROTROPIC_EOS) {
+            Real &gas_e_p  = u(IEN, k, j, i);
             gas_e_p += delta_m1(0)*gas_v1_n + delta_m2(0)*gas_v2_n + delta_m3(0)*gas_v3_n;
+          }
 
-          for (int n = 1; n <= NDUSTFLUIDS; n++){
+          for (int n = 1; n <= NDUSTFLUIDS; ++n){
             int dust_id = n - 1;
             int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
@@ -446,7 +447,6 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           Real &gas_m1_n1 = u(IM1, k, j, i);
           Real &gas_m2_n1 = u(IM2, k, j, i);
           Real &gas_m3_n1 = u(IM3, k, j, i);
-          Real &gas_e_n1  = u(IEN, k, j, i);
 
           // Add the delta momentum caused by drags on the gas conserves, u^(n+1) -> M^(n+1)
           gas_m1_n1 += delta_m1(0);
@@ -454,10 +454,12 @@ void DustGasDrag::RK2ImplicitFeedback(MeshBlock *pmb, const int stage,
           gas_m3_n1 += delta_m3(0);
 
           // Update the energy of gas if the gas is non barotropic.
-          if (NON_BAROTROPIC_EOS)
+          if (NON_BAROTROPIC_EOS) {
+            Real &gas_e_n1  = u(IEN, k, j, i);
             gas_e_n1 += delta_m1(0)*gas_v1_p + delta_m2(0)*gas_v2_p + delta_m3(0)*gas_v3_p;
+          }
 
-          for (int n = 1; n <= NDUSTFLUIDS; n++) {
+          for (int n = 1; n <= NDUSTFLUIDS; ++n) {
             int dust_id = n - 1;
             int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;

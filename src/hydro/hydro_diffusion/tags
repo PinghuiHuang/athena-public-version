@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AddDiffusionEnergyFlux	hydro_diffusion.cpp	/^void HydroDiffusion::AddDiffusionEnergyFlux(AthenaArray<Real> *flux_src,$/;"	f	class:HydroDiffusion
 AddDiffusionFlux	hydro_diffusion.cpp	/^void HydroDiffusion::AddDiffusionFlux(AthenaArray<Real> *flux_src,$/;"	f	class:HydroDiffusion
 CalcCondCoeff_	hydro_diffusion.hpp	/^  ConductionCoeffFunc CalcCondCoeff_;$/;"	m	class:HydroDiffusion
@@ -12,7 +12,7 @@ CalcViscCoeff_	hydro_diffusion.hpp	/^  ViscosityCoeffFunc CalcViscCoeff_;$/;"	m	
 ClearFlux	hydro_diffusion.cpp	/^void HydroDiffusion::ClearFlux(AthenaArray<Real> *flux) {$/;"	f	class:HydroDiffusion
 ConstConduction	conduction.cpp	/^void ConstConduction(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,$/;"	f
 ConstViscosity	viscosity.cpp	/^void ConstViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,$/;"	f
-DiffProcess	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2}; \/\/ TODO: PH: I added the third index "alpha" for alpha disk model.$/;"	g	class:HydroDiffusion
+DiffProcess	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2};$/;"	g	class:HydroDiffusion
 DivVelocity	viscosity.cpp	/^void HydroDiffusion::DivVelocity(const AthenaArray<Real> &prim,$/;"	f	class:HydroDiffusion
 FaceXdx	viscosity.cpp	/^void HydroDiffusion::FaceXdx(const int k, const int j, const int il, const int iu,$/;"	f	class:HydroDiffusion
 FaceXdy	viscosity.cpp	/^void HydroDiffusion::FaceXdy(const int k, const int j, const int il, const int iu,$/;"	f	class:HydroDiffusion
@@ -24,7 +24,7 @@ FaceZdx	viscosity.cpp	/^void HydroDiffusion::FaceZdx(const int k, const int j, c
 FaceZdy	viscosity.cpp	/^void HydroDiffusion::FaceZdy(const int k, const int j, const int il, const int iu,$/;"	f	class:HydroDiffusion
 FaceZdz	viscosity.cpp	/^void HydroDiffusion::FaceZdz(const int k, const int j, const int il, const int iu,$/;"	f	class:HydroDiffusion
 GetCylCoord	viscosity.cpp	/^void GetCylCoord(Coordinates *pco,Real &rad,Real &phi,Real &z,int i,int j,int k) {$/;"	f
-HYDRO_HYDRO_DIFFUSION_HYDRO_DIFFUSION_HPP_	hydro_diffusion.hpp	/^#define HYDRO_HYDRO_DIFFUSION_HYDRO_DIFFUSION_HPP_$/;"	d
+HYDRO_HYDRO_DIFFUSION_HYDRO_DIFFUSION_HPP_	hydro_diffusion.hpp	2;"	d
 HydroDiffusion	hydro_diffusion.cpp	/^HydroDiffusion::HydroDiffusion(Hydro *phyd, ParameterInput *pin) :$/;"	f	class:HydroDiffusion
 HydroDiffusion	hydro_diffusion.hpp	/^class HydroDiffusion {$/;"	c
 NewDiffusionDt	hydro_diffusion.cpp	/^void HydroDiffusion::NewDiffusionDt(Real &dt_vis, Real &dt_cnd) {$/;"	f	class:HydroDiffusion
@@ -34,8 +34,9 @@ ThermalFluxIso	conduction.cpp	/^void HydroDiffusion::ThermalFluxIso($/;"	f	class
 ViscousFluxAlpha	viscosity.cpp	/^void HydroDiffusion::ViscousFluxAlpha(const AthenaArray<Real> &prim,$/;"	f	class:HydroDiffusion
 ViscousFluxAniso	viscosity.cpp	/^void HydroDiffusion::ViscousFluxAniso(const AthenaArray<Real> &prim,$/;"	f	class:HydroDiffusion
 ViscousFluxIso	viscosity.cpp	/^void HydroDiffusion::ViscousFluxIso(const AthenaArray<Real> &prim,$/;"	f	class:HydroDiffusion
-alpha	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2}; \/\/ TODO: PH: I added the third index "alpha" for alpha disk model.$/;"	e	enum:HydroDiffusion::DiffProcess
-aniso	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2}; \/\/ TODO: PH: I added the third index "alpha" for alpha disk model.$/;"	e	enum:HydroDiffusion::DiffProcess
+alpha	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2};$/;"	e	enum:HydroDiffusion::DiffProcess
+alpha_disk_model	hydro_diffusion.hpp	/^  bool alpha_disk_model;           \/\/ true or false$/;"	m	class:HydroDiffusion
+aniso	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2};$/;"	e	enum:HydroDiffusion::DiffProcess
 cndflx	hydro_diffusion.hpp	/^  AthenaArray<Real> cndflx[3]; \/\/ thermal stress tensor$/;"	m	class:HydroDiffusion
 div_vel_	hydro_diffusion.hpp	/^  AthenaArray<Real> div_vel_; \/\/ divergence of velocity$/;"	m	class:HydroDiffusion
 dx1_	hydro_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_;$/;"	m	class:HydroDiffusion
@@ -44,25 +45,25 @@ dx3_	hydro_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_;$/;"	m	class:Hyd
 fx_	hydro_diffusion.hpp	/^  AthenaArray<Real> fx_, fy_, fz_;$/;"	m	class:HydroDiffusion
 fy_	hydro_diffusion.hpp	/^  AthenaArray<Real> fx_, fy_, fz_;$/;"	m	class:HydroDiffusion
 fz_	hydro_diffusion.hpp	/^  AthenaArray<Real> fx_, fy_, fz_;$/;"	m	class:HydroDiffusion
-hydro_diffusion_defined	hydro_diffusion.hpp	/^  bool hydro_diffusion_defined;$/;"	m	class:HydroDiffusion
-iso	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2}; \/\/ TODO: PH: I added the third index "alpha" for alpha disk model.$/;"	e	enum:HydroDiffusion::DiffProcess
-kappa	hydro_diffusion.hpp	/^  AthenaArray<Real> kappa; \/\/ conduction array$/;"	m	class:HydroDiffusion
+hydro_diffusion_defined	hydro_diffusion.hpp	/^  bool hydro_diffusion_defined;    \/\/ true or false$/;"	m	class:HydroDiffusion
+iso	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2};$/;"	e	enum:HydroDiffusion::DiffProcess
+kappa	hydro_diffusion.hpp	/^  AthenaArray<Real> kappa;     \/\/ conduction array$/;"	m	class:HydroDiffusion
 kappa_aniso	hydro_diffusion.hpp	/^  Real kappa_iso, kappa_aniso; \/\/ thermal conduction coeff$/;"	m	class:HydroDiffusion
 kappa_iso	hydro_diffusion.hpp	/^  Real kappa_iso, kappa_aniso; \/\/ thermal conduction coeff$/;"	m	class:HydroDiffusion
 kappa_tot_	hydro_diffusion.hpp	/^  AthenaArray<Real> nu_tot_, kappa_tot_;$/;"	m	class:HydroDiffusion
-nu	hydro_diffusion.hpp	/^  AthenaArray<Real> nu; \/\/ viscosity array$/;"	m	class:HydroDiffusion
+nu	hydro_diffusion.hpp	/^  AthenaArray<Real> nu;            \/\/ viscosity array$/;"	m	class:HydroDiffusion
 nu_alpha	hydro_diffusion.hpp	/^  Real nu_iso, nu_aniso, nu_alpha; \/\/ viscosity coeff$/;"	m	class:HydroDiffusion
 nu_aniso	hydro_diffusion.hpp	/^  Real nu_iso, nu_aniso, nu_alpha; \/\/ viscosity coeff$/;"	m	class:HydroDiffusion
 nu_iso	hydro_diffusion.hpp	/^  Real nu_iso, nu_aniso, nu_alpha; \/\/ viscosity coeff$/;"	m	class:HydroDiffusion
 nu_tot_	hydro_diffusion.hpp	/^  AthenaArray<Real> nu_tot_, kappa_tot_;$/;"	m	class:HydroDiffusion
-p0_over_r0	hydro_diffusion.hpp	/^  Real r0, pslope, p0_over_r0; \/\/ The length unit r0, temperature slope, temperatue at r0 in disk problem$/;"	m	class:HydroDiffusion
+p0_over_r0	hydro_diffusion.hpp	/^  Real r0, pslope, p0_over_r0;     \/\/ The length unit r0, temperature slope, temperatue at r0 in disk problem$/;"	m	class:HydroDiffusion
 pco_	hydro_diffusion.hpp	/^  Coordinates *pco_;  \/\/ ptr to coordinates class$/;"	m	class:HydroDiffusion
 phyd	hydro_diffusion.cpp	/^  pmy_hydro_(phyd), pmb_(pmy_hydro_->pmy_block), pco_(pmb_->pcoord) {$/;"	v
 pmb_	hydro_diffusion.hpp	/^  MeshBlock *pmb_;    \/\/ ptr to meshblock containing this HydroDiffusion$/;"	m	class:HydroDiffusion
 pmy_hydro_	hydro_diffusion.hpp	/^  Hydro *pmy_hydro_;  \/\/ ptr to Hydro containing this HydroDiffusion$/;"	m	class:HydroDiffusion
-pslope	hydro_diffusion.hpp	/^  Real r0, pslope, p0_over_r0; \/\/ The length unit r0, temperature slope, temperatue at r0 in disk problem$/;"	m	class:HydroDiffusion
-r0	hydro_diffusion.hpp	/^  Real r0, pslope, p0_over_r0; \/\/ The length unit r0, temperature slope, temperatue at r0 in disk problem$/;"	m	class:HydroDiffusion
-visflx	hydro_diffusion.hpp	/^  AthenaArray<Real> visflx[3]; \/\/ viscous stress tensor$/;"	m	class:HydroDiffusion
+pslope	hydro_diffusion.hpp	/^  Real r0, pslope, p0_over_r0;     \/\/ The length unit r0, temperature slope, temperatue at r0 in disk problem$/;"	m	class:HydroDiffusion
+r0	hydro_diffusion.hpp	/^  Real r0, pslope, p0_over_r0;     \/\/ The length unit r0, temperature slope, temperatue at r0 in disk problem$/;"	m	class:HydroDiffusion
+visflx	hydro_diffusion.hpp	/^  AthenaArray<Real> visflx[3];     \/\/ viscous stress tensor$/;"	m	class:HydroDiffusion
 vol_	hydro_diffusion.hpp	/^  AthenaArray<Real> vol_;$/;"	m	class:HydroDiffusion
 x1area_	hydro_diffusion.hpp	/^  AthenaArray<Real> x1area_, x2area_, x2area_p1_, x3area_, x3area_p1_;$/;"	m	class:HydroDiffusion
 x2area_	hydro_diffusion.hpp	/^  AthenaArray<Real> x1area_, x2area_, x2area_p1_, x3area_, x3area_p1_;$/;"	m	class:HydroDiffusion

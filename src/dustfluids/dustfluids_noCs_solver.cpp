@@ -43,7 +43,7 @@ void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const
   Real df_prim_li[(num_dust_var)], df_prim_ri[(num_dust_var)], df_prim_roe[(num_dust_var)];
   Real df_fl[(num_dust_var)],      df_fr[(num_dust_var)],      df_flxi[(num_dust_var)];
 
-  for (int n=0; n<NDUSTFLUIDS; n++) {
+  for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
     int rho_id  = 4*dust_id;
     int ivx     = (IVX + ((index-IVX))%3)   + rho_id;
@@ -51,8 +51,8 @@ void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const
     int ivz     = (IVX + ((index-IVX)+2)%3) + rho_id;
 #pragma omp simd private(df_prim_li, df_prim_ri, df_prim_roe, df_fl, df_fr, df_flxi)
     for (int i=il; i<=iu; ++i) {
-      const Real &nu_d   = nu_dustfluids_array(dust_id, k, j, i);
 
+      //Load L/R states into local variables
       df_prim_li[rho_id] = df_prim_l(rho_id, i);
       df_prim_li[ivx]    = df_prim_l(ivx,    i);
       df_prim_li[ivy]    = df_prim_l(ivy,    i);
@@ -71,6 +71,7 @@ void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const
 
       df_prim_roe[rho_id] = sqrtdl*sqrtdr;
       df_prim_roe[ivx]    = (sqrtdl*df_prim_li[ivx] + sqrtdr*df_prim_ri[ivx])*isdlpdr;
+
       //Compute the max/min wave speeds based on L/R and Roe-averaged values
       Real al = std::min(df_prim_roe[ivx],df_prim_li[ivx]);
       Real ar = std::max(df_prim_roe[ivx],df_prim_ri[ivx]);

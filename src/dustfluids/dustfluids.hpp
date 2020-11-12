@@ -43,12 +43,11 @@ class DustFluids {
 
     // public data:
     // "conservative vars" = density, momentums of dust fluids
-    AthenaArray<Real> df_cons, df_cons1, df_cons2, df_cons_n, df_cons_p; // time-integrator memory register #1
-    AthenaArray<Real> df_cons_s1; // time-integrator memory register at stage 1
-    AthenaArray<Real> u_s1;       // time-integrator memory register at stage 1
+    AthenaArray<Real> df_cons, df_cons1, df_cons2, df_cons_n; // time-integrator memory register #1
+
     // "primitive vars" = density, velocities of dust fluids
-    AthenaArray<Real> df_prim, df_prim1, df_prim_n;          // time-integrator memory register #3
-    AthenaArray<Real> df_flux[3];                            // face-averaged flux vector
+    AthenaArray<Real> df_prim, df_prim1, df_prim_n;  // time-integrator memory register #3
+    AthenaArray<Real> df_flux[3];                    // face-averaged flux vector
 
     AthenaArray<Real> stopping_time_array;      // Arrays of stopping time of dust
     AthenaArray<Real> nu_dustfluids_array;      // Arrays of dust diffusivity array, nu_d
@@ -77,7 +76,6 @@ class DustFluids {
 
 
     // Public functions:
-
     // Stopping time
     // Calculate the user defined stopping time, varied with the properties of gas and dust
     void UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
@@ -113,13 +111,15 @@ class DustFluids {
 
 
   private:
-    static const int num_dust_var = 4*NDUSTFLUIDS; // Number of dust variables (rho, v1, v2, v3)*4
+    // Number of dust variables (rho, v1, v2, v3)*4
+    static const int num_dust_var = 4*NDUSTFLUIDS;
+    Coordinates *pco_;    // ptr to coordinates class
 
-    Coordinates *pco_;            // ptr to coordinates class
     // scratch space used to compute fluxes
     // 2D scratch arrays
     AthenaArray<Real> dt1_, dt2_, dt3_;                     // scratch arrays used in NewAdvectionDt
     AthenaArray<Real> df_prim_l_, df_prim_r_, df_prim_lb_;  // left and right states in reconstruction
+
     // 1D scratch arrays
     AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_; // face area in x1, x2, x3 directions
     AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;
@@ -129,7 +129,7 @@ class DustFluids {
 
     // fourth-order
     // 4D scratch arrays
-    AthenaArray<Real> scr1_nkji_, scr2_nkji_;
+    AthenaArray<Real> scr1_nkji_,   scr2_nkji_;
     AthenaArray<Real> df_prim_l3d_, df_prim_r3d_;
     // 1D scratch arrays
     AthenaArray<Real> laplacian_l_df_fc_, laplacian_r_df_fc_;

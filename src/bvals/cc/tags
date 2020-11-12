@@ -3,12 +3,12 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AddHydroShearForInit	hydro/bvals_shear_hydro.cpp	/^void HydroBoundaryVariable::AddHydroShearForInit() {$/;"	f	class:HydroBoundaryVariable
 ApplyPhysicalBoundaries	mg/bvals_mg.cpp	/^void MGBoundaryValues::ApplyPhysicalBoundaries() {$/;"	f	class:MGBoundaryValues
-BVALS_CC_BVALS_CC_HPP_	bvals_cc.hpp	/^#define BVALS_CC_BVALS_CC_HPP_$/;"	d
-BVALS_CC_HYDRO_BVALS_HYDRO_HPP_	hydro/bvals_hydro.hpp	/^#define BVALS_CC_HYDRO_BVALS_HYDRO_HPP_$/;"	d
-BVALS_CC_MG_BVALS_MG_HPP_	mg/bvals_mg.hpp	/^#define BVALS_CC_MG_BVALS_MG_HPP_$/;"	d
+BVALS_CC_BVALS_CC_HPP_	bvals_cc.hpp	2;"	d
+BVALS_CC_HYDRO_BVALS_HYDRO_HPP_	hydro/bvals_hydro.hpp	2;"	d
+BVALS_CC_MG_BVALS_MG_HPP_	mg/bvals_mg.hpp	2;"	d
 CellCenteredBoundaryVariable	bvals_cc.cpp	/^CellCenteredBoundaryVariable::CellCenteredBoundaryVariable($/;"	f	class:CellCenteredBoundaryVariable
 CellCenteredBoundaryVariable	bvals_cc.hpp	/^class CellCenteredBoundaryVariable : public BoundaryVariable {$/;"	c
 ClearBoundary	bvals_cc.cpp	/^void CellCenteredBoundaryVariable::ClearBoundary(BoundaryCommSubset phase) {$/;"	f	class:CellCenteredBoundaryVariable

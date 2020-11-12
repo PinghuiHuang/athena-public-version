@@ -51,10 +51,10 @@ void DustGasDrag::Multiplication(const AthenaArray<Real> &a_matrix,
 
     c_matrix.ZeroClear();
 
-    for(int m=0; m<m_a; m++) {
-      for(int n=0; n<n_b; n++) {
+    for(int m=0; m<m_a; ++m) {
+      for(int n=0; n<n_b; ++n) {
 #pragma omp simd
-        for(int s=0; s<m_b; s++) {
+        for(int s=0; s<m_b; ++s) {
           c_matrix(m,n) += a_matrix(m,s)*b_matrix(s,n);
         }
       }
@@ -68,14 +68,13 @@ void DustGasDrag::Multiplication(const AthenaArray<Real> &a_matrix,
     }
 
     c_matrix.ZeroClear();
-    for(int m=0; m<m_a; m++) {
+    for(int m=0; m<m_a; ++m) {
 #pragma omp simd
-      for(int n=0; n<n_b; n++) {
+      for(int n=0; n<n_b; ++n) {
         c_matrix(n) += a_matrix(m,n)*b_matrix(n);
       }
     }
   }
-
   return;
 }
 
@@ -96,9 +95,9 @@ void DustGasDrag::Multiplication(const Real a_num, const AthenaArray<Real> &b_ma
   }
 
 	c_matrix.ZeroClear();
-  for(int m=0; m<m_b; m++) {
+  for(int m=0; m<m_b; ++m) {
 #pragma omp simd
-    for(int n=0; n<n_c; n++) {
+    for(int n=0; n<n_c; ++n) {
 			c_matrix(m,n) = a_num*b_matrix(m,n);
 		}
 	}
@@ -111,9 +110,9 @@ void DustGasDrag::Multiplication(const Real a_num, AthenaArray<Real> &b_matrix)
   const int m_b = b_matrix.GetDim2();
   const int n_b = b_matrix.GetDim1();
 
-  for(int m=0; m<m_b; m++) {
+  for(int m=0; m<m_b; ++m) {
 #pragma omp simd
-    for(int n=0; n<n_b; n++) {
+    for(int n=0; n<n_b; ++n) {
 			b_matrix(m,n) *= a_num;
 		}
 	}

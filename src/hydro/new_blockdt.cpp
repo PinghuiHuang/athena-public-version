@@ -152,14 +152,13 @@ void Hydro::NewBlockTimeStep() {
     min_dt_hyperbolic = std::min(min_dt_hyperbolic, min_dt_hall);
   } // field diffusion
 
-
   if (NDUSTFLUIDS > 0) {
     // dust fluids advection
     DustFluids *pdf           = pmb->pdustfluids;
     Real min_dt_hyperbolic_df = pdf->NewAdvectionDt();
     min_dt_hyperbolic         = std::min(min_dt_hyperbolic, min_dt_hyperbolic_df);
 
-   // dust fluids diffusion
+  // dust fluids diffusion
     if (pdf->dfdif.dustfluids_diffusion_defined) {
       Real min_dt_parabolic_df = pdf->dfdif.NewDiffusionDt();
       min_dt_parabolic         = std::min(min_dt_parabolic, min_dt_parabolic_df);

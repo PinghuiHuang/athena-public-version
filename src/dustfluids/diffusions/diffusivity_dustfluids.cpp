@@ -52,8 +52,8 @@ void DustFluidsDiffusion::ConstantDustDiffusivity(const AthenaArray<Real> &nu_ga
   const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
   const AthenaArray<Real> &stopping_time,
   AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs){
-  for (int n=0; n<NDUSTFLUIDS; n++) {
-    int &dust_id = n;
+  for (int n=0; n<NDUSTFLUIDS; ++n) {
+    int dust_id = n;
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
@@ -88,8 +88,8 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
             const AthenaArray<Real> &stopping_time,
             AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs){
 
-  Hydro *phyd        = pmb_->phydro;
-  HydroDiffusion &hd = phyd->hdif;
+  Hydro          *phyd = pmb_->phydro;
+  HydroDiffusion &hd   = phyd->hdif;
 
   if (hd.nu_alpha == 0.0 && hd.nu_iso == 0.0 && hd.nu_aniso == 0) {
     std::stringstream msg;
@@ -100,11 +100,11 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
   }
 
   // Disk problems and Shakura & Sunyaev (1973) viscoisty profile are used.
-  bool alpha_disk_model = ((hd.nu_alpha > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0));
+  bool alpha_disk_model = ((hd.nu_alpha > 0.0) && (disk_problem));
 
   if (alpha_disk_model){
     for (int n=0; n<NDUSTFLUIDS; n++) {
-      int &dust_id = n;
+      int dust_id = n;
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
@@ -122,9 +122,9 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
       }
     }
   }
-  else if ((hd.nu_iso > 0.0) && (std::strcmp(PROBLEM_GENERATOR, "disk") == 0)){ // if nu_iso >0 and disk problem used
+  else if ((hd.nu_iso > 0.0) && (disk_problem)) { // if nu_iso >0 and disk problem used
     for (int n=0; n<NDUSTFLUIDS; n++) {
-      int &dust_id = n;
+      int dust_id = n;
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
@@ -144,7 +144,7 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
   }
   else if ((hd.nu_iso > 0.0)){
     for (int n=0; n<NDUSTFLUIDS; n++) {
-      int &dust_id = n;
+      int dust_id = n;
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
@@ -164,7 +164,7 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
   }
   else {
     for (int n=0; n<NDUSTFLUIDS; n++) {
-      int &dust_id = n;
+      int dust_id = n;
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd

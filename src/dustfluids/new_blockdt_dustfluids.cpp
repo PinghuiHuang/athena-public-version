@@ -50,7 +50,7 @@ Real DustFluids::NewAdvectionDt() {
   Real min_dt_hyperbolic_df  = real_max;
 
   FluidFormulation fluid_status = pmb->pmy_mesh->fluid_setup;
-  for (int n=0; n<NDUSTFLUIDS; n++){
+  for (int n=0; n<NDUSTFLUIDS; ++n){
     int dust_id = n;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;

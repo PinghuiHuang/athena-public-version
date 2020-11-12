@@ -42,8 +42,8 @@ class Hydro {
   // conserved and primitive variables
   AthenaArray<Real> u, w;           // time-integrator memory register #1
   AthenaArray<Real> u1, w1;         // time-integrator memory register #2
-  AthenaArray<Real> u_n, u_p, w_n;  // time-integrator memory register for dust-gas drag
   AthenaArray<Real> u2;             // time-integrator memory register #3
+  AthenaArray<Real> u_n, w_n;       // time-integrator memory register for dust-gas drag
   // (no more than MAX_NREGISTER allowed)
 
   AthenaArray<Real> flux[3];  // face-averaged flux vector

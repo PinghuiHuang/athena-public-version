@@ -3,14 +3,14 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AddHydroSourceTerms	hydro_srcterms.cpp	/^void HydroSourceTerms::AddHydroSourceTerms(const Real time, const Real dt,$/;"	f	class:HydroSourceTerms
 ConstantAcceleration	constant_acc.cpp	/^void HydroSourceTerms::ConstantAcceleration(const Real dt,const AthenaArray<Real> *flux,$/;"	f	class:HydroSourceTerms
 GetG1	hydro_srcterms.hpp	/^  Real GetG1() const {return g1_;}$/;"	f	class:HydroSourceTerms
 GetG2	hydro_srcterms.hpp	/^  Real GetG2() const {return g2_;}$/;"	f	class:HydroSourceTerms
 GetG3	hydro_srcterms.hpp	/^  Real GetG3() const {return g3_;}$/;"	f	class:HydroSourceTerms
 GetGM	hydro_srcterms.hpp	/^  Real GetGM() const {return gm_;}$/;"	f	class:HydroSourceTerms
-HYDRO_SRCTERMS_HYDRO_SRCTERMS_HPP_	hydro_srcterms.hpp	/^#define HYDRO_SRCTERMS_HYDRO_SRCTERMS_HPP_$/;"	d
+HYDRO_SRCTERMS_HYDRO_SRCTERMS_HPP_	hydro_srcterms.hpp	2;"	d
 HydroSourceTerms	hydro_srcterms.cpp	/^HydroSourceTerms::HydroSourceTerms(Hydro *phyd, ParameterInput *pin) {$/;"	f	class:HydroSourceTerms
 HydroSourceTerms	hydro_srcterms.hpp	/^class HydroSourceTerms {$/;"	c
 Omega_0_	hydro_srcterms.hpp	/^  Real Omega_0_, qshear_; \/\/ Orbital freq and shear rate$/;"	m	class:HydroSourceTerms

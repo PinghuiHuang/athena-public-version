@@ -58,7 +58,7 @@ void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real
   }
 
   // i-direction loop
-  for (int n=0; n<NDUSTFLUIDS; n++) {
+  for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
@@ -104,7 +104,7 @@ void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real
   }
 
   if (f2) { // 2D or 3D
-    for (int n=0; n<NDUSTFLUIDS; n++) {
+    for (int n=0; n<NDUSTFLUIDS; ++n) {
       int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
@@ -150,7 +150,7 @@ void DustFluidsDiffusion::DustFluidsMomentumDiffusiveFlux(const AthenaArray<Real
   }
 
   if (f3) { // 3D
-    for (int n=0; n<NDUSTFLUIDS; n++) {
+    for (int n=0; n<NDUSTFLUIDS; ++n) {
       int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
