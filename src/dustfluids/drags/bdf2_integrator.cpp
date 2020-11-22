@@ -26,7 +26,7 @@
 #endif
 
 
-void DustGasDrag::TRBDF2Feedback(const int stage,
+void DustGasDrag::BDF2Feedback(const int stage,
       const Real dt, const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
@@ -47,10 +47,6 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
     AthenaArray<Real> force_x2(num_species);
     AthenaArray<Real> force_x3(num_species);
 
-    AthenaArray<Real> delta_m1_explicit(num_species);
-    AthenaArray<Real> delta_m2_explicit(num_species);
-    AthenaArray<Real> delta_m3_explicit(num_species);
-
     AthenaArray<Real> delta_m1_implicit(num_species);
     AthenaArray<Real> delta_m2_implicit(num_species);
     AthenaArray<Real> delta_m3_implicit(num_species);
@@ -66,10 +62,6 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
           force_x1.ZeroClear();
           force_x2.ZeroClear();
           force_x3.ZeroClear();
-
-          delta_m1_explicit.ZeroClear();
-          delta_m2_explicit.ZeroClear();
-          delta_m3_explicit.ZeroClear();
 
           delta_m1_implicit.ZeroClear();
           delta_m2_implicit.ZeroClear();
@@ -119,12 +111,6 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
             force_x3(0) -= force_x3(index);
           }
 
-          for (int n=0; n<=NDUSTFLUIDS; ++n) {
-            delta_m1_explicit(n) = force_x1(n) * dt;
-            delta_m2_explicit(n) = force_x2(n) * dt;
-            delta_m3_explicit(n) = force_x3(n) * dt;
-          }
-
           // Calculate the jacobi matrix of the drag forces, df/dM
           // Set the jacobi_matrix_n(0, row), except jacobi_matrix_n(0, 0)
           for (int row = 1; row<=NDUSTFLUIDS; ++row) {
@@ -171,9 +157,9 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
           Real &gas_m2 = u(IM2, k, j, i);
           Real &gas_m3 = u(IM3, k, j, i);
 
-          Real delta_gas_m1 = 0.5*(delta_m1_explicit(0) + delta_m1_implicit(0));
-          Real delta_gas_m2 = 0.5*(delta_m2_explicit(0) + delta_m2_implicit(0));
-          Real delta_gas_m3 = 0.5*(delta_m3_explicit(0) + delta_m3_implicit(0));
+          Real delta_gas_m1 = delta_m1_implicit(0);
+          Real delta_gas_m2 = delta_m2_implicit(0);
+          Real delta_gas_m3 = delta_m3_implicit(0);
 
           gas_m1 += delta_gas_m1;
           gas_m2 += delta_gas_m2;
@@ -197,9 +183,9 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
             Real &dust_m2 = cons_df(v2_id, k, j, i);
             Real &dust_m3 = cons_df(v3_id, k, j, i);
 
-            Real delta_dust_m1 = 0.5*(delta_m1_explicit(n) + delta_m1_implicit(n));
-            Real delta_dust_m2 = 0.5*(delta_m2_explicit(n) + delta_m2_implicit(n));
-            Real delta_dust_m3 = 0.5*(delta_m3_explicit(n) + delta_m3_implicit(n));
+            Real delta_dust_m1 = delta_m1_implicit(n);
+            Real delta_dust_m2 = delta_m2_implicit(n);
+            Real delta_dust_m3 = delta_m3_implicit(n);
 
             dust_m1 += delta_dust_m1;
             dust_m2 += delta_dust_m2;
@@ -390,7 +376,8 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
   return;
 }
 
-void DustGasDrag::TRBDF2NoFeedback(const int stage,
+
+void DustGasDrag::BDF2NoFeedback(const int stage,
       const Real dt, const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
@@ -411,10 +398,6 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
     AthenaArray<Real> force_x2(num_species);
     AthenaArray<Real> force_x3(num_species);
 
-    AthenaArray<Real> delta_m1_explicit(num_species);
-    AthenaArray<Real> delta_m2_explicit(num_species);
-    AthenaArray<Real> delta_m3_explicit(num_species);
-
     AthenaArray<Real> delta_m1_implicit(num_species);
     AthenaArray<Real> delta_m2_implicit(num_species);
     AthenaArray<Real> delta_m3_implicit(num_species);
@@ -430,10 +413,6 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
           force_x1.ZeroClear();
           force_x2.ZeroClear();
           force_x3.ZeroClear();
-
-          delta_m1_explicit.ZeroClear();
-          delta_m2_explicit.ZeroClear();
-          delta_m3_explicit.ZeroClear();
 
           delta_m1_implicit.ZeroClear();
           delta_m2_implicit.ZeroClear();
@@ -477,12 +456,6 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
             force_x3(index) = epsilon * alpha * gas_mom3 - alpha * dust_mom3;
           }
 
-          for (int n=0; n<=NDUSTFLUIDS; ++n) {
-            delta_m1_explicit(n) = force_x1(n) * dt;
-            delta_m2_explicit(n) = force_x2(n) * dt;
-            delta_m3_explicit(n) = force_x3(n) * dt;
-          }
-
           // Calculate the jacobi matrix of the drag forces, df/dM
           // Set the jacobi_matrix(col, 0), except jacobi_matrix(0, 0)
           for (int col = 1; col<=NDUSTFLUIDS; ++col) {
@@ -521,9 +494,9 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
             Real &dust_m2 = cons_df(v2_id, k, j, i);
             Real &dust_m3 = cons_df(v3_id, k, j, i);
 
-            Real delta_dust_m1 = 0.5*(delta_m1_explicit(n) + delta_m1_implicit(n));
-            Real delta_dust_m2 = 0.5*(delta_m2_explicit(n) + delta_m2_implicit(n));
-            Real delta_dust_m3 = 0.5*(delta_m3_explicit(n) + delta_m3_implicit(n));
+            Real delta_dust_m1 = delta_m1_implicit(n);
+            Real delta_dust_m2 = delta_m2_implicit(n);
+            Real delta_dust_m3 = delta_m3_implicit(n);
 
             dust_m1 += delta_dust_m1;
             dust_m2 += delta_dust_m2;

@@ -13,14 +13,22 @@ DustGasDrag	dust_gas_drag.hpp	/^class DustGasDrag {$/;"	c
 InverseMatrix	LU_decompose.cpp	/^AthenaArray<Real> DustGasDrag::InverseMatrix(AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
 IterativeImprove	LU_decompose.cpp	/^void DustGasDrag::IterativeImprove(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector)$/;"	f	class:DustGasDrag
 LUdecompose	LU_decompose.cpp	/^void DustGasDrag::LUdecompose(const AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
+MultipleDustFeedbackImplicit	multipledust_implicit_integrator.cpp	/^void DustGasDrag::MultipleDustFeedbackImplicit(const int stage,$/;"	f	class:DustGasDrag
+MultipleDustNoFeedbackImplicit	multipledust_implicit_integrator.cpp	/^void DustGasDrag::MultipleDustNoFeedbackImplicit(const int stage,$/;"	f	class:DustGasDrag
 MultipleDust_Feedback_Implicit	solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 MultipleDust_NoFeedback_Implicit	solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
+RK2ImplicitFeedback	rk2_time_integrator.cpp	/^void DustGasDrag::RK2ImplicitFeedback(const int stage,$/;"	f	class:DustGasDrag
+SingleDustFeedbackImplicit	singledust_implicit_integrator.cpp	/^void DustGasDrag::SingleDustFeedbackImplicit(const int stage, const Real dt,$/;"	f	class:DustGasDrag
+SingleDustNoFeedbackImplicit	singledust_implicit_integrator.cpp	/^void DustGasDrag::SingleDustNoFeedbackImplicit(const int stage, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_Feedback_Implicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_Feedback_SemiImplicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_NoFeedback_Implicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_NoFeedback_SemiImplicit	solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback_SemiImplicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SolveLinearEquation	LU_decompose.cpp	/^void DustGasDrag::SolveLinearEquation(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector)$/;"	f	class:DustGasDrag
 SolveMultipleLinearEquation	LU_decompose.cpp	/^void DustGasDrag::SolveMultipleLinearEquation(AthenaArray<Real> &b_matrix, AthenaArray<Real> &x_matrix)$/;"	f	class:DustGasDrag
+TRBDF2Feedback	trbdf2_integrator.cpp	/^void DustGasDrag::TRBDF2Feedback(const int stage,$/;"	f	class:DustGasDrag
+TrapezoidFeedback	trapezoid_integrator.cpp	/^void DustGasDrag::TrapezoidFeedback(const int stage,$/;"	f	class:DustGasDrag
+VL2ImplicitFeedback	vl2_time_integrator.cpp	/^void DustGasDrag::VL2ImplicitFeedback(const int stage,$/;"	f	class:DustGasDrag
 aref_matrix	dust_gas_drag.hpp	/^    AthenaArray<Real> aref_matrix;$/;"	m	class:DustGasDrag
 det	dust_gas_drag.hpp	/^    Real det;                       \/\/ The determinant of the matrix of drags$/;"	m	class:DustGasDrag
 drags_matrix	dust_gas_drag.hpp	/^    AthenaArray<Real> drags_matrix; \/\/ The matrix of drags between dust and gas$/;"	m	class:DustGasDrag

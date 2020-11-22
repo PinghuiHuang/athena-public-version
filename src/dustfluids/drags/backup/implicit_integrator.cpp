@@ -73,32 +73,32 @@ void DustGasDrag::ImplicitFeedback(const int stage, const Real dt,
         delta_v2_implicit.ZeroClear();
         delta_v3_implicit.ZeroClear();
 
-        //Set the jacobi_matrix(0, col), except jacobi_matrix(0, 0)
-        for (int col = 1; col <= NDUSTFLUIDS; ++col) {
-          int dust_id           = col - 1;
-          int rho_id            = 4 * dust_id;
-          const Real &dust_rho  = prim_df(rho_id, k, j, i);
-          jacobi_matrix(0, col) = dust_rho/gas_rho * 1.0/(stopping_time(dust_id, k, j, i) + TINY_NUMBER);
-        }
+          // Set the jacobi_matrix_n(0, row), except jacobi_matrix_n(0, 0)
+          for (int row = 1; row<=NDUSTFLUIDS; ++row) {
+            int dust_id           = row - 1;
+            int rho_id            = 4*dust_id;
+            const Real &dust_d    = prim_df(rho_id, k, j, i);
+            const Real &gas_d     = w(IDN, k, j, i);
+            jacobi_matrix(0, row) = dust_d/gas_d * 1.0/(stopping_time(dust_id,k,j,i) + TINY_NUMBER);
+          }
 
-        //Set the jacobi_matrix(row, 0), except jacobi_matrix(0, 0)
-        for (int row = 1; row <= NDUSTFLUIDS; ++row) {
-          int dust_id           = row - 1;
-          jacobi_matrix(row, 0) = 1.0/(stopping_time(dust_id, k, j, i) + TINY_NUMBER);
-        }
+          // Set the jacobi_matrix(col, 0), except jacobi_matrix(0, 0)
+          for (int col = 1; col<=NDUSTFLUIDS; ++col) {
+            int dust_id           = col - 1;
+            jacobi_matrix(col, 0) = 1.0/(stopping_time(dust_id,k,j,i) + TINY_NUMBER);
+          }
 
-        //Set the jacobi_matrix(0, 0)
-        for (int dust_id = 0; dust_id < NDUSTFLUIDS; ++dust_id) {
-          int rho_id            = 4 * dust_id;
-          const Real &dust_rho  = prim_df(rho_id, k, j, i);
-          jacobi_matrix(0, 0)  -= dust_rho/gas_rho * 1.0/(stopping_time(dust_id, k, j, i) + TINY_NUMBER);
-        }
+          // Set the jacobi_matrix(0,0)
+          for (int dust_id = 0; dust_id < NDUSTFLUIDS; ++dust_id) {
+            int row              = dust_id + 1;
+            jacobi_matrix(0, 0) -= jacobi_matrix(0, row);
+          }
 
-        //Set the other pivots, except jacobi_matrix(0, 0)
-        for (int pivot = 1; pivot <= NDUSTFLUIDS; ++pivot) {
-          int dust_id                 = pivot - 1;
-          jacobi_matrix(pivot, pivot) = -1.0/(stopping_time(dust_id, k, j, i) + TINY_NUMBER);
-        }
+          // Set the other pivots, except jacobi_matrix(0, 0)
+          for (int pivot = 1; pivot <= NDUSTFLUIDS; ++pivot) {
+            int col                     = pivot;
+            jacobi_matrix(pivot, pivot) = -1.0*jacobi_matrix(col, 0);
+          }
 
         //calculate lambda_matrix = I - h * jacobi_matrix
         Multiplication(dt, jacobi_matrix, drags_matrix);

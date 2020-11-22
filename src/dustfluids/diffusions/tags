@@ -22,7 +22,7 @@ UserDefinedDustDiffusivity	diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion
 VanLeerLimiter	momentum_diffusion.cpp	/^Real DustFluidsDiffusion::VanLeerLimiter(const Real a, const Real b){$/;"	f	class:DustFluidsDiffusion
 ZeroDustDiffusivity	diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::ZeroDustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
 diff_tot_	dustfluids_diffusion.hpp	/^    AthenaArray<Real> diff_tot_;$/;"	m	class:DustFluidsDiffusion
-disk_problem	dustfluids_diffusion.hpp	/^    bool        disk_problem;$/;"	m	class:DustFluidsDiffusion
+disk_problem	dustfluids_diffusion.hpp	/^    bool              disk_problem;$/;"	m	class:DustFluidsDiffusion
 dustfluids_diffusion_defined	dustfluids_diffusion.hpp	/^    bool dustfluids_diffusion_defined; \/\/ true or false$/;"	m	class:DustFluidsDiffusion
 dustfluids_diffusion_flux	dustfluids_diffusion.hpp	/^    AthenaArray<Real> dustfluids_diffusion_flux[3];$/;"	m	class:DustFluidsDiffusion
 dx1_	dustfluids_diffusion.hpp	/^    AthenaArray<Real> dx1_, dx2_, dx3_;             \/\/ scratch arrays used in NewTimeStep$/;"	m	class:DustFluidsDiffusion
@@ -30,7 +30,7 @@ dx2_	dustfluids_diffusion.hpp	/^    AthenaArray<Real> dx1_, dx2_, dx3_;         
 dx3_	dustfluids_diffusion.hpp	/^    AthenaArray<Real> dx1_, dx2_, dx3_;             \/\/ scratch arrays used in NewTimeStep$/;"	m	class:DustFluidsDiffusion
 eddy_timescale_r0	dustfluids_diffusion.hpp	/^    Real eddy_timescale_r0;                         \/\/ The eddy timescale (turn over time of eddy) at r0$/;"	m	class:DustFluidsDiffusion
 num_dust_var	dustfluids_diffusion.hpp	/^    static const int num_dust_var = 4*NDUSTFLUIDS;  \/\/ Number of dust variables (rho, v1, v2, v3)*4$/;"	m	class:DustFluidsDiffusion
-pco_	dustfluids_diffusion.hpp	/^    Coordinates *pco_;                              \/\/ ptr to coordinates class$/;"	m	class:DustFluidsDiffusion
-pmb_	dustfluids_diffusion.hpp	/^    MeshBlock   *pmb_;                              \/\/ ptr to meshblock containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
-pmy_dustfluids_	dustfluids_diffusion.hpp	/^    DustFluids  *pmy_dustfluids_;                   \/\/ ptr to DustFluids containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
+pco_	dustfluids_diffusion.hpp	/^    Coordinates       *pco_;                        \/\/ ptr to coordinates class$/;"	m	class:DustFluidsDiffusion
+pmb_	dustfluids_diffusion.hpp	/^    MeshBlock         *pmb_;                        \/\/ ptr to meshblock containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
+pmy_dustfluids_	dustfluids_diffusion.hpp	/^    DustFluids        *pmy_dustfluids_;             \/\/ ptr to DustFluids containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
 r0_	dustfluids_diffusion.hpp	/^    Real r0_;                                       \/\/ The length unit of radial direction in disk problem$/;"	m	class:DustFluidsDiffusion

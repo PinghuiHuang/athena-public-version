@@ -6,11 +6,11 @@ hdf5path=/usr/lib/x86_64-linux-gnu/hdf5/openmpi
 
 #python configure.py --prob disk_original --coor=cylindrical --ndustfluids=0 -mpi -hdf5 --hdf5_path=${hdf5path} -h5double
 
-python configure.py --prob collision_multipledust --ndustfluids=5 --nghost=2 -mpi -debug -hdf5 --hdf5_path=${hdf5path} -h5double
+#python configure.py --prob collision_multipledust --ndustfluids=1 --nghost=2 -mpi -debug -hdf5 --hdf5_path=${hdf5path} -h5double
 
 #python configure.py --prob collision_multipledust --ndustfluids=5 --nghost=2 --cxx=g++ -debug -hdf5 --hdf5_path=/usr/local -h5double
 
-#python configure.py --prob shock_multipledust --ndustfluids=3 -mpi -debug -hdf5 --hdf5_path=${hdf5path} -h5double
+python configure.py --prob shock_multipledust --ndustfluids=1 -mpi -debug -hdf5 --hdf5_path=${hdf5path} -h5double
 
 #python configure.py --prob disk --coor cylindrical --eos adiabatic --flux hllc --ndustfluids=3 -mpi -debug -hdf5 --hdf5_path=${hdf5path} -h5double
 

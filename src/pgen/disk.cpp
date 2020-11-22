@@ -293,6 +293,7 @@ void potentialwell(MeshBlock *pmb, const Real time, const Real dt,
         const AthenaArray<Real> &prim, const AthenaArray<Real> &bcc,
         AthenaArray<Real> &cons)
 {
+  DustFluids *pdf = pmb->pdustfluids;
   Real rad, phi, z, acc_r, acc_phi, dis, dis_r, dis_phi, mom_r, mom_phi, sec_g, forth_g, sixth_g;
   if (time>=t0pot){
     phi_planet = sqrt(gm0/pow(rad_planet,3))*time; // omega*time, only turn on when no call of corotate
@@ -337,8 +338,8 @@ void potentialwell(MeshBlock *pmb, const Real time, const Real dt,
               int v1_id   = rho_id + 1;
               int v2_id   = rho_id + 2;
               int v3_id   = rho_id + 3;
-              pmb->pdustfluids->df_cons(v1_id,k,j,i) -= dt*pmb->pdustfluids->df_prim(rho_id,k,j,i)*acc_r;
-              pmb->pdustfluids->df_cons(v2_id,k,j,i) -= dt*pmb->pdustfluids->df_prim(rho_id,k,j,i)*acc_phi;
+              pdf->df_cons(v1_id,k,j,i) -= dt*pdf->df_prim(rho_id,k,j,i)*acc_r;
+              pdf->df_cons(v2_id,k,j,i) -= dt*pdf->df_prim(rho_id,k,j,i)*acc_phi;
             }
           }
 
@@ -528,10 +529,10 @@ void corotate(MeshBlock *pmb, const Real time, const Real dt,
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
-            //Real acor1_dust =  2*omega_p * pmb->pdustfluids->df_prim(v2_id,k,j,i); //radial coriolis
-            //Real acor2_dust = -2*omega_p * pmb->pdustfluids->df_prim(v1_id,k,j,i);
-            //pmb->pdustfluids->df_cons(v1_id,k,j,i) += dt*pmb->pdustfluids->df_prim(rho_id,k,j,i)*(acen+acor1_dust);
-            //pmb->pdustfluids->df_cons(v2_id,k,j,i) += dt*pmb->pdustfluids->df_prim(rho_id,k,j,i)*acor2_dust;
+            //Real acor1_dust =  2*omega_p * pdf->df_prim(v2_id,k,j,i); //radial coriolis
+            //Real acor2_dust = -2*omega_p * pdf->df_prim(v1_id,k,j,i);
+            //pdf->df_cons(v1_id,k,j,i) += dt*pdf->df_prim(rho_id,k,j,i)*(acen+acor1_dust);
+            //pdf->df_cons(v2_id,k,j,i) += dt*pdf->df_prim(rho_id,k,j,i)*acor2_dust;
             pdf->df_cons(v2_id,k,j,i) += dt*pdf->df_prim(rho_id,k,j,i)*work_planet;
           }
         }

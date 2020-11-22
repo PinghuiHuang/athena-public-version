@@ -28,7 +28,8 @@
 
 //! \class DustGasDrag
 //  \brief data and functions for drags between dust and gas
-// The LUdecompose algorithms come from "Nurmerical Recipes", 3ed, Charpter 2.3, William H. Press et al. 2007
+// The algorithms come from "Nurmerical Recipes, 3ed", Charpter 2.3, William H. Press et al. 2007
+// LUdecompose and Matrix Inverse
 void DustGasDrag::LUdecompose(const AthenaArray<Real> &a_matrix)
 {
   int i, j, k, imax;

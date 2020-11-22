@@ -28,7 +28,6 @@
 
 //! \class DustGasDrag
 //  \brief data and functions for drags between dust and gas
-
 // Matrix Addition
 void DustGasDrag::Addition(const AthenaArray<Real> &a_matrix, const Real b_num,
                            const AthenaArray<Real> &b_matrix, AthenaArray<Real> &c_matrix)
@@ -54,6 +53,7 @@ void DustGasDrag::Addition(const AthenaArray<Real> &a_matrix, const Real b_num,
 			c_matrix(m,n) = a_matrix(m,n) + b_num*b_matrix(m,n);
     }
   }
+
   return;
 }
 

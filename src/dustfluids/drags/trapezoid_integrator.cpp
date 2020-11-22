@@ -35,13 +35,12 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
   DustFluids *pdf = pmy_dustfluids_;
   Hydro      *ph  = pmb->phydro;
 
+  AthenaArray<Real> &w_n             = ph->w_n;
+  AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
+  AthenaArray<Real> &stopping_time_n = pdf->stopping_time_array_n;
+
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
-
-  //AthenaArray<Real> &u_n       = ph->u_n;
-  //AthenaArray<Real> &cons_df_n = pdf->df_cons_n;
-  AthenaArray<Real> &w_n       = ph->w_n;
-  AthenaArray<Real> &prim_df_n = pdf->df_prim_n;
 
   if (stage == 1) {
     AthenaArray<Real> force_x1(num_species);
@@ -98,10 +97,10 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
             force_x3(index) = epsilon * alpha * gas_mom3 - alpha * dust_mom3;
           }
 
-          for (int dust_index=1; dust_index<=NDUSTFLUIDS; ++dust_index) {
-            force_x1(0) -= force_x1(dust_index);
-            force_x2(0) -= force_x2(dust_index);
-            force_x3(0) -= force_x3(dust_index);
+          for (int index=1; index<=NDUSTFLUIDS; ++index) {
+            force_x1(0) -= force_x1(index);
+            force_x2(0) -= force_x2(index);
+            force_x3(0) -= force_x3(index);
           }
 
           for (int n=0; n<=NDUSTFLUIDS; ++n) {
@@ -123,7 +122,8 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
           // Update the energy of gas if the gas is non barotropic.
           if (NON_BAROTROPIC_EOS) {
             Real &gas_e     = u(IEN, k, j, i);
-            Real delta_erg  = delta_m1_explicit(0)*gas_v1 + delta_m2_explicit(0)*gas_v2 + delta_m3_explicit(0)*gas_v3;
+            Real delta_erg  = delta_m1_explicit(0)*gas_v1 + delta_m2_explicit(0)*gas_v2
+                              + delta_m3_explicit(0)*gas_v3;
             gas_e          += delta_erg;
           }
 
@@ -150,146 +150,148 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
     }
   }
   else {
-    AthenaArray<Real> old_v1_vector(num_species);
-    AthenaArray<Real> old_v2_vector(num_species);
-    AthenaArray<Real> old_v3_vector(num_species);
+    AthenaArray<Real> force_x1_n(num_species);
+    AthenaArray<Real> force_x2_n(num_species);
+    AthenaArray<Real> force_x3_n(num_species);
 
-    AthenaArray<Real> new_v1_vector(num_species);
-    AthenaArray<Real> new_v2_vector(num_species);
-    AthenaArray<Real> new_v3_vector(num_species);
+    AthenaArray<Real> jacobi_matrix_n(num_species,     num_species);
+    AthenaArray<Real> lambda_matrix_n(num_species,     num_species);
+    AthenaArray<Real> lambda_inv_matrix_n(num_species, num_species);
 
-    AthenaArray<Real> delta_v1_implicit(num_species);
-    AthenaArray<Real> delta_v2_implicit(num_species);
-    AthenaArray<Real> delta_v3_implicit(num_species);
-
-    AthenaArray<Real> jacobi_matrix(num_species, num_species);
-    AthenaArray<Real> lambda_matrix(num_species, num_species);
-    AthenaArray<Real> lambda_inv_matrix(num_species, num_species);
+    AthenaArray<Real> delta_m1_implicit(num_species);
+    AthenaArray<Real> delta_m2_implicit(num_species);
+    AthenaArray<Real> delta_m3_implicit(num_species);
 
     for (int k=ks; k<=ke; ++k) {
       for (int j=js; j<=je; ++j) {
 #pragma omp simd
         for (int i=is; i<=ie; ++i) {
-          jacobi_matrix.ZeroClear();
-          lambda_matrix.ZeroClear();
-          lambda_inv_matrix.ZeroClear();
-          drags_matrix.ZeroClear();
+          force_x1_n.ZeroClear();
+          force_x2_n.ZeroClear();
+          force_x3_n.ZeroClear();
 
-          old_v1_vector.ZeroClear();
-          old_v2_vector.ZeroClear();
-          old_v3_vector.ZeroClear();
+          jacobi_matrix_n.ZeroClear();
+          lambda_matrix_n.ZeroClear();
+          lambda_inv_matrix_n.ZeroClear();
 
-          new_v1_vector.ZeroClear();
-          new_v2_vector.ZeroClear();
-          new_v3_vector.ZeroClear();
+          delta_m1_implicit.ZeroClear();
+          delta_m2_implicit.ZeroClear();
+          delta_m3_implicit.ZeroClear();
 
-          delta_v1_implicit.ZeroClear();
-          delta_v2_implicit.ZeroClear();
-          delta_v3_implicit.ZeroClear();
+          // Alias the primitives of gas
+          const Real &gas_rho_n  = w_n(IDN, k, j, i);
+          const Real &gas_v1_n   = w_n(IVX, k, j, i);
+          const Real &gas_v2_n   = w_n(IVY, k, j, i);
+          const Real &gas_v3_n   = w_n(IVZ, k, j, i);
 
-          const Real &gas_rho_n = w_n(IDN, k, j, i);
-          const Real &gas_v1_n  = w_n(IVX, k, j, i);
-          const Real &gas_v2_n  = w_n(IVY, k, j, i);
-          const Real &gas_v3_n  = w_n(IVZ, k, j, i);
-
-          //Set the jacobi_matrix(0, col), except jacobi_matrix(0, 0)
-          for (int col = 1; col <= NDUSTFLUIDS; ++col) {
-            int dust_id            = col - 1;
+          // Set the drag force
+          for (int index=1; index<=NDUSTFLUIDS; ++index) {
+            int dust_id            = index - 1;
             int rho_id             = 4 * dust_id;
+            int v1_id              = rho_id + 1;
+            int v2_id              = rho_id + 2;
+            int v3_id              = rho_id + 3;
             const Real &dust_rho_n = prim_df_n(rho_id, k, j, i);
-            jacobi_matrix(0, col)  = dust_rho_n/gas_rho_n * 1.0/(stopping_time(dust_id, k, j, i) + TINY_NUMBER);
+            Real alpha_n           = 1.0/(stopping_time_n(dust_id, k, j, i) + TINY_NUMBER);
+            Real epsilon_n         = dust_rho_n/gas_rho_n;
+
+            const Real &dust_v1_n = prim_df_n(v1_id, k, j, i);
+            const Real &dust_v2_n = prim_df_n(v2_id, k, j, i);
+            const Real &dust_v3_n = prim_df_n(v3_id, k, j, i);
+
+            Real gas_mom1_n = gas_rho_n * gas_v1_n;
+            Real gas_mom2_n = gas_rho_n * gas_v2_n;
+            Real gas_mom3_n = gas_rho_n * gas_v3_n;
+
+            Real dust_mom1_n = dust_rho_n * dust_v1_n;
+            Real dust_mom2_n = dust_rho_n * dust_v2_n;
+            Real dust_mom3_n = dust_rho_n * dust_v3_n;
+
+            force_x1_n(index) = epsilon_n * alpha_n * gas_mom1_n - alpha_n * dust_mom1_n;
+            force_x2_n(index) = epsilon_n * alpha_n * gas_mom2_n - alpha_n * dust_mom2_n;
+            force_x3_n(index) = epsilon_n * alpha_n * gas_mom3_n - alpha_n * dust_mom3_n;
           }
 
-          //Set the jacobi_matrix(row, 0), except jacobi_matrix(0, 0)
-          for (int row = 1; row <= NDUSTFLUIDS; ++row) {
-            int dust_id           = row - 1;
-            jacobi_matrix(row, 0) = 1.0/(stopping_time(dust_id, k, j, i) + TINY_NUMBER);
+          for (int index = 1; index <= NDUSTFLUIDS; ++index) {
+            force_x1_n(0) -= force_x1_n(index);
+            force_x2_n(0) -= force_x2_n(index);
+            force_x3_n(0) -= force_x3_n(index);
           }
 
-          //Set the jacobi_matrix(0, 0)
+          // Calculate the jacobi matrix of the drag forces, df/dM
+          // Set the jacobi_matrix_n(0, row), except jacobi_matrix_n(0, 0)
+          for (int row = 1; row<=NDUSTFLUIDS; ++row) {
+            int dust_id             = row - 1;
+            int rho_id              = 4*dust_id;
+            const Real &dust_rho_n  = prim_df_n(rho_id, k, j, i);
+            jacobi_matrix_n(0, row) = dust_rho_n/gas_rho_n * 1.0/(stopping_time_n(dust_id,k,j,i) + TINY_NUMBER);
+          }
+
+          // Set the jacobi_matrix(col, 0), except jacobi_matrix(0, 0)
+          for (int col = 1; col<=NDUSTFLUIDS; ++col) {
+            int dust_id             = col - 1;
+            jacobi_matrix_n(col, 0) = 1.0/(stopping_time_n(dust_id,k,j,i) + TINY_NUMBER);
+          }
+
+          // Set the jacobi_matrix(0,0)
           for (int dust_id = 0; dust_id < NDUSTFLUIDS; ++dust_id) {
-            int col              = dust_id + 1;
-            jacobi_matrix(0, 0) -= jacobi_matrix(0, col);
+            int row                = dust_id + 1;
+            jacobi_matrix_n(0, 0) -= jacobi_matrix_n(0, row);
           }
 
-          //Set the other pivots, except jacobi_matrix(0, 0)
+          // Set the other pivots, except jacobi_matrix(0, 0)
           for (int pivot = 1; pivot <= NDUSTFLUIDS; ++pivot) {
-            int row                     = pivot;
-            jacobi_matrix(pivot, pivot) = -1.0 * jacobi_matrix(row, 0);
+            int col                       = pivot;
+            jacobi_matrix_n(pivot, pivot) = -1.0*jacobi_matrix_n(col, 0);
           }
 
-          //calculate lambda_matrix = I - h * jacobi_matrix
-          Multiplication(2.0 * dt, jacobi_matrix, drags_matrix);
-          Addition(1.0, -1.0, drags_matrix);
+          // calculate lambda_matrix = I - h*jacobi_matrix
+          Multiplication(dt, jacobi_matrix_n, lambda_matrix_n);
+          Addition(1.0, -2.0, lambda_matrix_n);
 
-          // LU decomposition of drags_matrix, save the LU component as lu_matrix
-          LUdecompose(drags_matrix);
+          // cauculate the inverse matrix of lambda_matrix
+          LUdecompose(lambda_matrix_n);
+          Inverse(lambda_matrix_n, lambda_inv_matrix_n);
 
-          old_v1_vector(0) = w_n(IVX, k, j, i);
-          old_v2_vector(0) = w_n(IVY, k, j, i);
-          old_v3_vector(0) = w_n(IVZ, k, j, i);
-
-          for (int n=1; n<=NDUSTFLUIDS; ++n) {
-            int dust_id = n-1;
-            int rho_id  = 4 * dust_id;
-            int v1_id   = rho_id + 1;
-            int v2_id   = rho_id + 2;
-            int v3_id   = rho_id + 3;
-
-            old_v1_vector(n) = prim_df_n(v1_id, k, j, i);
-            old_v2_vector(n) = prim_df_n(v2_id, k, j, i);
-            old_v3_vector(n) = prim_df_n(v3_id, k, j, i);
-          }
-
-          SolveLinearEquation(old_v1_vector, new_v1_vector); // b:v^n, x:v^(n+1), along the x1 direction
-          SolveLinearEquation(old_v2_vector, new_v2_vector); // b:v^n, x:v^(n+1), along the x2 direction
-          SolveLinearEquation(old_v3_vector, new_v3_vector); // b:v^n, x:v^(n+1), along the x3 direction
-
-          Addition(new_v1_vector, -1.0, old_v1_vector, delta_v1_implicit);
-          Addition(new_v2_vector, -1.0, old_v2_vector, delta_v2_implicit);
-          Addition(new_v3_vector, -1.0, old_v3_vector, delta_v3_implicit);
+          // Delta_M = h * (lambda_matrix)^(-1) * f(M)
+          Multiplication(dt, lambda_inv_matrix_n);
+          Multiplication(lambda_inv_matrix_n, force_x1_n, delta_m1_implicit);
+          Multiplication(lambda_inv_matrix_n, force_x2_n, delta_m2_implicit);
+          Multiplication(lambda_inv_matrix_n, force_x3_n, delta_m3_implicit);
 
           // Alias the conserves of gas
           Real &gas_m1 = u(IM1, k, j, i);
           Real &gas_m2 = u(IM2, k, j, i);
           Real &gas_m3 = u(IM3, k, j, i);
 
-          Real delta_gas_m1 = gas_rho_n * delta_v1_implicit(0);
-          Real delta_gas_m2 = gas_rho_n * delta_v2_implicit(0);
-          Real delta_gas_m3 = gas_rho_n * delta_v3_implicit(0);
+          gas_m1 += delta_m1_implicit(0);
+          gas_m2 += delta_m2_implicit(0);
+          gas_m3 += delta_m3_implicit(0);
 
-          gas_m1 += 0.5 * delta_gas_m1;
-          gas_m2 += 0.5 * delta_gas_m2;
-          gas_m3 += 0.5 * delta_gas_m3;
-
-          // Update the energy of gas if the gas is non barotropic.
+          // Update the energy of gas if the gas is non barotropic. dE = dM * v
           if (NON_BAROTROPIC_EOS) {
             Real &gas_e     = u(IEN, k, j, i);
-            Real delta_erg  = delta_gas_m1 * gas_v1_n + delta_gas_m2 * gas_v2_n + delta_gas_m3 * gas_v3_n;
-            gas_e          += 0.5 * delta_erg;
+            Real delta_erg  = delta_m1_implicit(0)*gas_v1_n + delta_m2_implicit(0)*gas_v2_n
+                              + delta_m3_implicit(0)*gas_v3_n;
+            gas_e          += delta_erg;
           }
 
-          for (int n=1; n<=NDUSTFLUIDS; ++n){
-            int dust_id = n-1;
-            int rho_id  = 4 * dust_id;
+          for (int n = 1; n <= NDUSTFLUIDS; ++n) {
+            int dust_id = n - 1;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
 
-            // Alias the parameters of dust
-            const Real &dust_rho_n = prim_df_n(rho_id, k, j, i);
-
+            // Alias the conserves of dust
             Real &dust_m1 = cons_df(v1_id, k, j, i);
             Real &dust_m2 = cons_df(v2_id, k, j, i);
             Real &dust_m3 = cons_df(v3_id, k, j, i);
 
-            Real delta_dust_m1 = dust_rho_n * delta_v1_implicit(n);
-            Real delta_dust_m2 = dust_rho_n * delta_v2_implicit(n);
-            Real delta_dust_m3 = dust_rho_n * delta_v3_implicit(n);
-
-            dust_m1 += 0.5 * delta_dust_m1;
-            dust_m2 += 0.5 * delta_dust_m2;
-            dust_m3 += 0.5 * delta_dust_m3;
+            // Add the delta momentum caused by drags on the dust conserves
+            dust_m1 += delta_m1_implicit(n);
+            dust_m2 += delta_m2_implicit(n);
+            dust_m3 += delta_m3_implicit(n);
           }
 
         }
@@ -298,6 +300,7 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
   }
   return;
 }
+
 
 void DustGasDrag::TrapezoidNoFeedback(const int stage,
       const Real dt, const AthenaArray<Real> &stopping_time,
@@ -308,13 +311,12 @@ void DustGasDrag::TrapezoidNoFeedback(const int stage,
   DustFluids *pdf = pmy_dustfluids_;
   Hydro      *ph  = pmb->phydro;
 
+  AthenaArray<Real> &w_n             = ph->w_n;
+  AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
+  AthenaArray<Real> &stopping_time_n = pdf->stopping_time_array_n;
+
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
-
-  //AthenaArray<Real> &u_n       = ph->u_n;
-  //AthenaArray<Real> &cons_df_n = pdf->df_cons_n;
-  AthenaArray<Real> &w_n       = ph->w_n;
-  AthenaArray<Real> &prim_df_n = pdf->df_prim_n;
 
   if (stage == 1) {
     AthenaArray<Real> force_x1(num_species);
@@ -371,7 +373,7 @@ void DustGasDrag::TrapezoidNoFeedback(const int stage,
             force_x3(index) = epsilon * alpha * gas_mom3 - alpha * dust_mom3;
           }
 
-          for (int n=0; n<=NDUSTFLUIDS; ++n) {
+          for (int n=1; n<=NDUSTFLUIDS; ++n) {
             delta_m1_explicit(n) = force_x1(n) * dt;
             delta_m2_explicit(n) = force_x2(n) * dt;
             delta_m3_explicit(n) = force_x3(n) * dt;
@@ -400,107 +402,111 @@ void DustGasDrag::TrapezoidNoFeedback(const int stage,
     }
   }
   else {
-    AthenaArray<Real> old_v1_vector(num_species);
-    AthenaArray<Real> old_v2_vector(num_species);
-    AthenaArray<Real> old_v3_vector(num_species);
+    AthenaArray<Real> force_x1_n(num_species);
+    AthenaArray<Real> force_x2_n(num_species);
+    AthenaArray<Real> force_x3_n(num_species);
 
-    AthenaArray<Real> new_v1_vector(num_species);
-    AthenaArray<Real> new_v2_vector(num_species);
-    AthenaArray<Real> new_v3_vector(num_species);
+    AthenaArray<Real> jacobi_matrix_n(num_species,     num_species);
+    AthenaArray<Real> lambda_matrix_n(num_species,     num_species);
+    AthenaArray<Real> lambda_inv_matrix_n(num_species, num_species);
 
-    AthenaArray<Real> delta_v1_implicit(num_species);
-    AthenaArray<Real> delta_v2_implicit(num_species);
-    AthenaArray<Real> delta_v3_implicit(num_species);
-
-    AthenaArray<Real> jacobi_matrix(num_species, num_species);
-    AthenaArray<Real> lambda_matrix(num_species, num_species);
-    AthenaArray<Real> lambda_inv_matrix(num_species, num_species);
+    AthenaArray<Real> delta_m1_implicit(num_species);
+    AthenaArray<Real> delta_m2_implicit(num_species);
+    AthenaArray<Real> delta_m3_implicit(num_species);
 
     for (int k=ks; k<=ke; ++k) {
       for (int j=js; j<=je; ++j) {
 #pragma omp simd
         for (int i=is; i<=ie; ++i) {
-          jacobi_matrix.ZeroClear();
-          lambda_matrix.ZeroClear();
-          lambda_inv_matrix.ZeroClear();
-          drags_matrix.ZeroClear();
+          force_x1_n.ZeroClear();
+          force_x2_n.ZeroClear();
+          force_x3_n.ZeroClear();
 
-          old_v1_vector.ZeroClear();
-          old_v2_vector.ZeroClear();
-          old_v3_vector.ZeroClear();
+          jacobi_matrix_n.ZeroClear();
+          lambda_matrix_n.ZeroClear();
+          lambda_inv_matrix_n.ZeroClear();
 
-          new_v1_vector.ZeroClear();
-          new_v2_vector.ZeroClear();
-          new_v3_vector.ZeroClear();
+          delta_m1_implicit.ZeroClear();
+          delta_m2_implicit.ZeroClear();
+          delta_m3_implicit.ZeroClear();
 
-          delta_v1_implicit.ZeroClear();
-          delta_v2_implicit.ZeroClear();
-          delta_v3_implicit.ZeroClear();
+          // Alias the primitives of gas
+          const Real &gas_rho_n  = w_n(IDN, k, j, i);
+          const Real &gas_v1_n   = w_n(IVX, k, j, i);
+          const Real &gas_v2_n   = w_n(IVY, k, j, i);
+          const Real &gas_v3_n   = w_n(IVZ, k, j, i);
 
-          //Set the jacobi_matrix(row, 0), except jacobi_matrix(0, 0)
-          for (int row = 1; row <= NDUSTFLUIDS; ++row) {
-            int dust_id           = row - 1;
-            jacobi_matrix(row, 0) = 1.0/(stopping_time(dust_id, k, j, i) + TINY_NUMBER);
+          // Set the drag force
+          for (int index=1; index<=NDUSTFLUIDS; ++index) {
+            int dust_id            = index - 1;
+            int rho_id             = 4 * dust_id;
+            int v1_id              = rho_id + 1;
+            int v2_id              = rho_id + 2;
+            int v3_id              = rho_id + 3;
+            const Real &dust_rho_n = prim_df_n(rho_id, k, j, i);
+            Real alpha_n           = 1.0/(stopping_time_n(dust_id, k, j, i) + TINY_NUMBER);
+            Real epsilon_n         = dust_rho_n/gas_rho_n;
+
+            const Real &dust_v1_n = prim_df_n(v1_id, k, j, i);
+            const Real &dust_v2_n = prim_df_n(v2_id, k, j, i);
+            const Real &dust_v3_n = prim_df_n(v3_id, k, j, i);
+
+            Real gas_mom1_n = gas_rho_n * gas_v1_n;
+            Real gas_mom2_n = gas_rho_n * gas_v2_n;
+            Real gas_mom3_n = gas_rho_n * gas_v3_n;
+
+            Real dust_mom1_n = dust_rho_n * dust_v1_n;
+            Real dust_mom2_n = dust_rho_n * dust_v2_n;
+            Real dust_mom3_n = dust_rho_n * dust_v3_n;
+
+            force_x1_n(index) = epsilon_n * alpha_n * gas_mom1_n - alpha_n * dust_mom1_n;
+            force_x2_n(index) = epsilon_n * alpha_n * gas_mom2_n - alpha_n * dust_mom2_n;
+            force_x3_n(index) = epsilon_n * alpha_n * gas_mom3_n - alpha_n * dust_mom3_n;
           }
 
-          //Set the other pivots, except jacobi_matrix(0, 0)
+          // Calculate the jacobi matrix of the drag forces, df/dM
+          // Set the jacobi_matrix(col, 0), except jacobi_matrix(0, 0)
+          for (int col = 1; col<=NDUSTFLUIDS; ++col) {
+            int dust_id             = col - 1;
+            jacobi_matrix_n(col, 0) = 1.0/(stopping_time_n(dust_id,k,j,i) + TINY_NUMBER);
+          }
+
+          // Set the other pivots, except jacobi_matrix(0, 0)
           for (int pivot = 1; pivot <= NDUSTFLUIDS; ++pivot) {
-            int row                     = pivot;
-            jacobi_matrix(pivot, pivot) = -1.0 * jacobi_matrix(row, 0);
+            int col                       = pivot;
+            jacobi_matrix_n(pivot, pivot) = -1.0*jacobi_matrix_n(col, 0);
           }
 
-          //calculate lambda_matrix = I - h * jacobi_matrix
-          Multiplication(2.0 * dt, jacobi_matrix, drags_matrix);
-          Addition(1.0, -1.0, drags_matrix);
+          // calculate lambda_matrix = I - h*jacobi_matrix
+          Multiplication(dt, jacobi_matrix_n, lambda_matrix_n);
+          Addition(1.0, -2.0, lambda_matrix_n);
 
-          // LU decomposition of drags_matrix, save the LU component as lu_matrix
-          LUdecompose(drags_matrix);
+          // cauculate the inverse matrix of lambda_matrix
+          LUdecompose(lambda_matrix_n);
+          Inverse(lambda_matrix_n, lambda_inv_matrix_n);
 
-          old_v1_vector(0) = w_n(IVX, k, j, i);
-          old_v2_vector(0) = w_n(IVY, k, j, i);
-          old_v3_vector(0) = w_n(IVZ, k, j, i);
+          // Delta_M = h * (lambda_matrix)^(-1) * f(M)
+          Multiplication(dt, lambda_inv_matrix_n);
+          Multiplication(lambda_inv_matrix_n, force_x1_n, delta_m1_implicit);
+          Multiplication(lambda_inv_matrix_n, force_x2_n, delta_m2_implicit);
+          Multiplication(lambda_inv_matrix_n, force_x3_n, delta_m3_implicit);
 
           for (int n=1; n<=NDUSTFLUIDS; ++n) {
-            int dust_id = n-1;
-            int rho_id  = 4 * dust_id;
+            int dust_id = n - 1;
+            int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
 
-            old_v1_vector(n) = prim_df_n(v1_id, k, j, i);
-            old_v2_vector(n) = prim_df_n(v2_id, k, j, i);
-            old_v3_vector(n) = prim_df_n(v3_id, k, j, i);
-          }
-
-          SolveLinearEquation(old_v1_vector, new_v1_vector); // b:v^n, x:v^(n+1), along the x1 direction
-          SolveLinearEquation(old_v2_vector, new_v2_vector); // b:v^n, x:v^(n+1), along the x2 direction
-          SolveLinearEquation(old_v3_vector, new_v3_vector); // b:v^n, x:v^(n+1), along the x3 direction
-
-          Addition(new_v1_vector, -1.0, old_v1_vector, delta_v1_implicit);
-          Addition(new_v2_vector, -1.0, old_v2_vector, delta_v2_implicit);
-          Addition(new_v3_vector, -1.0, old_v3_vector, delta_v3_implicit);
-
-          for (int n=1; n<=NDUSTFLUIDS; ++n){
-            int dust_id = n-1;
-            int rho_id  = 4 * dust_id;
-            int v1_id   = rho_id + 1;
-            int v2_id   = rho_id + 2;
-            int v3_id   = rho_id + 3;
-
-            // Alias the parameters of dust
-            const Real &dust_rho_n = prim_df_n(rho_id, k, j, i);
-
+            // Alias the conserves of dust
             Real &dust_m1 = cons_df(v1_id, k, j, i);
             Real &dust_m2 = cons_df(v2_id, k, j, i);
             Real &dust_m3 = cons_df(v3_id, k, j, i);
 
-            Real delta_dust_m1 = dust_rho_n * delta_v1_implicit(n);
-            Real delta_dust_m2 = dust_rho_n * delta_v2_implicit(n);
-            Real delta_dust_m3 = dust_rho_n * delta_v3_implicit(n);
-
-            dust_m1 += 0.5 * delta_dust_m1;
-            dust_m2 += 0.5 * delta_dust_m2;
-            dust_m3 += 0.5 * delta_dust_m3;
+            // Add the delta momentum caused by drags on the dust conserves
+            dust_m1 += delta_m1_implicit(n);
+            dust_m2 += delta_m2_implicit(n);
+            dust_m3 += delta_m3_implicit(n);
           }
 
         }

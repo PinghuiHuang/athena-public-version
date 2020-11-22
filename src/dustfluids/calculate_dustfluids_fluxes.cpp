@@ -88,7 +88,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         HLLENoCsRiemannSolverDustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
 
       if (order == 4) {
-        for (int n=0; n<num_dust_var; ++n) {
+        for (int n=0; n<num_dust_var; n++) {
           for (int i=is; i<=ie+1; i++) {
             df_prim_l3d_(n,k,j,i) = df_prim_l_(n,i);
             df_prim_r3d_(n,k,j,i) = df_prim_r_(n,i);
@@ -197,7 +197,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
 
         if (order == 4) {
-          for (int n=0; n<num_dust_var; ++n) {
+          for (int n=0; n<num_dust_var; n++) {
             for (int i=il; i<=iu; i++) {
               df_prim_l3d_(n,k,j,i) = df_prim_l_(n,i);
               df_prim_r3d_(n,k,j,i) = df_prim_r_(n,i);
@@ -302,7 +302,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
 
         if (order == 4) {
-          for (int n=0; n<num_dust_var; ++n) {
+          for (int n=0; n<num_dust_var; n++) {
             for (int i=il; i<=iu; i++) {
               df_prim_l3d_(n,k,j,i) = df_prim_l_(n,i);
               df_prim_r3d_(n,k,j,i) = df_prim_r_(n,i);

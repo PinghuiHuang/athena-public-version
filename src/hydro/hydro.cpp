@@ -58,7 +58,6 @@ Hydro::Hydro(MeshBlock *pmb, ParameterInput *pin) :
   pmb->RegisterMeshBlockData(u);
 
   if (NDUSTFLUIDS > 0) {
-    u_n.NewAthenaArray(NHYDRO, nc3, nc2, nc1);
     w_n.NewAthenaArray(NHYDRO, nc3, nc2, nc1);
   }
 

@@ -788,7 +788,6 @@ TaskStatus TimeIntegratorTaskList::IntegrateHydro(MeshBlock *pmb, int stage) {
       // Backup the u^(n), w^(n) at the stage 1
         if ( stage == 1 ){
           Real wghts[3] = {0.0, 1.0, 0.0};
-          pmb->WeightedAve(ph->u_n, ph->u, ph->u, wghts);
           pmb->WeightedAve(ph->w_n, ph->w, ph->w, wghts);
         }
       }
@@ -1225,11 +1224,17 @@ TaskStatus TimeIntegratorTaskList::CheckRefinement(MeshBlock *pmb, int stage) {
 
 
 TaskStatus TimeIntegratorTaskList::CalculateDustFluidsFlux(MeshBlock *pmb, int stage) {
+  Hydro      *phy = pmb->phydro;
   DustFluids *pdf = pmb->pdustfluids;
 
-  if (STS_ENABLED)
-    pdf->SetDustFluidsProperties(pdf->stopping_time_array, pdf->nu_dustfluids_array,
-        pdf->cs_dustfluids_array);
+  if (STS_ENABLED) {
+    //TODO: Maybe put the "SetDustFluidsProperties" at other places?
+    pdf->SetDustFluidsProperties(phy->w, pdf->df_prim, pdf->stopping_time_array,
+        pdf->nu_dustfluids_array, pdf->cs_dustfluids_array);
+    if (stage == 2)
+      pdf->SetDustFluidsProperties(phy->w_n, pdf->df_prim_n, pdf->stopping_time_array_n,
+          pdf->nu_dustfluids_array_n, pdf->cs_dustfluids_array_n);
+  }
 
   if (stage <= nstages) {
     if ((stage == 1) && (integrator == "vl2")) {
@@ -1270,7 +1275,6 @@ TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage
     // Backup the u^(n), w^(n) at the stage 1
     if ( stage == 1 ){
       Real wghts[3] = {0.0, 1.0, 0.0};
-      pmb->WeightedAve(pdf->df_cons_n, pdf->df_cons, pdf->df_cons, wghts);
       pmb->WeightedAve(pdf->df_prim_n, pdf->df_prim, pdf->df_prim, wghts);
     }
 
@@ -1362,12 +1366,16 @@ TaskStatus TimeIntegratorTaskList::SetBoundariesDustFluids(MeshBlock *pmb, int s
 
 
 TaskStatus TimeIntegratorTaskList::DiffuseDustFluids(MeshBlock *pmb, int stage) {
-  DustFluids *pdf           = pmb->pdustfluids;
+  Hydro      *phy = pmb->phydro;
+  DustFluids *pdf = pmb->pdustfluids;
 
   //TODO: Maybe put the "SetDustFluidsProperties" at other places?
   // Update the properties of dust fluids in every cycle
-  pdf->SetDustFluidsProperties(pdf->stopping_time_array, pdf->nu_dustfluids_array,
-      pdf->cs_dustfluids_array);
+    pdf->SetDustFluidsProperties(phy->w, pdf->df_prim, pdf->stopping_time_array,
+        pdf->nu_dustfluids_array, pdf->cs_dustfluids_array);
+    if (stage == 2)
+      pdf->SetDustFluidsProperties(phy->w_n, pdf->df_prim_n, pdf->stopping_time_array_n,
+          pdf->nu_dustfluids_array_n, pdf->cs_dustfluids_array_n);
 
   // return if there are no diffusion to be added
   if (!(pdf->dfdif.dustfluids_diffusion_defined)) {
@@ -1452,11 +1460,11 @@ TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
 
   if (stage <= nstages) {
     // Time at beginning of stage for u()
-    Real t_start_stage = pmb->pmy_mesh->time + pmb->stage_abscissae[stage-1][0];
+    Real t_start = pmb->pmy_mesh->time + pmb->stage_abscissae[stage-1][0];
     // Scaled coefficient for RHS update
     Real dt = (stage_wghts[(stage-1)].beta)*(pmb->pmy_mesh->dt);
     // Evaluate the time-dependent drags at the time at the beginning of the stage
-    pdf->dfdrag.DragIntegrate(t_start_stage, dt, stage, pdf->stopping_time_array,
+    pdf->dfdrag.DragIntegrate(stage, t_start, dt, pdf->stopping_time_array,
                                 ph->w, pdf->df_prim, ph->u, pdf->df_cons);
   } else {
     return TaskStatus::fail;

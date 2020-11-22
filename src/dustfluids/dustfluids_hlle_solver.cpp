@@ -37,8 +37,8 @@
 //  \brief The HLLE Riemann solver for Dust Fluids (spatially isothermal)
 
 void DustFluids::HLLERiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
-                          const int index, AthenaArray<Real> &df_prim_l,
-                          AthenaArray<Real> &df_prim_r, AthenaArray<Real> &dust_flux) {
+                          const int index, AthenaArray<Real> &prim_df_l,
+                          AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux) {
 
   Real df_prim_li[(num_dust_var)], df_prim_ri[(num_dust_var)], df_prim_roe[(num_dust_var)];
   Real df_fl[(num_dust_var)],      df_fr[(num_dust_var)],      df_flxi[(num_dust_var)];
@@ -54,15 +54,15 @@ void DustFluids::HLLERiemannSolverDustFluids(const int k, const int j, const int
       const Real &cs     = cs_dustfluids_array(dust_id, k, j, i);
 
       //Load L/R states into local variables
-      df_prim_li[rho_id] = df_prim_l(rho_id, i);
-      df_prim_li[ivx]    = df_prim_l(ivx,    i);
-      df_prim_li[ivy]    = df_prim_l(ivy,    i);
-      df_prim_li[ivz]    = df_prim_l(ivz,    i);
+      df_prim_li[rho_id] = prim_df_l(rho_id, i);
+      df_prim_li[ivx]    = prim_df_l(ivx,    i);
+      df_prim_li[ivy]    = prim_df_l(ivy,    i);
+      df_prim_li[ivz]    = prim_df_l(ivz,    i);
 
-      df_prim_ri[rho_id] = df_prim_r(rho_id, i);
-      df_prim_ri[ivx]    = df_prim_r(ivx,    i);
-      df_prim_ri[ivy]    = df_prim_r(ivy,    i);
-      df_prim_ri[ivz]    = df_prim_r(ivz,    i);
+      df_prim_ri[rho_id] = prim_df_r(rho_id, i);
+      df_prim_ri[ivx]    = prim_df_r(ivx,    i);
+      df_prim_ri[ivy]    = prim_df_r(ivy,    i);
+      df_prim_ri[ivz]    = prim_df_r(ivz,    i);
 
       //Compute middle state estimates with PVRS (Toro 10.5.2)
       //Real al, ar, el, er;

@@ -28,7 +28,6 @@
 
 //! \class DustGasDrag
 //  \brief data and functions for drags between dust and gas
-
 // Matrix Multiplication
 void DustGasDrag::Multiplication(const AthenaArray<Real> &a_matrix,
                   const AthenaArray<Real> &b_matrix, AthenaArray<Real> &c_matrix)
@@ -71,7 +70,7 @@ void DustGasDrag::Multiplication(const AthenaArray<Real> &a_matrix,
     for(int m=0; m<m_a; ++m) {
 #pragma omp simd
       for(int n=0; n<n_b; ++n) {
-        c_matrix(n) += a_matrix(m,n)*b_matrix(n);
+        c_matrix(n) += a_matrix(m,n)*b_matrix(m);
       }
     }
   }

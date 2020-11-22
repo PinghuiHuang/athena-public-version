@@ -42,7 +42,7 @@ void EquationOfState::DustFluidsConservedToPrimitive(
     for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
       for (int i=il; i<=iu; ++i) {
-        Real& cons_df_rho = cons_df(rho_id, k, j, i);
+        Real& cons_df_dens = cons_df(rho_id, k, j, i);
         Real& cons_df_m1  = cons_df(v1_id,  k, j, i);
         Real& cons_df_m2  = cons_df(v2_id,  k, j, i);
         Real& cons_df_m3  = cons_df(v3_id,  k, j, i);
@@ -54,12 +54,13 @@ void EquationOfState::DustFluidsConservedToPrimitive(
 
         // apply dust fluids floor to conserved variable first, then transform:
         // (multi-D fluxes may have caused it to drop below floor)
-        cons_df_rho = (cons_df_rho < dustfluids_floor_) ?  dustfluids_floor_ : cons_df_rho;
-        prim_df_rho = cons_df_rho;
+        cons_df_dens = (cons_df_dens < dustfluids_floor_) ?  dustfluids_floor_ : cons_df_dens;
+        prim_df_rho = cons_df_dens;
 
-        prim_df_v1 = cons_df_m1/cons_df_rho;
-        prim_df_v2 = cons_df_m2/cons_df_rho;
-        prim_df_v3 = cons_df_m3/cons_df_rho;
+        Real di    = 1.0/cons_df_dens;
+        prim_df_v1 = cons_df_m1*di;
+        prim_df_v2 = cons_df_m2*di;
+        prim_df_v3 = cons_df_m3*di;
         }
       }
     }
@@ -162,20 +163,20 @@ void EquationOfState::DustFluidsPrimitiveToConserved(
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
         for (int i=il; i<=iu; ++i) {
-          Real& cons_df_rho = cons_df(rho_id,k,j,i);
-          Real& cons_df_m1  = cons_df(v1_id,k,j,i);
-          Real& cons_df_m2  = cons_df(v2_id,k,j,i);
-          Real& cons_df_m3  = cons_df(v3_id,k,j,i);
+          Real& cons_df_dens = cons_df(rho_id,k,j,i);
+          Real& cons_df_m1   = cons_df(v1_id,k,j,i);
+          Real& cons_df_m2   = cons_df(v2_id,k,j,i);
+          Real& cons_df_m3   = cons_df(v3_id,k,j,i);
 
           const Real& prim_df_rho = prim_df(rho_id,k,j,i);
           const Real& prim_df_v1  = prim_df(v1_id,k,j,i);
           const Real& prim_df_v2  = prim_df(v2_id,k,j,i);
           const Real& prim_df_v3  = prim_df(v3_id,k,j,i);
 
-          cons_df_rho = prim_df_rho;
-          cons_df_m1  = prim_df_v1*cons_df_rho;
-          cons_df_m2  = prim_df_v2*cons_df_rho;
-          cons_df_m3  = prim_df_v3*cons_df_rho;
+          cons_df_dens = prim_df_rho;
+          cons_df_m1   = prim_df_v1*cons_df_dens;
+          cons_df_m2   = prim_df_v2*cons_df_dens;
+          cons_df_m3   = prim_df_v3*cons_df_dens;
         }
       }
     }

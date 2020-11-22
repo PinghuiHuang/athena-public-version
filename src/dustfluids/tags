@@ -11,8 +11,11 @@ AddDustFluidsSourceTerms	srcterms/dustfluids_srcterms.cpp	/^void DustFluidsSourc
 Addition	drags/addition.cpp	/^void DustGasDrag::Addition(AthenaArray<Real> &a_matrix, const Real b_num, const AthenaArray<Real> &b_matrix)$/;"	f	class:DustGasDrag
 Addition	drags/addition.cpp	/^void DustGasDrag::Addition(const AthenaArray<Real> &a_matrix, const Real b_num,$/;"	f	class:DustGasDrag
 Addition	drags/addition.cpp	/^void DustGasDrag::Addition(const Real a_num, const Real b_num,$/;"	f	class:DustGasDrag
-AerodynamicDrag	drags/dust_gas_drag.cpp	/^void DustGasDrag::AerodynamicDrag(const Real t_start, const Real dt, const int stage,$/;"	f	class:DustGasDrag
 Aerodynamic_Drag	drags/backup/dust_gas_drag.cpp	/^void DustGasDrag::Aerodynamic_Drag(MeshBlock *pmb, const Real dt, const AthenaArray<Real> &stopping_time,$/;"	f	class:DustGasDrag
+BDF2Feedback	drags/bdf2_integrator.cpp	/^void DustGasDrag::BDF2Feedback(const int stage,$/;"	f	class:DustGasDrag
+BDF2NoFeedback	drags/bdf2_integrator.cpp	/^void DustGasDrag::BDF2NoFeedback(const int stage,$/;"	f	class:DustGasDrag
+BackwardEulerFeedback	drags/backwardEuler_integrator.cpp	/^void DustGasDrag::BackwardEulerFeedback(const int stage,$/;"	f	class:DustGasDrag
+BackwardEulerNoFeedback	drags/backwardEuler_integrator.cpp	/^void DustGasDrag::BackwardEulerNoFeedback(const int stage,$/;"	f	class:DustGasDrag
 CalcDustFluidsDiffusionFlux	diffusions/dustfluids_diffusion.cpp	/^void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &prim_df,$/;"	f	class:DustFluidsDiffusion
 CalculateDustFluidsFluxes	calculate_dustfluids_fluxes.cpp	/^void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &prim_df) {$/;"	f	class:DustFluids
 CalculateDustFluidsFluxes_STS	calculate_dustfluids_fluxes.cpp	/^void DustFluids::CalculateDustFluidsFluxes_STS() {$/;"	f	class:DustFluids
@@ -21,7 +24,6 @@ ConstNu_Flag	diffusions/dustfluids_diffusion.hpp	/^    bool ConstNu_Flag;       
 ConstStoppingTime_Flag	dustfluids.hpp	/^    bool ConstStoppingTime_Flag;           \/\/ true or false, the flag of using the constant stopping time of dust$/;"	m	class:DustFluids
 ConstantDustDiffusivity	diffusions/diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::ConstantDustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
 ConstantStoppingTime	dustfluids.cpp	/^void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, const int ju,$/;"	f	class:DustFluids
-CrankNicholsonFeedback	drags/crank_nicholson_integrator.cpp	/^void DustGasDrag::CrankNicholsonFeedback(const int stage,$/;"	f	class:DustGasDrag
 DRAG_DUSTGAS_HPP_	drags/backup/dust_gas_drag.hpp	2;"	d
 DRAG_DUSTGAS_HPP_	drags/dust_gas_drag.hpp	2;"	d
 DUSTFLUIDS_DIFFUSION_HPP_	diffusions/dustfluids_diffusion.hpp	2;"	d
@@ -30,6 +32,7 @@ DUSTFLUIDS_SRCTERMS_HPP_	srcterms/dustfluids_srcterms.hpp	2;"	d
 Determinant	drags/backup/LU_decompose.cpp	/^Real DustGasDrag::Determinant()$/;"	f	class:DustGasDrag
 Determinant	drags/inverse.cpp	/^Real DustGasDrag::Determinant()$/;"	f	class:DustGasDrag
 Diffusion_Flag	diffusions/dustfluids_diffusion.hpp	/^    bool Diffusion_Flag;               \/\/ true or false, the flag of inviscid dust fluids$/;"	m	class:DustFluidsDiffusion
+DragIntegrate	drags/dust_gas_drag.cpp	/^void DustGasDrag::DragIntegrate(const int stage, const Real t_start, const Real dt,$/;"	f	class:DustGasDrag
 DustFeedback_Flag	drags/backup/dust_gas_drag.hpp	/^    bool DustFeedback_Flag;           \/\/ true or false, the flag of dust feedback term$/;"	m	class:DustGasDrag
 DustFeedback_Flag	drags/dust_gas_drag.hpp	/^    bool DustFeedback_Flag; \/\/ true or false, the flag of dust feedback term$/;"	m	class:DustGasDrag
 DustFluids	dustfluids.cpp	/^DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :$/;"	f	class:DustFluids
@@ -44,18 +47,25 @@ DustGasDrag	drags/backup/dust_gas_drag.cpp	/^DustGasDrag::DustGasDrag(DustFluids
 DustGasDrag	drags/backup/dust_gas_drag.hpp	/^class DustGasDrag {$/;"	c
 DustGasDrag	drags/dust_gas_drag.cpp	/^DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :$/;"	f	class:DustGasDrag
 DustGasDrag	drags/dust_gas_drag.hpp	/^class DustGasDrag {$/;"	c
-ExplitcitSolverFeedback	drags/explicitsolver.cpp	/^void DustGasDrag::ExplitcitSolverFeedback(const int stage,$/;"	f	class:DustGasDrag
-ExplitcitSolverNoFeedback	drags/explicitsolver.cpp	/^void DustGasDrag::ExplitcitSolverNoFeedback(const int stage,$/;"	f	class:DustGasDrag
+ExplicitFeedback	drags/explicit_integrator.cpp	/^void DustGasDrag::ExplicitFeedback(const int stage,$/;"	f	class:DustGasDrag
+ExplicitNoFeedback	drags/explicit_integrator.cpp	/^void DustGasDrag::ExplicitNoFeedback(const int stage,$/;"	f	class:DustGasDrag
+Explicit_Flag	drags/dust_gas_drag.hpp	/^    bool Explicit_Flag;     \/\/ true or false, the flag of the explicit time integrator$/;"	m	class:DustGasDrag
 GetCylCoord	diffusions/diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::GetCylCoord(Coordinates *pco, Real &rad, Real &phi, Real &z, int i, int j, int k) {$/;"	f	class:DustFluidsDiffusion
 GetGM	srcterms/dustfluids_srcterms.hpp	/^    Real GetGM() const {return gm_;}$/;"	f	class:DustFluidsSourceTerms
 HLLENoCsRiemannSolverDustFluids	dustfluids_noCs_solver.cpp	/^void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:DustFluids
 HLLERiemannSolverDustFluids	dustfluids_hlle_solver.cpp	/^void DustFluids::HLLERiemannSolverDustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:DustFluids
+ImplicitFeedback	drags/backup/implicit_integrator.cpp	/^void DustGasDrag::ImplicitFeedback(const int stage, const Real dt,$/;"	f	class:DustGasDrag
+ImplicitFeedback_2	drags/backup/implicit_integrator_2.cpp	/^void DustGasDrag::ImplicitFeedback_2(const int stage,$/;"	f	class:DustGasDrag
+ImplicitNoFeedback	drags/backup/implicit_integrator.cpp	/^void DustGasDrag::ImplicitNoFeedback(const int stage, const Real dt,$/;"	f	class:DustGasDrag
+Implicit_Flag	drags/dust_gas_drag.hpp	/^    bool Implicit_Flag;     \/\/ true or false, the flag of the implicit time integrator$/;"	m	class:DustGasDrag
 Inverse	drags/inverse.cpp	/^void DustGasDrag::Inverse(AthenaArray<Real> &a_matrix, AthenaArray<Real> &a_inv_matrix)$/;"	f	class:DustGasDrag
 InverseMatrix	drags/backup/LU_decompose.cpp	/^AthenaArray<Real> DustGasDrag::InverseMatrix(AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
 IterativeImprove	drags/backup/LU_decompose.cpp	/^void DustGasDrag::IterativeImprove(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector)$/;"	f	class:DustGasDrag
 LUdecompose	drags/backup/LU_decompose.cpp	/^void DustGasDrag::LUdecompose(const AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
 LUdecompose	drags/inverse.cpp	/^void DustGasDrag::LUdecompose(const AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
 Momentum_Diffusion_Flag	diffusions/dustfluids_diffusion.hpp	/^    bool Momentum_Diffusion_Flag;      \/\/ true or false, the flag of momentum diffusion of dust fluids$/;"	m	class:DustFluidsDiffusion
+MultipleDustFeedbackImplicit	drags/backup/multipledust_implicit_integrator.cpp	/^void DustGasDrag::MultipleDustFeedbackImplicit(const int stage,$/;"	f	class:DustGasDrag
+MultipleDustNoFeedbackImplicit	drags/backup/multipledust_implicit_integrator.cpp	/^void DustGasDrag::MultipleDustNoFeedbackImplicit(const int stage,$/;"	f	class:DustGasDrag
 MultipleDust_Feedback_Implicit	drags/backup/solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 MultipleDust_NoFeedback_Implicit	drags/backup/solve_drags_matrix.cpp	/^void DustGasDrag::MultipleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 Multiplication	drags/multiplication.cpp	/^void DustGasDrag::Multiplication(const AthenaArray<Real> &a_matrix,$/;"	f	class:DustGasDrag
@@ -66,12 +76,12 @@ NewAdvectionDt	new_blockdt_dustfluids.cpp	/^Real DustFluids::NewAdvectionDt() {$
 NewDiffusionDt	diffusions/dustfluids_diffusion.cpp	/^Real DustFluidsDiffusion::NewDiffusionDt() {$/;"	f	class:DustFluidsDiffusion
 Omega_0_	srcterms/dustfluids_srcterms.hpp	/^    Real Omega_0_, qshear_;                        \/\/ Orbital freq and shear rate in shearing box$/;"	m	class:DustFluidsSourceTerms
 PointMassDustFluids	srcterms/pointmass_dustfluids.cpp	/^void DustFluidsSourceTerms::PointMassDustFluids(const Real dt, const AthenaArray<Real> *flux_df,$/;"	f	class:DustFluidsSourceTerms
-RK2ImplicitFeedback	drags/rk2_time_integrator.cpp	/^void DustGasDrag::RK2ImplicitFeedback(const int stage,$/;"	f	class:DustGasDrag
-SetDustFluidsProperties	dustfluids.cpp	/^void DustFluids::SetDustFluidsProperties(AthenaArray<Real> &stopping_time,$/;"	f	class:DustFluids
+RK2ImplicitFeedback	drags/backup/rk2_time_integrator.cpp	/^void DustGasDrag::RK2ImplicitFeedback(const int stage,$/;"	f	class:DustGasDrag
+SetDustFluidsProperties	dustfluids.cpp	/^void DustFluids::SetDustFluidsProperties(const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,$/;"	f	class:DustFluids
 ShBoxCoord_	srcterms/dustfluids_srcterms.hpp	/^    int  ShBoxCoord_;                              \/\/ ShearCoordinate type: 1=xy (default), 2=xz$/;"	m	class:DustFluidsSourceTerms
 ShearingBoxSourceTermsDustFluids	srcterms/shearing_box_dustfluids.cpp	/^void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,$/;"	f	class:DustFluidsSourceTerms
-SingleDustFeedbackImplicit	drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDustFeedbackImplicit(const int stage, const Real dt,$/;"	f	class:DustGasDrag
-SingleDustNoFeedbackImplicit	drags/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDustNoFeedbackImplicit(const int stage, const Real dt,$/;"	f	class:DustGasDrag
+SingleDustFeedbackImplicit	drags/backup/singledust_implicit_integrator.cpp	/^void DustGasDrag::SingleDustFeedbackImplicit(const int stage, const Real dt,$/;"	f	class:DustGasDrag
+SingleDustNoFeedbackImplicit	drags/backup/singledust_implicit_integrator.cpp	/^void DustGasDrag::SingleDustNoFeedbackImplicit(const int stage, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_Feedback_Implicit	drags/backup/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_Feedback_SemiImplicit	drags/backup/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_Feedback_SemiImplicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
 SingleDust_NoFeedback_Implicit	drags/backup/solve_drags_matrix.cpp	/^void DustGasDrag::SingleDust_NoFeedback_Implicit(MeshBlock *pmb, const Real dt,$/;"	f	class:DustGasDrag
@@ -81,28 +91,34 @@ SolveLinearEquation	drags/inverse.cpp	/^void DustGasDrag::SolveLinearEquation(At
 SolveMultipleLinearEquation	drags/backup/LU_decompose.cpp	/^void DustGasDrag::SolveMultipleLinearEquation(AthenaArray<Real> &b_matrix, AthenaArray<Real> &x_matrix)$/;"	f	class:DustGasDrag
 SolveMultipleLinearEquation	drags/inverse.cpp	/^void DustGasDrag::SolveMultipleLinearEquation(AthenaArray<Real> &b_matrix, AthenaArray<Real> &x_matrix)$/;"	f	class:DustGasDrag
 SoundSpeed_Flag	dustfluids.hpp	/^    bool SoundSpeed_Flag;                  \/\/ true or false, turn on the sound speed of dust fluids$/;"	m	class:DustFluids
+TRBDF2Feedback	drags/backup/trbdf2_integrator.cpp	/^void DustGasDrag::TRBDF2Feedback(const int stage,$/;"	f	class:DustGasDrag
+TRBDF2Feedback	drags/trbdf2_integrator.cpp	/^void DustGasDrag::TRBDF2Feedback(const int stage,$/;"	f	class:DustGasDrag
+TRBDF2NoFeedback	drags/trbdf2_integrator.cpp	/^void DustGasDrag::TRBDF2NoFeedback(const int stage,$/;"	f	class:DustGasDrag
+TrapezoidFeedback	drags/backup/trapezoid_integrator.cpp	/^void DustGasDrag::TrapezoidFeedback(const int stage,$/;"	f	class:DustGasDrag
+TrapezoidFeedback	drags/trapezoid_integrator.cpp	/^void DustGasDrag::TrapezoidFeedback(const int stage,$/;"	f	class:DustGasDrag
+TrapezoidNoFeedback	drags/trapezoid_integrator.cpp	/^void DustGasDrag::TrapezoidNoFeedback(const int stage,$/;"	f	class:DustGasDrag
 UserDefinedDustDiffusivity	diffusions/diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
 UserDefinedStoppingTime	dustfluids.cpp	/^void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,$/;"	f	class:DustFluids
-VL2ImplicitFeedback	drags/vl2_time_integrator.cpp	/^void DustGasDrag::VL2ImplicitFeedback(const int stage,$/;"	f	class:DustGasDrag
+VL2ImplicitFeedback	drags/backup/vl2_time_integrator.cpp	/^void DustGasDrag::VL2ImplicitFeedback(const int stage,$/;"	f	class:DustGasDrag
+VL2ImplicitFeedback	drags/vl2implicit_integrator.cpp	/^void DustGasDrag::VL2ImplicitFeedback(const int stage,$/;"	f	class:DustGasDrag
+VL2ImplicitNoFeedback	drags/vl2implicit_integrator.cpp	/^void DustGasDrag::VL2ImplicitNoFeedback(const int stage,$/;"	f	class:DustGasDrag
 VanLeerLimiter	diffusions/momentum_diffusion.cpp	/^Real DustFluidsDiffusion::VanLeerLimiter(const Real a, const Real b){$/;"	f	class:DustFluidsDiffusion
 ZeroDustDiffusivity	diffusions/diffusivity_dustfluids.cpp	/^void DustFluidsDiffusion::ZeroDustDiffusivity(const AthenaArray<Real> &nu_gas,$/;"	f	class:DustFluidsDiffusion
 aref_matrix	drags/backup/dust_gas_drag.hpp	/^    AthenaArray<Real> aref_matrix;$/;"	m	class:DustGasDrag
 aref_matrix	drags/dust_gas_drag.hpp	/^    AthenaArray<Real> aref_matrix;$/;"	m	class:DustGasDrag
-cell_volume_	dustfluids.hpp	/^    AthenaArray<Real> cell_volume_;   \/\/ the volume of the cells$/;"	m	class:DustFluids
+cell_volume_	dustfluids.hpp	/^    AthenaArray<Real> cell_volume_;                             \/\/ the volume of the cells$/;"	m	class:DustFluids
 coarse_df_cons_	dustfluids.hpp	/^    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; \/\/ coarse df_cons and coarse df_prim, used in mesh refinement$/;"	m	class:DustFluids
 coarse_df_prim_	dustfluids.hpp	/^    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; \/\/ coarse df_cons and coarse df_prim, used in mesh refinement$/;"	m	class:DustFluids
 const_nu_dust_	dustfluids.hpp	/^    AthenaArray<Real> const_nu_dust_;       \/\/ Constant concentration diffusivity of dust$/;"	m	class:DustFluids
 const_stopping_time_	dustfluids.hpp	/^    AthenaArray<Real> const_stopping_time_; \/\/ Constant stopping time$/;"	m	class:DustFluids
 cs_dustfluids_array	dustfluids.hpp	/^    AthenaArray<Real> cs_dustfluids_array;      \/\/ Arrays of sound speed of dust, cs_d^2 = nu_d\/T_eddy$/;"	m	class:DustFluids
+cs_dustfluids_array_n	dustfluids.hpp	/^    AthenaArray<Real> cs_dustfluids_array_n;    \/\/ Arrays of sound speed of dust, cs_d^2 = nu_d\/T_eddy at stage n$/;"	m	class:DustFluids
 det	drags/backup/dust_gas_drag.hpp	/^    Real det;                       \/\/ The determinant of the matrix of drags$/;"	m	class:DustGasDrag
 det	drags/dust_gas_drag.hpp	/^    Real det;                       \/\/ The determinant of the matrix of drags$/;"	m	class:DustGasDrag
-df_cons	dustfluids.hpp	/^    AthenaArray<Real> df_cons, df_cons1, df_cons2, df_cons_n, df_cons_p; \/\/ time-integrator memory register #1$/;"	m	class:DustFluids
-df_cons1	dustfluids.hpp	/^    AthenaArray<Real> df_cons, df_cons1, df_cons2, df_cons_n, df_cons_p; \/\/ time-integrator memory register #1$/;"	m	class:DustFluids
-df_cons2	dustfluids.hpp	/^    AthenaArray<Real> df_cons, df_cons1, df_cons2, df_cons_n, df_cons_p; \/\/ time-integrator memory register #1$/;"	m	class:DustFluids
+df_cons	dustfluids.hpp	/^    AthenaArray<Real> df_cons, df_cons1, df_cons2; \/\/ time-integrator memory register #1$/;"	m	class:DustFluids
+df_cons1	dustfluids.hpp	/^    AthenaArray<Real> df_cons, df_cons1, df_cons2; \/\/ time-integrator memory register #1$/;"	m	class:DustFluids
+df_cons2	dustfluids.hpp	/^    AthenaArray<Real> df_cons, df_cons1, df_cons2; \/\/ time-integrator memory register #1$/;"	m	class:DustFluids
 df_cons_cc	dustfluids.hpp	/^    AthenaArray<Real> df_cons_cc, df_prim_cc;   \/\/ cell-centered approximations$/;"	m	class:DustFluids
-df_cons_n	dustfluids.hpp	/^    AthenaArray<Real> df_cons, df_cons1, df_cons2, df_cons_n, df_cons_p; \/\/ time-integrator memory register #1$/;"	m	class:DustFluids
-df_cons_p	dustfluids.hpp	/^    AthenaArray<Real> df_cons, df_cons1, df_cons2, df_cons_n, df_cons_p; \/\/ time-integrator memory register #1$/;"	m	class:DustFluids
-df_cons_s1	dustfluids.hpp	/^    AthenaArray<Real> df_cons_s1; \/\/ time-integrator memory register at stage 1$/;"	m	class:DustFluids
 df_flux	dustfluids.hpp	/^    AthenaArray<Real> df_flux[3];                    \/\/ face-averaged flux vector$/;"	m	class:DustFluids
 df_prim	dustfluids.hpp	/^    AthenaArray<Real> df_prim, df_prim1, df_prim_n;  \/\/ time-integrator memory register #3$/;"	m	class:DustFluids
 df_prim1	dustfluids.hpp	/^    AthenaArray<Real> df_prim, df_prim1, df_prim_n;  \/\/ time-integrator memory register #3$/;"	m	class:DustFluids
@@ -120,7 +136,8 @@ dflx_	dustfluids.hpp	/^    AthenaArray<Real> dflx_;$/;"	m	class:DustFluids
 dfsrc	dustfluids.cpp	/^  dfsrc(this,  pin) {$/;"	f
 dfsrc	dustfluids.hpp	/^    DustFluidsSourceTerms        dfsrc;   \/\/ Object used in calculating the source terms of dust$/;"	m	class:DustFluids
 diff_tot_	diffusions/dustfluids_diffusion.hpp	/^    AthenaArray<Real> diff_tot_;$/;"	m	class:DustFluidsDiffusion
-disk_problem	diffusions/dustfluids_diffusion.hpp	/^    bool        disk_problem;$/;"	m	class:DustFluidsDiffusion
+disk_problem	diffusions/dustfluids_diffusion.hpp	/^    bool              disk_problem;$/;"	m	class:DustFluidsDiffusion
+drag_integrator	drags/dust_gas_drag.hpp	/^    std::string drag_integrator;                     \/\/ Time Integrator on drags$/;"	m	class:DustGasDrag
 drags_matrix	drags/backup/dust_gas_drag.hpp	/^    AthenaArray<Real> drags_matrix; \/\/ The matrix of drags between dust and gas$/;"	m	class:DustGasDrag
 drags_matrix	drags/dust_gas_drag.hpp	/^    AthenaArray<Real> drags_matrix; \/\/ The matrix of drags between dust and gas$/;"	m	class:DustGasDrag
 dt1_	dustfluids.hpp	/^    AthenaArray<Real> dt1_, dt2_, dt3_;                     \/\/ scratch arrays used in NewAdvectionDt$/;"	m	class:DustFluids
@@ -143,6 +160,7 @@ laplacian_r_df_fc_	dustfluids.hpp	/^    AthenaArray<Real> laplacian_l_df_fc_, la
 lu_matrix	drags/backup/dust_gas_drag.hpp	/^    AthenaArray<Real> lu_matrix;    \/\/ Stores the decomposition.$/;"	m	class:DustGasDrag
 lu_matrix	drags/dust_gas_drag.hpp	/^    AthenaArray<Real> lu_matrix;    \/\/ Stores the decomposition.$/;"	m	class:DustGasDrag
 nu_dustfluids_array	dustfluids.hpp	/^    AthenaArray<Real> nu_dustfluids_array;      \/\/ Arrays of dust diffusivity array, nu_d$/;"	m	class:DustFluids
+nu_dustfluids_array_n	dustfluids.hpp	/^    AthenaArray<Real> nu_dustfluids_array_n;    \/\/ Arrays of dust diffusivity array, nu_d at stage n$/;"	m	class:DustFluids
 num_dust_var	diffusions/dustfluids_diffusion.hpp	/^    static const int num_dust_var = 4*NDUSTFLUIDS;  \/\/ Number of dust variables (rho, v1, v2, v3)*4$/;"	m	class:DustFluidsDiffusion
 num_dust_var	drags/backup/dust_gas_drag.hpp	/^    static const int num_dust_var = 4*NDUSTFLUIDS;   \/\/ Number of dust variables (rho, v1, v2, v3)*4$/;"	m	class:DustGasDrag
 num_dust_var	drags/dust_gas_drag.hpp	/^    static const int num_dust_var = 4*NDUSTFLUIDS;   \/\/ Number of dust variables (rho, v1, v2, v3)*4$/;"	m	class:DustGasDrag
@@ -151,13 +169,13 @@ num_dust_var	srcterms/dustfluids_srcterms.hpp	/^    static const int num_dust_va
 num_species	drags/backup/dust_gas_drag.hpp	/^    static const int num_species  = NDUSTFLUIDS + 1; \/\/ gas and n dust fluids$/;"	m	class:DustGasDrag
 num_species	drags/dust_gas_drag.hpp	/^    static const int num_species  = NDUSTFLUIDS + 1; \/\/ gas and n dust fluids$/;"	m	class:DustGasDrag
 particle_density_	dustfluids.hpp	/^    AthenaArray<Real> particle_density_;    \/\/ normalized dust particle internal density, used in user defined stopping time$/;"	m	class:DustFluids
-pco_	diffusions/dustfluids_diffusion.hpp	/^    Coordinates *pco_;                              \/\/ ptr to coordinates class$/;"	m	class:DustFluidsDiffusion
+pco_	diffusions/dustfluids_diffusion.hpp	/^    Coordinates       *pco_;                        \/\/ ptr to coordinates class$/;"	m	class:DustFluidsDiffusion
 pco_	drags/backup/dust_gas_drag.hpp	/^    Coordinates *pco_;                               \/\/ ptr to coordinates class$/;"	m	class:DustGasDrag
 pco_	dustfluids.hpp	/^    Coordinates *pco_;    \/\/ ptr to coordinates class$/;"	m	class:DustFluids
-pmb_	diffusions/dustfluids_diffusion.hpp	/^    MeshBlock   *pmb_;                              \/\/ ptr to meshblock containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
+pmb_	diffusions/dustfluids_diffusion.hpp	/^    MeshBlock         *pmb_;                        \/\/ ptr to meshblock containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
 pmb_	drags/backup/dust_gas_drag.hpp	/^    MeshBlock   *pmb_;                               \/\/ ptr to meshblock containing this DustGasDrag$/;"	m	class:DustGasDrag
 pmy_block	dustfluids.hpp	/^    MeshBlock* pmy_block;$/;"	m	class:DustFluids
-pmy_dustfluids_	diffusions/dustfluids_diffusion.hpp	/^    DustFluids  *pmy_dustfluids_;                   \/\/ ptr to DustFluids containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
+pmy_dustfluids_	diffusions/dustfluids_diffusion.hpp	/^    DustFluids        *pmy_dustfluids_;             \/\/ ptr to DustFluids containing this DustFluidsDiffusion$/;"	m	class:DustFluidsDiffusion
 pmy_dustfluids_	drags/backup/dust_gas_drag.hpp	/^    DustFluids  *pmy_dustfluids_;                    \/\/ ptr to DustFluids containing this DustGasDrag$/;"	m	class:DustGasDrag
 pmy_dustfluids_	drags/dust_gas_drag.hpp	/^    DustFluids  *pmy_dustfluids_;                    \/\/ ptr to DustFluids containing this DustGasDrag$/;"	m	class:DustGasDrag
 pmy_dustfluids_	srcterms/dustfluids_srcterms.hpp	/^    DustFluids *pmy_dustfluids_;                   \/\/ ptr to DustFluids containing this DustFluidsSourceTerms$/;"	m	class:DustFluidsSourceTerms
@@ -167,9 +185,8 @@ scale_vector	drags/backup/dust_gas_drag.hpp	/^    AthenaArray<Real> scale_vector
 scale_vector	drags/dust_gas_drag.hpp	/^    AthenaArray<Real> scale_vector; \/\/ scale_vector stores the implicit scaling of each row$/;"	m	class:DustGasDrag
 scr1_nkji_	dustfluids.hpp	/^    AthenaArray<Real> scr1_nkji_,   scr2_nkji_;$/;"	m	class:DustFluids
 scr2_nkji_	dustfluids.hpp	/^    AthenaArray<Real> scr1_nkji_,   scr2_nkji_;$/;"	m	class:DustFluids
-solver_index	drags/dust_gas_drag.hpp	/^    int solver_index;                                \/\/ 0 for implicit, 1 for semi-implicit, 2 for explicit$/;"	m	class:DustGasDrag
 stopping_time_array	dustfluids.hpp	/^    AthenaArray<Real> stopping_time_array;      \/\/ Arrays of stopping time of dust$/;"	m	class:DustFluids
-u_s1	dustfluids.hpp	/^    AthenaArray<Real> u_s1;       \/\/ time-integrator memory register at stage 1$/;"	m	class:DustFluids
+stopping_time_array_n	dustfluids.hpp	/^    AthenaArray<Real> stopping_time_array_n;    \/\/ Arrays of stopping time of dust at stage n$/;"	m	class:DustFluids
 x1face_area_	dustfluids.hpp	/^    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_; \/\/ face area in x1, x2, x3 directions$/;"	m	class:DustFluids
 x2face_area_	dustfluids.hpp	/^    AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_; \/\/ face area in x1, x2, x3 directions$/;"	m	class:DustFluids
 x2face_area_p1_	dustfluids.hpp	/^    AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;$/;"	m	class:DustFluids
