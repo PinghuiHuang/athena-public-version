@@ -99,6 +99,6 @@ class DustFluidsDiffusion {
     Real r0_;                                       // The length unit of radial direction in disk problem
 
     // functions pointer to calculate spatial dependent coefficients
-    //DustFluidsDiffusionCoeffFunc CalcDustFluidsDiffusivityCoeff_;
+    // DustFluidsDiffusionCoeffFunc CalcDustFluidsDiffusivityCoeff_;
 };
 #endif // DUSTFLUIDS_DIFFUSION_HPP_

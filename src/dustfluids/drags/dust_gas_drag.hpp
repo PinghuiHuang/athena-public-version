@@ -98,7 +98,7 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // Trapezoid-Backward Differentiation Formula 2, 2nd order
+    // Trapezoid Backward Differentiation Formula 2, 2nd order
     void TRBDF2Feedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -110,7 +110,7 @@ class DustGasDrag {
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
     // Full-Implicit Integartors
-    // Backward Euler, 1st order
+    // Backward Euler (Backward Differentiation Formula 1, BDF1), 1st order
     void BackwardEulerFeedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -121,7 +121,7 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // Backward Differentiation Formula 2, 1st order
+    // Backward Differentiation Formula 2, BDF2, 1st order
     void BDF2Feedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -132,7 +132,7 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // Van Leer Implicit method, 2nd order
+    // Van Leer 2 Implicit method, 2nd order
     void VL2ImplicitFeedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -143,11 +143,23 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
+    // Runge Kutta 2 Implicit method, 2nd order
+    void RK2ImplicitFeedback(const int stage, const Real dt,
+        const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
+    void RK2ImplicitNoFeedback(const int stage, const Real dt,
+        const AthenaArray<Real> &stopping_time,
+        const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
+
   private:
     static const int num_species  = NDUSTFLUIDS + 1; // gas and n dust fluids
     static const int num_dust_var = 4*NDUSTFLUIDS;   // Number of dust variables (rho, v1, v2, v3)*4
     std::string integrator;                          // Time Integrator
-    std::string drag_integrator;                     // Time Integrator on drags
+    std::string drag_method;                         // Drag methods
+    int drag_method_id;                              // The integrator method id
     DustFluids  *pmy_dustfluids_;                    // ptr to DustFluids containing this DustGasDrag
 
     // data for LU decomposition

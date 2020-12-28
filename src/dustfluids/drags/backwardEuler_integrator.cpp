@@ -158,9 +158,9 @@ void DustGasDrag::BackwardEulerFeedback(const int stage,
 
         // Update the energy of gas if the gas is non barotropic. dE = dM * v
         if (NON_BAROTROPIC_EOS) {
-          Real &gas_e     = u(IEN, k, j, i);
-          Real delta_erg  = delta_m1(0)*gas_v1 + delta_m2(0)*gas_v2 + delta_m3(0)*gas_v3;
-          gas_e          += delta_erg;
+          Real &gas_erg   = u(IEN, k, j, i);
+          Real work_drag  = delta_m1(0)*gas_v1 + delta_m2(0)*gas_v2 + delta_m3(0)*gas_v3;
+          gas_erg        += work_drag;
         }
 
         for (int n = 1; n <= NDUSTFLUIDS; ++n) {
@@ -212,6 +212,7 @@ void DustGasDrag::BackwardEulerNoFeedback(const int stage,
   AthenaArray<Real> delta_m2(num_species);
   AthenaArray<Real> delta_m3(num_species);
 
+  //if (stage == 2){
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {
 #pragma omp simd
@@ -310,5 +311,6 @@ void DustGasDrag::BackwardEulerNoFeedback(const int stage,
       }
     }
   }
+  //}
   return;
 }

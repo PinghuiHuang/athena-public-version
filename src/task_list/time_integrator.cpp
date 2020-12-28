@@ -784,12 +784,10 @@ TaskStatus TimeIntegratorTaskList::IntegrateHydro(MeshBlock *pmb, int stage) {
   if (pmb->pmy_mesh->fluid_setup != FluidFormulation::evolve) return TaskStatus::next;
 
     if (stage <= nstages) {
-      if (NDUSTFLUIDS > 0) {
-      // Backup the u^(n), w^(n) at the stage 1
-        if ( stage == 1 ){
-          Real wghts[3] = {0.0, 1.0, 0.0};
-          pmb->WeightedAve(ph->w_n, ph->w, ph->w, wghts);
-        }
+      if (NDUSTFLUIDS>0 && stage == 1) {
+      // Backup the w^(n) at the stage 1
+        Real wghts[3] = {0.0, 1.0, 0.0};
+        pmb->WeightedAve(ph->w_n, ph->w, ph->w, wghts);
       }
 
       // This time-integrator-specific averaging operation logic is identical to FieldInt
@@ -1272,7 +1270,7 @@ TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage
   DustFluids *pdf = pmb->pdustfluids;
 
   if (stage <= nstages) {
-    // Backup the u^(n), w^(n) at the stage 1
+    // Backup the w^(n) at the stage 1
     if ( stage == 1 ){
       Real wghts[3] = {0.0, 1.0, 0.0};
       pmb->WeightedAve(pdf->df_prim_n, pdf->df_prim, pdf->df_prim, wghts);

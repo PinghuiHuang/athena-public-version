@@ -167,7 +167,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
   if (NDUSTFLUIDS > 0) {
     for (int n=0; n<NDUSTFLUIDS; n++)
-      initial_D2G(n) = pin->GetOrAddReal("dust", "Intial_D2G_" + std::to_string(n+1), 0.01);
+      initial_D2G(n) = pin->GetOrAddReal("dust", "Initial_D2G_" + std::to_string(n+1), 0.01);
   }
 
   // Get parameters of initial pressure and cooling parameters
@@ -1402,7 +1402,7 @@ void OuterX1_Average(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, F
 }
 
 
-void MeshBlock::UserWorkInLoop() {
+void Mesh::UserWorkInLoop() {
   Real initial_w_IDN(0.0);
   Real initial_u_IM1(0.0), initial_u_IM2(0.0), initial_u_IM3(0.0);
   Real rad(0.0), phi(0.0), z(0.0);

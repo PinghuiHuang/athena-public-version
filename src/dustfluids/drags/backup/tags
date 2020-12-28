@@ -10,6 +10,9 @@ Determinant	LU_decompose.cpp	/^Real DustGasDrag::Determinant()$/;"	f	class:DustG
 DustFeedback_Flag	dust_gas_drag.hpp	/^    bool DustFeedback_Flag;           \/\/ true or false, the flag of dust feedback term$/;"	m	class:DustGasDrag
 DustGasDrag	dust_gas_drag.cpp	/^DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :$/;"	f	class:DustGasDrag
 DustGasDrag	dust_gas_drag.hpp	/^class DustGasDrag {$/;"	c
+ImplicitFeedback	implicit_integrator.cpp	/^void DustGasDrag::ImplicitFeedback(const int stage, const Real dt,$/;"	f	class:DustGasDrag
+ImplicitFeedback_2	implicit_integrator_2.cpp	/^void DustGasDrag::ImplicitFeedback_2(const int stage,$/;"	f	class:DustGasDrag
+ImplicitNoFeedback	implicit_integrator.cpp	/^void DustGasDrag::ImplicitNoFeedback(const int stage, const Real dt,$/;"	f	class:DustGasDrag
 InverseMatrix	LU_decompose.cpp	/^AthenaArray<Real> DustGasDrag::InverseMatrix(AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag
 IterativeImprove	LU_decompose.cpp	/^void DustGasDrag::IterativeImprove(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector)$/;"	f	class:DustGasDrag
 LUdecompose	LU_decompose.cpp	/^void DustGasDrag::LUdecompose(const AthenaArray<Real> &a_matrix)$/;"	f	class:DustGasDrag

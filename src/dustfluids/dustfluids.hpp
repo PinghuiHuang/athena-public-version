@@ -73,7 +73,7 @@ class DustFluids {
     bool ConstStoppingTime_Flag;           // true or false, the flag of using the constant stopping time of dust
     bool SoundSpeed_Flag;                  // true or false, turn on the sound speed of dust fluids
 
-    AthenaArray<Real> particle_density_;    // normalized dust particle internal density, used in user defined stopping time
+    AthenaArray<Real> internal_density_;    // normalized dust particle internal density, used in user defined stopping time
     AthenaArray<Real> const_stopping_time_; // Constant stopping time
     AthenaArray<Real> const_nu_dust_;       // Constant concentration diffusivity of dust
 
@@ -82,7 +82,7 @@ class DustFluids {
     // Stopping time
     // Calculate the user defined stopping time, varied with the properties of gas and dust
     void UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
-        const int il, const int iu, const AthenaArray<Real> particle_density,
+        const int il, const int iu, const AthenaArray<Real> internal_density,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df, AthenaArray<Real> &stopping_time);
 
     // Set the constant stopping time of dust
@@ -102,6 +102,16 @@ class DustFluids {
 
     // HLLE solver with sound speed of dust
     void HLLERiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
+        const int index, AthenaArray<Real> &prim_df_l,
+        AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
+
+    // Roe solver without sound speed of dust
+    void RoeNoCsRiemannSolverDustFluids( const int k, const int j, const int il, const int iu,
+        const int index, AthenaArray<Real> &prim_df_l,
+        AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
+
+    // Roe solver with sound speed of dust
+    void RoeRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &prim_df_l,
         AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
 
@@ -137,6 +147,5 @@ class DustFluids {
     // 1D scratch arrays
     AthenaArray<Real> laplacian_l_df_fc_, laplacian_r_df_fc_;
     void AddDiffusionFluxes();        // Add the diffusion flux on the dust flux
-
 };
 #endif // DUSTFLUIDS_HPP_

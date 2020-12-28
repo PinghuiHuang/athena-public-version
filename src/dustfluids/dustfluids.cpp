@@ -60,7 +60,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   cs_dustfluids_array(NDUSTFLUIDS,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
   cs_dustfluids_array_n(NDUSTFLUIDS, pmb->ncells3, pmb->ncells2, pmb->ncells1),
   dfbvar(pmb, &df_cons, &coarse_df_cons_, df_flux),
-  particle_density_(NDUSTFLUIDS),    // normalized particle internal density, used in user defined stopping time
+  internal_density_(NDUSTFLUIDS),    // normalized dust internal density, used in user defined stopping time
   const_stopping_time_(NDUSTFLUIDS), // const stopping time, used in constant stopping time
   const_nu_dust_(NDUSTFLUIDS),       // const dust diffusivity, used in constant diffusivity
   dfdrag(this, pin),
@@ -72,7 +72,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   Mesh *pm = pmy_block->pmy_mesh;
   pmb->RegisterMeshBlockData(df_cons);
 
-  ConstStoppingTime_Flag = pin->GetBoolean("dust", "Const_StoppingTime_Flag");
+  ConstStoppingTime_Flag = pin->GetBoolean("dust",      "Const_StoppingTime_Flag");
   SoundSpeed_Flag        = pin->GetOrAddBoolean("dust", "Dust_SoundSpeed_Flag", false);
 
   // If the dust is inviscid, then sound speed flag is set as false
@@ -84,7 +84,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
     if (ConstStoppingTime_Flag)
       const_stopping_time_(n) = pin->GetReal("dust", "stopping_time_" + std::to_string(n+1));
     else
-      particle_density_(n) = pin->GetReal("dust", "particle_density_" + std::to_string(n+1));
+      internal_density_(n) = pin->GetReal("dust", "internal_density_" + std::to_string(n+1));
 
     if (dfdif.dustfluids_diffusion_defined) {
       if (dfdif.ConstNu_Flag)
@@ -101,6 +101,7 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
 
   // If user-requested time integrator is type 3S*, allocate additional memory registers
   std::string integrator = pin->GetOrAddString("time", "integrator", "vl2");
+
   if (integrator == "ssprk5_4" || STS_ENABLED)
     // future extension may add "int nregister" to Hydro class
     df_cons2.NewAthenaArray(num_dust_var, nc3, nc2, nc1);
@@ -161,9 +162,7 @@ void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, 
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
         for (int i=il; i<=iu; ++i) {
-          Real rad, phi, z;
-          dfdif.GetCylCoord(pco_, rad, phi, z, i, j, k);
-          Real &st_time = stopping_time(dust_id,k,j,i);
+          Real &st_time = stopping_time(dust_id, k, j, i);
           st_time       = const_stopping_time_(dust_id);
         }
       }
@@ -174,24 +173,35 @@ void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, 
 
 
 void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
-            const int il, const int iu, const AthenaArray<Real> particle_density,
+            const int il, const int iu, const AthenaArray<Real> internal_density,
             const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df, AthenaArray<Real> &stopping_time){
-  for (int n=0; n<NDUSTFLUIDS; ++n) { // Calculate the stopping time array and the dust diffusivity array
+  Real rad, phi, z;
+  Real inv_gm0 = 1.0/dfsrc.gm_;
+
+  for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
     int rho_id  = 4*dust_id;
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
         for (int i=il; i<=iu; ++i) {
-          const Real &dust_rho = prim_df(rho_id,k,j,i);
-          Real &st_time        = stopping_time(dust_id,k,j,i);
-          //const Real &wd = w(IDN,k,j,i);
+          Real &st_time        = stopping_time(dust_id, k, j, i);
 
-          // Usually, the stopping time is in inversely proportional to the density of gas, see Takeuchi & Lin, 2001
-          //st_time = particle_density(dust_id)/wd;
+          // Usually, the stopping time is inversely proportional to the density of gas, see Takeuchi & Lin, 2001
+          //const Real &gas_rho  = w(IDN, k, j, i);
+          //st_time = internal_density(dust_id)/gas_rho;
 
           // Or you can define the stopping time by yourself
-          st_time = dust_rho/particle_density(dust_id);
+          //const Real &dust_rho = prim_df(rho_id, k, j, i);
+          //st_time = dust_rho/internal_density(dust_id);
+
+          // Stokes number is constant in disk problems
+          if ( (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0) ||
+                std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0) {
+            dfdif.GetCylCoord(pco_, rad, phi, z, i, j, k);
+            st_time = internal_density(dust_id)*std::pow(rad, 1.5)*std::pow(inv_gm0, -0.5);
+          }
+
         }
       }
     }
@@ -218,7 +228,7 @@ void DustFluids::SetDustFluidsProperties(const AthenaArray<Real> &w, const Athen
   if ( ConstStoppingTime_Flag )
     ConstantStoppingTime(kl, ku, jl, ju, il, iu, stopping_time);
   else
-    UserDefinedStoppingTime(kl, ku, jl, ju, il, iu, particle_density_,
+    UserDefinedStoppingTime(kl, ku, jl, ju, il, iu, internal_density_,
         w, prim_df, stopping_time);
 
   if ( dfdif.dustfluids_diffusion_defined ) {

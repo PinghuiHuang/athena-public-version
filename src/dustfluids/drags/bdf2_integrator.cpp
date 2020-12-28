@@ -167,9 +167,9 @@ void DustGasDrag::BDF2Feedback(const int stage,
 
           // Update the energy of gas if the gas is non barotropic.
           if (NON_BAROTROPIC_EOS) {
-            Real &gas_e     = u(IEN, k, j, i);
-            Real delta_erg  = delta_gas_m1 * gas_v1 + delta_gas_m2 * gas_v2 + delta_gas_m3 * gas_v3;
-            gas_e          += delta_erg;
+            Real &gas_erg   = u(IEN, k, j, i);
+            Real work_drag  = delta_gas_m1 * gas_v1 + delta_gas_m2 * gas_v2 + delta_gas_m3 * gas_v3;
+            gas_erg        += work_drag;
           }
 
           for (int n=1; n<=NDUSTFLUIDS; ++n){
@@ -315,13 +315,21 @@ void DustGasDrag::BDF2Feedback(const int stage,
           Real &gas_m2 = u(IM2, k, j, i);
           Real &gas_m3 = u(IM3, k, j, i);
 
-          Real delta_gas_m1 = ONE_3RD * delta_m1_implicit(0);
-          Real delta_gas_m2 = ONE_3RD * delta_m2_implicit(0);
-          Real delta_gas_m3 = ONE_3RD * delta_m3_implicit(0);
+          Real delta_gas_m1_a = ONE_3RD * delta_m1_implicit(0);
+          Real delta_gas_m2_a = ONE_3RD * delta_m2_implicit(0);
+          Real delta_gas_m3_a = ONE_3RD * delta_m3_implicit(0);
 
-          delta_gas_m1 += (2.0*TWO_3RD*(gas_rho_p * gas_v1_p - gas_rho_n * gas_v1_n));
-          delta_gas_m2 += (2.0*TWO_3RD*(gas_rho_p * gas_v2_p - gas_rho_n * gas_v2_n));
-          delta_gas_m3 += (2.0*TWO_3RD*(gas_rho_p * gas_v3_p - gas_rho_n * gas_v3_n));
+          Real delta_gas_m1_b = 2.0 * TWO_3RD * gas_rho_p * gas_v1_p;
+          Real delta_gas_m2_b = 2.0 * TWO_3RD * gas_rho_p * gas_v2_p;
+          Real delta_gas_m3_b = 2.0 * TWO_3RD * gas_rho_p * gas_v3_p;
+
+          Real delta_gas_m1_c = -2.0 * TWO_3RD * gas_rho_n * gas_v1_n;
+          Real delta_gas_m2_c = -2.0 * TWO_3RD * gas_rho_n * gas_v2_n;
+          Real delta_gas_m3_c = -2.0 * TWO_3RD * gas_rho_n * gas_v3_n;
+
+          Real delta_gas_m1 = delta_gas_m1_a + delta_gas_m1_b + delta_gas_m1_c;
+          Real delta_gas_m2 = delta_gas_m2_a + delta_gas_m2_b + delta_gas_m2_c;
+          Real delta_gas_m3 = delta_gas_m3_a + delta_gas_m3_b + delta_gas_m3_c;
 
           gas_m1 += delta_gas_m1;
           gas_m2 += delta_gas_m2;
@@ -329,9 +337,9 @@ void DustGasDrag::BDF2Feedback(const int stage,
 
           // Update the energy of gas if the gas is non barotropic.
           if (NON_BAROTROPIC_EOS) {
-            Real &gas_e     = u(IEN, k, j, i);
-            Real delta_erg  = delta_gas_m1 * gas_v1_n + delta_gas_m2 * gas_v2_n + delta_gas_m3 * gas_v3_n;
-            gas_e          += delta_erg;
+            Real &gas_erg   = u(IEN, k, j, i);
+            Real work_drag  = delta_gas_m1 * gas_v1_n + delta_gas_m2 * gas_v2_n + delta_gas_m3 * gas_v3_n;
+            gas_erg        += work_drag;
           }
 
           for (int n=1; n<=NDUSTFLUIDS; ++n){
@@ -356,13 +364,21 @@ void DustGasDrag::BDF2Feedback(const int stage,
             const Real &dust_v2_p  = prim_df(v2_id,  k, j, i);
             const Real &dust_v3_p  = prim_df(v3_id,  k, j, i);
 
-            Real delta_dust_m1 = ONE_3RD * delta_m1_implicit(n);
-            Real delta_dust_m2 = ONE_3RD * delta_m2_implicit(n);
-            Real delta_dust_m3 = ONE_3RD * delta_m3_implicit(n);
+            Real delta_dust_m1_a = ONE_3RD * delta_m1_implicit(n);
+            Real delta_dust_m2_a = ONE_3RD * delta_m2_implicit(n);
+            Real delta_dust_m3_a = ONE_3RD * delta_m3_implicit(n);
 
-            delta_dust_m1 += (2.0*TWO_3RD*(dust_rho_p * dust_v1_p - dust_rho_n * dust_v1_n));
-            delta_dust_m2 += (2.0*TWO_3RD*(dust_rho_p * dust_v2_p - dust_rho_n * dust_v2_n));
-            delta_dust_m3 += (2.0*TWO_3RD*(dust_rho_p * dust_v3_p - dust_rho_n * dust_v3_n));
+            Real delta_dust_m1_b = 2.0 * TWO_3RD * dust_rho_p * dust_v1_p;
+            Real delta_dust_m2_b = 2.0 * TWO_3RD * dust_rho_p * dust_v2_p;
+            Real delta_dust_m3_b = 2.0 * TWO_3RD * dust_rho_p * dust_v3_p;
+
+            Real delta_dust_m1_c = -2.0 * TWO_3RD * dust_rho_n * dust_v1_n;
+            Real delta_dust_m2_c = -2.0 * TWO_3RD * dust_rho_n * dust_v2_n;
+            Real delta_dust_m3_c = -2.0 * TWO_3RD * dust_rho_n * dust_v3_n;
+
+            Real delta_dust_m1 = delta_dust_m1_a + delta_dust_m1_b + delta_dust_m1_c;
+            Real delta_dust_m2 = delta_dust_m2_a + delta_dust_m2_b + delta_dust_m2_c;
+            Real delta_dust_m3 = delta_dust_m3_a + delta_dust_m3_b + delta_dust_m3_c;
 
             dust_m1 += delta_dust_m1;
             dust_m2 += delta_dust_m2;
@@ -618,13 +634,21 @@ void DustGasDrag::BDF2NoFeedback(const int stage,
             const Real &dust_v2_p  = prim_df(v2_id,  k, j, i);
             const Real &dust_v3_p  = prim_df(v3_id,  k, j, i);
 
-            Real delta_dust_m1 = ONE_3RD * delta_m1_implicit(n);
-            Real delta_dust_m2 = ONE_3RD * delta_m2_implicit(n);
-            Real delta_dust_m3 = ONE_3RD * delta_m3_implicit(n);
+            Real delta_dust_m1_a = ONE_3RD * delta_m1_implicit(n);
+            Real delta_dust_m2_a = ONE_3RD * delta_m2_implicit(n);
+            Real delta_dust_m3_a = ONE_3RD * delta_m3_implicit(n);
 
-            delta_dust_m1 += (2.0*TWO_3RD*(dust_rho_p * dust_v1_p - dust_rho_n * dust_v1_n));
-            delta_dust_m2 += (2.0*TWO_3RD*(dust_rho_p * dust_v2_p - dust_rho_n * dust_v2_n));
-            delta_dust_m3 += (2.0*TWO_3RD*(dust_rho_p * dust_v3_p - dust_rho_n * dust_v3_n));
+            Real delta_dust_m1_b = 2.0 * TWO_3RD * dust_rho_p * dust_v1_p;
+            Real delta_dust_m2_b = 2.0 * TWO_3RD * dust_rho_p * dust_v2_p;
+            Real delta_dust_m3_b = 2.0 * TWO_3RD * dust_rho_p * dust_v3_p;
+
+            Real delta_dust_m1_c = -2.0 * TWO_3RD * dust_rho_n * dust_v1_n;
+            Real delta_dust_m2_c = -2.0 * TWO_3RD * dust_rho_n * dust_v2_n;
+            Real delta_dust_m3_c = -2.0 * TWO_3RD * dust_rho_n * dust_v3_n;
+
+            Real delta_dust_m1 = delta_dust_m1_a + delta_dust_m1_b + delta_dust_m1_c;
+            Real delta_dust_m2 = delta_dust_m2_a + delta_dust_m2_b + delta_dust_m2_c;
+            Real delta_dust_m3 = delta_dust_m3_a + delta_dust_m3_b + delta_dust_m3_c;
 
             dust_m1 += delta_dust_m1;
             dust_m2 += delta_dust_m2;

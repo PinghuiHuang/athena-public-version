@@ -52,7 +52,7 @@ void ShowConfig() {
   if (NDUSTFLUIDS > 0) {
     std::cout<<"  Dust Fluids Species:        " << NDUSTFLUIDS << std::endl;
   } else {
-    std::cout<<"  Dust Fluids Species:        NO" << std::endl;
+    std::cout<<"  Dust Fluids Species:        0 " << std::endl;
   }
   if (STS_ENABLED) {
     std::cout<<"  Super-Time-Stepping:        ON" << std::endl;

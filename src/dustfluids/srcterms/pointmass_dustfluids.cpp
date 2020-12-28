@@ -37,8 +37,8 @@ void DustFluidsSourceTerms::PointMassDustFluids(const Real dt, const AthenaArray
       for (int j=pmb->js; j<=pmb->je; ++j) {
 #pragma omp simd
         for (int i=pmb->is; i<=pmb->ie; ++i) {
-          Real den = prim_df(rho_id,k,j,i);
-          Real src = dt*den*pmb->pcoord->coord_src1_i_(i)*gm_/pmb->pcoord->x1v(i);
+          Real rho_dust         = prim_df(rho_id,k,j,i);
+          Real src              = dt*rho_dust*pmb->pcoord->coord_src1_i_(i)*gm_/pmb->pcoord->x1v(i);
           cons_df(v1_id,k,j,i) -= src;
         }
       }

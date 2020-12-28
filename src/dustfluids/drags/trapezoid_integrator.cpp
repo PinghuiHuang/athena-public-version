@@ -121,10 +121,10 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
 
           // Update the energy of gas if the gas is non barotropic.
           if (NON_BAROTROPIC_EOS) {
-            Real &gas_e     = u(IEN, k, j, i);
-            Real delta_erg  = delta_m1_explicit(0)*gas_v1 + delta_m2_explicit(0)*gas_v2
+            Real &gas_erg   = u(IEN, k, j, i);
+            Real work_drag  = delta_m1_explicit(0)*gas_v1 + delta_m2_explicit(0)*gas_v2
                               + delta_m3_explicit(0)*gas_v3;
-            gas_e          += delta_erg;
+            gas_erg        += work_drag;
           }
 
           for (int n=1; n<=NDUSTFLUIDS; ++n) {
@@ -270,10 +270,10 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
 
           // Update the energy of gas if the gas is non barotropic. dE = dM * v
           if (NON_BAROTROPIC_EOS) {
-            Real &gas_e     = u(IEN, k, j, i);
-            Real delta_erg  = delta_m1_implicit(0)*gas_v1_n + delta_m2_implicit(0)*gas_v2_n
+            Real &gas_erg   = u(IEN, k, j, i);
+            Real work_drag  = delta_m1_implicit(0)*gas_v1_n + delta_m2_implicit(0)*gas_v2_n
                               + delta_m3_implicit(0)*gas_v3_n;
-            gas_e          += delta_erg;
+            gas_erg        += work_drag;
           }
 
           for (int n = 1; n <= NDUSTFLUIDS; ++n) {

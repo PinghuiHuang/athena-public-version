@@ -79,8 +79,8 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
 
 void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &prim_df,
     const AthenaArray<Real> &cons_df) {
-  DustFluids *pdf = pmy_dustfluids_;
-  Hydro *phyd     = pmb_->phydro;
+  DustFluids *pdf  = pmy_dustfluids_;
+  Hydro      *phyd = pmb_->phydro;
 
   // Set the diffusion flux of dust fluids as zero
   ClearDustFluidsFlux(dustfluids_diffusion_flux);
@@ -92,6 +92,7 @@ void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &p
   if (Momentum_Diffusion_Flag) {
     DustFluidsMomentumDiffusiveFlux(prim_df, phyd->w, dustfluids_diffusion_flux);
   }
+
   return;
 }
 

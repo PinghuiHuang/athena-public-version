@@ -56,5 +56,6 @@ class DustFluidsSourceTerms {
     Real gm_;                                      // GM for point mass MUST BE LOCATED AT ORIGIN
     Real Omega_0_, qshear_;                        // Orbital freq and shear rate in shearing box
     int  ShBoxCoord_;                              // ShearCoordinate type: 1=xy (default), 2=xz
+    friend class DustFluids;
 };
 #endif // DUSTFLUIDS_SRCTERMS_HPP_

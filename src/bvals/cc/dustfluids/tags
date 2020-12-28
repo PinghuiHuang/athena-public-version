@@ -1,0 +1,27 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AddHydroShearForInit	bvals_shear_hydro.cpp	/^void HydroBoundaryVariable::AddHydroShearForInit() {$/;"	f	class:HydroBoundaryVariable
+BVALS_CC_HYDRO_BVALS_HYDRO_HPP_	bvals_hydro.hpp	2;"	d
+HydroBoundaryVariable	bvals_hydro.cpp	/^HydroBoundaryVariable::HydroBoundaryVariable($/;"	f	class:HydroBoundaryVariable
+HydroBoundaryVariable	bvals_hydro.hpp	/^class HydroBoundaryVariable : public CellCenteredBoundaryVariable {$/;"	c
+ReflectInnerX1	reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectInnerX1($/;"	f	class:HydroBoundaryVariable
+ReflectInnerX2	reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectInnerX2($/;"	f	class:HydroBoundaryVariable
+ReflectInnerX3	reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectInnerX3($/;"	f	class:HydroBoundaryVariable
+ReflectOuterX1	reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectOuterX1($/;"	f	class:HydroBoundaryVariable
+ReflectOuterX2	reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectOuterX2($/;"	f	class:HydroBoundaryVariable
+ReflectOuterX3	reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectOuterX3($/;"	f	class:HydroBoundaryVariable
+SelectCoarseBuffer	bvals_hydro.cpp	/^void HydroBoundaryVariable::SelectCoarseBuffer(HydroBoundaryQuantity hydro_type) {$/;"	f	class:HydroBoundaryVariable
+ShearQuantities	bvals_shear_hydro.cpp	/^void HydroBoundaryVariable::ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) {$/;"	f	class:HydroBoundaryVariable
+SwapHydroQuantity	bvals_hydro.cpp	/^void HydroBoundaryVariable::SwapHydroQuantity(AthenaArray<Real> &var_hydro,$/;"	f	class:HydroBoundaryVariable
+hydro_type_	bvals_hydro.hpp	/^  HydroBoundaryQuantity hydro_type_;$/;"	m	class:HydroBoundaryVariable
+override	bvals_hydro.hpp	/^                      int il, int iu, int jl, int ju, int kl, int ngh) override;$/;"	m	class:HydroBoundaryVariable
+override	bvals_hydro.hpp	/^                      int il, int iu, int jl, int ju, int ku, int ngh) override;$/;"	m	class:HydroBoundaryVariable
+override	bvals_hydro.hpp	/^                      int il, int iu, int jl, int kl, int ku, int ngh) override;$/;"	m	class:HydroBoundaryVariable
+override	bvals_hydro.hpp	/^                      int il, int iu, int ju, int kl, int ku, int ngh) override;$/;"	m	class:HydroBoundaryVariable
+override	bvals_hydro.hpp	/^                      int il, int jl, int ju, int kl, int ku, int ngh) override;$/;"	m	class:HydroBoundaryVariable
+override	bvals_hydro.hpp	/^                      int iu, int jl, int ju, int kl, int ku, int ngh) override;$/;"	m	class:HydroBoundaryVariable
+override	bvals_hydro.hpp	/^  void ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) override;$/;"	m	class:HydroBoundaryVariable

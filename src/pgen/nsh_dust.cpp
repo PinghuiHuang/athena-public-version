@@ -24,7 +24,6 @@
 #include "../athena_arrays.hpp"
 #include "../coordinates/coordinates.hpp"
 #include "../eos/eos.hpp"
-#include "../field/field.hpp"
 #include "../hydro/hydro.hpp"
 #include "../dustfluids/dustfluids.hpp"
 #include "../mesh/mesh.hpp"
@@ -45,6 +44,7 @@ Real gm1, iso_cs;
 Real x1size, x2size, x3size;
 Real Omega_0, qshear;
 Real pslope;
+Real user_dt;
 AthenaArray<Real> volume; // 1D array of volumes
 Real HistoryBxBy(MeshBlock *pmb, int iout);
 AthenaArray<Real> initial_D2G(NDUSTFLUIDS);
@@ -52,6 +52,7 @@ AthenaArray<Real> initial_D2G(NDUSTFLUIDS);
 // User Sources
 void PressureGradient(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
     const AthenaArray<Real> &bcc, AthenaArray<Real> &cons);
+Real MyTimeStep(MeshBlock *pmb);
 } // namespace
 
 //======================================================================================
@@ -60,23 +61,25 @@ void PressureGradient(MeshBlock *pmb, const Real time, const Real dt, const Athe
 
 void Mesh::InitUserMeshData(ParameterInput *pin) {
   // initialize global variables
-  amp         = pin->GetReal("problem",         "amp");
-  d0          = pin->GetOrAddReal("problem",    "d0",         1.0);
-  nwx         = pin->GetOrAddInteger("problem", "nwx",        1);
-  nwy         = pin->GetOrAddInteger("problem", "nwy",        1);
-  ShBoxCoord  = pin->GetOrAddInteger("problem", "shboxcoord", 1);
-  ipert       = pin->GetOrAddInteger("problem", "ipert",      1);
-  Omega_0     = pin->GetOrAddReal("problem",    "Omega0",     0.001);
-  qshear      = pin->GetOrAddReal("problem",    "qshear",     1.5);
-  etaVk       = pin->GetOrAddReal("problem",    "etaVk",      0.05);
+  amp        = pin->GetReal("problem",         "amp");
+  d0         = pin->GetOrAddReal("problem",    "d0",         1.0);
+  nwx        = pin->GetOrAddInteger("problem", "nwx",        1);
+  nwy        = pin->GetOrAddInteger("problem", "nwy",        1);
+  ShBoxCoord = pin->GetOrAddInteger("problem", "shboxcoord", 1);
+  ipert      = pin->GetOrAddInteger("problem", "ipert",      1);
+  Omega_0    = pin->GetOrAddReal("problem",    "Omega0",     0.001);
+  qshear     = pin->GetOrAddReal("problem",    "qshear",     1.5);
+  etaVk      = pin->GetOrAddReal("problem",    "etaVk",      0.05);
   //etaVk      *= iso_cs; // switch to code unit
+  user_dt    = pin->GetOrAddReal("time", "user_dt", 1e-3);
 
   if (NDUSTFLUIDS > 0) {
     for (int n=0; n<NDUSTFLUIDS; n++)
-      initial_D2G(n) = pin->GetOrAddReal("dust", "Intial_D2G_" + std::to_string(n+1), 0.01);
+      initial_D2G(n) = pin->GetOrAddReal("dust", "Initial_D2G_" + std::to_string(n+1), 0.01);
   }
 
   EnrollUserExplicitSourceFunction(PressureGradient);
+  EnrollUserTimeStepFunction(MyTimeStep);
 
   // enroll new history variables
   //AllocateUserHistoryOutput(1);
@@ -131,42 +134,18 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
         rvy = 0.0;
         rvz = 0.0;
 
-        //if (ipert == 1) {
-          //rval = 1.0 + amp*(ran2(&iseed) - 0.5);
-          //if (NON_BAROTROPIC_EOS) {
-            //rp = rval*p0;
-            //rd = d0;
-          //} else {
-            //rd = rval*d0;
-          //}
-          //rvx = 0.0;
-        //} else if (ipert == 2) {
-          //rp = p0;
-          //rd = d0*(1.0+0.1*std::sin(static_cast<Real>(kx)*x1));
-          //if (NON_BAROTROPIC_EOS) {
-            //rvx = amp*std::sqrt((gm1+1.0)*p0/d0);
-          //} else {
-            //rvx = amp*std::sqrt(p0/d0);
-          //}
-        //} else {
-          //std::stringstream msg;
-          //msg << "### FATAL ERROR in hb3_dustfluids.cpp ProblemGenerator" << std::endl
-              //<< "Shearing sheet ipert=" << ipert << " is unrecognized" << std::endl;
-          //ATHENA_ERROR(msg);
-        //}
-
-        Real &den_gas         = phydro->u(IDN,k,j,i);
-        den_gas               = rd;
-        phydro->u(IM1,k,j,i)  = den_gas*rvx;
-        phydro->u(IM2,k,j,i)  = den_gas*rvy;
-        phydro->u(IM3,k,j,i)  = den_gas*rvz;
-        phydro->u(IM2,k,j,i) -= den_gas*qshear*Omega_0*x1; // Keplerian Shear
-        phydro->u(IM2,k,j,i) -= den_gas*etaVk*iso_cs;      // Pressure Gradient
+        Real &gas_den         = phydro->u(IDN,k,j,i);
+        gas_den               = rd;
+        phydro->u(IM1,k,j,i)  = gas_den*rvx;
+        phydro->u(IM2,k,j,i)  = gas_den*rvy;
+        phydro->u(IM3,k,j,i)  = gas_den*rvz;
+        phydro->u(IM2,k,j,i) -= gas_den*qshear*Omega_0*x1; // Keplerian Shear
+        phydro->u(IM2,k,j,i) -= gas_den*etaVk*iso_cs;      // Pressure Gradient
 
         if (NON_BAROTROPIC_EOS) {
           phydro->u(IEN,k,j,i) = rp/gm1 + 0.5*(SQR(phydro->u(IM1,k,j,i)) +
                                                SQR(phydro->u(IM2,k,j,i)) +
-                                               SQR(phydro->u(IM3,k,j,i)))/den_gas;
+                                               SQR(phydro->u(IM3,k,j,i)))/gas_den;
         }
 
         if (NDUSTFLUIDS > 0) {
@@ -177,13 +156,12 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
             int v2_id   = rho_id + 2;
             int v3_id   = rho_id + 3;
 
-            Real &den_dust                     = pdustfluids->df_cons(rho_id, k, j, i);
-            den_dust                           = initial_D2G(dust_id)*den_gas;
-            pdustfluids->df_cons(v1_id,k,j,i)  = den_dust*rvx;
-            pdustfluids->df_cons(v2_id,k,j,i)  = den_dust*rvy;
-            pdustfluids->df_cons(v3_id,k,j,i)  = den_dust*rvz;
-            pdustfluids->df_cons(v2_id,k,j,i) -= den_dust*qshear*Omega_0*x1; // Keplerian Shear
-
+            Real &dust_den                     = pdustfluids->df_cons(rho_id, k, j, i);
+            dust_den                           = initial_D2G(dust_id)*gas_den;
+            pdustfluids->df_cons(v1_id,k,j,i)  = dust_den*rvx;
+            pdustfluids->df_cons(v2_id,k,j,i)  = dust_den*rvy;
+            pdustfluids->df_cons(v3_id,k,j,i)  = dust_den*rvz;
+            pdustfluids->df_cons(v2_id,k,j,i) -= dust_den*qshear*Omega_0*x1; // Keplerian Shear
           }
         }
 
@@ -204,8 +182,8 @@ void PressureGradient(MeshBlock *pmb, const Real time, const Real dt, const Athe
     for (int j=pmb->js; j<=pmb->je; ++j) {
 #pragma omp simd
       for (int i=pmb->is; i<=pmb->ie; ++i) {
-        const Real &den_gas  = prim(IDN,k,j,i);
-        Real press_gra       = 2.0*den_gas*etaVk*iso_cs*Omega_0*dt;
+        const Real &gas_rho  = prim(IDN,k,j,i);
+        Real press_gra       = 2.0*gas_rho*etaVk*iso_cs*Omega_0*dt;
         Real &m1_gas         = cons(IM1,k,j,i);
         m1_gas              += press_gra;
       }
@@ -222,8 +200,8 @@ void PressureGradient(MeshBlock *pmb, const Real time, const Real dt, const Athe
       //for (int j=pmb->js; j<=pmb->je; ++j) {
 //#pragma omp simd
         //for (int i=pmb->is; i<=pmb->ie; ++i) {
-          //Real &den_dust             = pdf->df_cons(rho_id,k,j,i);
-          //Real press_gra             = 2.0*den_dust*etaVk*iso_cs*Omega_0*dt;
+          //Real &dust_rho             = pdf->df_cons(rho_id,k,j,i);
+          //Real press_gra             = 2.0*dust_rho*etaVk*iso_cs*Omega_0*dt;
           //pdf->df_cons(v1_id,k,j,i) -= press_gra;
         //}
       //}
@@ -232,6 +210,13 @@ void PressureGradient(MeshBlock *pmb, const Real time, const Real dt, const Athe
 
   return;
 }
+
+Real MyTimeStep(MeshBlock *pmb)
+{
+  Real min_user_dt = user_dt;
+  return min_user_dt;
+}
+
 }
 
 
