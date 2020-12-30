@@ -478,6 +478,8 @@ TaskStatus SuperTimeStepTaskList::PhysicalBoundary_STS(MeshBlock *pmb, int stage
     // Real t_end_stage = pmb->pmy_mesh->time;
     // Real dt = pmb->pmy_mesh->dt;
     pmb->phydro->hbvar.SwapHydroQuantity(pmb->phydro->w, HydroBoundaryQuantity::prim);
+    if (NDUSTFLUIDS > 0)
+      pmb->pdustfluids->dfbvar.SwapDustFluidsQuantity(pmb->pdustfluids->df_prim, DustFluidsBoundaryQuantity::prim_df);
     pbval->ApplyPhysicalBoundaries(pmb->pmy_mesh->time, pmb->pmy_mesh->dt);
   } else {
     return TaskStatus::fail;

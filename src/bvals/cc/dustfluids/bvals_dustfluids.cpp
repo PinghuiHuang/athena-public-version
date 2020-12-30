@@ -37,12 +37,12 @@ DustFluidsBoundaryVariable::DustFluidsBoundaryVariable(
 void DustFluidsBoundaryVariable::SelectCoarseBuffer(DustFluidsBoundaryQuantity dustfluids_type) {
   if (pmy_mesh_->multilevel) {
     switch (dustfluids_type) {
-      case (DustFluidsBoundaryQuantity::cons): {
-        coarse_buf = &(pmy_block_->pdustfluids->coarse_cons_);
+      case (DustFluidsBoundaryQuantity::cons_df): {
+        coarse_buf = &(pmy_block_->pdustfluids->coarse_df_cons_);
         break;
       }
-      case (DustFluidsBoundaryQuantity::prim): {
-        coarse_buf = &(pmy_block_->pdustfluids->coarse_prim_);
+      case (DustFluidsBoundaryQuantity::prim_df): {
+        coarse_buf = &(pmy_block_->pdustfluids->coarse_df_prim_);
         break;
       }
     }

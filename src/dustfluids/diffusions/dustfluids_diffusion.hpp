@@ -62,7 +62,7 @@ class DustFluidsDiffusion {
     void GetCylCoord(Coordinates *pco, Real &rad, Real &phi, Real &z, int i, int j, int k);
 
     // Diffusivity
-    // Calculate the user defined dust diffusivity, varied with the gas surface density and gas viscosity
+    // Calculate the user defined dust diffusivity
     void UserDefinedDustDiffusivity(const AthenaArray<Real> &nu_gas,
       const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
       const AthenaArray<Real> &stopping_time,

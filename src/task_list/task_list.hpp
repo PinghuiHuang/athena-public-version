@@ -176,7 +176,7 @@ class TimeIntegratorTaskList : public TaskList {
   TaskStatus DiffuseDustFluids(MeshBlock *pmb, int stage);
   TaskStatus CalculateDustFluidsFlux(MeshBlock *pmb, int stage);
   TaskStatus SendDustFluidsFlux(MeshBlock *pmb, int stage);
-  TaskStatus ReceiveDustFluidsFlux(MeshBlock *pmb, int stage);
+  TaskStatus ReceiveAndCorrectDustFluidsFlux(MeshBlock *pmb, int stage);
   TaskStatus IntegrateDustFluids(MeshBlock *pmb, int stage);
   TaskStatus SendDustFluids(MeshBlock *pmb, int stage);
   TaskStatus ReceiveDustFluids(MeshBlock *pmb, int stage);

@@ -157,10 +157,11 @@ MeshBlock::MeshBlock(int igid, int ilid, LogicalLocation iloc, RegionSize input_
     if (SELF_GRAVITY_ENABLED == 2)
       pmg = new MGGravity(pmy_mesh->pmgrd, this);
   }
+
   if (NDUSTFLUIDS > 0) {
     // if (this->dustfluids_block)
     pdustfluids = new DustFluids(this, pin);
-    pbval->AdvanceCounterPhysID(CellCenteredBoundaryVariable::max_phys_id);
+    pbval->AdvanceCounterPhysID(DustFluidsBoundaryVariable::max_phys_id);
   }
   // KGF: suboptimal solution, since developer must copy/paste BoundaryVariable derived
   // class type that is used in each DustFluids, Gravity, Field, Hydro, ... etc. class
@@ -282,7 +283,7 @@ MeshBlock::MeshBlock(int igid, int ilid, Mesh *pm, ParameterInput *pin,
   if (NDUSTFLUIDS > 0) {
     // if (this->dustfluids_block)
     pdustfluids = new DustFluids(this, pin);
-    pbval->AdvanceCounterPhysID(CellCenteredBoundaryVariable::max_phys_id);
+    pbval->AdvanceCounterPhysID(DustFluidsBoundaryVariable::max_phys_id);
   }
 
   peos = new EquationOfState(this, pin);

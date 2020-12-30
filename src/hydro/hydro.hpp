@@ -43,7 +43,8 @@ class Hydro {
   AthenaArray<Real> u, w;           // time-integrator memory register #1
   AthenaArray<Real> u1, w1;         // time-integrator memory register #2
   AthenaArray<Real> u2;             // time-integrator memory register #3
-  AthenaArray<Real> w_n;            // time-integrator memory register for dust-gas drag
+  AthenaArray<Real> w_n;            // time-integrator memory register used in dust-gas drag integrators
+  AthenaArray<Real> u_bs, u_as;     // time-integrator memory register used in dust-gas drag integrators
   // (no more than MAX_NREGISTER allowed)
 
   AthenaArray<Real> flux[3];  // face-averaged flux vector

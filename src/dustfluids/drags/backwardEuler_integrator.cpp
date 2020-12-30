@@ -50,6 +50,13 @@ void DustGasDrag::BackwardEulerFeedback(const int stage,
   AthenaArray<Real> delta_m2(num_species);
   AthenaArray<Real> delta_m3(num_species);
 
+  Real inv_dt   = 1.0/dt;
+  Real wghts[3] = {0.0, 1.0, -1.0};
+  AthenaArray<Real> u_d(NHYDRO,             pmb->ncells3, pmb->ncells2, pmb->ncells1);
+  AthenaArray<Real> cons_df_d(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1);
+  pmb->WeightedAve(u_d,       ph->u_as,        ph->u_bs,        wghts);
+  pmb->WeightedAve(cons_df_d, pdf->df_cons_as, pdf->df_cons_bs, wghts);
+
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {
 #pragma omp simd
@@ -105,6 +112,30 @@ void DustGasDrag::BackwardEulerFeedback(const int stage,
           force_x2(0) -= force_x2(index);
           force_x3(0) -= force_x3(index);
         }
+
+        //// Add the delta momentum caused by the other explicit source terms, \Delta Gm = (u^(as) - u^(bs))/dt
+        //for (int index = 0; index <= NDUSTFLUIDS; index++) {
+          //if (index == 0) {
+            //force_x1(0) += u_d(IM1, k, j, i) * inv_dt;
+            //force_x2(0) += u_d(IM2, k, j, i) * inv_dt;
+            //force_x3(0) += u_d(IM3, k, j, i) * inv_dt;
+            ////std::cout << "u_d(IM1, k, j, i) is " << u_d(IM1, k, j, i) << std::endl;
+            ////std::cout << "u_d(IM2, k, j, i) is " << u_d(IM2, k, j, i) << std::endl;
+          //}
+          //else {
+            //int dust_id = index - 1;
+            //int rho_id  = 4*dust_id;
+            //int v1_id   = rho_id + 1;
+            //int v2_id   = rho_id + 2;
+            //int v3_id   = rho_id + 3;
+
+            //force_x1(index) += cons_df_d(v1_id, k, j, i) * inv_dt;
+            //force_x2(index) += cons_df_d(v2_id, k, j, i) * inv_dt;
+            //force_x3(index) += cons_df_d(v3_id, k, j, i) * inv_dt;
+            ////std::cout << "cons_df_d(v1_id, k, j, i) is " << cons_df_d(v1_id, k, j, i) << std::endl;
+            ////std::cout << "cons_df_d(v2_id, k, j, i) is " << cons_df_d(v2_id, k, j, i) << std::endl;
+          //}
+        //}
 
         // Calculate the jacobi matrix of the drag forces, df/dM
         // Set the jacobi_matrix_n(0, row), except jacobi_matrix_n(0, 0)
@@ -181,6 +212,16 @@ void DustGasDrag::BackwardEulerFeedback(const int stage,
           dust_m3 += delta_m3(n);
         }
 
+        //Real total_m1_implicit = delta_m1(0) + delta_m1(1);
+        //Real total_m2_implicit = delta_m2(0) + delta_m2(1);
+        //Real total_implicit = std::abs(total_m1_implicit) + std::abs(total_m2_implicit);
+        //if (total_m1_implicit != 0.0)
+          //std::cout << "Total_m1_implicit is " << total_m1_implicit << std::endl;
+        //if (total_m2_implicit != 0.0)
+          //std::cout << "Total_m2_implicit is " << total_m2_implicit << std::endl;
+        //if (total_implicit > 1e-16)
+          //std::cout << "Total_implicit is " << total_implicit << std::endl;
+
       }
     }
   }
@@ -212,7 +253,6 @@ void DustGasDrag::BackwardEulerNoFeedback(const int stage,
   AthenaArray<Real> delta_m2(num_species);
   AthenaArray<Real> delta_m3(num_species);
 
-  //if (stage == 2){
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {
 #pragma omp simd
@@ -311,6 +351,5 @@ void DustGasDrag::BackwardEulerNoFeedback(const int stage,
       }
     }
   }
-  //}
   return;
 }

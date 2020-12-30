@@ -79,9 +79,9 @@ void DustFluidsBoundaryVariable::AddDustFluidsShearForInit() {
 						for (int i=0; i<NGHOST; i++) {
 							int ii = ib[upper] + i;
 							// add shear to conservative
-							shear_cc_[upper](v2_id,k,j,i) = var(v2_id,k,j,ii)
-																						+ sign[upper]*qomL*var(rho_id,k,j,ii);
-							var(v2_id,k,j,ii) = shear_cc_[upper](v2_id,k,j,i);
+							shear_cc_[upper](v2_id, k, j, i) = var(v2_id, k, j, ii)
+																						+ sign[upper]*qomL*var(rho_id, k, j, ii);
+							var(v2_id, k, j, ii) = shear_cc_[upper](v2_id, k, j, i);
 						}
 					}
 				}

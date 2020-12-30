@@ -30,6 +30,7 @@ class MeshBlock;
 class MeshBlockTree;
 class Hydro;
 class Field;
+class DustFluids;
 class ParameterInput;
 class Coordinates;
 class BoundaryValues;
@@ -83,8 +84,9 @@ enum class NeighborConnect {none, face, edge, corner}; // degenerate/shared part
 enum class BoundaryStatus {waiting, arrived, completed};
 
 // flags to mark which variables are reversed across polar boundary
-constexpr const bool flip_across_pole_hydro[] = {false, false, true, true, false};
-constexpr const bool flip_across_pole_field[] = {false, true, true};
+constexpr const bool flip_across_pole_hydro[]      = {false, false, true, true, false};
+constexpr const bool flip_across_pole_field[]      = {false, true, true};
+constexpr const bool flip_across_pole_dustfluids[] = {false, false, true, true, false};
 
 //----------------------------------------------------------------------------------------
 //! \struct SimpleNeighborBlock

@@ -15,7 +15,7 @@
 // Athena++ headers
 #include "../athena.hpp"
 #include "../athena_arrays.hpp"
-#include "../bvals/cc/bvals_cc.hpp"
+#include "../bvals/cc/dustfluids/bvals_dustfluids.hpp"
 #include "../hydro/hydro_diffusion/hydro_diffusion.hpp"
 #include "diffusions/dustfluids_diffusion.hpp"
 #include "drags/dust_gas_drag.hpp"
@@ -42,10 +42,11 @@ class DustFluids {
     // Leaving as ctor parameter in case of run-time "ndustfluids" option
 
     // public data:
-    // "conservative vars" = density, momentums of dust fluids
+    // "conservative vars" = density, momentums of dust
     AthenaArray<Real> df_cons, df_cons1, df_cons2; // time-integrator memory register #1
+    AthenaArray<Real> df_cons_bs, df_cons_as;      // time-integrator memory register before and after explicit sources terms
 
-    // "primitive vars" = density, velocities of dust fluids
+    // "primitive vars" = density, velocities of dust
     AthenaArray<Real> df_prim, df_prim1, df_prim_n;  // time-integrator memory register #3
     AthenaArray<Real> df_flux[3];                    // face-averaged flux vector
 
@@ -65,17 +66,17 @@ class DustFluids {
     AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; // coarse df_cons and coarse df_prim, used in mesh refinement
     int refinement_idx{-1};                             // vector of pointers in MeshRefinement class
 
-    CellCenteredBoundaryVariable dfbvar;  // Cell-Centered boundary variables
-    DustGasDrag                  dfdrag;  // Object used in calculating the dust-gas drags
-    DustFluidsDiffusion          dfdif;   // Object used in calculating the diffusions of dust
-    DustFluidsSourceTerms        dfsrc;   // Object used in calculating the source terms of dust
+    DustFluidsBoundaryVariable dfbvar;  // Dust Fluids boundary variables (Cell-Centered)
+    DustGasDrag                dfdrag;  // Object used in calculating the dust-gas drags
+    DustFluidsDiffusion        dfdif;   // Object used in calculating the diffusions of dust
+    DustFluidsSourceTerms      dfsrc;   // Object used in calculating the source terms of dust
 
     bool ConstStoppingTime_Flag;           // true or false, the flag of using the constant stopping time of dust
     bool SoundSpeed_Flag;                  // true or false, turn on the sound speed of dust fluids
 
-    AthenaArray<Real> internal_density_;    // normalized dust particle internal density, used in user defined stopping time
-    AthenaArray<Real> const_stopping_time_; // Constant stopping time
-    AthenaArray<Real> const_nu_dust_;       // Constant concentration diffusivity of dust
+    AthenaArray<Real> internal_density;    // normalized dust internal density, used in user defined stopping time
+    AthenaArray<Real> const_stopping_time; // Constant stopping time
+    AthenaArray<Real> const_nu_dust;       // Constant concentration diffusivity of dust
 
 
     // Public functions:
@@ -105,12 +106,7 @@ class DustFluids {
         const int index, AthenaArray<Real> &prim_df_l,
         AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
 
-    // Roe solver without sound speed of dust
-    void RoeNoCsRiemannSolverDustFluids( const int k, const int j, const int il, const int iu,
-        const int index, AthenaArray<Real> &prim_df_l,
-        AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
-
-    // Roe solver with sound speed of dust
+    // Roe solver of dust
     void RoeRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &prim_df_l,
         AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
@@ -135,7 +131,7 @@ class DustFluids {
 
     // 1D scratch arrays
     AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_; // face area in x1, x2, x3 directions
-    AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;
+    AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;         // face area in x2, x3 directions
     AthenaArray<Real> cell_volume_;                             // the volume of the cells
     AthenaArray<Real> dflx_;
     //AthenaArray<Real> dx_df_prim_;
@@ -146,6 +142,6 @@ class DustFluids {
     AthenaArray<Real> df_prim_l3d_, df_prim_r3d_;
     // 1D scratch arrays
     AthenaArray<Real> laplacian_l_df_fc_, laplacian_r_df_fc_;
-    void AddDiffusionFluxes();        // Add the diffusion flux on the dust flux
+    void AddDiffusionFluxes();        // Add the diffusive flux on the dust flux
 };
 #endif // DUSTFLUIDS_HPP_

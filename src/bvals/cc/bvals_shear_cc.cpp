@@ -28,6 +28,7 @@
 #include "../../field/field.hpp"
 #include "../../globals.hpp"
 #include "../../hydro/hydro.hpp"
+#include "../../dustfluids/dustfluids.hpp"
 #include "../../mesh/mesh.hpp"
 #include "../../parameter_input.hpp"
 #include "../../utils/buffer_utils.hpp"

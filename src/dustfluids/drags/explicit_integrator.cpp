@@ -139,6 +139,12 @@ void DustGasDrag::ExplicitFeedback(const int stage,
           dust_m3 += delta_m3_explicit(n);
         }
 
+        //std::cout << "delta_m1_explicit(0) is " << delta_m1_explicit(0) << std::endl;
+        //std::cout << "delta_m1_explicit(1) is " << delta_m1_explicit(1) << std::endl;
+        //std::cout << "Total_m1_explicit(1) is " << delta_m1_explicit(0) + delta_m1_explicit(1) << std::endl;
+        //std::cout << "delta_m2_explicit(0) is " << delta_m2_explicit(0) << std::endl;
+        //std::cout << "delta_m2_explicit(1) is " << delta_m2_explicit(1) << std::endl;
+        //std::cout << "Total_m2_explicit(1) is " << delta_m2_explicit(0) + delta_m2_explicit(1) << std::endl;
       }
     }
   }

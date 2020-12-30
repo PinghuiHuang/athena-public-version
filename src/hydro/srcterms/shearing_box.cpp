@@ -53,6 +53,9 @@ void HydroSourceTerms::ShearingBoxSourceTerms(const Real dt,
   MeshBlock *pmb = pmy_hydro_->pmy_block;
 
 
+  //Real etaVk  = 0.05;
+  //Real iso_cs = 1.0;
+  //Real Kai0   = 2.0*etaVk*iso_cs;
   // 1) S_M = -rho*grad(Phi); S_E = -rho*v*grad(Phi)
   //    dM1/dt = 2q\rho\Omega^2 x
   //    dE /dt = 2q\Omega^2 (\rho v_x)
@@ -66,6 +69,8 @@ void HydroSourceTerms::ShearingBoxSourceTerms(const Real dt,
           Real den = prim(IDN,k,j,i);
           cons(IM1,k,j,i) += dt*(2.0*qshear_*Omega_0_*Omega_0_*den*pmb->pcoord->x1v(i)
                                  +2.0*Omega_0_*den*prim(IVY,k,j,i));
+          //Real press_gra   = den*Kai0*Omega_0_*dt;
+          //cons(IM1,k,j,i) += press_gra;
           cons(IM2,k,j,i) -= dt*2.0*Omega_0_*den*prim(IVX,k,j,i);
           if (NON_BAROTROPIC_EOS) {
             phic = -qshear_*SQR(Omega_0_*pmb->pcoord->x1v(i));

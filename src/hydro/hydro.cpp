@@ -58,7 +58,9 @@ Hydro::Hydro(MeshBlock *pmb, ParameterInput *pin) :
   pmb->RegisterMeshBlockData(u);
 
   if (NDUSTFLUIDS > 0) {
-    w_n.NewAthenaArray(NHYDRO, nc3, nc2, nc1);
+    w_n.NewAthenaArray(NHYDRO,  nc3, nc2, nc1);
+    u_bs.NewAthenaArray(NHYDRO, nc3, nc2, nc1);
+    u_as.NewAthenaArray(NHYDRO, nc3, nc2, nc1);
   }
 
   // Allocate optional memory primitive/conserved variable registers for time-integrator

@@ -23,6 +23,7 @@
 #include "../dustfluids/dustfluids.hpp"
 #include "bvals.hpp"
 #include "cc/hydro/bvals_hydro.hpp"
+#include "cc/dustfluids/bvals_dustfluids.hpp"
 #include "fc/bvals_fc.hpp"
 
 // -----------
@@ -97,12 +98,13 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
       dynamic_cast<HydroBoundaryVariable *>(bvars_main_int[0]);
   Hydro *ph = pmb->phydro;
 
-  CellCenteredBoundaryVariable *pdfbvar = nullptr;
+  DustFluidsBoundaryVariable *pdfbvar = nullptr;
   DustFluids *pdf = nullptr;
   if (NDUSTFLUIDS > 0) {
     pdf = pmb->pdustfluids;
     // cannot assume the vector index:
-    //pdfbvar = dynamic_cast<CellCenteredBoundaryVariable *>(bvars_main_int[???]);
+    //pdfbvar = dynamic_cast<DustFluidsCenteredBoundaryVariable *>(bvars_main_int[???]);
+    pdfbvar = dynamic_cast<DustFluidsBoundaryVariable *>(bvars_main_int[0]); // TODO
   }
 
   FaceCenteredBoundaryVariable *pfbvar = nullptr;
@@ -187,8 +189,7 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
     if (MAGNETIC_FIELDS_ENABLED)
       pfbvar->var_fc = &(pf->coarse_b_);
     if (NDUSTFLUIDS > 0) {
-      pdf = pmb->pdustfluids;
-      pdf->dfbvar.var_cc = &(pdf->coarse_df_prim_);
+      pdfbvar->var_cc = &(pdf->coarse_df_prim_);
     }
 
     // Step 2. Re-apply physical boundaries on the coarse boundary:
@@ -200,8 +201,7 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
     if (MAGNETIC_FIELDS_ENABLED)
       pfbvar->var_fc = &(pf->b);
     if (NDUSTFLUIDS > 0) {
-      pdf = pmb->pdustfluids;
-      pdf->dfbvar.var_cc = &(pdf->df_prim);
+      pdfbvar->var_cc = &(pdf->df_prim);
     }
 
     // Step 3. Finally, the ghost-ghost zones are ready for prolongation:
@@ -322,8 +322,13 @@ void BoundaryValues::ApplyPhysicalBoundariesOnCoarseLevel(
   // temporarily hardcode Hydro and Field array access:
   Hydro *ph = pmb->phydro;
   Field *pf = nullptr;
+  DustFluids *pdf = nullptr;
   if (MAGNETIC_FIELDS_ENABLED) {
     pf = pmb->pfield;
+  }
+
+  if (NDUSTFLUIDS > 0) {
+    pdf = pmb->pdustfluids;
   }
 
   // convert the ghost zone and ghost-ghost zones into primitive variables
@@ -366,12 +371,11 @@ void BoundaryValues::ApplyPhysicalBoundariesOnCoarseLevel(
                                   pf->coarse_bcc_, pmr->pcoarsec,
                                   si-f1m, ei+f1p, sj-f2m, ej+f2p, sk-f3m, ek+f3p);
   if (NDUSTFLUIDS > 0) {
-    DustFluids *pdf = pmb->pdustfluids;
     pmb->peos->DustFluidsConservedToPrimitive(pdf->coarse_df_cons_,
-                                                 pdf->coarse_df_prim_, pdf->coarse_df_prim_,
-                                                 pmr->pcoarsec,
-                                                 si-f1m, ei+f1p, sj-f2m, ej+f2p,
-                                                 sk-f3m, ek+f3p);
+                                              pdf->coarse_df_prim_, pdf->coarse_df_prim_,
+                                              pmr->pcoarsec,
+                                              si-f1m, ei+f1p, sj-f2m, ej+f2p,
+                                              sk-f3m, ek+f3p);
   }
 
   if (nb.ni.ox1 == 0) {
@@ -423,10 +427,12 @@ void BoundaryValues::ProlongateGhostCells(const NeighborBlock& nb,
   //(unique to Hydro, DustFluids): swap ptrs to (w, coarse_prim) from (u, coarse_cons)
   pmr->SetHydroRefinement(HydroBoundaryQuantity::prim);
   // (r, coarse_r) from (s, coarse_s)
-  if (NDUSTFLUIDS > 0) {
-    DustFluids *pdf = pmb->pdustfluids;
-    pmr->pvars_cc_[pdf->refinement_idx] = std::make_tuple(&pdf->df_prim, &pdf->coarse_df_prim_);
-  }
+  //if (NDUSTFLUIDS > 0) {
+    //DustFluids *pdf = pmb->pdustfluids;
+    //pmr->pvars_cc_[pdf->refinement_idx] = std::make_tuple(&pdf->df_prim, &pdf->coarse_df_prim_);
+  //}
+  if (NDUSTFLUIDS > 0)
+    pmr->SetDustFluidsRefinement(DustFluidsBoundaryQuantity::prim_df);
 
   for (auto cc_pair : pmr->pvars_cc_) {
     AthenaArray<Real> *var_cc = std::get<0>(cc_pair);
@@ -437,10 +443,12 @@ void BoundaryValues::ProlongateGhostCells(const NeighborBlock& nb,
   }
   // swap back MeshRefinement ptrs to standard/coarse conserved variable arrays:
   pmr->SetHydroRefinement(HydroBoundaryQuantity::cons);
-  if (NDUSTFLUIDS > 0) {
-    DustFluids *pdf = pmb->pdustfluids;
-    pmr->pvars_cc_[pdf->refinement_idx] = std::make_tuple(&pdf->df_cons, &pdf->coarse_df_cons_);
-  }
+  //if (NDUSTFLUIDS > 0) {
+    //DustFluids *pdf = pmb->pdustfluids;
+    //pmr->pvars_cc_[pdf->refinement_idx] = std::make_tuple(&pdf->df_cons, &pdf->coarse_df_cons_);
+  //}
+  if (NDUSTFLUIDS > 0)
+    pmr->SetDustFluidsRefinement(DustFluidsBoundaryQuantity::cons_df);
 
   // prolongate face-centered S/AMR-enrolled quantities (magnetic fields)
   int &mylevel = pmb->loc.level;

@@ -50,7 +50,7 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
     Momentum_Diffusion_Flag = pin->GetOrAddBoolean("dust", "Momentum_Diffusion_Flag", false);
   }
 
-  // Set dust diffusions if the gas diffusion is defined or constant nu diffusion flag is true.
+  // Turn on dust diffusion if the gas diffusion is defined or constant nu diffusion flag is true.
   if ((Diffusion_Flag) && (hd.hydro_diffusion_defined || ConstNu_Flag))
     dustfluids_diffusion_defined = true;
 
@@ -58,9 +58,9 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
   eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 1.0);
 
   if (dustfluids_diffusion_defined) {
-    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(num_dust_var, nc3,   nc2,   nc1+1); // Face centered
-    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(num_dust_var, nc3,   nc2+1, nc1);   // Face centered
-    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(num_dust_var, nc3+1, nc2,   nc1);   // Face centered
+    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(num_dust_var, nc3,   nc2,   nc1+1); // Face centered x1 diffusive flux
+    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(num_dust_var, nc3,   nc2+1, nc1);   // Face centered x2 diffusive flux
+    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(num_dust_var, nc3+1, nc2,   nc1);   // Face centered x3 diffusive flux
 
     dx1_.NewAthenaArray(nc1);
     dx2_.NewAthenaArray(nc1);
@@ -68,7 +68,7 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
     diff_tot_.NewAthenaArray(nc1);
   }
 
-  // If the problem generator is disk problem
+  // If the problem generator is a disk problem
   std::string disk_string = "disk";
   std::string::size_type idx = std::string(PROBLEM_GENERATOR).find(disk_string);
   (idx != std::string::npos) ? disk_problem = true : disk_problem = false;
@@ -82,13 +82,13 @@ void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &p
   DustFluids *pdf  = pmy_dustfluids_;
   Hydro      *phyd = pmb_->phydro;
 
-  // Set the diffusion flux of dust fluids as zero
+  // Set the diffusive flux as zeros
   ClearDustFluidsFlux(dustfluids_diffusion_flux);
 
   // Calculate the concentration diffusive flux
   DustFluidsConcentrationDiffusiveFlux(prim_df, phyd->w, dustfluids_diffusion_flux);
 
-  // Calculate the momentum diffusive flux due to concentration diffusion
+  // Calculate the correction of momentum diffusive flux due to concentration diffusion
   if (Momentum_Diffusion_Flag) {
     DustFluidsMomentumDiffusiveFlux(prim_df, phyd->w, dustfluids_diffusion_flux);
   }
@@ -100,7 +100,7 @@ void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &p
 // Add the dust diffusive fluxes into the dust fluxes
 void DustFluidsDiffusion::AddDustFluidsDiffusionFlux(AthenaArray<Real> *flux_diff,
                     AthenaArray<Real> *flux_df) {
-  // flux_diff: diffusion flux, flux_df: total flux
+  // flux_diff: diffusive flux, flux_df: total flux
   int size1 = flux_df[X1DIR].GetSize();
 #pragma omp simd
   for (int i=0; i<size1; ++i)

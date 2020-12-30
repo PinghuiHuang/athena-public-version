@@ -1407,8 +1407,11 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
         if (MAGNETIC_FIELDS_ENABLED)
           pmb->pfield->fbvar.SendBoundaryBuffers();
         // and (conserved variable) dust fluids masses:
-        if (NDUSTFLUIDS > 0)
+        if (NDUSTFLUIDS > 0) {
+          pmb->pdustfluids->dfbvar.SwapDustFluidsQuantity(pmb->pdustfluids->df_cons,
+                                                 DustFluidsBoundaryQuantity::cons_df);
           pmb->pdustfluids->dfbvar.SendBoundaryBuffers();
+        }
       }
 
       // wait to receive conserved variables
@@ -1416,12 +1419,16 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
       for (int i=0; i<nmb; ++i) {
         pmb = pmb_array[i]; pbval = pmb->pbval;
         pmb->phydro->hbvar.ReceiveAndSetBoundariesWithWait();
+
         if (MAGNETIC_FIELDS_ENABLED)
           pmb->pfield->fbvar.ReceiveAndSetBoundariesWithWait();
         if (NDUSTFLUIDS > 0)
           pmb->pdustfluids->dfbvar.ReceiveAndSetBoundariesWithWait();
+
         if (SHEARING_BOX) {
           pmb->phydro->hbvar.AddHydroShearForInit();
+          if (NDUSTFLUIDS > 0)
+            pmb->pdustfluids->dfbvar.AddDustFluidsShearForInit();
         }
         pbval->ClearBoundary(BoundaryCommSubset::mesh_init);
       }
@@ -1442,6 +1449,11 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
           pmb->phydro->hbvar.SwapHydroQuantity(pmb->phydro->w,
                                                HydroBoundaryQuantity::prim);
           pmb->phydro->hbvar.SendBoundaryBuffers();
+          if (NDUSTFLUIDS > 0) {
+            pmb->pdustfluids->dfbvar.SwapDustFluidsQuantity(pmb->pdustfluids->df_prim,
+                                                 DustFluidsBoundaryQuantity::prim_df);
+            pmb->pdustfluids->dfbvar.SendBoundaryBuffers();
+          }
         }
 
         // wait to receive AMR/SMR GR primitives
@@ -1521,7 +1533,9 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
         // interface from conserved to primitive formulations:
         ph->hbvar.SwapHydroQuantity(ph->w, HydroBoundaryQuantity::prim);
         if (NDUSTFLUIDS > 0)
-          pdf->dfbvar.var_cc = &(pdf->df_prim);
+          pdf->dfbvar.SwapDustFluidsQuantity(pdf->df_prim, DustFluidsBoundaryQuantity::prim_df);
+        //if (NDUSTFLUIDS > 0)
+          //pdf->dfbvar.var_cc = &(pdf->df_prim);
 
         pbval->ApplyPhysicalBoundaries(time, 0.0);
       }
@@ -1771,8 +1785,11 @@ void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, i
     if (MAGNETIC_FIELDS_ENABLED)
       pmb->pfield->fbvar.SendBoundaryBuffers();
     // and (conserved variable) dust fluids mass
-    if (NDUSTFLUIDS > 0)
+    if (NDUSTFLUIDS > 0) {
+      pmb->pdustfluids->dfbvar.SwapDustFluidsQuantity(pmb->pdustfluids->df_cons,
+                                             DustFluidsBoundaryQuantity::cons_df);
       pmb->pdustfluids->dfbvar.SendBoundaryBuffers();
+    }
   }
 
   // wait to receive conserved variables
@@ -1782,13 +1799,22 @@ void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, i
     pmb->phydro->hbvar.SwapHydroQuantity(pmb->phydro->u,
                                            HydroBoundaryQuantity::cons);
     pmb->phydro->hbvar.ReceiveAndSetBoundariesWithWait();
+
     if (MAGNETIC_FIELDS_ENABLED)
       pmb->pfield->fbvar.ReceiveAndSetBoundariesWithWait();
-    if (NDUSTFLUIDS > 0)
+
+    if (NDUSTFLUIDS > 0) {
+      pmb->pdustfluids->dfbvar.SwapDustFluidsQuantity(pmb->pdustfluids->df_cons,
+                                             DustFluidsBoundaryQuantity::cons_df);
       pmb->pdustfluids->dfbvar.ReceiveAndSetBoundariesWithWait();
+    }
+
     if (SHEARING_BOX) {
       pmb->phydro->hbvar.AddHydroShearForInit();
+      if (NDUSTFLUIDS > 0)
+        pmb->pdustfluids->dfbvar.AddDustFluidsShearForInit();
     }
+
     pbval->ClearBoundary(BoundaryCommSubset::mesh_init);
   } // end second exchange of ghost cells
   return;

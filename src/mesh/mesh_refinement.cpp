@@ -24,6 +24,7 @@
 #include "../field/field.hpp"
 #include "../globals.hpp"
 #include "../hydro/hydro.hpp"
+#include "../dustfluids/dustfluids.hpp"
 #include "../parameter_input.hpp"
 #include "mesh.hpp"
 #include "mesh_refinement.hpp"
@@ -1080,6 +1081,26 @@ void MeshRefinement::SetHydroRefinement(HydroBoundaryQuantity hydro_type) {
     }
     case (HydroBoundaryQuantity::prim): {
       pvars_cc_.front() = std::make_tuple(&ph->w, &ph->coarse_prim_);
+      break;
+    }
+  }
+  return;
+}
+
+void MeshRefinement::SetDustFluidsRefinement(DustFluidsBoundaryQuantity dustfluids_type) {
+  // TODO(PH.): make more general so it can be used as SetDustFluidsRefinement()
+  // e.g. refer to "int Hydro::refinement_idx" instead of assuming that the correct tuple
+  // is in the first vector entry
+  DustFluids *pdf = pmy_block_->pdustfluids;
+  // hard-coded assumption that, if multilevel, then Hydro is always present
+  // and enrolled in mesh refinement in the first pvars_cc_ vector entry
+  switch (dustfluids_type) {
+    case (DustFluidsBoundaryQuantity::cons_df): {
+      pvars_cc_.front() = std::make_tuple(&pdf->df_cons, &pdf->coarse_df_cons_);
+      break;
+    }
+    case (DustFluidsBoundaryQuantity::prim_df): {
+      pvars_cc_.front() = std::make_tuple(&pdf->df_prim, &pdf->coarse_df_prim_);
       break;
     }
   }

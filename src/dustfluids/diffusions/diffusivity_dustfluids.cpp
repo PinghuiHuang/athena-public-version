@@ -61,7 +61,7 @@ void DustFluidsDiffusion::ConstantDustDiffusivity(const AthenaArray<Real> &nu_ga
           Real rad, phi, z;
           GetCylCoord(pco_, rad, phi, z, i, j, k);
           Real &diffusivity = dust_diffusivity(dust_id,k,j,i);
-          diffusivity       = pmy_dustfluids_->const_nu_dust_(dust_id);
+          diffusivity       = pmy_dustfluids_->const_nu_dust(dust_id);
           Real &soundspeed  = dust_cs(dust_id,k,j,i);
           soundspeed        = std::sqrt(diffusivity/eddy_timescale_r0);
         }
@@ -99,7 +99,7 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
     return;
   }
 
-  // Disk problems and Shakura & Sunyaev (1973) viscoisty profile are used.
+  // Disk problems and Shakura & Sunyaev (1973) viscoisty profile
   bool alpha_disk_model = ((hd.nu_alpha > 0.0) && (disk_problem));
 
   if (alpha_disk_model){

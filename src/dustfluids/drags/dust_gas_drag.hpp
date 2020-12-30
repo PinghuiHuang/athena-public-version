@@ -32,9 +32,8 @@ class DustGasDrag {
 
     // Flag
     bool DustFeedback_Flag; // true or false, the flag of dust feedback term
-    bool Explicit_Flag;     // true or false, the flag of the explicit time integrator
-    bool Implicit_Flag;     // true or false, the flag of the implicit time integrator
 
+    // Select the drag integrators
     void DragIntegrate(const int stage, const Real t_start, const Real dt,
       const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -62,6 +61,7 @@ class DustGasDrag {
     void Multiplication(const Real a_num, AthenaArray<Real> &b_matrix);
 
     // Matrix Inverse
+    // LU decompose
     void LUdecompose(const AthenaArray<Real> &a_matrix);
 
     void SolveLinearEquation(AthenaArray<Real> &b_vector, AthenaArray<Real> &x_vector);
@@ -109,7 +109,7 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // Full-Implicit Integartors
+    // Fully Implicit Integartors
     // Backward Euler (Backward Differentiation Formula 1, BDF1), 1st order
     void BackwardEulerFeedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,

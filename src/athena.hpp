@@ -50,6 +50,7 @@ class Coordinates;
 class ParameterInput;
 class HydroDiffusion;
 class FieldDiffusion;
+class DustFluidsDiffusion;
 
 //--------------------------------------------------------------------------------------
 //! \struct LogicalLocation
@@ -157,6 +158,7 @@ enum CoordinateDirection {X1DIR=0, X2DIR=1, X3DIR=2};
 // Now, only passed to BoundaryVariable::InitBoundaryData(); could replace w/ bool switch
 enum class BoundaryQuantity {cc, fc, cc_flcor, fc_flcor, mggrav, mggrav_f};
 enum class HydroBoundaryQuantity {cons, prim};
+enum class DustFluidsBoundaryQuantity {cons_df, prim_df};
 enum class BoundaryCommSubset {mesh_init, gr_amr, all};
 // TODO(felker): consider generalizing/renaming to QuantityFormulation
 enum class FluidFormulation {evolve, background, disabled}; // rename background -> fixed?

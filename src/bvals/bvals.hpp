@@ -196,5 +196,6 @@ class BoundaryValues : public BoundaryBase, //public BoundaryPhysics,
   // TODO(KGF): consider removing these friendship designations:
   friend class CellCenteredBoundaryVariable;
   friend class HydroBoundaryVariable;  // needed for shearing box quantities
+  friend class DustFluidsBoundaryVariable;  // needed for shearing box quantities
 };
 #endif // BVALS_BVALS_HPP_

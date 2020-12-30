@@ -30,7 +30,7 @@ class DustFluidsBoundaryVariable : public CellCenteredBoundaryVariable {
                                                 // AthenaArray<Real> &prim);
   virtual ~DustFluidsBoundaryVariable() = default;
 
-  // switch between DustFluids class members "u" and "w" (or "u" and "u1", ...)
+  // switch between DustFluids class members "df_cons" and "df_prim" (or "df_cons" and "df_cons1", ...)
   void SwapDustFluidsQuantity(AthenaArray<Real> &var_dustfluids, DustFluidsBoundaryQuantity dustfluids_type);
   void SelectCoarseBuffer(DustFluidsBoundaryQuantity dustfluids_type);
 
@@ -53,7 +53,7 @@ class DustFluidsBoundaryVariable : public CellCenteredBoundaryVariable {
   //protected:
  private:
   // DustFluids is a unique cell-centered variable because of the relationship between
-  // DustFluidsBoundaryQuantity::cons u and DustFluidsBoundaryQuantity::prim w.
+  // DustFluidsBoundaryQuantity::cons_df and DustFluidsBoundaryQuantity::prim_df.
   DustFluidsBoundaryQuantity dustfluids_type_;
 };
 

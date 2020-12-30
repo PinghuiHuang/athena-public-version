@@ -1235,7 +1235,6 @@ TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsFlux(MeshBlock *pmb, int sta
 
 TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage) {
   DustFluids *pdf = pmb->pdustfluids;
-  Hydro *ph       = pmb->phydro;
   if (stage <= nstages) {
     // This time-integrator-specific averaging operation logic is identical to
     // IntegrateHydro, IntegrateField
