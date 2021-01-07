@@ -37,10 +37,10 @@ DMRInnerX1	dmr.cpp	/^void DMRInnerX1(MeshBlock *pmb, Coordinates *pco, AthenaArr
 DMRInnerX2	dmr.cpp	/^void DMRInnerX2(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 DMROuterX2	dmr.cpp	/^void DMROuterX2(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 Damping_Flag	disk_dustdrift.cpp	/^bool Damping_Flag;$/;"	m	namespace:__anon3	file:
-Delta_dust_vphi	disk_dustdrift.cpp	/^Real Delta_dust_vphi(const Real Ts, const Real vk, const Real d_vgr, const Real d_vgphi) {$/;"	f	namespace:__anon4
-Delta_dust_vr	disk_dustdrift.cpp	/^Real Delta_dust_vr(const Real Ts, const Real vk, const Real d_vgr, const Real d_vgphi) {$/;"	f	namespace:__anon4
-Delta_gas_vphi	disk_dustdrift.cpp	/^Real Delta_gas_vphi(const Real vk) {$/;"	f	namespace:__anon4
-Delta_gas_vr	disk_dustdrift.cpp	/^Real Delta_gas_vr(const Real vk) {$/;"	f	namespace:__anon4
+Delta_dust_vphi	disk_dustdrift.cpp	/^Real Delta_dust_vphi(const Real ts, const Real vk, const Real d_vgr, const Real d_vgphi) {$/;"	f	namespace:__anon4
+Delta_dust_vr	disk_dustdrift.cpp	/^Real Delta_dust_vr(const Real ts, const Real vk, const Real d_vgr, const Real d_vgphi) {$/;"	f	namespace:__anon4
+Delta_gas_vphi	disk_dustdrift.cpp	/^Real Delta_gas_vphi(const Real vk, const Real SN, const Real QN, const Real Psi) {$/;"	f	namespace:__anon4
+Delta_gas_vr	disk_dustdrift.cpp	/^Real Delta_gas_vr(const Real vk, const Real SN, const Real QN, const Real Psi) {$/;"	f	namespace:__anon4
 DenProfileCyl	disk.cpp	/^Real DenProfileCyl(const Real rad, const Real phi, const Real z) {$/;"	f	namespace:__anon29
 DenProfileCyl	disk_dustdrift.cpp	/^Real DenProfileCyl(const Real rad, const Real phi, const Real z) {$/;"	f	namespace:__anon4
 DenProfileCyl	disk_original.cpp	/^Real DenProfileCyl(const Real rad, const Real phi, const Real z) {$/;"	f	namespace:__anon34
@@ -56,7 +56,7 @@ DiskOuterX3	disk_original.cpp	/^void DiskOuterX3(MeshBlock *pmb,Coordinates *pco
 DistanceBetweenPoints	gr_blast.cpp	/^Real DistanceBetweenPoints(Real x1, Real x2, Real x3, Real y1, Real y2, Real y3) {$/;"	f	namespace:__anon45
 DustFluidsDyeEntropy	dusty_kh.cpp	/^Real DustFluidsDyeEntropy(MeshBlock *pmb, int iout) {$/;"	f	namespace:__anon22
 DustVelProfileCyl	disk_dustdrift.cpp	/^void DustVelProfileCyl(const Real rad, const Real phi, const Real z,$/;"	f	namespace:__anon4
-DustVelProfileCyl_NSH	disk_dustdrift.cpp	/^void DustVelProfileCyl_NSH(const Real ts, const Real rad, const Real phi, const Real z,$/;"	f	namespace:__anon4
+DustVelProfileCyl_NSH	disk_dustdrift.cpp	/^void DustVelProfileCyl_NSH(const Real ts, const Real SN, const Real QN, const Real Psi,$/;"	f	namespace:__anon4
 Eigensystem	dusty_wave.cpp	/^void Eigensystem(const Real d, const Real v1, const Real v2, const Real v3,$/;"	f	namespace:__anon2
 Eigensystem	linear_wave.cpp	/^void Eigensystem(const Real d, const Real v1, const Real v2, const Real v3,$/;"	f	namespace:__anon16
 FinalCosineProfile	mignone_advection.cpp	/^Real FinalCosineProfile(Real x2) {$/;"	f	namespace:__anon57
@@ -69,7 +69,7 @@ FixedBoundary	gr_geodesic_infall.cpp	/^void FixedBoundary(MeshBlock *pmb, Coordi
 FixedBoundary	gr_mhd_inflow.cpp	/^void FixedBoundary(MeshBlock *pmb, Coordinates *pcoord, AthenaArray<Real> &prim,$/;"	f
 FixedBoundary	gr_torus.cpp	/^void FixedBoundary(MeshBlock *pmb, Coordinates *pcoord, AthenaArray<Real> &prim,$/;"	f
 GasVelProfileCyl	disk_dustdrift.cpp	/^void GasVelProfileCyl(const Real rad, const Real phi, const Real z,$/;"	f	namespace:__anon4
-GasVelProfileCyl_NSH	disk_dustdrift.cpp	/^void GasVelProfileCyl_NSH(const Real rad, const Real phi, const Real z,$/;"	f	namespace:__anon4
+GasVelProfileCyl_NSH	disk_dustdrift.cpp	/^void GasVelProfileCyl_NSH(const Real SN, const Real QN, const Real Psi,$/;"	f	namespace:__anon4
 GetBoyerLindquistCoordinates	gr_bondi.cpp	/^void GetBoyerLindquistCoordinates(Real x1, Real x2, Real x3, Real *pr,$/;"	f	namespace:__anon12
 GetBoyerLindquistCoordinates	gr_geodesic_infall.cpp	/^void GetBoyerLindquistCoordinates(Real x1, Real x2, Real x3, Real *pr,$/;"	f	namespace:__anon20
 GetBoyerLindquistCoordinates	gr_mhd_inflow.cpp	/^void GetBoyerLindquistCoordinates(Real x1, Real x2, Real x3, Real *pr,$/;"	f	namespace:__anon14
@@ -140,7 +140,6 @@ InitialGaussianSphericalIntegrand	mignone_advection.cpp	/^Real InitialGaussianSp
 InnerWavedamping	disk_dustdrift.cpp	/^void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt,$/;"	f	namespace:__anon4
 InnerX1_Average	disk.cpp	/^void InnerX1_Average(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 InnerX1_Fixed	disk.cpp	/^void InnerX1_Fixed(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
-InnerX1_Fixed	disk_dustdrift.cpp	/^void InnerX1_Fixed(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 InnerX1_Linear	disk.cpp	/^void InnerX1_Linear(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 InnerX1_NSH	disk_dustdrift.cpp	/^void InnerX1_NSH(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 InnerX1_NoMatterInput	disk.cpp	/^void InnerX1_NoMatterInput(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
@@ -148,6 +147,7 @@ InnerX1_Powerlaw	disk.cpp	/^void InnerX1_Powerlaw(MeshBlock *pmb,Coordinates *pc
 IntegrandFinal	mignone_advection.cpp	/^Real (*IntegrandFinal)(Real x1);$/;"	m	namespace:__anon56	file:
 IntegrandInitial	mignone_advection.cpp	/^Real (*IntegrandInitial)(Real x1);$/;"	m	namespace:__anon56	file:
 JetInnerX1	jet.cpp	/^void JetInnerX1(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
+Kai0	nsh_dust.cpp	/^Real kappa, kappap, kappap2, AN(0.0), BN(0.0), Psi(0.0), Kai0;$/;"	m	namespace:__anon52	file:
 Keplerian_interpolate	disk.cpp	/^void Keplerian_interpolate(const Real r_active, const Real r_ghost, const Real vphi_active,$/;"	f	namespace:__anon29
 Keplerian_interpolate	disk_dustdrift.cpp	/^void Keplerian_interpolate(const Real r_active, const Real r_ghost,$/;"	f	namespace:__anon4
 Keplerian_velocity	disk_dustdrift.cpp	/^Real Keplerian_velocity(const Real rad) {$/;"	f	namespace:__anon4
@@ -190,7 +190,6 @@ Omega_0	strat.cpp	/^Real Omega_0, qshear;$/;"	m	namespace:__anon5	file:
 OuterWavedamping	disk_dustdrift.cpp	/^void OuterWavedamping(MeshBlock *pmb, const Real time, const Real dt,$/;"	f	namespace:__anon4
 OuterX1_Average	disk.cpp	/^void OuterX1_Average(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 OuterX1_Fixed	disk.cpp	/^void OuterX1_Fixed(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
-OuterX1_Fixed	disk_dustdrift.cpp	/^void OuterX1_Fixed(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 OuterX1_Linear	disk.cpp	/^void OuterX1_Linear(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 OuterX1_NSH	disk_dustdrift.cpp	/^void OuterX1_NSH(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
 OuterX1_NoMatterInput	disk.cpp	/^void OuterX1_NoMatterInput(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceField &b,$/;"	f
@@ -267,9 +266,10 @@ RefinementCondition	linear_wave.cpp	/^int RefinementCondition(MeshBlock *pmb) {$
 RefinementCondition	rt.cpp	/^int RefinementCondition(MeshBlock *pmb) {$/;"	f
 RefinementCondition	slotted_cylinder.cpp	/^int RefinementCondition(MeshBlock *pmb) {$/;"	f
 ShBoxCoord	hb3.cpp	/^int ShBoxCoord, ipert,ifield; \/\/ initial pattern$/;"	m	namespace:__anon42	file:
-ShBoxCoord	nsh_dust.cpp	/^int ShBoxCoord, ipert,ifield; \/\/ initial pattern$/;"	m	namespace:__anon52	file:
+ShBoxCoord	nsh_dust.cpp	/^int ShBoxCoord, ipert, ifield; \/\/ initial pattern$/;"	m	namespace:__anon52	file:
 ShockCloudInnerX1	shk_cloud.cpp	/^void ShockCloudInnerX1(MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim,$/;"	f
 SlottedCylinderProfile	slotted_cylinder.cpp	/^Real SlottedCylinderProfile(Real x1, Real x2) {$/;"	f	namespace:__anon55
+Stokes	nsh_dust.cpp	/^Real Stokes[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
 Stokes_number	disk_dustdrift.cpp	/^Real initial_D2G[NDUSTFLUIDS], Stokes_number[NDUSTFLUIDS];$/;"	m	namespace:__anon3	file:
 StratOutflowInnerX3	strat.cpp	/^void StratOutflowInnerX3(MeshBlock *pmb, Coordinates *pco,$/;"	f
 StratOutflowOuterX3	strat.cpp	/^void StratOutflowOuterX3(MeshBlock *pmb, Coordinates *pco,$/;"	f
@@ -357,7 +357,7 @@ bcc	gr_linear_wave.cpp	/^AthenaArray<Real> bcc;        \/\/ cell-centered initia
 beta	field_loop_poles.cpp	/^Real xc, yc, zc, beta, b0;$/;"	m	namespace:__anon31	file:
 beta	hb3.cpp	/^Real beta, B0;$/;"	m	namespace:__anon42	file:
 beta	magnoh.cpp	/^Real alpha, beta, rho0, P0, pcoeff, vr, perturb, mphi;$/;"	m	namespace:__anon27	file:
-beta_gas	disk_dustdrift.cpp	/^Real eta_gas, beta_gas, ks_gas, SN(0.0), QN(0.0), PSi(0.0);$/;"	m	namespace:__anon3	file:
+beta_gas	disk_dustdrift.cpp	/^Real eta_gas, beta_gas, ks_gas;$/;"	m	namespace:__anon3	file:
 beta_min	gr_torus.cpp	/^Real beta_min;                              \/\/ min ratio of gas to mag pressure$/;"	m	namespace:__anon35	file:
 bphi0	magnoh.cpp	/^Real bphi0, bz;$/;"	m	namespace:__anon27	file:
 bsq_over_rho	gr_bondi.cpp	/^Real bsq_over_rho;  \/\/ b^2\/rho at inner radius$/;"	m	namespace:__anon11	file:
@@ -444,7 +444,7 @@ dust_dens_slope	disk_dustdrift.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_pl
 dwidth	disk.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon28	file:
 dwidth	disk_dustdrift.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon3	file:
 etaVk	nsh_dust.cpp	/^Real etaVk; \/\/ The amplitude of pressure gradient force$/;"	m	namespace:__anon52	file:
-eta_gas	disk_dustdrift.cpp	/^Real eta_gas, beta_gas, ks_gas, SN(0.0), QN(0.0), PSi(0.0);$/;"	m	namespace:__anon3	file:
+eta_gas	disk_dustdrift.cpp	/^Real eta_gas, beta_gas, ks_gas;$/;"	m	namespace:__anon3	file:
 ev	dusty_wave.cpp	/^Real ev[NWAVE], rem[NWAVE][NWAVE], lem[NWAVE][NWAVE];$/;"	m	namespace:__anon1	file:
 ev	linear_wave.cpp	/^Real ev[NWAVE], rem[NWAVE][NWAVE], lem[NWAVE][NWAVE];$/;"	m	namespace:__anon15	file:
 fac	cpaw.cpp	/^Real fac, sin_a2, cos_a2, sin_a3, cos_a3;$/;"	m	namespace:__anon58	file:
@@ -483,17 +483,18 @@ gmp	disk.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, 
 gmp	disk_dustdrift.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon3	file:
 grav_acc	rt.cpp	/^Real grav_acc;$/;"	m	namespace:__anon18	file:
 ifield	hb3.cpp	/^int ShBoxCoord, ipert,ifield; \/\/ initial pattern$/;"	m	namespace:__anon42	file:
-ifield	nsh_dust.cpp	/^int ShBoxCoord, ipert,ifield; \/\/ initial pattern$/;"	m	namespace:__anon52	file:
+ifield	nsh_dust.cpp	/^int ShBoxCoord, ipert, ifield; \/\/ initial pattern$/;"	m	namespace:__anon52	file:
 initial	gr_linear_wave.cpp	/^AthenaArray<Real> initial;    \/\/ initial conditions$/;"	v
 initial_D2G	disk_dustdrift.cpp	/^Real initial_D2G[NDUSTFLUIDS], Stokes_number[NDUSTFLUIDS];$/;"	m	namespace:__anon3	file:
 initial_D2G	dusty_soundwave.cpp	/^Real initial_D2G[NDUSTFLUIDS];$/;"	m	namespace:__anon37	file:
+initial_D2G	nsh_dust.cpp	/^Real initial_D2G[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
 inner_ratio_region	disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon28	file:
-inner_ratio_region	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon3	file:
+inner_ratio_region	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region,$/;"	m	namespace:__anon3	file:
 inner_width_damping	disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon28	file:
-inner_width_damping	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon3	file:
+inner_width_damping	disk_dustdrift.cpp	/^     inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon3	file:
 interp_values	gr_mhd_inflow.cpp	/^AthenaArray<Real> interp_values;  \/\/ table for analytic solution$/;"	m	namespace:__anon13	file:
 ipert	hb3.cpp	/^int ShBoxCoord, ipert,ifield; \/\/ initial pattern$/;"	m	namespace:__anon42	file:
-ipert	nsh_dust.cpp	/^int ShBoxCoord, ipert,ifield; \/\/ initial pattern$/;"	m	namespace:__anon52	file:
+ipert	nsh_dust.cpp	/^int ShBoxCoord, ipert, ifield; \/\/ initial pattern$/;"	m	namespace:__anon52	file:
 ipert	ssheet.cpp	/^int ipert; \/\/ initial pattern$/;"	m	namespace:__anon60	file:
 iprob	dust_diffusion.cpp	/^int iprob;$/;"	m	namespace:__anon50	file:
 iprob	dusty_kh.cpp	/^int iprob;$/;"	m	namespace:__anon21	file:
@@ -517,7 +518,10 @@ k_par	cpaw.cpp	/^Real lambda, k_par; \/\/ Wavelength, 2*PI\/wavelength$/;"	m	nam
 k_par	dusty_soundwave.cpp	/^Real amp, lambda, k_par;              \/\/ amplitude, Wavelength, 2*PI\/wavelength$/;"	m	namespace:__anon37	file:
 k_par	dusty_wave.cpp	/^Real amp, lambda, k_par; \/\/ amplitude, Wavelength, 2*PI\/wavelength$/;"	m	namespace:__anon1	file:
 k_par	linear_wave.cpp	/^Real amp, lambda, k_par; \/\/ amplitude, Wavelength, 2*PI\/wavelength$/;"	m	namespace:__anon15	file:
-ks_gas	disk_dustdrift.cpp	/^Real eta_gas, beta_gas, ks_gas, SN(0.0), QN(0.0), PSi(0.0);$/;"	m	namespace:__anon3	file:
+kappa	nsh_dust.cpp	/^Real kappa, kappap, kappap2, AN(0.0), BN(0.0), Psi(0.0), Kai0;$/;"	m	namespace:__anon52	file:
+kappap	nsh_dust.cpp	/^Real kappa, kappap, kappap2, AN(0.0), BN(0.0), Psi(0.0), Kai0;$/;"	m	namespace:__anon52	file:
+kappap2	nsh_dust.cpp	/^Real kappa, kappap, kappap2, AN(0.0), BN(0.0), Psi(0.0), Kai0;$/;"	m	namespace:__anon52	file:
+ks_gas	disk_dustdrift.cpp	/^Real eta_gas, beta_gas, ks_gas;$/;"	m	namespace:__anon3	file:
 kwave	jeans.cpp	/^Real amp, njeans, lambda, kwave; \/\/ amplitude, Wavelength, 2*PI\/wavelength$/;"	m	namespace:__anon30	file:
 l	gr_torus.cpp	/^Real r_edge, r_peak, l, rho_max;            \/\/ fixed torus parameters$/;"	m	namespace:__anon35	file:
 lambda	cpaw.cpp	/^Real lambda, k_par; \/\/ Wavelength, 2*PI\/wavelength$/;"	m	namespace:__anon58	file:
@@ -555,9 +559,9 @@ omega_p	disk_dustdrift.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0
 omega_x1	slotted_cylinder.cpp	/^Real radius, omega_x1, omega_x2, omega, iso_cs;$/;"	m	namespace:__anon54	file:
 omega_x2	slotted_cylinder.cpp	/^Real radius, omega_x1, omega_x2, omega, iso_cs;$/;"	m	namespace:__anon54	file:
 outer_ratio_region	disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon28	file:
-outer_ratio_region	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon3	file:
+outer_ratio_region	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region,$/;"	m	namespace:__anon3	file:
 outer_width_damping	disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon28	file:
-outer_width_damping	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon3	file:
+outer_width_damping	disk_dustdrift.cpp	/^     inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon3	file:
 p0	dusty_soundwave.cpp	/^Real d0, p0, u0, v0, w0, bx0, by0, bz0, dby, dbz;$/;"	m	namespace:__anon37	file:
 p0	dusty_wave.cpp	/^Real d0, p0, u0, bx0, by0, bz0, dby, dbz;$/;"	m	namespace:__anon1	file:
 p0	jeans.cpp	/^Real d0, p0, v0, u0, w0, va, b0;$/;"	m	namespace:__anon30	file:
@@ -613,9 +617,9 @@ rad_planet	disk.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, om
 rad_planet	disk_dustdrift.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon3	file:
 radius	slotted_cylinder.cpp	/^Real radius, omega_x1, omega_x2, omega, iso_cs;$/;"	m	namespace:__anon54	file:
 radius_inner_damping	disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon28	file:
-radius_inner_damping	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon3	file:
+radius_inner_damping	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region,$/;"	m	namespace:__anon3	file:
 radius_outer_damping	disk.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon28	file:
-radius_outer_damping	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region, inner_width_damping, outer_width_damping;$/;"	m	namespace:__anon3	file:
+radius_outer_damping	disk_dustdrift.cpp	/^Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region,$/;"	m	namespace:__anon3	file:
 rand_amp	disk.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon28	file:
 rand_amp	disk_dustdrift.cpp	/^Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;$/;"	m	namespace:__anon3	file:
 rem	dusty_wave.cpp	/^Real ev[NWAVE], rem[NWAVE][NWAVE], lem[NWAVE][NWAVE];$/;"	m	namespace:__anon1	file:
@@ -626,6 +630,10 @@ rho0	disk_original.cpp	/^Real gm0, r0, rho0, dslope, p0_over_r0, pslope, gamma_g
 rho0	field_loop_poles.cpp	/^Real vy0, rho0, isocs2, gamma_gas;$/;"	m	namespace:__anon31	file:
 rho0	magnoh.cpp	/^Real alpha, beta, rho0, P0, pcoeff, vr, perturb, mphi;$/;"	m	namespace:__anon27	file:
 rho_0	disk_dustdrift.cpp	/^Real gm0, r0, rho_0, dslope, p0_over_r0, pslope, gamma_gas, dfloor, user_dt, iso_cs2_r0;$/;"	m	namespace:__anon3	file:
+rho_dust_imag	nsh_dust.cpp	/^Real rho_dust_real[NDUSTFLUIDS],  rho_dust_imag[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
+rho_dust_real	nsh_dust.cpp	/^Real rho_dust_real[NDUSTFLUIDS],  rho_dust_imag[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
+rho_gas_imag	nsh_dust.cpp	/^Real rho_gas_real,  rho_gas_imag,  vel1_gas_real, vel1_gas_imag;$/;"	m	namespace:__anon52	file:
+rho_gas_real	nsh_dust.cpp	/^Real rho_gas_real,  rho_gas_imag,  vel1_gas_real, vel1_gas_imag;$/;"	m	namespace:__anon52	file:
 rho_max	gr_torus.cpp	/^Real r_edge, r_peak, l, rho_max;            \/\/ fixed torus parameters$/;"	m	namespace:__anon35	file:
 rho_min	gr_torus.cpp	/^Real rho_min, rho_pow, pgas_min, pgas_pow;  \/\/ background parameters$/;"	m	namespace:__anon35	file:
 rho_peak	gr_torus.cpp	/^Real pgas_over_rho_peak, rho_peak;          \/\/ more calculated torus parameters$/;"	m	namespace:__anon35	file:
@@ -691,6 +699,18 @@ v0	visc.cpp	/^Real v0, t0;$/;"	m	namespace:__anon23	file:
 v_par	cpaw.cpp	/^Real den, pres, gm1, b_par, b_perp, v_perp, v_par;$/;"	m	namespace:__anon58	file:
 v_perp	cpaw.cpp	/^Real den, pres, gm1, b_par, b_perp, v_perp, v_par;$/;"	m	namespace:__anon58	file:
 va	jeans.cpp	/^Real d0, p0, v0, u0, w0, va, b0;$/;"	m	namespace:__anon30	file:
+vel1_dust_imag	nsh_dust.cpp	/^Real vel1_dust_real[NDUSTFLUIDS], vel1_dust_imag[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
+vel1_dust_real	nsh_dust.cpp	/^Real vel1_dust_real[NDUSTFLUIDS], vel1_dust_imag[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
+vel1_gas_imag	nsh_dust.cpp	/^Real rho_gas_real,  rho_gas_imag,  vel1_gas_real, vel1_gas_imag;$/;"	m	namespace:__anon52	file:
+vel1_gas_real	nsh_dust.cpp	/^Real rho_gas_real,  rho_gas_imag,  vel1_gas_real, vel1_gas_imag;$/;"	m	namespace:__anon52	file:
+vel2_dust_imag	nsh_dust.cpp	/^Real vel2_dust_real[NDUSTFLUIDS], vel2_dust_imag[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
+vel2_dust_real	nsh_dust.cpp	/^Real vel2_dust_real[NDUSTFLUIDS], vel2_dust_imag[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
+vel2_gas_imag	nsh_dust.cpp	/^Real vel2_gas_real, vel2_gas_imag, vel3_gas_real, vel3_gas_imag;$/;"	m	namespace:__anon52	file:
+vel2_gas_real	nsh_dust.cpp	/^Real vel2_gas_real, vel2_gas_imag, vel3_gas_real, vel3_gas_imag;$/;"	m	namespace:__anon52	file:
+vel3_dust_imag	nsh_dust.cpp	/^Real vel3_dust_real[NDUSTFLUIDS], vel3_dust_imag[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
+vel3_dust_real	nsh_dust.cpp	/^Real vel3_dust_real[NDUSTFLUIDS], vel3_dust_imag[NDUSTFLUIDS];$/;"	m	namespace:__anon52	file:
+vel3_gas_imag	nsh_dust.cpp	/^Real vel2_gas_real, vel2_gas_imag, vel3_gas_real, vel3_gas_imag;$/;"	m	namespace:__anon52	file:
+vel3_gas_real	nsh_dust.cpp	/^Real vel2_gas_real, vel2_gas_imag, vel3_gas_real, vel3_gas_imag;$/;"	m	namespace:__anon52	file:
 vertical	gr_torus.cpp	/^enum class MagneticFieldConfigs {vertical, normal, renorm};$/;"	m	class:MagneticFieldConfigs	file:
 vflow	dusty_kh.cpp	/^Real vflow;$/;"	m	namespace:__anon21	file:
 vflow	dusty_soundwave.cpp	/^Real gam, gm1, iso_cs, vflow;$/;"	m	namespace:__anon37	file:

@@ -4,9 +4,11 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AddDustFluidsShearForInit	dustfluids/bvals_shear_dustfluids.cpp	/^void DustFluidsBoundaryVariable::AddDustFluidsShearForInit() {$/;"	f	class:DustFluidsBoundaryVariable
 AddHydroShearForInit	hydro/bvals_shear_hydro.cpp	/^void HydroBoundaryVariable::AddHydroShearForInit() {$/;"	f	class:HydroBoundaryVariable
 ApplyPhysicalBoundaries	mg/bvals_mg.cpp	/^void MGBoundaryValues::ApplyPhysicalBoundaries() {$/;"	f	class:MGBoundaryValues
 BVALS_CC_BVALS_CC_HPP_	bvals_cc.hpp	2;"	d
+BVALS_CC_DUSTFLUIDS_BVALS_HPP_	dustfluids/bvals_dustfluids.hpp	2;"	d
 BVALS_CC_HYDRO_BVALS_HYDRO_HPP_	hydro/bvals_hydro.hpp	2;"	d
 BVALS_CC_MG_BVALS_MG_HPP_	mg/bvals_mg.hpp	2;"	d
 CellCenteredBoundaryVariable	bvals_cc.cpp	/^CellCenteredBoundaryVariable::CellCenteredBoundaryVariable($/;"	f	class:CellCenteredBoundaryVariable
@@ -18,6 +20,8 @@ ComputeShear	bvals_shear_cc.cpp	/^void CellCenteredBoundaryVariable::ComputeShea
 ComputeVariableBufferSize	bvals_cc.cpp	/^int CellCenteredBoundaryVariable::ComputeVariableBufferSize(const NeighborIndexes& ni,$/;"	f	class:CellCenteredBoundaryVariable
 CopyNeighborInfoFromMeshBlock	mg/bvals_mg.cpp	/^void MGBoundaryValues::CopyNeighborInfoFromMeshBlock() {$/;"	f	class:MGBoundaryValues
 DestroyBoundaryData	mg/bvals_mg.cpp	/^void MGBoundaryValues::DestroyBoundaryData(BoundaryData<> &bd) {$/;"	f	class:MGBoundaryValues
+DustFluidsBoundaryVariable	dustfluids/bvals_dustfluids.cpp	/^DustFluidsBoundaryVariable::DustFluidsBoundaryVariable($/;"	f	class:DustFluidsBoundaryVariable
+DustFluidsBoundaryVariable	dustfluids/bvals_dustfluids.hpp	/^class DustFluidsBoundaryVariable : public CellCenteredBoundaryVariable {$/;"	c
 HydroBoundaryVariable	hydro/bvals_hydro.cpp	/^HydroBoundaryVariable::HydroBoundaryVariable($/;"	f	class:HydroBoundaryVariable
 HydroBoundaryVariable	hydro/bvals_hydro.hpp	/^class HydroBoundaryVariable : public CellCenteredBoundaryVariable {$/;"	c
 InitBoundaryData	mg/bvals_mg.cpp	/^void MGBoundaryValues::InitBoundaryData(BoundaryData<> &bd, BoundaryQuantity type) {$/;"	f	class:MGBoundaryValues
@@ -41,19 +45,26 @@ PolarWedgeOuterX2	polarwedge_cc.cpp	/^void CellCenteredBoundaryVariable::PolarWe
 ReceiveFluxCorrection	flux_correction_cc.cpp	/^bool CellCenteredBoundaryVariable::ReceiveFluxCorrection() {$/;"	f	class:CellCenteredBoundaryVariable
 ReceiveMultigridBoundaryBuffers	mg/bvals_mg.cpp	/^bool MGBoundaryValues::ReceiveMultigridBoundaryBuffers(AthenaArray<Real> &dst,$/;"	f	class:MGBoundaryValues
 ReceiveShearingBoxBoundaryBuffers	bvals_shear_cc.cpp	/^bool CellCenteredBoundaryVariable::ReceiveShearingBoxBoundaryBuffers() {$/;"	f	class:CellCenteredBoundaryVariable
+ReflectInnerX1	dustfluids/reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectInnerX1($/;"	f	class:DustFluidsBoundaryVariable
 ReflectInnerX1	hydro/reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectInnerX1($/;"	f	class:HydroBoundaryVariable
 ReflectInnerX1	reflect_cc.cpp	/^void CellCenteredBoundaryVariable::ReflectInnerX1($/;"	f	class:CellCenteredBoundaryVariable
+ReflectInnerX2	dustfluids/reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectInnerX2($/;"	f	class:DustFluidsBoundaryVariable
 ReflectInnerX2	hydro/reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectInnerX2($/;"	f	class:HydroBoundaryVariable
 ReflectInnerX2	reflect_cc.cpp	/^void CellCenteredBoundaryVariable::ReflectInnerX2($/;"	f	class:CellCenteredBoundaryVariable
+ReflectInnerX3	dustfluids/reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectInnerX3($/;"	f	class:DustFluidsBoundaryVariable
 ReflectInnerX3	hydro/reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectInnerX3($/;"	f	class:HydroBoundaryVariable
 ReflectInnerX3	reflect_cc.cpp	/^void CellCenteredBoundaryVariable::ReflectInnerX3($/;"	f	class:CellCenteredBoundaryVariable
+ReflectOuterX1	dustfluids/reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectOuterX1($/;"	f	class:DustFluidsBoundaryVariable
 ReflectOuterX1	hydro/reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectOuterX1($/;"	f	class:HydroBoundaryVariable
 ReflectOuterX1	reflect_cc.cpp	/^void CellCenteredBoundaryVariable::ReflectOuterX1($/;"	f	class:CellCenteredBoundaryVariable
+ReflectOuterX2	dustfluids/reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectOuterX2($/;"	f	class:DustFluidsBoundaryVariable
 ReflectOuterX2	hydro/reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectOuterX2($/;"	f	class:HydroBoundaryVariable
 ReflectOuterX2	reflect_cc.cpp	/^void CellCenteredBoundaryVariable::ReflectOuterX2($/;"	f	class:CellCenteredBoundaryVariable
+ReflectOuterX3	dustfluids/reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectOuterX3($/;"	f	class:DustFluidsBoundaryVariable
 ReflectOuterX3	hydro/reflect_hydro.cpp	/^void HydroBoundaryVariable::ReflectOuterX3($/;"	f	class:HydroBoundaryVariable
 ReflectOuterX3	reflect_cc.cpp	/^void CellCenteredBoundaryVariable::ReflectOuterX3($/;"	f	class:CellCenteredBoundaryVariable
 RemapFlux	bvals_shear_cc.cpp	/^void CellCenteredBoundaryVariable::RemapFlux(const int n, const int k, const int jinner,$/;"	f	class:CellCenteredBoundaryVariable
+SelectCoarseBuffer	dustfluids/bvals_dustfluids.cpp	/^void DustFluidsBoundaryVariable::SelectCoarseBuffer(DustFluidsBoundaryQuantity dustfluids_type) {$/;"	f	class:DustFluidsBoundaryVariable
 SelectCoarseBuffer	hydro/bvals_hydro.cpp	/^void HydroBoundaryVariable::SelectCoarseBuffer(HydroBoundaryQuantity hydro_type) {$/;"	f	class:HydroBoundaryVariable
 SendFluxCorrection	flux_correction_cc.cpp	/^void CellCenteredBoundaryVariable::SendFluxCorrection() {$/;"	f	class:CellCenteredBoundaryVariable
 SendMultigridBoundaryBuffers	mg/bvals_mg.cpp	/^bool MGBoundaryValues::SendMultigridBoundaryBuffers(AthenaArray<Real> &src,$/;"	f	class:MGBoundaryValues
@@ -65,15 +76,18 @@ SetMultigridBoundarySameLevel	mg/bvals_mg.cpp	/^void MGBoundaryValues::SetMultig
 SetShearingBoxBoundarySameLevel	bvals_shear_cc.cpp	/^void CellCenteredBoundaryVariable::SetShearingBoxBoundarySameLevel(Real *buf,$/;"	f	class:CellCenteredBoundaryVariable
 SetupPersistentMPI	bvals_cc.cpp	/^void CellCenteredBoundaryVariable::SetupPersistentMPI() {$/;"	f	class:CellCenteredBoundaryVariable
 ShearQuantities	bvals_cc.hpp	/^  virtual void ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) {}$/;"	f	class:CellCenteredBoundaryVariable
+ShearQuantities	dustfluids/bvals_shear_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) {$/;"	f	class:DustFluidsBoundaryVariable
 ShearQuantities	hydro/bvals_shear_hydro.cpp	/^void HydroBoundaryVariable::ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) {$/;"	f	class:HydroBoundaryVariable
 StartReceiving	bvals_cc.cpp	/^void CellCenteredBoundaryVariable::StartReceiving(BoundaryCommSubset phase) {$/;"	f	class:CellCenteredBoundaryVariable
 StartReceivingMultigrid	mg/bvals_mg.cpp	/^void MGBoundaryValues::StartReceivingMultigrid(int nc, BoundaryQuantity type) {$/;"	f	class:MGBoundaryValues
 StartReceivingShear	bvals_shear_cc.cpp	/^void CellCenteredBoundaryVariable::StartReceivingShear(BoundaryCommSubset phase) {$/;"	f	class:CellCenteredBoundaryVariable
+SwapDustFluidsQuantity	dustfluids/bvals_dustfluids.cpp	/^void DustFluidsBoundaryVariable::SwapDustFluidsQuantity(AthenaArray<Real> &var_dustfluids,$/;"	f	class:DustFluidsBoundaryVariable
 SwapHydroQuantity	hydro/bvals_hydro.cpp	/^void HydroBoundaryVariable::SwapHydroQuantity(AthenaArray<Real> &var_hydro,$/;"	f	class:HydroBoundaryVariable
 bd_mggrav_	mg/bvals_mg.hpp	/^  BoundaryData<> bd_mggrav_;$/;"	m	class:MGBoundaryValues
 cc_flx_phys_id_	bvals_cc.hpp	/^  int cc_phys_id_, cc_flx_phys_id_;$/;"	m	class:CellCenteredBoundaryVariable
 cc_phys_id_	bvals_cc.hpp	/^  int cc_phys_id_, cc_flx_phys_id_;$/;"	m	class:CellCenteredBoundaryVariable
 coarse_buf	bvals_cc.hpp	/^  AthenaArray<Real> *coarse_buf;  \/\/ may pass nullptr if mesh refinement is unsupported$/;"	m	class:CellCenteredBoundaryVariable
+dustfluids_type_	dustfluids/bvals_dustfluids.hpp	/^  DustFluidsBoundaryQuantity dustfluids_type_;$/;"	m	class:DustFluidsBoundaryVariable
 flip_across_pole_	bvals_cc.hpp	/^  const bool *flip_across_pole_;$/;"	m	class:CellCenteredBoundaryVariable
 hydro_type_	hydro/bvals_hydro.hpp	/^  HydroBoundaryQuantity hydro_type_;$/;"	m	class:HydroBoundaryVariable
 max_phys_id	bvals_cc.hpp	/^  static constexpr int max_phys_id = 3;$/;"	m	class:CellCenteredBoundaryVariable
@@ -105,6 +119,13 @@ override	bvals_cc.hpp	/^  void SetBoundarySameLevel(Real *buf, const NeighborBlo
 override	bvals_cc.hpp	/^  void SetupPersistentMPI() override;$/;"	m	class:CellCenteredBoundaryVariable
 override	bvals_cc.hpp	/^  void StartReceiving(BoundaryCommSubset phase) override;$/;"	m	class:CellCenteredBoundaryVariable
 override	bvals_cc.hpp	/^  void StartReceivingShear(BoundaryCommSubset phase) override;$/;"	m	class:CellCenteredBoundaryVariable
+override	dustfluids/bvals_dustfluids.hpp	/^                      int il, int iu, int jl, int ju, int kl, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
+override	dustfluids/bvals_dustfluids.hpp	/^                      int il, int iu, int jl, int ju, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
+override	dustfluids/bvals_dustfluids.hpp	/^                      int il, int iu, int jl, int kl, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
+override	dustfluids/bvals_dustfluids.hpp	/^                      int il, int iu, int ju, int kl, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
+override	dustfluids/bvals_dustfluids.hpp	/^                      int il, int jl, int ju, int kl, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
+override	dustfluids/bvals_dustfluids.hpp	/^                      int iu, int jl, int ju, int kl, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
+override	dustfluids/bvals_dustfluids.hpp	/^  void ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) override;$/;"	m	class:DustFluidsBoundaryVariable
 override	hydro/bvals_hydro.hpp	/^                      int il, int iu, int jl, int ju, int kl, int ngh) override;$/;"	m	class:HydroBoundaryVariable
 override	hydro/bvals_hydro.hpp	/^                      int il, int iu, int jl, int ju, int ku, int ngh) override;$/;"	m	class:HydroBoundaryVariable
 override	hydro/bvals_hydro.hpp	/^                      int il, int iu, int jl, int kl, int ku, int ngh) override;$/;"	m	class:HydroBoundaryVariable

@@ -89,14 +89,14 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   kappap2    = SQR(kappap);
   Kai0       = 2.0*etaVk*iso_cs;
 
-  rho_gas_real  = pin->GetReal("hydro", "rho_real_gas");
-  rho_gas_imag  = pin->GetReal("hydro", "rho_imag_gas");
-  velx_gas_real = pin->GetReal("hydro", "velx_real_gas");
-  velx_gas_imag = pin->GetReal("hydro", "velx_imag_gas");
-  vely_gas_real = pin->GetReal("hydro", "vely_real_gas");
-  vely_gas_imag = pin->GetReal("hydro", "vely_imag_gas");
-  velz_gas_real = pin->GetReal("hydro", "velz_real_gas");
-  velz_gas_imag = pin->GetReal("hydro", "velz_imag_gas");
+  //rho_gas_real  = pin->GetReal("hydro", "rho_real_gas");
+  //rho_gas_imag  = pin->GetReal("hydro", "rho_imag_gas");
+  //velx_gas_real = pin->GetReal("hydro", "velx_real_gas");
+  //velx_gas_imag = pin->GetReal("hydro", "velx_imag_gas");
+  //vely_gas_real = pin->GetReal("hydro", "vely_real_gas");
+  //vely_gas_imag = pin->GetReal("hydro", "vely_imag_gas");
+  //velz_gas_real = pin->GetReal("hydro", "velz_real_gas");
+  //velz_gas_imag = pin->GetReal("hydro", "velz_imag_gas");
 
   if (NDUSTFLUIDS > 0) {
     for (int n=0; n<NDUSTFLUIDS; n++) {
@@ -104,15 +104,15 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
       initial_D2G[n] = pin->GetReal("dust", "initial_D2G_"      + std::to_string(n+1));
       Stokes[n]      = pin->GetReal("dust", "internal_density_" + std::to_string(n+1));
 
-      // Eigenvalues, Eigenvectors
-      rho_dust_real[n]  = pin->GetReal("dust", "rho_real_dust_"  + std::to_string(n+1));
-      rho_dust_imag[n]  = pin->GetReal("dust", "rho_imag_dust_"  + std::to_string(n+1));
-      velx_dust_real[n] = pin->GetReal("dust", "velx_real_dust_" + std::to_string(n+1));
-      velx_dust_imag[n] = pin->GetReal("dust", "velx_imag_dust_" + std::to_string(n+1));
-      vely_dust_real[n] = pin->GetReal("dust", "vely_real_dust_" + std::to_string(n+1));
-      vely_dust_imag[n] = pin->GetReal("dust", "vely_imag_dust_" + std::to_string(n+1));
-      velz_dust_real[n] = pin->GetReal("dust", "velz_real_dust_" + std::to_string(n+1));
-      velz_dust_imag[n] = pin->GetReal("dust", "velz_imag_dust_" + std::to_string(n+1));
+      //// Eigenvalues, Eigenvectors
+      //rho_dust_real[n]  = pin->GetReal("dust", "rho_real_dust_"  + std::to_string(n+1));
+      //rho_dust_imag[n]  = pin->GetReal("dust", "rho_imag_dust_"  + std::to_string(n+1));
+      //velx_dust_real[n] = pin->GetReal("dust", "velx_real_dust_" + std::to_string(n+1));
+      //velx_dust_imag[n] = pin->GetReal("dust", "velx_imag_dust_" + std::to_string(n+1));
+      //vely_dust_real[n] = pin->GetReal("dust", "vely_real_dust_" + std::to_string(n+1));
+      //vely_dust_imag[n] = pin->GetReal("dust", "vely_imag_dust_" + std::to_string(n+1));
+      //velz_dust_real[n] = pin->GetReal("dust", "velz_real_dust_" + std::to_string(n+1));
+      //velz_dust_imag[n] = pin->GetReal("dust", "velz_imag_dust_" + std::to_string(n+1));
     }
   }
 
@@ -138,6 +138,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 //  \brief
 
 void MeshBlock::ProblemGenerator(ParameterInput *pin) {
+  std::int64_t iseed = -1 - gid;
   volume.NewAthenaArray(ncells1);
 
   x1size = pmy_mesh->mesh_size.x1max - pmy_mesh->mesh_size.x1min;
@@ -167,23 +168,15 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           y_dis = pcoord->x2v(j);
           z_dis = pcoord->x3v(k);
 
-          Real cn = std::cos(kx*x_dis + kz*z_dis);
-          Real sn = std::sin(kx*x_dis + kz*z_dis);
-
-          Real delta_gas_rho  = amp*rhog0*(rho_gas_real*cn         - rho_gas_imag*sn);
-          Real delta_gas_vel1 = amp*etaVk*iso_cs*(velx_gas_real*cn - velx_gas_imag*sn);
-          Real delta_gas_vel2 = amp*etaVk*iso_cs*(vely_gas_real*cn - vely_gas_imag*sn);
-          Real delta_gas_vel3 = amp*etaVk*iso_cs*(velz_gas_real*cn - velz_gas_imag*sn);
-
-          //Real delta_gas_rho  = 0.0;
-          //Real delta_gas_vel1 = 0.0;
-          //Real delta_gas_vel2 = 0.0;
-          //Real delta_gas_vel3 = 0.0;
-
           Real K_vel    = qshear*Omega_0*x_dis;
           Real gas_vel1 = AN*Kai0*Psi;
           Real gas_vel2 = -1.0*K_vel - 0.5*kappap2*BN*Kai0*Psi;
           Real gas_vel3 = 0.0;
+
+          Real delta_gas_rho  = amp*rhog0*amp*(ran2(&iseed) - 0.5);
+          Real delta_gas_vel1 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
+          Real delta_gas_vel2 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
+          Real delta_gas_vel3 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
 
           Real &gas_den  = phydro->u(IDN, k, j, i);
           Real &gas_mom1 = phydro->u(IM1, k, j, i);
@@ -204,15 +197,10 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               int v2_id   = rho_id + 2;
               int v3_id   = rho_id + 3;
 
-              Real delta_dust_rho  = amp*rhog0*(rho_dust_real[dust_id]*cn         - rho_dust_imag[dust_id]*sn);
-              Real delta_dust_vel1 = amp*etaVk*iso_cs*(velx_dust_real[dust_id]*cn - velx_dust_imag[dust_id]*sn);
-              Real delta_dust_vel2 = amp*etaVk*iso_cs*(vely_dust_real[dust_id]*cn - vely_dust_imag[dust_id]*sn);
-              Real delta_dust_vel3 = amp*etaVk*iso_cs*(velz_dust_real[dust_id]*cn - velz_dust_imag[dust_id]*sn);
-
-              //Real delta_dust_rho  = 0.0;
-              //Real delta_dust_vel1 = 0.0;
-              //Real delta_dust_vel2 = 0.0;
-              //Real delta_dust_vel3 = 0.0;
+              Real delta_dust_rho  = amp*rhog0*amp*(ran2(&iseed) - 0.5);
+              Real delta_dust_vel1 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
+              Real delta_dust_vel2 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
+              Real delta_dust_vel3 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
 
               Real dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel2 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
               Real dust_vel2  = -1.0 * K_vel;
@@ -243,18 +231,15 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           z_dis = pcoord->x2v(j);
           y_dis = pcoord->x3v(k);
 
-          Real cn = std::cos(kx*x_dis + kz*z_dis);
-          Real sn = std::sin(kx*x_dis + kz*z_dis);
+          //Real delta_gas_rho  = amp*rhog0*amp*(ran2(&iseed) - 0.5);
+          //Real delta_gas_vel1 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
+          //Real delta_gas_vel2 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
+          //Real delta_gas_vel3 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
 
-          Real delta_gas_rho  = amp*rhog0*(rho_gas_real*cn         - rho_gas_imag*sn);
-          Real delta_gas_vel1 = amp*etaVk*iso_cs*(velx_gas_real*cn - velx_gas_imag*sn);
-          Real delta_gas_vel2 = amp*etaVk*iso_cs*(velz_gas_real*cn - velz_gas_imag*sn);
-          Real delta_gas_vel3 = amp*etaVk*iso_cs*(vely_gas_real*cn - vely_gas_imag*sn);
-
-          //Real delta_gas_rho  = 0.0;
-          //Real delta_gas_vel1 = 0.0;
-          //Real delta_gas_vel2 = 0.0;
-          //Real delta_gas_vel3 = 0.0;
+          Real delta_gas_rho  = 0.0;
+          Real delta_gas_vel1 = 0.0;
+          Real delta_gas_vel2 = 0.0;
+          Real delta_gas_vel3 = 0.0;
 
           Real K_vel    = qshear*Omega_0*x_dis;
           Real gas_vel1 = AN*Kai0*Psi;
@@ -272,6 +257,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           gas_mom3  = gas_den * (gas_vel3 + delta_gas_vel3);
           gas_den  += delta_gas_rho;
 
+
           if (NDUSTFLUIDS > 0) {
             for (int n=0; n<NDUSTFLUIDS; n++) {
               int dust_id = n;
@@ -280,15 +266,10 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               int v2_id   = rho_id + 2;
               int v3_id   = rho_id + 3;
 
-              Real delta_dust_rho  = amp*rhog0*(rho_dust_real[dust_id]*cn         - rho_dust_imag[dust_id]*sn);
-              Real delta_dust_vel1 = amp*etaVk*iso_cs*(velx_dust_real[dust_id]*cn - velx_dust_imag[dust_id]*sn);
-              Real delta_dust_vel2 = amp*etaVk*iso_cs*(velz_dust_real[dust_id]*cn - velz_dust_imag[dust_id]*sn);
-              Real delta_dust_vel3 = amp*etaVk*iso_cs*(vely_dust_real[dust_id]*cn - vely_dust_imag[dust_id]*sn);
-
-              //Real delta_dust_rho  = 0.0;
-              //Real delta_dust_vel1 = 0.0;
-              //Real delta_dust_vel2 = 0.0;
-              //Real delta_dust_vel3 = 0.0;
+              Real delta_dust_rho  = amp*rhog0*amp*(ran2(&iseed) - 0.5);
+              Real delta_dust_vel1 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
+              Real delta_dust_vel2 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
+              Real delta_dust_vel3 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
 
               Real dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel3 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
               Real dust_vel2  = 0.0;
@@ -321,7 +302,6 @@ namespace {
 void PressureGradient(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
     const AthenaArray<Real> &bcc, AthenaArray<Real> &cons)
 {
-  //DustFluids *pdf = pmb->pdustfluids;
   for (int k=pmb->ks; k<=pmb->ke; ++k) {
     for (int j=pmb->js; j<=pmb->je; ++j) {
 #pragma omp simd
@@ -333,25 +313,6 @@ void PressureGradient(MeshBlock *pmb, const Real time, const Real dt, const Athe
       }
     }
   }
-
-  //for (int n=0; n<NDUSTFLUIDS; n++) {
-    //int dust_id = n;
-    //int rho_id  = 4*dust_id;
-    //int v1_id   = rho_id + 1;
-    //int v2_id   = rho_id + 2;
-    //int v3_id   = rho_id + 3;
-    //for (int k=pmb->ks; k<=pmb->ke; ++k) {
-      //for (int j=pmb->js; j<=pmb->je; ++j) {
-//#pragma omp simd
-        //for (int i=pmb->is; i<=pmb->ie; ++i) {
-          //Real &dust_rho             = pdf->df_cons(rho_id,k,j,i);
-          //Real press_gra             = dust_rho*Kai0*Omega_0*dt;
-          //pdf->df_cons(v1_id,k,j,i) -= press_gra;
-        //}
-      //}
-    //}
-  //}
-
   return;
 }
 

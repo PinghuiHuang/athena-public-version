@@ -406,6 +406,7 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
   return;
 }
 
+
 void DustGasDrag::TRBDF2NoFeedback(const int stage,
       const Real dt, const AthenaArray<Real> &stopping_time,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,

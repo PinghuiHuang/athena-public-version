@@ -104,6 +104,7 @@ RestrictFieldX2	mesh_refinement.cpp	/^void MeshRefinement::RestrictFieldX2($/;"	
 RestrictFieldX3	mesh_refinement.cpp	/^void MeshRefinement::RestrictFieldX3($/;"	f	class:MeshRefinement
 SetBlockSizeAndBoundaries	mesh.cpp	/^void Mesh::SetBlockSizeAndBoundaries(LogicalLocation loc, RegionSize &block_size,$/;"	f	class:Mesh
 SetCostForLoadBalancing	meshblock.cpp	/^void MeshBlock::SetCostForLoadBalancing(double cost) {$/;"	f	class:MeshBlock
+SetDustFluidsRefinement	mesh_refinement.cpp	/^void MeshRefinement::SetDustFluidsRefinement(DustFluidsBoundaryQuantity dustfluids_type) {$/;"	f	class:MeshRefinement
 SetFourPiG	mesh.hpp	/^  void SetFourPiG(Real fpg) { four_pi_G_=fpg; }$/;"	f	class:Mesh
 SetGravitationalConstant	mesh.hpp	/^  void SetGravitationalConstant(Real g) { four_pi_G_=4.0*PI*g; }$/;"	f	class:Mesh
 SetGravityThreshold	mesh.hpp	/^  void SetGravityThreshold(Real eps) { grav_eps_=eps; }$/;"	f	class:Mesh

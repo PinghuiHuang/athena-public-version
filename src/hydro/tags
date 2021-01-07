@@ -185,13 +185,15 @@ scr2_nkji_	hydro.hpp	/^  AthenaArray<Real> scr1_nkji_, scr2_nkji_;$/;"	m	class:H
 u	hydro.hpp	/^  AthenaArray<Real> u, w;           \/\/ time-integrator memory register #1$/;"	m	class:Hydro
 u1	hydro.hpp	/^  AthenaArray<Real> u1, w1;         \/\/ time-integrator memory register #2$/;"	m	class:Hydro
 u2	hydro.hpp	/^  AthenaArray<Real> u2;             \/\/ time-integrator memory register #3$/;"	m	class:Hydro
+u_as	hydro.hpp	/^  AthenaArray<Real> u_bs, u_as;     \/\/ time-integrator memory register used in dust-gas drag integrators$/;"	m	class:Hydro
+u_bs	hydro.hpp	/^  AthenaArray<Real> u_bs, u_as;     \/\/ time-integrator memory register used in dust-gas drag integrators$/;"	m	class:Hydro
 u_cc	hydro.hpp	/^  AthenaArray<Real> u_cc, w_cc;      \/\/ cell-centered approximations$/;"	m	class:Hydro
 visflx	hydro_diffusion/hydro_diffusion.hpp	/^  AthenaArray<Real> visflx[3];     \/\/ viscous stress tensor$/;"	m	class:HydroDiffusion
 vol_	hydro_diffusion/hydro_diffusion.hpp	/^  AthenaArray<Real> vol_;$/;"	m	class:HydroDiffusion
 w	hydro.hpp	/^  AthenaArray<Real> u, w;           \/\/ time-integrator memory register #1$/;"	m	class:Hydro
 w1	hydro.hpp	/^  AthenaArray<Real> u1, w1;         \/\/ time-integrator memory register #2$/;"	m	class:Hydro
 w_cc	hydro.hpp	/^  AthenaArray<Real> u_cc, w_cc;      \/\/ cell-centered approximations$/;"	m	class:Hydro
-w_n	hydro.hpp	/^  AthenaArray<Real> w_n;            \/\/ time-integrator memory register for dust-gas drag$/;"	m	class:Hydro
+w_n	hydro.hpp	/^  AthenaArray<Real> w_n;            \/\/ time-integrator memory register used in dust-gas drag integrators$/;"	m	class:Hydro
 wl3d_	hydro.hpp	/^  AthenaArray<Real> wl3d_, wr3d_;$/;"	m	class:Hydro
 wl_	hydro.hpp	/^  AthenaArray<Real> wl_, wr_, wlb_;$/;"	m	class:Hydro
 wlb_	hydro.hpp	/^  AthenaArray<Real> wl_, wr_, wlb_;$/;"	m	class:Hydro

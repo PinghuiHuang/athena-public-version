@@ -35,14 +35,14 @@ class DustFluidsSourceTerms;
 // constructor, initializes data structures and parameters
 DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   pmy_block(pmb), pco_(pmb->pcoord),
-  df_cons(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons1(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons_bs(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons_as(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_prim(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_prim1(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_prim_n(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_flux{{num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
+  df_cons(num_dust_var,    pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons1(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons_bs(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons_as(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim(num_dust_var,    pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim1(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim_n(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_flux{{num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
             {num_dust_var, pmb->ncells3, pmb->ncells2+1, pmb->ncells1,
             (pmb->pmy_mesh->f2 ? AthenaArray<Real>::DataStatus::allocated :
             AthenaArray<Real>::DataStatus::empty)},
@@ -179,6 +179,7 @@ void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int j
             const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df, AthenaArray<Real> &stopping_time){
   //Real rad, phi, z;
   //Real inv_gm0 = 1.0/dfsrc.gm_;
+  Real inv_Omega = 1.0/dfsrc.Omega_0_;
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
@@ -203,8 +204,8 @@ void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int j
             //st_time = internal_density(dust_id)*std::pow(rad, 1.5)*std::pow(inv_gm0, -0.5);
           //}
 
-          // NSH equilibrium
-          st_time = internal_density(dust_id)/dfsrc.Omega_0_;
+          // NSH equilibrium && Streaming Instability test
+          st_time = internal_density(dust_id)*inv_Omega;
 
         }
       }

@@ -110,6 +110,7 @@ Prolongate	backup/mg_task_list.cpp	/^TaskStatus MultigridTaskList::Prolongate(Mu
 Prolongate	mg_task_list.cpp	/^TaskStatus MultigridTaskList::Prolongate(Multigrid *pmg) {$/;"	f	class:MultigridTaskList
 Prolongation	backup/time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::Prolongation(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
 Prolongation	time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::Prolongation(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
+ReceiveAndCorrectDustFluidsFlux	time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveAndCorrectDustFluidsFlux(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
 ReceiveAndCorrectEMF	backup/time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveAndCorrectEMF(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
 ReceiveAndCorrectEMF	time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveAndCorrectEMF(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
 ReceiveAndCorrectHydroFlux	backup/time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveAndCorrectHydroFlux(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
@@ -121,7 +122,6 @@ ReceiveBoundaryFace	mg_task_list.cpp	/^TaskStatus MultigridTaskList::ReceiveBoun
 ReceiveDustFluids	backup/time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveDustFluids(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
 ReceiveDustFluids	time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveDustFluids(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
 ReceiveDustFluidsFlux	backup/time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsFlux(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
-ReceiveDustFluidsFlux	time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsFlux(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
 ReceiveDustFluidsShear	backup/time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsShear(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
 ReceiveDustFluidsShear	time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsShear(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
 ReceiveEMFShear	backup/time_integrator.cpp	/^TaskStatus TimeIntegratorTaskList::ReceiveEMFShear(MeshBlock *pmb, int stage) {$/;"	f	class:TimeIntegratorTaskList
