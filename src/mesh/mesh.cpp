@@ -4,7 +4,7 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file mesh.cpp
-//  \brief implementation of functions in Mesh class
+//! \brief implementation of functions in Mesh class
 
 // C headers
 // pre-C11: needed before including inttypes.h, else won't define int64_t for C++ code
@@ -42,6 +42,7 @@
 #include "../hydro/hydro.hpp"
 #include "../hydro/hydro_diffusion/hydro_diffusion.hpp"
 #include "../multigrid/multigrid.hpp"
+#include "../orbital_advection/orbital_advection.hpp"
 #include "../outputs/io_wrapper.hpp"
 #include "../parameter_input.hpp"
 #include "../reconstruct/reconstruction.hpp"
@@ -60,7 +61,7 @@
 #endif
 
 //----------------------------------------------------------------------------------------
-// Mesh constructor, builds mesh at start of calculation using parameters in input file
+//! Mesh constructor, builds mesh at start of calculation using parameters in input file
 
 Mesh::Mesh(ParameterInput *pin, int mesh_test) :
     // public members:
@@ -85,6 +86,9 @@ Mesh::Mesh(ParameterInput *pin, int mesh_test) :
              ? true : false),
     multilevel((adaptive || pin->GetOrAddString("mesh", "refinement", "none") == "static")
                ? true : false),
+    orbital_advection(pin->GetOrAddInteger("orbital_advection","OAorder",0)),
+    shear_periodic(GetBoundaryFlag(pin->GetOrAddString("mesh", "ix1_bc", "none"))
+                   == BoundaryFlag::shear_periodic ? true : false),
     fluid_setup(GetFluidFormulation(pin->GetOrAddString("hydro", "active", "true"))),
     start_time(pin->GetOrAddReal("time", "start_time", 0.0)), time(start_time),
     tlim(pin->GetReal("time", "tlim")), dt(std::numeric_limits<Real>::max()),
@@ -93,21 +97,26 @@ Mesh::Mesh(ParameterInput *pin, int mesh_test) :
     nlim(pin->GetOrAddInteger("time", "nlim", -1)), ncycle(),
     ncycle_out(pin->GetOrAddInteger("time", "ncycle_out", 1)),
     dt_diagnostics(pin->GetOrAddInteger("time", "dt_diagnostics", -1)),
-    muj(), nuj(), muj_tilde(),
+    sts_integrator(pin->GetOrAddString("time", "sts_integrator", "rkl2")),
+    sts_max_dt_ratio(pin->GetOrAddReal("time", "sts_max_dt_ratio", -1.0)),
+    sts_loc(TaskType::main_int),
+    muj(), nuj(), muj_tilde(), gammaj_tilde(),
     nbnew(), nbdel(),
-    step_since_lb(), gflag(), turb_flag(),
+    step_since_lb(), gflag(), turb_flag(), amr_updated(multilevel),
     // private members:
     next_phys_id_(), num_mesh_threads_(pin->GetOrAddInteger("mesh", "num_threads", 1)),
+    gids_(), gide_(),
     tree(this),
     use_uniform_meshgen_fn_{true, true, true},
     nreal_user_mesh_data_(), nint_user_mesh_data_(), nuser_history_output_(),
-    four_pi_G_(), grav_eps_(-1.0), grav_mean_rho_(-1.0),
+    four_pi_G_(), grav_eps_(-1.0),
     lb_flag_(true), lb_automatic_(), lb_manual_(),
     MeshGenerator_{UniformMeshGeneratorX1, UniformMeshGeneratorX2,
                    UniformMeshGeneratorX3},
     BoundaryFunction_{nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},
     AMRFlag_{}, UserSourceTerm_{}, UserTimeStep_{}, ViscosityCoeff_{},
-    ConductionCoeff_{}, FieldDiffusivity_{},
+    ConductionCoeff_{}, FieldDiffusivity_{}, DustDiffusivity_{},
+    OrbitalVelocity_{}, OrbitalVelocityDerivative_{nullptr, nullptr},
     MGGravityBoundaryFunction_{MGPeriodicInnerX1, MGPeriodicOuterX1, MGPeriodicInnerX2,
                                MGPeriodicOuterX2, MGPeriodicInnerX3, MGPeriodicOuterX3} {
   std::stringstream msg;
@@ -231,11 +240,35 @@ Mesh::Mesh(ParameterInput *pin, int mesh_test) :
         << "the Mesh must be evenly divisible by the MeshBlock" << std::endl;
     ATHENA_ERROR(msg);
   }
-  if (block_size.nx1 < 4 || (block_size.nx2 < 4 && f2)
-      || (block_size.nx3 < 4 && f3)) {
-    msg << "### FATAL ERROR in Mesh constructor" << std::endl
-        << "block_size must be larger than or equal to 4 cells." << std::endl;
-    ATHENA_ERROR(msg);
+  if (multilevel) { // SMR/AMR
+    // It is required to know xorder before pmb->precon is defined.
+    // This assumes that the stencil size is equal to xorder
+    int xorder = 1;
+    std::string input_recon = pin->GetOrAddString("time", "xorder", "2");
+    if ((input_recon == "2") || (input_recon == "2c")) {
+      xorder = 2;
+    } else if ((input_recon == "3") || (input_recon == "3c")) {
+      xorder = 3;
+    } else if ((input_recon == "4") || (input_recon == "4c")) {
+      xorder = 4;
+    }
+    int slimit = std::max(2*(xorder-1), NGHOST);
+    if (block_size.nx1 < slimit || (block_size.nx2 < slimit && f2)
+        || (block_size.nx3 < slimit && f3)) {
+      msg << "### FATAL ERROR in Mesh constructor" << std::endl
+          << "block_size must be larger than or equal to " << slimit
+          << " cells with SMR/AMR, when xorder = " << input_recon
+          << " and NGHOST = " << NGHOST << ". "<<std::endl;
+      ATHENA_ERROR(msg);
+    }
+  } else {
+    if (block_size.nx1 < NGHOST || (block_size.nx2 < NGHOST && f2)
+        || (block_size.nx3 < NGHOST && f3)) {
+      msg << "### FATAL ERROR in Mesh constructor" << std::endl
+          << "block_size must be larger than or equal to NGHOST = " << NGHOST
+          << " cells with uniform grid." << std::endl;
+      ATHENA_ERROR(msg);
+    }
   }
 
   // calculate the number of the blocks
@@ -332,7 +365,7 @@ Mesh::Mesh(ParameterInput *pin, int mesh_test) :
         if (lrlev > max_level) {
           msg << "### FATAL ERROR in Mesh constructor" << std::endl
               << "Refinement level exceeds the maximum level (specify "
-              << "'maxlevel' parameter in <mesh> input block if adaptive)."
+              << "'numlevel' parameter in <mesh> input block if adaptive)."
               << std::endl;
           ATHENA_ERROR(msg);
         }
@@ -438,6 +471,8 @@ Mesh::Mesh(ParameterInput *pin, int mesh_test) :
     }
   }
 
+  if (!adaptive) max_level = current_level;
+
   // initial mesh hierarchy construction is completed here
   tree.CountMeshBlock(nbtotal);
   loclist = new LogicalLocation[nbtotal];
@@ -499,25 +534,17 @@ Mesh::Mesh(ParameterInput *pin, int mesh_test) :
   //    gflag = 2;
 
   // create MeshBlock list for this process
-  int nbs = nslist[Globals::my_rank];
-  int nbe = nbs + nblist[Globals::my_rank] - 1;
-  // create MeshBlock list for this process
-  for (int i=nbs; i<=nbe; i++) {
+  gids_ = nslist[Globals::my_rank];
+  gide_ = gids_ + nblist[Globals::my_rank] - 1;
+  nblocal = nblist[Globals::my_rank];
+  my_blocks.NewAthenaArray(nblocal);
+  // create MeshBlocks for this node
+  for (int i=gids_; i<=gide_; i++) {
     SetBlockSizeAndBoundaries(loclist[i], block_size, block_bcs);
-    // create a block and add into the link list
-    if (i == nbs) {
-      pblock = new MeshBlock(i, i-nbs, loclist[i], block_size, block_bcs, this,
-                             pin, gflag);
-      pfirst = pblock;
-    } else {
-      pblock->next = new MeshBlock(i, i-nbs, loclist[i], block_size, block_bcs,
-                                   this, pin, gflag);
-      pblock->next->prev = pblock;
-      pblock = pblock->next;
-    }
-    pblock->pbval->SearchAndSetNeighbors(tree, ranklist, nslist);
+    my_blocks(i-gids_) = new MeshBlock(i, i-gids_, loclist[i], block_size, block_bcs,
+                                       this, pin, gflag);
+    my_blocks(i-gids_)->pbval->SearchAndSetNeighbors(tree, ranklist, nslist);
   }
-  pblock = pfirst;
 
   ResetLoadBalanceVariables();
 
@@ -526,7 +553,7 @@ Mesh::Mesh(ParameterInput *pin, int mesh_test) :
 }
 
 //----------------------------------------------------------------------------------------
-// Mesh constructor for restarts. Load the restart file
+//! Mesh constructor for restarts. Load the restart file
 
 Mesh::Mesh(ParameterInput *pin, IOWrapper& resfile, int mesh_test) :
     // public members:
@@ -552,6 +579,9 @@ Mesh::Mesh(ParameterInput *pin, IOWrapper& resfile, int mesh_test) :
              ? true : false),
     multilevel((adaptive || pin->GetOrAddString("mesh", "refinement", "none") == "static")
                ? true : false),
+    orbital_advection(pin->GetOrAddInteger("orbital_advection","OAorder",0)),
+    shear_periodic(GetBoundaryFlag(pin->GetOrAddString("mesh", "ix1_bc", "none"))
+                   == BoundaryFlag::shear_periodic ? true : false),
     fluid_setup(GetFluidFormulation(pin->GetOrAddString("hydro", "active", "true"))),
     start_time(pin->GetOrAddReal("time", "start_time", 0.0)), time(start_time),
     tlim(pin->GetReal("time", "tlim")), dt(std::numeric_limits<Real>::max()),
@@ -560,21 +590,26 @@ Mesh::Mesh(ParameterInput *pin, IOWrapper& resfile, int mesh_test) :
     nlim(pin->GetOrAddInteger("time", "nlim", -1)), ncycle(),
     ncycle_out(pin->GetOrAddInteger("time", "ncycle_out", 1)),
     dt_diagnostics(pin->GetOrAddInteger("time", "dt_diagnostics", -1)),
-    muj(), nuj(), muj_tilde(),
+    sts_integrator(pin->GetOrAddString("time", "sts_integrator", "rkl2")),
+    sts_max_dt_ratio(pin->GetOrAddReal("time", "sts_max_dt_ratio", -1.0)),
+    sts_loc(TaskType::main_int),
+    muj(), nuj(), muj_tilde(), gammaj_tilde(),
     nbnew(), nbdel(),
-    step_since_lb(), gflag(), turb_flag(),
+    step_since_lb(), gflag(), turb_flag(), amr_updated(multilevel),
     // private members:
     next_phys_id_(), num_mesh_threads_(pin->GetOrAddInteger("mesh", "num_threads", 1)),
+    gids_(), gide_(),
     tree(this),
     use_uniform_meshgen_fn_{true, true, true},
     nreal_user_mesh_data_(), nint_user_mesh_data_(), nuser_history_output_(),
-    four_pi_G_(), grav_eps_(-1.0), grav_mean_rho_(-1.0),
+    four_pi_G_(), grav_eps_(-1.0),
     lb_flag_(true), lb_automatic_(), lb_manual_(),
     MeshGenerator_{UniformMeshGeneratorX1, UniformMeshGeneratorX2,
                    UniformMeshGeneratorX3},
     BoundaryFunction_{nullptr, nullptr, nullptr, nullptr, nullptr, nullptr},
     AMRFlag_{}, UserSourceTerm_{}, UserTimeStep_{}, ViscosityCoeff_{},
-    ConductionCoeff_{}, FieldDiffusivity_{},
+    ConductionCoeff_{}, FieldDiffusivity_{}, DustDiffusivity_{},
+    OrbitalVelocity_{}, OrbitalVelocityDerivative_{nullptr, nullptr},
     MGGravityBoundaryFunction_{MGPeriodicInnerX1, MGPeriodicOuterX1, MGPeriodicInnerX2,
                         MGPeriodicOuterX2, MGPeriodicInnerX3, MGPeriodicOuterX3} {
   std::stringstream msg;
@@ -755,6 +790,8 @@ Mesh::Mesh(ParameterInput *pin, IOWrapper& resfile, int mesh_test) :
   }
   delete [] idlist;
 
+  if (!adaptive) max_level = current_level;
+
   // calculate the header offset and seek
   headeroffset += headersize + udsize + listsize*nbtotal;
   if (Globals::my_rank != 0)
@@ -822,39 +859,30 @@ Mesh::Mesh(ParameterInput *pin, IOWrapper& resfile, int mesh_test) :
   //    gflag=2;
 
   // allocate data buffer
-  int nb = nblist[Globals::my_rank];
-  int nbs = nslist[Globals::my_rank];
-  int nbe = nbs + nb - 1;
-  char *mbdata = new char[datasize*nb];
+  nblocal = nblist[Globals::my_rank];
+  gids_ = nslist[Globals::my_rank];
+  gide_ = gids_ + nblocal - 1;
+  char *mbdata = new char[datasize*nblocal];
+  my_blocks.NewAthenaArray(nblocal);
   // load MeshBlocks (parallel)
-  if (resfile.Read_at_all(mbdata, datasize, nb, headeroffset+nbs*datasize) !=
-      static_cast<unsigned int>(nb)) {
+  if (resfile.Read_at_all(mbdata, datasize, nblocal, headeroffset+gids_*datasize) !=
+      static_cast<unsigned int>(nblocal)) {
     msg << "### FATAL ERROR in Mesh constructor" << std::endl
         << "The restart file is broken or input parameters are inconsistent."
         << std::endl;
     ATHENA_ERROR(msg);
   }
-  for (int i=nbs; i<=nbe; i++) {
+  for (int i=gids_; i<=gide_; i++) {
     // Match fixed-width integer precision of IOWrapperSizeT datasize
-    std::uint64_t buff_os = datasize * (i-nbs);
+    std::uint64_t buff_os = datasize * (i-gids_);
     SetBlockSizeAndBoundaries(loclist[i], block_size, block_bcs);
-    // create a block and add into the link list
-    if (i == nbs) {
-      pblock = new MeshBlock(i, i-nbs, this, pin, loclist[i], block_size,
-                             block_bcs, costlist[i], mbdata+buff_os, gflag);
-      pfirst = pblock;
-    } else {
-      pblock->next = new MeshBlock(i, i-nbs, this, pin, loclist[i], block_size,
-                                   block_bcs, costlist[i], mbdata+buff_os, gflag);
-      pblock->next->prev = pblock;
-      pblock = pblock->next;
-    }
-    pblock->pbval->SearchAndSetNeighbors(tree, ranklist, nslist);
+    my_blocks(i-gids_) = new MeshBlock(i, i-gids_, this, pin, loclist[i], block_size,
+                                       block_bcs, costlist[i], mbdata+buff_os, gflag);
+    my_blocks(i-gids_)->pbval->SearchAndSetNeighbors(tree, ranklist, nslist);
   }
-  pblock = pfirst;
   delete [] mbdata;
   // check consistency
-  if (datasize != pblock->GetBlockSizeInBytes()) {
+  if (datasize != my_blocks(0)->GetBlockSizeInBytes()) {
     msg << "### FATAL ERROR in Mesh constructor" << std::endl
         << "The restart file is broken or input parameters are inconsistent."
         << std::endl;
@@ -871,14 +899,11 @@ Mesh::Mesh(ParameterInput *pin, IOWrapper& resfile, int mesh_test) :
 }
 
 //----------------------------------------------------------------------------------------
-// destructor
+//! destructor
 
 Mesh::~Mesh() {
-  while (pblock->prev != nullptr) // should not be true
-    delete pblock->prev;
-  while (pblock->next != nullptr)
-    delete pblock->next;
-  delete pblock;
+  for (int b=0; b<nblocal; ++b)
+    delete my_blocks(b);
   delete [] nslist;
   delete [] nblist;
   delete [] ranklist;
@@ -910,7 +935,7 @@ Mesh::~Mesh() {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::OutputMeshStructure(int ndim)
-//  \brief print the mesh structure information
+//! \brief print the mesh structure information
 
 void Mesh::OutputMeshStructure(int ndim) {
   RegionSize block_size;
@@ -936,8 +961,8 @@ void Mesh::OutputMeshStructure(int ndim) {
   std::cout << "Number of logical  refinement levels = " << current_level << std::endl;
 
   // compute/output number of blocks per level, and cost per level
-  int *nb_per_plevel = new int[max_level];
-  int *cost_per_plevel = new int[max_level];
+  int *nb_per_plevel = new int[max_level+1];
+  int *cost_per_plevel = new int[max_level+1];
   for (int i=0; i<=max_level; ++i) {
     nb_per_plevel[i] = 0;
     cost_per_plevel[i] = 0;
@@ -1058,12 +1083,12 @@ void Mesh::OutputMeshStructure(int ndim) {
 }
 
 //----------------------------------------------------------------------------------------
-// \!fn void Mesh::NewTimeStep()
-// \brief function that loops over all MeshBlocks and find new timestep
-//        this assumes that phydro->NewBlockTimeStep is already called
+//! \fn void Mesh::NewTimeStep()
+//! \brief function that loops over all MeshBlocks and find new timestep
+//!        this assumes that phydro->NewBlockTimeStep is already called
 
 void Mesh::NewTimeStep() {
-  MeshBlock *pmb = pblock;
+  MeshBlock *pmb = my_blocks(0);
 
   // prevent timestep from growing too fast in between 2x cycles (even if every MeshBlock
   // has new_block_dt > 2.0*dt_old)
@@ -1073,17 +1098,15 @@ void Mesh::NewTimeStep() {
   dt_hyperbolic = pmb->new_block_dt_hyperbolic_;
   dt_parabolic = pmb->new_block_dt_parabolic_;
   dt_user = pmb->new_block_dt_user_;
-  pmb = pmb->next;
 
-  while (pmb != nullptr)  {
+  for (int i=0; i<nblocal; ++i) {
+    pmb = my_blocks(i);
     dt = std::min(dt, pmb->new_block_dt_);
     dt_hyperbolic  = std::min(dt_hyperbolic, pmb->new_block_dt_hyperbolic_);
     dt_parabolic  = std::min(dt_parabolic, pmb->new_block_dt_parabolic_);
     dt_user  = std::min(dt_user, pmb->new_block_dt_user_);
-    pmb = pmb->next;
   }
 
-  //std::cout << "#3 The time step is " << dt << std::endl;
 #ifdef MPI_PARALLEL
   // pack array, MPI allreduce over array, then unpack into Mesh variables
   Real dt_array[4] = {dt, dt_hyperbolic, dt_parabolic, dt_user};
@@ -1094,16 +1117,22 @@ void Mesh::NewTimeStep() {
   dt_user       = dt_array[3];
 #endif
 
-  //std::cout << "#4 The time step is " << dt << std::endl;
   if (time < tlim && (tlim - time) < dt) // timestep would take us past desired endpoint
     dt = tlim - time;
+
+  if (STS_ENABLED) {
+    Real dt_ratio = dt / dt_parabolic;
+    if (sts_max_dt_ratio > 0 && dt_ratio > sts_max_dt_ratio) {
+      dt = sts_max_dt_ratio * dt_parabolic;
+    }
+  }
 
   return;
 }
 
 //----------------------------------------------------------------------------------------
-//! \fn void Mesh::EnrollUserBoundaryFunction(BoundaryFace dir, BValHydro my_bc)
-//  \brief Enroll a user-defined boundary function
+//! \fn void Mesh::EnrollUserBoundaryFunction(BoundaryFace dir, BValFunc my_bc)
+//! \brief Enroll a user-defined boundary function
 
 void Mesh::EnrollUserBoundaryFunction(BoundaryFace dir, BValFunc my_bc) {
   std::stringstream msg;
@@ -1123,9 +1152,9 @@ void Mesh::EnrollUserBoundaryFunction(BoundaryFace dir, BValFunc my_bc) {
 }
 
 //----------------------------------------------------------------------------------------
-//! \fn void Mesh::EnrollUserMGGravityBoundaryFunction(BoundaryFace dir
-//                                                     MGBoundaryFunc my_bc)
-//  \brief Enroll a user-defined Multigrid boundary function
+//! \fn void Mesh::EnrollUserMGGravityBoundaryFunction(BoundaryFace dir,
+//!                                                    MGBoundaryFunc my_bc)
+//! \brief Enroll a user-defined Multigrid boundary function
 
 void Mesh::EnrollUserMGGravityBoundaryFunction(BoundaryFace dir, MGBoundaryFunc my_bc) {
   std::stringstream msg;
@@ -1138,7 +1167,8 @@ void Mesh::EnrollUserMGGravityBoundaryFunction(BoundaryFace dir, MGBoundaryFunc 
   return;
 }
 
-// DEPRECATED(felker): provide trivial overloads for old-style BoundaryFace enum argument
+//! \deprecated (felker):
+//! * provide trivial overloads for old-style BoundaryFace enum argument
 void Mesh::EnrollUserBoundaryFunction(int dir, BValFunc my_bc) {
   EnrollUserBoundaryFunction(static_cast<BoundaryFace>(dir), my_bc);
   return;
@@ -1151,7 +1181,7 @@ void Mesh::EnrollUserMGGravityBoundaryFunction(int dir, MGBoundaryFunc my_bc) {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::EnrollUserRefinementCondition(AMRFlagFunc amrflag)
-//  \brief Enroll a user-defined function for checking refinement criteria
+//! \brief Enroll a user-defined function for checking refinement criteria
 
 void Mesh::EnrollUserRefinementCondition(AMRFlagFunc amrflag) {
   if (adaptive)
@@ -1161,7 +1191,7 @@ void Mesh::EnrollUserRefinementCondition(AMRFlagFunc amrflag) {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::EnrollUserMeshGenerator(CoordinateDirection,MeshGenFunc my_mg)
-//  \brief Enroll a user-defined function for Mesh generation
+//! \brief Enroll a user-defined function for Mesh generation
 
 void Mesh::EnrollUserMeshGenerator(CoordinateDirection dir, MeshGenFunc my_mg) {
   std::stringstream msg;
@@ -1195,7 +1225,7 @@ void Mesh::EnrollUserMeshGenerator(CoordinateDirection dir, MeshGenFunc my_mg) {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::EnrollUserExplicitSourceFunction(SrcTermFunc my_func)
-//  \brief Enroll a user-defined source function
+//! \brief Enroll a user-defined source function
 
 void Mesh::EnrollUserExplicitSourceFunction(SrcTermFunc my_func) {
   UserSourceTerm_ = my_func;
@@ -1204,7 +1234,7 @@ void Mesh::EnrollUserExplicitSourceFunction(SrcTermFunc my_func) {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::EnrollUserTimeStepFunction(TimeStepFunc my_func)
-//  \brief Enroll a user-defined time step function
+//! \brief Enroll a user-defined time step function
 
 void Mesh::EnrollUserTimeStepFunction(TimeStepFunc my_func) {
   UserTimeStep_ = my_func;
@@ -1213,7 +1243,7 @@ void Mesh::EnrollUserTimeStepFunction(TimeStepFunc my_func) {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::AllocateUserHistoryOutput(int n)
-//  \brief set the number of user-defined history outputs
+//! \brief set the number of user-defined history outputs
 
 void Mesh::AllocateUserHistoryOutput(int n) {
   nuser_history_output_ = n;
@@ -1225,8 +1255,8 @@ void Mesh::AllocateUserHistoryOutput(int n) {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::EnrollUserHistoryOutput(int i, HistoryOutputFunc my_func,
-//                                         const char *name, UserHistoryOperation op)
-//  \brief Enroll a user-defined history output function and set its name
+//!                                        const char *name, UserHistoryOperation op)
+//! \brief Enroll a user-defined history output function and set its name
 
 void Mesh::EnrollUserHistoryOutput(int i, HistoryOutputFunc my_func, const char *name,
                                    UserHistoryOperation op) {
@@ -1244,7 +1274,7 @@ void Mesh::EnrollUserHistoryOutput(int i, HistoryOutputFunc my_func, const char 
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::EnrollUserMetric(MetricFunc my_func)
-//  \brief Enroll a user-defined metric for arbitrary GR coordinates
+//! \brief Enroll a user-defined metric for arbitrary GR coordinates
 
 void Mesh::EnrollUserMetric(MetricFunc my_func) {
   UserMetric_ = my_func;
@@ -1253,7 +1283,7 @@ void Mesh::EnrollUserMetric(MetricFunc my_func) {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::EnrollViscosityCoefficient(ViscosityCoeff my_func)
-//  \brief Enroll a user-defined magnetic field diffusivity function
+//! \brief Enroll a user-defined magnetic field diffusivity function
 
 void Mesh::EnrollViscosityCoefficient(ViscosityCoeffFunc my_func) {
   ViscosityCoeff_ = my_func;
@@ -1262,7 +1292,7 @@ void Mesh::EnrollViscosityCoefficient(ViscosityCoeffFunc my_func) {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::EnrollConductionCoefficient(ConductionCoeff my_func)
-//  \brief Enroll a user-defined thermal conduction function
+//! \brief Enroll a user-defined thermal conduction function
 
 void Mesh::EnrollConductionCoefficient(ConductionCoeffFunc my_func) {
   ConductionCoeff_ = my_func;
@@ -1270,25 +1300,44 @@ void Mesh::EnrollConductionCoefficient(ConductionCoeffFunc my_func) {
 }
 
 //----------------------------------------------------------------------------------------
-//! \fn void Mesh::EnrollDustFluidsDiffusivity(DustFluidsDiffusionCoeffFunc my_func)
-//  \brief Enroll a user-defined dust fluids diffusivity function
-
-//void Mesh::EnrollDustFluidsDiffusivity(DustFluidsDiffusionCoeffFunc my_func) {
-  //DustDiffusivity_ = my_func;
-  //return;
-//}
-
-//----------------------------------------------------------------------------------------
 //! \fn void Mesh::EnrollFieldDiffusivity(FieldDiffusionCoeff my_func)
-//  \brief Enroll a user-defined magnetic field diffusivity function
+//! \brief Enroll a user-defined magnetic field diffusivity function
 
 void Mesh::EnrollFieldDiffusivity(FieldDiffusionCoeffFunc my_func) {
   FieldDiffusivity_ = my_func;
   return;
 }
+
+//----------------------------------------------------------------------------------------
+//! \fn void Mesh::EnrollDustFluidsDiffusivityCoefficient(DustFluidsDiffusionCoeffFunc my_func)
+//! \brief Enroll a user-defined dust fluids diffusivity function
+
+void Mesh::EnrollDustFluidsDiffusivityCoefficient(DustFluidsDiffusionCoeffFunc my_func) {
+  DustDiffusivity_ = my_func;
+  return;
+}
+
+//----------------------------------------------------------------------------------------
+//! \fn void Mesh::EnrollOrbitalVelocity(OrbitalVelocityFunc my_func)
+//  \brief Enroll a user-defined orbital velocity function
+
+void Mesh::EnrollOrbitalVelocity(OrbitalVelocityFunc my_func) {
+  OrbitalVelocity_ = my_func;
+  return;
+}
+
+//----------------------------------------------------------------------------------------
+//! \fn void Mesh::EnrollOrbitalVelocityDerivative(int i, OrbitalVelocityFunc my_func)
+//  \brief Enroll Derivative fuctions of user-defined orbital velocity.
+
+void Mesh::EnrollOrbitalVelocityDerivative(int i, OrbitalVelocityFunc my_func) {
+  OrbitalVelocityDerivative_[i] = my_func;
+  return;
+}
+
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::AllocateRealUserMeshDataField(int n)
-//  \brief Allocate Real AthenaArrays for user-defned data in Mesh
+//! \brief Allocate Real AthenaArrays for user-defned data in Mesh
 
 void Mesh::AllocateRealUserMeshDataField(int n) {
   if (nreal_user_mesh_data_ != 0) {
@@ -1304,7 +1353,7 @@ void Mesh::AllocateRealUserMeshDataField(int n) {
 
 //----------------------------------------------------------------------------------------
 //! \fn void Mesh::AllocateIntUserMeshDataField(int n)
-//  \brief Allocate integer AthenaArrays for user-defned data in Mesh
+//! \brief Allocate integer AthenaArrays for user-defned data in Mesh
 
 void Mesh::AllocateIntUserMeshDataField(int n) {
   if (nint_user_mesh_data_ != 0) {
@@ -1320,42 +1369,28 @@ void Mesh::AllocateIntUserMeshDataField(int n) {
 
 
 //----------------------------------------------------------------------------------------
-// \!fn void Mesh::ApplyUserWorkBeforeOutput(ParameterInput *pin)
-// \brief Apply MeshBlock::UserWorkBeforeOutput
+//! \fn void Mesh::ApplyUserWorkBeforeOutput(ParameterInput *pin)
+//! \brief Apply MeshBlock::UserWorkBeforeOutput
 
 void Mesh::ApplyUserWorkBeforeOutput(ParameterInput *pin) {
-  MeshBlock *pmb = pblock;
-  while (pmb != nullptr)  {
-    pmb->UserWorkBeforeOutput(pin);
-    pmb = pmb->next;
-  }
+  for (int i=0; i<nblocal; ++i)
+    my_blocks(i)->UserWorkBeforeOutput(pin);
 }
 
 //----------------------------------------------------------------------------------------
-// \!fn void Mesh::Initialize(int res_flag, ParameterInput *pin)
-// \brief  initialization before the main loop
+//! \fn void Mesh::Initialize(int res_flag, ParameterInput *pin)
+//! \brief  initialization before the main loop
 
 void Mesh::Initialize(int res_flag, ParameterInput *pin) {
   bool iflag = true;
   int inb = nbtotal;
   int nthreads = GetNumMeshThreads();
-  int nmb = GetNumMeshBlocksThisRank(Globals::my_rank);
-  std::vector<MeshBlock*> pmb_array(nmb);
 
   do {
-    // initialize a vector of MeshBlock pointers
-    nmb = GetNumMeshBlocksThisRank(Globals::my_rank);
-    if (static_cast<unsigned int>(nmb) != pmb_array.size()) pmb_array.resize(nmb);
-    MeshBlock *pmbl = pblock;
-    for (int i=0; i<nmb; ++i) {
-      pmb_array[i] = pmbl;
-      pmbl = pmbl->next;
-    }
-
     if (res_flag == 0) {
 #pragma omp parallel for num_threads(nthreads)
-      for (int i=0; i<nmb; ++i) {
-        MeshBlock *pmb = pmb_array[i];
+      for (int i=0; i<nblocal; ++i) {
+        MeshBlock *pmb = my_blocks(i);
         pmb->ProblemGenerator(pin);
         pmb->pbval->CheckUserBoundaries();
       }
@@ -1367,8 +1402,8 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
 
     // Create send/recv MPI_Requests for all BoundaryData objects
 #pragma omp parallel for num_threads(nthreads)
-    for (int i=0; i<nmb; ++i) {
-      MeshBlock *pmb = pmb_array[i];
+    for (int i=0; i<nblocal; ++i) {
+      MeshBlock *pmb = my_blocks(i);
       // BoundaryVariable objects evolved in main TimeIntegratorTaskList:
       pmb->pbval->SetupPersistentMPI();
       // other BoundaryVariable objects:
@@ -1389,24 +1424,25 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
 
       // prepare to receive conserved variables
 #pragma omp for private(pmb,pbval)
-      for (int i=0; i<nmb; ++i) {
-        pmb = pmb_array[i]; pbval = pmb->pbval;
-        if (SHEARING_BOX) {
-          pbval->ComputeShear(time);
+      for (int i=0; i<nblocal; ++i) {
+        pmb = my_blocks(i); pbval = pmb->pbval;
+        if (shear_periodic) {
+          pbval->ComputeShear(time, time);
         }
-        pbval->StartReceiving(BoundaryCommSubset::mesh_init);
+        pbval->StartReceivingSubset(BoundaryCommSubset::mesh_init,
+                                    pbval->bvars_main_int);
       }
 
       // send conserved variables
 #pragma omp for private(pmb,pbval)
-      for (int i=0; i<nmb; ++i) {
-        pmb = pmb_array[i]; pbval = pmb->pbval;
+      for (int i=0; i<nblocal; ++i) {
+        pmb = my_blocks(i); pbval = pmb->pbval;
         pmb->phydro->hbvar.SwapHydroQuantity(pmb->phydro->u,
                                                HydroBoundaryQuantity::cons);
         pmb->phydro->hbvar.SendBoundaryBuffers();
         if (MAGNETIC_FIELDS_ENABLED)
           pmb->pfield->fbvar.SendBoundaryBuffers();
-        // and (conserved variable) dust fluids masses:
+        // and (conserved variable) dust fluids density, momentums
         if (NDUSTFLUIDS > 0) {
           pmb->pdustfluids->dfbvar.SwapDustFluidsQuantity(pmb->pdustfluids->df_cons,
                                                  DustFluidsBoundaryQuantity::cons_df);
@@ -1416,36 +1452,36 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
 
       // wait to receive conserved variables
 #pragma omp for private(pmb,pbval)
-      for (int i=0; i<nmb; ++i) {
-        pmb = pmb_array[i]; pbval = pmb->pbval;
+      for (int i=0; i<nblocal; ++i) {
+        pmb = my_blocks(i); pbval = pmb->pbval;
         pmb->phydro->hbvar.ReceiveAndSetBoundariesWithWait();
-
         if (MAGNETIC_FIELDS_ENABLED)
           pmb->pfield->fbvar.ReceiveAndSetBoundariesWithWait();
         if (NDUSTFLUIDS > 0)
           pmb->pdustfluids->dfbvar.ReceiveAndSetBoundariesWithWait();
-
-        if (SHEARING_BOX) {
+        if (shear_periodic && orbital_advection==0) {
           pmb->phydro->hbvar.AddHydroShearForInit();
           if (NDUSTFLUIDS > 0)
             pmb->pdustfluids->dfbvar.AddDustFluidsShearForInit();
         }
-        pbval->ClearBoundary(BoundaryCommSubset::mesh_init);
+        pbval->ClearBoundarySubset(BoundaryCommSubset::mesh_init,
+                                   pbval->bvars_main_int);
       }
 
       // With AMR/SMR GR send primitives to enable cons->prim before prolongation
       if (GENERAL_RELATIVITY && multilevel) {
         // prepare to receive primitives
 #pragma omp for private(pmb,pbval)
-        for (int i=0; i<nmb; ++i) {
-          pmb = pmb_array[i]; pbval = pmb->pbval;
-          pbval->StartReceiving(BoundaryCommSubset::gr_amr);
+        for (int i=0; i<nblocal; ++i) {
+          pmb = my_blocks(i); pbval = pmb->pbval;
+          pbval->StartReceivingSubset(BoundaryCommSubset::gr_amr,
+                                      pbval->bvars_main_int);
         }
 
         // send primitives
 #pragma omp for private(pmb,pbval)
-        for (int i=0; i<nmb; ++i) {
-          pmb = pmb_array[i]; pbval = pmb->pbval;
+        for (int i=0; i<nblocal; ++i) {
+          pmb = my_blocks(i); pbval = pmb->pbval;
           pmb->phydro->hbvar.SwapHydroQuantity(pmb->phydro->w,
                                                HydroBoundaryQuantity::prim);
           pmb->phydro->hbvar.SendBoundaryBuffers();
@@ -1458,31 +1494,50 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
 
         // wait to receive AMR/SMR GR primitives
 #pragma omp for private(pmb,pbval)
-        for (int i=0; i<nmb; ++i) {
-          pmb = pmb_array[i]; pbval = pmb->pbval;
+        for (int i=0; i<nblocal; ++i) {
+          pmb = my_blocks(i); pbval = pmb->pbval;
           pmb->phydro->hbvar.ReceiveAndSetBoundariesWithWait();
-          pbval->ClearBoundary(BoundaryCommSubset::gr_amr);
+          if (NDUSTFLUIDS > 0) {
+            pmb->pdustfluids->dfbvar.ReceiveAndSetBoundariesWithWait();
+          }
+          pbval->ClearBoundarySubset(BoundaryCommSubset::gr_amr,
+                                     pbval->bvars_main_int);
           pmb->phydro->hbvar.SwapHydroQuantity(pmb->phydro->u,
                                                HydroBoundaryQuantity::cons);
+          if (NDUSTFLUIDS > 0) {
+            pmb->pdustfluids->dfbvar.SwapDustFluidsQuantity(pmb->pdustfluids->df_cons,
+                                                 DustFluidsBoundaryQuantity::cons_df);
+          }
         }
       } // multilevel
 
       // perform fourth-order correction of midpoint initial condition:
       // (correct IC on all MeshBlocks or none; switch cannot be toggled independently)
-      bool correct_ic = pmb_array[0]->precon->correct_ic;
+      bool correct_ic = my_blocks(0)->precon->correct_ic;
       if (correct_ic)
-        CorrectMidpointInitialCondition(pmb_array, nmb);
+        CorrectMidpointInitialCondition();
+
+      // Initiate orbital advection
+#pragma omp for private(pmb)
+      for (int i=0; i<nblocal; ++i) {
+        pmb = my_blocks(i);
+        if (pmb->porb->orbital_advection_defined) {
+          pmb->porb->InitializeOrbitalAdvection();
+          if (pmb->porb->orbital_advection_active)
+            pmb->porb->orb_bc->SetupPersistentMPI();
+        }
+      }
 
       // Now do prolongation, compute primitives, apply BCs
       Hydro *ph;
       Field *pf;
       DustFluids *pdf;
 #pragma omp for private(pmb,pbval,ph,pf,pdf)
-      for (int i=0; i<nmb; ++i) {
-        pmb = pmb_array[i];
+      for (int i=0; i<nblocal; ++i) {
+        pmb = my_blocks(i);
         pbval = pmb->pbval, ph = pmb->phydro, pf = pmb->pfield, pdf = pmb->pdustfluids;
         if (multilevel)
-          pbval->ProlongateBoundaries(time, 0.0);
+          pbval->ProlongateBoundaries(time, 0.0, pbval->bvars_main_int);
 
         int il = pmb->is, iu = pmb->ie,
             jl = pmb->js, ju = pmb->je,
@@ -1501,9 +1556,8 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
                                         ph->w, pf->bcc, pmb->pcoord,
                                         il, iu, jl, ju, kl, ku);
         if (NDUSTFLUIDS > 0) {
-          // r1/r_old for GR is currently unused:
           pmb->peos->DustFluidsConservedToPrimitive(pdf->df_cons, pdf->df_prim1, pdf->df_prim,
-                                                       pmb->pcoord, il, iu, jl, ju, kl, ku);
+                                                   pmb->pcoord, il, iu, jl, ju, kl, ku);
         }
         // --------------------------
         int order = pmb->precon->xorder;
@@ -1517,7 +1571,8 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
           if (pbval->nblevel[0][1][1] != -1) kl += 1;
           if (pbval->nblevel[2][1][1] != -1) ku -= 1;
           // for MHD, shrink buffer by 3
-          // TODO(felker): add MHD loop limit calculation for 4th order W(U)
+          //! \todo (felker):
+          //! * add MHD loop limit calculation for 4th order W(U)
           pmb->peos->ConservedToPrimitiveCellAverage(ph->u, ph->w1, pf->b,
                                                      ph->w, pf->bcc, pmb->pcoord,
                                                      il, iu, jl, ju, kl, ku);
@@ -1534,28 +1589,30 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
         ph->hbvar.SwapHydroQuantity(ph->w, HydroBoundaryQuantity::prim);
         if (NDUSTFLUIDS > 0)
           pdf->dfbvar.SwapDustFluidsQuantity(pdf->df_prim, DustFluidsBoundaryQuantity::prim_df);
-        //if (NDUSTFLUIDS > 0)
-          //pdf->dfbvar.var_cc = &(pdf->df_prim);
 
-        pbval->ApplyPhysicalBoundaries(time, 0.0);
+        pbval->ApplyPhysicalBoundaries(time, 0.0, pbval->bvars_main_int);
       }
 
       // Calc initial diffusion coefficients
 #pragma omp for private(pmb,ph,pf)
-      for (int i=0; i<nmb; ++i) {
-        pmb = pmb_array[i]; ph = pmb->phydro, pf = pmb->pfield;
+      for (int i=0; i<nblocal; ++i) {
+        pmb = my_blocks(i); ph = pmb->phydro, pf = pmb->pfield, pdf = pmb->pdustfluids;
         if (ph->hdif.hydro_diffusion_defined)
           ph->hdif.SetDiffusivity(ph->w, pf->bcc);
         if (MAGNETIC_FIELDS_ENABLED) {
           if (pf->fdif.field_diffusion_defined)
             pf->fdif.SetDiffusivity(ph->w, pf->bcc);
         }
+        if (NDUSTFLUIDS > 0) { // Calc initial dust diffusivity and dust sound speed
+          pdf->SetDustFluidsProperties(ph->w, pdf->df_prim, pdf->stopping_time_array,
+              pdf->nu_dustfluids_array, pdf->cs_dustfluids_array);
+        }
       }
 
       if (!res_flag && adaptive) {
 #pragma omp for
-        for (int i=0; i<nmb; ++i) {
-          pmb_array[i]->pmr->CheckRefinementCondition();
+        for (int i=0; i<nblocal; ++i) {
+          my_blocks(i)->pmr->CheckRefinementCondition();
         }
       }
     } // omp parallel
@@ -1564,6 +1621,7 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
       iflag = false;
       int onb = nbtotal;
       LoadBalancingAndAdaptiveMeshRefinement(pin);
+      amr_updated = true;
       if (nbtotal == onb) {
         iflag = true;
       } else if (nbtotal < onb && Globals::my_rank == 0) {
@@ -1584,8 +1642,8 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
 
   // calculate the first time step
 #pragma omp parallel for num_threads(nthreads)
-  for (int i=0; i<nmb; ++i) {
-    pmb_array[i]->phydro->NewBlockTimeStep();
+  for (int i=0; i<nblocal; ++i) {
+    my_blocks(i)->phydro->NewBlockTimeStep();
   }
 
   NewTimeStep();
@@ -1594,22 +1652,18 @@ void Mesh::Initialize(int res_flag, ParameterInput *pin) {
 
 //----------------------------------------------------------------------------------------
 //! \fn MeshBlock* Mesh::FindMeshBlock(int tgid)
-//  \brief return the MeshBlock whose gid is tgid
+//! \brief return the MeshBlock whose gid is tgid
 
 MeshBlock* Mesh::FindMeshBlock(int tgid) {
-  MeshBlock *pbl = pblock;
-  while (pbl != nullptr) {
-    if (pbl->gid == tgid)
-      break;
-    pbl = pbl->next;
-  }
-  return pbl;
+  if (tgid >= gids_ && tgid <= gide_)
+    return my_blocks(tgid - gids_);
+  return nullptr;
 }
 
 //----------------------------------------------------------------------------------------
-// \!fn void Mesh::SetBlockSizeAndBoundaries(LogicalLocation loc,
-//                 RegionSize &block_size, BundaryFlag *block_bcs)
-// \brief Set the physical part of a block_size structure and block boundary conditions
+//! \fn void Mesh::SetBlockSizeAndBoundaries(LogicalLocation loc,
+//!                RegionSize &block_size, BundaryFlag *block_bcs)
+//! \brief Set the physical part of a block_size structure and block boundary conditions
 
 void Mesh::SetBlockSizeAndBoundaries(LogicalLocation loc, RegionSize &block_size,
                                      BoundaryFlag *block_bcs) {
@@ -1697,14 +1751,14 @@ void Mesh::SetBlockSizeAndBoundaries(LogicalLocation loc, RegionSize &block_size
 }
 
 
-void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, int nmb) {
+void Mesh::CorrectMidpointInitialCondition() {
   MeshBlock *pmb;
   Hydro *ph;
   DustFluids *pdf;
 #pragma omp for private(pmb, ph, pdf)
-  for (int nb=0; nb<nmb; ++nb) {
-    pmb = pmb_array[nb];
-    ph  = pmb->phydro;
+  for (int nb=0; nb<nblocal; ++nb) {
+    pmb = my_blocks(nb);
+    ph = pmb->phydro;
     pdf = pmb->pdustfluids;
 
     // Assume cell-centered analytic value is computed at all real cells, and ghost
@@ -1712,7 +1766,7 @@ void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, i
     int il = pmb->is, iu = pmb->ie, jl = pmb->js, ju = pmb->je,
         kl = pmb->ks, ku = pmb->ke;
 
-    // Laplacian of cell-averaged conserved variables, dust fluids mass
+    // Laplacian of cell-averaged conserved variables, scalar concentrations
     AthenaArray<Real> delta_cons_, delta_df_cons_;
 
     // Allocate memory for 4D Laplacian
@@ -1724,8 +1778,9 @@ void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, i
     // Compute and store Laplacian of cell-averaged conserved variables
     pmb->pcoord->Laplacian(ph->u, delta_cons_, il, iu, jl, ju, kl, ku, nl, nu);
 
-    // TODO(felker): assuming uniform mesh with dx1f=dx2f=dx3f, so this factors out
-    // TODO(felker): also, this may need to be dx1v, since Laplacian is cell-center
+    //! \todo (felker):
+    //! * assuming uniform mesh with dx1f=dx2f=dx3f, so this factors out
+    //! * also, this may need to be dx1v, since Laplacian is cell-center
     Real h = pmb->pcoord->dx1f(il);  // pco->dx1f(i); inside loop
     Real C = (h*h)/24.0;
 
@@ -1742,7 +1797,7 @@ void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, i
       }
     }
 
-    int ncells4_df = 4*NDUSTFLUIDS;
+    int ncells4_df = NDUSTVAR;
     int nl_df = 0;
     int nu_df = ncells4_df -1;
     if (NDUSTFLUIDS > 0) {
@@ -1767,20 +1822,21 @@ void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, i
   BoundaryValues *pbval;
   // prepare to receive conserved variables
 #pragma omp for private(pmb,pbval)
-  for (int i=0; i<nmb; ++i) {
-    pmb = pmb_array[i]; pbval = pmb->pbval;
-    if (SHEARING_BOX) {
-      pbval->ComputeShear(time);
+  for (int i=0; i<nblocal; ++i) {
+    pmb = my_blocks(i); pbval = pmb->pbval;
+    if (shear_periodic) {
+      pbval->ComputeShear(time, time);
     }
     // no need to re-SetupPersistentMPI() the MPI requests for boundary values
-    pbval->StartReceiving(BoundaryCommSubset::mesh_init);
+    pbval->StartReceivingSubset(BoundaryCommSubset::mesh_init,
+                                pbval->bvars_main_int);
   }
 
 #pragma omp for private(pmb,pbval)
-  for (int i=0; i<nmb; ++i) {
-    pmb = pmb_array[i];
+  for (int i=0; i<nblocal; ++i) {
+    pmb = my_blocks(i);
     pmb->phydro->hbvar.SwapHydroQuantity(pmb->phydro->u,
-                                           HydroBoundaryQuantity::cons);
+                                         HydroBoundaryQuantity::cons);
     pmb->phydro->hbvar.SendBoundaryBuffers();
     if (MAGNETIC_FIELDS_ENABLED)
       pmb->pfield->fbvar.SendBoundaryBuffers();
@@ -1794,12 +1850,11 @@ void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, i
 
   // wait to receive conserved variables
 #pragma omp for private(pmb,pbval)
-  for (int i=0; i<nmb; ++i) {
-    pmb = pmb_array[i]; pbval = pmb->pbval;
+  for (int i=0; i<nblocal; ++i) {
+    pmb = my_blocks(i); pbval = pmb->pbval;
     pmb->phydro->hbvar.SwapHydroQuantity(pmb->phydro->u,
-                                           HydroBoundaryQuantity::cons);
+                                         HydroBoundaryQuantity::cons);
     pmb->phydro->hbvar.ReceiveAndSetBoundariesWithWait();
-
     if (MAGNETIC_FIELDS_ENABLED)
       pmb->pfield->fbvar.ReceiveAndSetBoundariesWithWait();
 
@@ -1809,40 +1864,47 @@ void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, i
       pmb->pdustfluids->dfbvar.ReceiveAndSetBoundariesWithWait();
     }
 
-    if (SHEARING_BOX) {
+    if (shear_periodic && orbital_advection==0) {
       pmb->phydro->hbvar.AddHydroShearForInit();
       if (NDUSTFLUIDS > 0)
         pmb->pdustfluids->dfbvar.AddDustFluidsShearForInit();
     }
-
-    pbval->ClearBoundary(BoundaryCommSubset::mesh_init);
+    pbval->ClearBoundarySubset(BoundaryCommSubset::mesh_init,
+                               pbval->bvars_main_int);
   } // end second exchange of ghost cells
   return;
 }
 
-// Public function for advancing next_phys_id_ counter
-// E.g. if chemistry or radiation elects to communicate additional information with MPI
-// outside the framework of the BoundaryVariable classes
-
-// Store signed, but positive, integer corresponding to the next unused value to be used
-// as unique ID for a BoundaryVariable object's single set of MPI calls (formerly "enum
-// AthenaTagMPI"). 5 bits of unsigned integer representation are currently reserved
-// for this "phys" part of the bitfield tag, making 0, ..., 31 legal values
+//----------------------------------------------------------------------------------------
+//! \fn int Mesh::ReserveTagPhysIDs(int num_phys)
+//! \brief Public function for advancing next_phys_id_ counter
+//!
+//! E.g. if chemistry or radiation elects to communicate additional information with MPI
+//! outside the framework of the BoundaryVariable classes
+//!
+//! Store signed, but positive, integer corresponding to the next unused value to be used
+//! as unique ID for a BoundaryVariable object's single set of MPI calls (formerly "enum
+//! AthenaTagMPI"). 5 bits of unsigned integer representation are currently reserved
+//! for this "phys" part of the bitfield tag, making 0, ..., 31 legal values
 
 int Mesh::ReserveTagPhysIDs(int num_phys) {
-  // TODO(felker): add safety checks? input, output are positive, obey <= 31= MAX_NUM_PHYS
+  //! \todo (felker):
+  //! * add safety checks? input, output are positive, obey <= 31= MAX_NUM_PHYS
   int start_id = next_phys_id_;
   next_phys_id_ += num_phys;
   return start_id;
 }
 
-// private member fn, called in Mesh() ctor
-
-// depending on compile- and runtime options, reserve the maximum number of "int physid"
-// that might be necessary for each MeshBlock's BoundaryValues object to perform MPI
-// communication for all BoundaryVariable objects
-
-// TODO(felker): deduplicate this logic, which combines conditionals in MeshBlock ctor
+//----------------------------------------------------------------------------------------
+//! \fn void Mesh::ReserveMeshBlockPhysIDs()
+//! \brief private member fn, called in Mesh() ctor
+//!
+//! depending on compile- and runtime options, reserve the maximum number of "int physid"
+//! that might be necessary for each MeshBlock's BoundaryValues object to perform MPI
+//! communication for all BoundaryVariable objects
+//!
+//! \todo (felker):
+//! * deduplicate this logic, which combines conditionals in MeshBlock ctor
 
 void Mesh::ReserveMeshBlockPhysIDs() {
 #ifdef MPI_PARALLEL
@@ -1865,9 +1927,9 @@ void Mesh::ReserveMeshBlockPhysIDs() {
 }
 
 //----------------------------------------------------------------------------------------
-//! \fn GetFluidFormulation(std::string input_string)
-//  \brief Parses input string to return scoped enumerator flag specifying boundary
-//  condition. Typically called in Mesh() ctor initializer list
+//! \fn FluidFormulation GetFluidFormulation(const std::string& input_string)
+//! \brief Parses input string to return scoped enumerator flag specifying boundary
+//! condition. Typically called in Mesh() ctor initializer list
 
 FluidFormulation GetFluidFormulation(const std::string& input_string) {
   if (input_string == "true") {

@@ -3,8 +3,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file new_blockdt.cpp
-//  \brief computes timestep using CFL condition on a MEshBlock
+//! \file new_blockdt_dustfluids.cpp
+//! \brief computes timestep using CFL condition on a MEshBlock
 
 // C headers
 
@@ -19,6 +19,7 @@
 #include "../coordinates/coordinates.hpp"
 #include "../eos/eos.hpp"
 #include "../mesh/mesh.hpp"
+#include "../orbital_advection/orbital_advection.hpp"
 #include "dustfluids.hpp"
 #include "diffusions/dustfluids_diffusion.hpp"
 
@@ -42,7 +43,7 @@ Real DustFluids::NewAdvectionDt() {
   AthenaArray<Real> &df_prim = pmb->pdustfluids->df_prim;
   // hyperbolic timestep constraint in each (x1-slice) cell along coordinate direction:
   AthenaArray<Real> &dt1 = dt1_, &dt2 = dt2_, &dt3 = dt3_;  // (x1 slices)
-  Real df_prim_i[num_dust_var];
+  Real df_prim_i[NDUSTVAR];
 
   Real real_max = std::numeric_limits<Real>::max();
   // Note, "dt_hyperbolic" currently refers to the dt limit imposed by evoluiton of the
@@ -63,10 +64,10 @@ Real DustFluids::NewAdvectionDt() {
         pmb->pcoord->CenterWidth3(k, j, is, ie, dt3);
 #pragma ivdep
         for (int i=is; i<=ie; ++i) {
-          df_prim_i[rho_id] = df_prim(rho_id,k,j,i);
-          df_prim_i[v1_id]  = df_prim(v1_id,k,j,i);
-          df_prim_i[v2_id]  = df_prim(v2_id,k,j,i);
-          df_prim_i[v3_id]  = df_prim(v3_id,k,j,i);
+          df_prim_i[rho_id] = df_prim(rho_id, k, j, i);
+          df_prim_i[v1_id]  = df_prim(v1_id,  k, j, i);
+          df_prim_i[v2_id]  = df_prim(v2_id,  k, j, i);
+          df_prim_i[v3_id]  = df_prim(v3_id,  k, j, i);
 
           if ((fluid_status == FluidFormulation::evolve) && SoundSpeed_Flag) {
             dt1(i) /= (std::abs(df_prim_i[v1_id]) + cs_dustfluids_array(dust_id,k,j,i));
@@ -106,12 +107,6 @@ Real DustFluids::NewAdvectionDt() {
   }
 
   min_dt_hyperbolic_df *= pmb->pmy_mesh->cfl_number;
-  // scale the theoretical stability limit by a safety factor = the hyperbolic CFL limit
-  // (user-selected or automaticlaly enforced). May add independent parameter "cfl_diff"
-  // in the future (with default = cfl_number).
-
-  // set main integrator timestep as the minimum of the appropriate timestep constraints:
-  // hyperbolic: (skip if fluid is nonexistent or frozen)
 
   return min_dt_hyperbolic_df;
 }

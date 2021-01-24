@@ -3,8 +3,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file dustfluids_diffusion.cpp
-//  \brief Compute dustfluids fluxes corresponding to diffusion processes.
+//! \file explicit_integrator.cpp
+//! Explicit drag time integrators
 
 // C++ headers
 #include <algorithm>   // min, max
@@ -38,13 +38,13 @@ void DustGasDrag::ExplicitFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  AthenaArray<Real> force_x1(num_species);
-  AthenaArray<Real> force_x2(num_species);
-  AthenaArray<Real> force_x3(num_species);
+  AthenaArray<Real> force_x1(NSPECIES);
+  AthenaArray<Real> force_x2(NSPECIES);
+  AthenaArray<Real> force_x3(NSPECIES);
 
-  AthenaArray<Real> delta_m1_explicit(num_species);
-  AthenaArray<Real> delta_m2_explicit(num_species);
-  AthenaArray<Real> delta_m3_explicit(num_species);
+  AthenaArray<Real> delta_m1_explicit(NSPECIES);
+  AthenaArray<Real> delta_m2_explicit(NSPECIES);
+  AthenaArray<Real> delta_m3_explicit(NSPECIES);
 
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {
@@ -166,13 +166,13 @@ void DustGasDrag::ExplicitNoFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  AthenaArray<Real> force_x1(num_species);
-  AthenaArray<Real> force_x2(num_species);
-  AthenaArray<Real> force_x3(num_species);
+  AthenaArray<Real> force_x1(NSPECIES);
+  AthenaArray<Real> force_x2(NSPECIES);
+  AthenaArray<Real> force_x3(NSPECIES);
 
-  AthenaArray<Real> delta_m1_explicit(num_species);
-  AthenaArray<Real> delta_m2_explicit(num_species);
-  AthenaArray<Real> delta_m3_explicit(num_species);
+  AthenaArray<Real> delta_m1_explicit(NSPECIES);
+  AthenaArray<Real> delta_m2_explicit(NSPECIES);
+  AthenaArray<Real> delta_m3_explicit(NSPECIES);
 
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {

@@ -17,8 +17,8 @@
 
 //----------------------------------------------------------------------------------------
 //! \fn void DustFluidsBoundaryVariable::ReflectInnerX1(
-//          Real time, Real dt, int il, int jl, int ju, int kl, int ku, int ngh)
-//  \brief REFLECTING boundary conditions, inner x1 boundary
+//!         Real time, Real dt, int il, int jl, int ju, int kl, int ku, int ngh)
+//! \brief REFLECTING boundary conditions, inner x1 boundary
 
 void DustFluidsBoundaryVariable::ReflectInnerX1(
     Real time, Real dt, int il, int jl, int ju, int kl, int ku, int ngh) {
@@ -27,14 +27,12 @@ void DustFluidsBoundaryVariable::ReflectInnerX1(
     int dust_id = n/4;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
-    int v2_id   = rho_id + 2;
-    int v3_id   = rho_id + 3;
     if (n == (v1_id)) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=1; i<=ngh; ++i) {
-            (*var_cc)(v1_id,k,j,il-i) = -(*var_cc)(v1_id,k,j,(il+i-1));  // reflect 1-velocity
+            (*var_cc)(v1_id, k, j, il-i) = -(*var_cc)(v1_id, k, j, (il+i-1));  // reflect 1-velocity
           }
         }
       }
@@ -43,7 +41,7 @@ void DustFluidsBoundaryVariable::ReflectInnerX1(
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=1; i<=ngh; ++i) {
-            (*var_cc)(n,k,j,il-i) = (*var_cc)(n,k,j,(il+i-1));
+            (*var_cc)(n, k, j, il-i) = (*var_cc)(n, k, j, (il+i-1));
           }
         }
       }
@@ -54,8 +52,8 @@ void DustFluidsBoundaryVariable::ReflectInnerX1(
 
 //----------------------------------------------------------------------------------------
 //! \fn void DustFluidsBoundaryVariable::ReflectOuterX1(
-//          Real time, Real dt, int iu, int jl, int ju, int kl, int ku, int ngh)
-//  \brief REFLECTING boundary conditions, outer x1 boundary
+//!         Real time, Real dt, int iu, int jl, int ju, int kl, int ku, int ngh)
+//! \brief REFLECTING boundary conditions, outer x1 boundary
 
 void DustFluidsBoundaryVariable::ReflectOuterX1(
     Real time, Real dt, int iu, int jl, int ju, int kl, int ku, int ngh) {
@@ -64,14 +62,12 @@ void DustFluidsBoundaryVariable::ReflectOuterX1(
     int dust_id = n/4;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
-    int v2_id   = rho_id + 2;
-    int v3_id   = rho_id + 3;
     if (n == (v1_id)) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=1; i<=ngh; ++i) {
-            (*var_cc)(v1_id,k,j,iu+i) = -(*var_cc)(v1_id,k,j,(iu-i+1));  // reflect 1-velocity
+            (*var_cc)(v1_id, k, j, iu+i) = -(*var_cc)(v1_id, k, j, (iu-i+1));  // reflect 1-velocity
           }
         }
       }
@@ -80,7 +76,7 @@ void DustFluidsBoundaryVariable::ReflectOuterX1(
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=1; i<=ngh; ++i) {
-            (*var_cc)(n,k,j,iu+i) = (*var_cc)(n,k,j,(iu-i+1));
+            (*var_cc)(n, k, j, iu+i) = (*var_cc)(n, k, j, (iu-i+1));
           }
         }
       }
@@ -91,8 +87,8 @@ void DustFluidsBoundaryVariable::ReflectOuterX1(
 
 //----------------------------------------------------------------------------------------
 //! \fn void DustFluidsBoundaryVariable::ReflectInnerX2(
-//          Real time, Real dt, int il, int iu, int jl, int kl, int ku, int ngh)
-//  \brief REFLECTING boundary conditions, inner x2 boundary
+//!         Real time, Real dt, int il, int iu, int jl, int kl, int ku, int ngh)
+//! \brief REFLECTING boundary conditions, inner x2 boundary
 
 void DustFluidsBoundaryVariable::ReflectInnerX2(
     Real time, Real dt, int il, int iu, int jl, int kl, int ku, int ngh) {
@@ -100,15 +96,13 @@ void DustFluidsBoundaryVariable::ReflectInnerX2(
   for (int n=0; n<=nu_; ++n) {
     int dust_id = n/4;
     int rho_id  = 4*dust_id;
-    int v1_id   = rho_id + 1;
     int v2_id   = rho_id + 2;
-    int v3_id   = rho_id + 3;
     if (n == (v2_id)) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=1; j<=ngh; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            (*var_cc)(v2_id,k,jl-j,i) = -(*var_cc)(v2_id,k,jl+j-1,i);  // reflect 2-velocity
+            (*var_cc)(v2_id, k, jl-j, i) = -(*var_cc)(v2_id, k, jl+j-1, i);  // reflect 2-velocity
           }
         }
       }
@@ -117,7 +111,7 @@ void DustFluidsBoundaryVariable::ReflectInnerX2(
         for (int j=1; j<=ngh; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            (*var_cc)(n,k,jl-j,i) = (*var_cc)(n,k,jl+j-1,i);
+            (*var_cc)(n, k, jl-j, i) = (*var_cc)(n, k, jl+j-1, i);
           }
         }
       }
@@ -128,8 +122,8 @@ void DustFluidsBoundaryVariable::ReflectInnerX2(
 
 //----------------------------------------------------------------------------------------
 //! \fn void DustFluidsBoundaryVariable::ReflectOuterX2(
-//          Real time, Real dt, int il, int iu, int ju, int kl, int ku, int ngh)
-//  \brief REFLECTING boundary conditions, outer x2 boundary
+//!         Real time, Real dt, int il, int iu, int ju, int kl, int ku, int ngh)
+//! \brief REFLECTING boundary conditions, outer x2 boundary
 
 void DustFluidsBoundaryVariable::ReflectOuterX2(
     Real time, Real dt, int il, int iu, int ju, int kl, int ku, int ngh) {
@@ -137,9 +131,7 @@ void DustFluidsBoundaryVariable::ReflectOuterX2(
   for (int n=0; n<=nu_; ++n) {
     int dust_id = n/4;
     int rho_id  = 4*dust_id;
-    int v1_id   = rho_id + 1;
     int v2_id   = rho_id + 2;
-    int v3_id   = rho_id + 3;
     if (n == (v2_id)) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=1; j<=ngh; ++j) {
@@ -165,24 +157,22 @@ void DustFluidsBoundaryVariable::ReflectOuterX2(
 
 //----------------------------------------------------------------------------------------
 //! \fn void DustFluidsBoundaryVariable::ReflectInnerX3(
-//          Real time, Real dt, int il, int iu, int jl, int ju, int kl, int ngh)
-//  \brief REFLECTING boundary conditions, inner x3 boundary
+//!         Real time, Real dt, int il, int iu, int jl, int ju, int kl, int ngh)
+//! \brief REFLECTING boundary conditions, inner x3 boundary
 
 void DustFluidsBoundaryVariable::ReflectInnerX3(
     Real time, Real dt, int il, int iu, int jl, int ju, int kl, int ngh) {
-  // copy dustfluids variables into ghost zones, reflecting v3
+  // copy dust fluids variables into ghost zones, reflecting v3
   for (int n=0; n<=nu_; ++n) {
     int dust_id = n/4;
     int rho_id  = 4*dust_id;
-    int v1_id   = rho_id + 1;
-    int v2_id   = rho_id + 2;
     int v3_id   = rho_id + 3;
     if (n == (v3_id)) {
       for (int k=1; k<=ngh; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            (*var_cc)(v3_id,kl-k,j,i) = -(*var_cc)(v3_id,kl+k-1,j,i);  // reflect 3-velocity
+            (*var_cc)(v3_id, kl-k, j, i) = -(*var_cc)(v3_id, kl+k-1, j, i);  // reflect 3-velocity
           }
         }
       }
@@ -191,7 +181,7 @@ void DustFluidsBoundaryVariable::ReflectInnerX3(
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            (*var_cc)(n,kl-k,j,i) = (*var_cc)(n,kl+k-1,j,i);
+            (*var_cc)(n, kl-k, j, i) = (*var_cc)(n, kl+k-1, j, i);
           }
         }
       }
@@ -202,8 +192,8 @@ void DustFluidsBoundaryVariable::ReflectInnerX3(
 
 //----------------------------------------------------------------------------------------
 //! \fn void DustFluidsBoundaryVariable::ReflectOuterX3(
-//          Real time, Real dt, int il, int iu, int jl, int ju, int ku, int ngh)
-//  \brief REFLECTING boundary conditions, outer x3 boundary
+//!         Real time, Real dt, int il, int iu, int jl, int ju, int ku, int ngh)
+//! \brief REFLECTING boundary conditions, outer x3 boundary
 
 void DustFluidsBoundaryVariable::ReflectOuterX3(
     Real time, Real dt, int il, int iu, int jl, int ju, int ku, int ngh) {
@@ -211,15 +201,13 @@ void DustFluidsBoundaryVariable::ReflectOuterX3(
   for (int n=0; n<=nu_; ++n) {
     int dust_id = n/4;
     int rho_id  = 4*dust_id;
-    int v1_id   = rho_id + 1;
-    int v2_id   = rho_id + 2;
     int v3_id   = rho_id + 3;
     if (n == (v3_id)) {
       for (int k=1; k<=ngh; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            (*var_cc)(v3_id,ku+k,j,i) = -(*var_cc)(v3_id,ku-k+1,j,i);  // reflect 3-velocity
+            (*var_cc)(v3_id, ku+k, j, i) = -(*var_cc)(v3_id, ku-k+1, j, i);  // reflect 3-velocity
           }
         }
       }
@@ -228,7 +216,7 @@ void DustFluidsBoundaryVariable::ReflectOuterX3(
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            (*var_cc)(n,ku+k,j,i) = (*var_cc)(n,ku-k+1,j,i);
+            (*var_cc)(n, ku+k, j, i) = (*var_cc)(n, ku-k+1, j, i);
           }
         }
       }

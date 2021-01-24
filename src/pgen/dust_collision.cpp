@@ -35,7 +35,7 @@
 
 // problem parameters which are useful to make global to this file
 namespace {
-Real v0, t0, x0, user_dt, iso_cs;
+Real v0, t0, x0, user_dt, iso_cs, gamma_gas;
 Real MyTimeStep(MeshBlock *pmb);
 } // namespace
 
@@ -48,8 +48,9 @@ Real MyTimeStep(MeshBlock *pmb);
 
 void Mesh::InitUserMeshData(ParameterInput *pin) {
   // Get parameters for gravitatonal potential of central point mass
-  user_dt = pin->GetOrAddReal("problem", "user_dt", 1e-1);
-  iso_cs  = pin->GetOrAddReal("hydro", "iso_sound_speed", 1e-1);
+  user_dt   = pin->GetOrAddReal("problem", "user_dt", 1e-1);
+  iso_cs    = pin->GetOrAddReal("hydro", "iso_sound_speed", 1e-1);
+  gamma_gas = pin->GetReal("hydro","gamma");
   EnrollUserTimeStepFunction(MyTimeStep);
   return;
 }
@@ -73,7 +74,6 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   //Real d0 = 1.0; // p0=1.0;
   Real x1, x2, x3; // x2 and x3 are set but unused
 
-  const int num_dust_var = 4*NDUSTFLUIDS;
   //  Initialize density and momenta in Cartesian grids
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {
@@ -93,6 +93,12 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           pdustfluids->df_cons(1,k,j,i) = pdustfluids->df_cons(0,k,j,i)*2.0;
           pdustfluids->df_cons(2,k,j,i) = 0.0;
           pdustfluids->df_cons(3,k,j,i) = 0.0;
+
+          if (NON_BAROTROPIC_EOS) {
+            phydro->u(IEN,k,j,i)  = SQR(iso_cs)*phydro->u(IDN,k,j,i)/(gamma_gas - 1.0);
+            phydro->u(IEN,k,j,i) += 0.5*(SQR(phydro->u(IM1,k,j,i))+SQR(phydro->u(IM2,k,j,i))
+                                         + SQR(phydro->u(IM3,k,j,i)))/phydro->u(IDN,k,j,i);
+          }
         }
 
         if (NDUSTFLUIDS == 2) {
@@ -101,6 +107,12 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*1.0;
           phydro->u(IM2,k,j,i) = 0.0;
           phydro->u(IM3,k,j,i) = 0.0;
+
+          if (NON_BAROTROPIC_EOS) {
+            phydro->u(IEN,k,j,i)  = SQR(iso_cs)*phydro->u(IDN,k,j,i)/(gamma_gas - 1.0);
+            phydro->u(IEN,k,j,i) += 0.5*(SQR(phydro->u(IM1,k,j,i))+SQR(phydro->u(IM2,k,j,i))
+                                         + SQR(phydro->u(IM3,k,j,i)))/phydro->u(IDN,k,j,i);
+          }
 
           pdustfluids->df_cons(0,k,j,i) = 1.0;
           pdustfluids->df_cons(1,k,j,i) = pdustfluids->df_cons(0,k,j,i)*2.0;
@@ -119,6 +131,12 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           phydro->u(IM1,k,j,i) = phydro->u(IDN,k,j,i)*-1.0;
           phydro->u(IM2,k,j,i) = 0.0;
           phydro->u(IM3,k,j,i) = 0.0;
+
+          if (NON_BAROTROPIC_EOS) {
+            phydro->u(IEN,k,j,i)  = SQR(iso_cs)*phydro->u(IDN,k,j,i)/(gamma_gas - 1.0);
+            phydro->u(IEN,k,j,i) += 0.5*(SQR(phydro->u(IM1,k,j,i))+SQR(phydro->u(IM2,k,j,i))
+                                         + SQR(phydro->u(IM3,k,j,i)))/phydro->u(IDN,k,j,i);
+          }
 
           pdustfluids->df_cons(0,k,j,i)  = 1.5;
           pdustfluids->df_cons(1,k,j,i)  = pdustfluids->df_cons(0,k,j,i)*2.0;
@@ -151,16 +169,3 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   }
   return;
 }
-
-//void MeshBlock::UserWorkInLoop() {
-  //for (int k=ks; k<=ke; ++k) {
-    //for (int j=js; j<=je; ++j) {
-      //for (int i=is; i<=ie; ++i) {
-        //if (NON_BAROTROPIC_EOS) {
-          //phydro->w(IPR,k,j,i) = SQR(iso_cs)*phydro->w(IDN,k,j,i);
-        //}
-      //}
-    //}
-  //}
-  //return;
-//}

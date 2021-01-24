@@ -6,8 +6,9 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file hydro_diffusion.hpp
-//  \brief defines class HydroDiffusion
-//  Contains data and functions that implement the diffusion processes
+//! \brief defines class HydroDiffusion
+//!
+//! Contains data and functions that implement the diffusion processes
 
 // C headers
 
@@ -21,6 +22,7 @@
 class Hydro;
 class ParameterInput;
 class Coordinates;
+class HydroDiffusion;
 
 // currently must be free functions for compatibility with user-defined fn via fn pointers
 void ConstViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &w,
@@ -53,7 +55,7 @@ class HydroDiffusion {
 
   // array indices for hydro diffusion (conduction & viscosity) variants: directionality
   // should not be scoped (C++11) since enumerators are only used as "int" to index arrays
-  enum DiffProcess {iso=0, aniso=1, alpha=2};
+  enum DiffProcess {iso=0, alpha=1, aniso=2};
 
   // functions
   void CalcDiffusionFlux(const AthenaArray<Real> &prim, const AthenaArray<Real> &cons,

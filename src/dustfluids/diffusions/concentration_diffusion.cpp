@@ -3,8 +3,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file dustfluids_diffusion.cpp
-//  \brief Compute dustfluids fluxes corresponding to diffusion processes.
+//! \file concentration_diffusion.cpp
+//! \brief Compute dust fluids diffusive fluxes corresponding to concentration diffusion.
 
 // C headers
 
@@ -63,7 +63,6 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
         for (int i=is; i<=ie+1; ++i) {
           nu_face  = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k,j,i-1));
           rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k,j,i-1));
-
           // df_d11 = D(rho_d/rho_g)_x1/D(x1)
           df_d11   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j,i-1)/w(IDN,k,j,i-1))
                       /pco_->dx1v(i-1);
@@ -96,7 +95,6 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
           for (int i=il; i<=iu; ++i) {
             nu_face  = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k,j-1,i));
             rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k,j-1,i));
-
             // df_d22 = D(rho_d/rho_g)_x2/D(x2)
             df_d22   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j-1,i)/w(IDN,k,j-1,i))
                                       /pco_->h2v(i)/pco_->dx2v(j-1);
@@ -130,7 +128,6 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
           for (int i=il; i<=iu; ++i) {
             nu_face  = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k-1,j,i));
             rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k-1,j,i));
-
             // df_d33 = D(rho_d/rho_g)_x3/D(x3)
             df_d33   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k-1,j,i)/w(IDN,k-1,j,i))
                               /pco_->dx3v(k-1)/pco_->h31v(i)/pco_->h32v(j);

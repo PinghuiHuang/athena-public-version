@@ -3,8 +3,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file dustfluids_diffusion.cpp
-//  \brief Compute dustfluids fluxes corresponding to diffusion processes.
+//! \file backwardEuler_integrator.cpp
+//! Backward Euler drag time-integrators
 
 // C++ headers
 #include <algorithm>   // min,max
@@ -38,24 +38,29 @@ void DustGasDrag::BackwardEulerFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  AthenaArray<Real> force_x1(num_species);
-  AthenaArray<Real> force_x2(num_species);
-  AthenaArray<Real> force_x3(num_species);
+  AthenaArray<Real> force_x1(NSPECIES);
+  AthenaArray<Real> force_x2(NSPECIES);
+  AthenaArray<Real> force_x3(NSPECIES);
 
-  AthenaArray<Real> jacobi_matrix(num_species,     num_species);
-  AthenaArray<Real> lambda_matrix(num_species,     num_species);
-  AthenaArray<Real> lambda_inv_matrix(num_species, num_species);
+  AthenaArray<Real> jacobi_matrix(NSPECIES,     NSPECIES);
+  AthenaArray<Real> lambda_matrix(NSPECIES,     NSPECIES);
+  AthenaArray<Real> lambda_inv_matrix(NSPECIES, NSPECIES);
 
-  AthenaArray<Real> delta_m1(num_species);
-  AthenaArray<Real> delta_m2(num_species);
-  AthenaArray<Real> delta_m3(num_species);
+  AthenaArray<Real> delta_m1(NSPECIES);
+  AthenaArray<Real> delta_m2(NSPECIES);
+  AthenaArray<Real> delta_m3(NSPECIES);
 
-  Real inv_dt   = 1.0/dt;
-  Real wghts[3] = {0.0, 1.0, -1.0};
-  AthenaArray<Real> u_d(NHYDRO,             pmb->ncells3, pmb->ncells2, pmb->ncells1);
-  AthenaArray<Real> cons_df_d(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1);
-  pmb->WeightedAve(u_d,       ph->u_as,        ph->u_bs,        wghts);
-  pmb->WeightedAve(cons_df_d, pdf->df_cons_as, pdf->df_cons_bs, wghts);
+  //AthenaArray<Real> &u_as       = ph->u_as;
+  //AthenaArray<Real> &u_bs       = ph->u_bs;
+  //AthenaArray<Real> &df_cons_as = pdf->df_cons_as;
+  //AthenaArray<Real> &df_cons_bs = pdf->df_cons_bs;
+
+  //Real inv_dt   = 1.0/dt;
+  //Real wghts[3] = {0.0, 1.0, -1.0};
+  //AthenaArray<Real> u_d(NHYDRO,         pmb->ncells3, pmb->ncells2, pmb->ncells1);
+  //AthenaArray<Real> cons_df_d(NDUSTVAR, pmb->ncells3, pmb->ncells2, pmb->ncells1);
+  //pmb->WeightedAve(u_d,       u_as,       u_bs,       u_as,       u_bs,       wghts);
+  //pmb->WeightedAve(cons_df_d, df_cons_as, df_cons_bs, df_cons_as, df_cons_bs, wghts);
 
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {
@@ -241,17 +246,17 @@ void DustGasDrag::BackwardEulerNoFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  AthenaArray<Real> force_x1(num_species);
-  AthenaArray<Real> force_x2(num_species);
-  AthenaArray<Real> force_x3(num_species);
+  AthenaArray<Real> force_x1(NSPECIES);
+  AthenaArray<Real> force_x2(NSPECIES);
+  AthenaArray<Real> force_x3(NSPECIES);
 
-  AthenaArray<Real> jacobi_matrix(num_species,  num_species);
-  AthenaArray<Real> lambda_matrix(num_species, num_species);
-  AthenaArray<Real> lambda_inv_matrix(num_species, num_species);
+  AthenaArray<Real> jacobi_matrix(NSPECIES,  NSPECIES);
+  AthenaArray<Real> lambda_matrix(NSPECIES, NSPECIES);
+  AthenaArray<Real> lambda_inv_matrix(NSPECIES, NSPECIES);
 
-  AthenaArray<Real> delta_m1(num_species);
-  AthenaArray<Real> delta_m2(num_species);
-  AthenaArray<Real> delta_m3(num_species);
+  AthenaArray<Real> delta_m1(NSPECIES);
+  AthenaArray<Real> delta_m2(NSPECIES);
+  AthenaArray<Real> delta_m3(NSPECIES);
 
   for (int k=ks; k<=ke; ++k) {
     for (int j=js; j<=je; ++j) {

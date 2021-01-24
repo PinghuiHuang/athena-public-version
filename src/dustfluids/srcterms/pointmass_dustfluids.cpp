@@ -3,7 +3,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//  \brief Adds source terms due to point mass AT ORIGIN
+//! \file pointmass_dustfluids.cpp
+//! \brief Adds source terms due to point mass AT ORIGIN
 
 // C headers
 
@@ -22,7 +23,7 @@ class ParameterInput;
 
 //----------------------------------------------------------------------------------------
 //! \fn void DustFluidsSourceTerms::PointMass_DustFluids
-//  \brief Adds source terms due to point mass AT ORIGIN
+//! \brief Adds source terms due to point mass AT ORIGIN
 
 void DustFluidsSourceTerms::PointMassDustFluids(const Real dt, const AthenaArray<Real> *flux_df,
                                  const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df) {
@@ -31,15 +32,15 @@ void DustFluidsSourceTerms::PointMassDustFluids(const Real dt, const AthenaArray
     int dust_id = n;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
-    int v2_id   = rho_id + 2;
-    int v3_id   = rho_id + 3;
     for (int k=pmb->ks; k<=pmb->ke; ++k) {
       for (int j=pmb->js; j<=pmb->je; ++j) {
 #pragma omp simd
         for (int i=pmb->is; i<=pmb->ie; ++i) {
-          Real rho_dust         = prim_df(rho_id,k,j,i);
-          Real src              = dt*rho_dust*pmb->pcoord->coord_src1_i_(i)*gm_/pmb->pcoord->x1v(i);
-          cons_df(v1_id,k,j,i) -= src;
+          Real &coord_x1           = pmb->pcoord->x1v(i);
+          Real &coord_src1         = pmb->pcoord->coord_src1_i_(i);
+          const Real &rho_dust     = prim_df(rho_id, k, j, i);
+          Real src                 = dt*rho_dust*coord_src1*gm_/coord_x1;
+          cons_df(v1_id, k, j, i) -= src;
         }
       }
     }

@@ -4,7 +4,7 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file dustfluids_diffusion.cpp
-//  \brief Compute dustfluids fluxes corresponding to diffusion processes.
+//! \brief Compute dustfluids fluxes corresponding to diffusion processes.
 
 // C headers
 
@@ -58,9 +58,9 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
   eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 1.0);
 
   if (dustfluids_diffusion_defined) {
-    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(num_dust_var, nc3,   nc2,   nc1+1); // Face centered x1 diffusive flux
-    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(num_dust_var, nc3,   nc2+1, nc1);   // Face centered x2 diffusive flux
-    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(num_dust_var, nc3+1, nc2,   nc1);   // Face centered x3 diffusive flux
+    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(NDUSTVAR, nc3,   nc2,   nc1+1); // Face centered x1 diffusive flux
+    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(NDUSTVAR, nc3,   nc2+1, nc1);   // Face centered x2 diffusive flux
+    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(NDUSTVAR, nc3+1, nc2,   nc1);   // Face centered x3 diffusive flux
 
     dx1_.NewAthenaArray(nc1);
     dx2_.NewAthenaArray(nc1);
@@ -77,20 +77,19 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
 }
 
 
-void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &prim_df,
-    const AthenaArray<Real> &cons_df) {
+void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &u, const AthenaArray<Real> &cons_df) {
   DustFluids *pdf  = pmy_dustfluids_;
-  Hydro      *phyd = pmb_->phydro;
 
   // Set the diffusive flux as zeros
   ClearDustFluidsFlux(dustfluids_diffusion_flux);
 
   // Calculate the concentration diffusive flux
-  DustFluidsConcentrationDiffusiveFlux(prim_df, phyd->w, dustfluids_diffusion_flux);
+  DustFluidsConcentrationDiffusiveFlux(prim_df, w, dustfluids_diffusion_flux);
 
   // Calculate the correction of momentum diffusive flux due to concentration diffusion
   if (Momentum_Diffusion_Flag) {
-    DustFluidsMomentumDiffusiveFlux(prim_df, phyd->w, dustfluids_diffusion_flux);
+    DustFluidsMomentumDiffusiveFlux(prim_df, w, dustfluids_diffusion_flux);
   }
 
   return;

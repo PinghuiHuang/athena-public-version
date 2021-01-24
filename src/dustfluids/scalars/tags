@@ -1,0 +1,54 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AddDiffusionFluxes	scalar_diffusion.cpp	/^void PassiveScalars::AddDiffusionFluxes() {$/;"	f	class:PassiveScalars
+AddFluxDivergence	add_scalar_flux_divergence.cpp	/^void PassiveScalars::AddFluxDivergence(const Real wght, AthenaArray<Real> &s_out) {$/;"	f	class:PassiveScalars
+AddFluxDivergence_STS	add_scalar_flux_divergence.cpp	/^void PassiveScalars::AddFluxDivergence_STS(const Real wght, int stage,$/;"	f	class:PassiveScalars
+CalculateFluxes	calculate_scalar_fluxes.cpp	/^void PassiveScalars::CalculateFluxes(AthenaArray<Real> &r, const int order) {$/;"	f	class:PassiveScalars
+CalculateFluxes_STS	calculate_scalar_fluxes.cpp	/^void PassiveScalars::CalculateFluxes_STS() {$/;"	f	class:PassiveScalars
+ComputeUpwindFlux	calculate_scalar_fluxes.cpp	/^void PassiveScalars::ComputeUpwindFlux(const int k, const int j, const int il,$/;"	f	class:PassiveScalars
+DiffusiveFluxIso	scalar_diffusion.cpp	/^void PassiveScalars::DiffusiveFluxIso(const AthenaArray<Real> &prim_r,$/;"	f	class:PassiveScalars
+NewDiffusionDt	scalar_diffusion.cpp	/^Real PassiveScalars::NewDiffusionDt() {$/;"	f	class:PassiveScalars
+PassiveScalars	scalars.cpp	/^PassiveScalars::PassiveScalars(MeshBlock *pmb, ParameterInput *pin)  :$/;"	f	class:PassiveScalars
+PassiveScalars	scalars.hpp	/^class PassiveScalars {$/;"	c
+SCALARS_SCALARS_HPP_	scalars.hpp	2;"	d
+cell_volume_	scalars.hpp	/^  AthenaArray<Real> cell_volume_;$/;"	m	class:PassiveScalars
+coarse_r_	scalars.hpp	/^  AthenaArray<Real> coarse_s_, coarse_r_;$/;"	m	class:PassiveScalars
+coarse_s_	scalars.hpp	/^  AthenaArray<Real> coarse_s_, coarse_r_;$/;"	m	class:PassiveScalars
+dflx_	scalars.hpp	/^  AthenaArray<Real> dflx_;$/;"	m	class:PassiveScalars
+diffusion_flx	scalars.hpp	/^  AthenaArray<Real> diffusion_flx[3];$/;"	m	class:PassiveScalars
+dx1_	scalars.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_;$/;"	m	class:PassiveScalars
+dx2_	scalars.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_;$/;"	m	class:PassiveScalars
+dx3_	scalars.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_;$/;"	m	class:PassiveScalars
+laplacian_l_fc_	scalars.hpp	/^  AthenaArray<Real> laplacian_l_fc_, laplacian_r_fc_;$/;"	m	class:PassiveScalars
+laplacian_r_fc_	scalars.hpp	/^  AthenaArray<Real> laplacian_l_fc_, laplacian_r_fc_;$/;"	m	class:PassiveScalars
+mass_flux_fc	scalars.hpp	/^  AthenaArray<Real> mass_flux_fc[3];  \/\/ deep copy of Hydro intermediate flux quantities$/;"	m	class:PassiveScalars
+nu_scalar_iso	scalars.hpp	/^  Real nu_scalar_iso; \/\/, nu_scalar_aniso;          \/\/ diffusion coeff$/;"	m	class:PassiveScalars
+pmy_block	scalars.cpp	/^    pmy_block(pmb) {$/;"	f
+pmy_block	scalars.hpp	/^  MeshBlock* pmy_block;$/;"	m	class:PassiveScalars
+r	scalars.hpp	/^  AthenaArray<Real> r;  \/\/ , r1;$/;"	m	class:PassiveScalars
+r_cc	scalars.hpp	/^  AthenaArray<Real> s_cc, r_cc;       \/\/ cell-centered approximations$/;"	m	class:PassiveScalars
+rl3d_	scalars.hpp	/^  AthenaArray<Real> rl3d_, rr3d_;$/;"	m	class:PassiveScalars
+rl_	scalars.hpp	/^  AthenaArray<Real> rl_, rr_, rlb_;$/;"	m	class:PassiveScalars
+rlb_	scalars.hpp	/^  AthenaArray<Real> rl_, rr_, rlb_;$/;"	m	class:PassiveScalars
+rr3d_	scalars.hpp	/^  AthenaArray<Real> rl3d_, rr3d_;$/;"	m	class:PassiveScalars
+rr_	scalars.hpp	/^  AthenaArray<Real> rl_, rr_, rlb_;$/;"	m	class:PassiveScalars
+s	scalars.hpp	/^  AthenaArray<Real> s, s1, s2;  \/\/ (no more than MAX_NREGISTER allowed)$/;"	m	class:PassiveScalars
+s0	scalars.hpp	/^  AthenaArray<Real> s0, s_fl_div;  \/\/ rkl2 STS memory registers;$/;"	m	class:PassiveScalars
+s1	scalars.hpp	/^  AthenaArray<Real> s, s1, s2;  \/\/ (no more than MAX_NREGISTER allowed)$/;"	m	class:PassiveScalars
+s2	scalars.hpp	/^  AthenaArray<Real> s, s1, s2;  \/\/ (no more than MAX_NREGISTER allowed)$/;"	m	class:PassiveScalars
+s_cc	scalars.hpp	/^  AthenaArray<Real> s_cc, r_cc;       \/\/ cell-centered approximations$/;"	m	class:PassiveScalars
+s_fl_div	scalars.hpp	/^  AthenaArray<Real> s0, s_fl_div;  \/\/ rkl2 STS memory registers;$/;"	m	class:PassiveScalars
+s_flux	scalars.hpp	/^  AthenaArray<Real> s_flux[3];  \/\/ face-averaged flux vector$/;"	m	class:PassiveScalars
+sbvar	scalars.hpp	/^  CellCenteredBoundaryVariable sbvar;$/;"	m	class:PassiveScalars
+scalar_diffusion_defined	scalars.hpp	/^  bool scalar_diffusion_defined;$/;"	m	class:PassiveScalars
+scr1_nkji_	scalars.hpp	/^  AthenaArray<Real> scr1_nkji_, scr2_nkji_;$/;"	m	class:PassiveScalars
+scr2_nkji_	scalars.hpp	/^  AthenaArray<Real> scr1_nkji_, scr2_nkji_;$/;"	m	class:PassiveScalars
+x1face_area_	scalars.hpp	/^  AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;$/;"	m	class:PassiveScalars
+x2face_area_	scalars.hpp	/^  AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;$/;"	m	class:PassiveScalars
+x2face_area_p1_	scalars.hpp	/^  AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;$/;"	m	class:PassiveScalars
+x3face_area_	scalars.hpp	/^  AthenaArray<Real> x1face_area_, x2face_area_, x3face_area_;$/;"	m	class:PassiveScalars
+x3face_area_p1_	scalars.hpp	/^  AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;$/;"	m	class:PassiveScalars

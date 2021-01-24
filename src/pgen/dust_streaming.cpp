@@ -59,8 +59,9 @@ Real vely_dust_real[NDUSTFLUIDS], vely_dust_imag[NDUSTFLUIDS];
 Real velz_dust_real[NDUSTFLUIDS], velz_dust_imag[NDUSTFLUIDS];
 
 // User Sources
-void PressureGradient(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons);
+void PressureGradient(MeshBlock *pmb, const Real time, const Real dt,
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons, AthenaArray<Real> &cons_df);
 Real MyTimeStep(MeshBlock *pmb);
 } // namespace
 
@@ -299,8 +300,9 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 }
 
 namespace {
-void PressureGradient(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons)
+void PressureGradient(MeshBlock *pmb, const Real time, const Real dt,
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons, AthenaArray<Real> &cons_df)
 {
   for (int k=pmb->ks; k<=pmb->ke; ++k) {
     for (int j=pmb->js; j<=pmb->je; ++j) {

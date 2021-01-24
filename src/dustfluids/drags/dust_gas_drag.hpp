@@ -5,9 +5,9 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file dustfluids_srcterms.hpp
-//  \brief defines class DustGasDrag
-//  Contains data and functions that implement physical (not coordinate) drag terms
+//! \file dust_gas_drag.hpp
+//! \brief defines class DustGasDrag
+//! Contains data and functions that implement physical (not coordinate) drag terms
 
 // C headers
 
@@ -25,7 +25,7 @@ class DustFluids;
 class ParameterInput;
 
 //! \class DustGasDrag
-//  \brief data and functions for drags between dust and gas
+//! \brief data and functions for drags between dust and gas
 class DustGasDrag {
   public:
     DustGasDrag(DustFluids *pdf, ParameterInput *pin);
@@ -155,12 +155,10 @@ class DustGasDrag {
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
   private:
-    static const int num_species  = NDUSTFLUIDS + 1; // gas and n dust fluids
-    static const int num_dust_var = 4*NDUSTFLUIDS;   // Number of dust variables (rho, v1, v2, v3)*4
-    std::string integrator;                          // Time Integrator
-    std::string drag_method;                         // Drag methods
-    int drag_method_id;                              // The integrator method id
-    DustFluids  *pmy_dustfluids_;                    // ptr to DustFluids containing this DustGasDrag
+    std::string integrator;         // Time Integrator
+    std::string drag_method;        // Drag methods
+    int drag_method_id;             // The integrator method id
+    DustFluids *pmy_dustfluids_;    // ptr to DustFluids containing this DustGasDrag
 
     // data for LU decomposition
     AthenaArray<Real> drags_matrix; // The matrix of drags between dust and gas.

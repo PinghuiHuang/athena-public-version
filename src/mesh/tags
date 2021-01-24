@@ -22,7 +22,8 @@ CalculateLoadBalance	amr_loadbalance.cpp	/^void Mesh::CalculateLoadBalance(doubl
 CheckRefinementCondition	mesh_refinement.cpp	/^void MeshRefinement::CheckRefinementCondition() {$/;"	f	class:MeshRefinement
 ComputeMeshGeneratorX	mesh.hpp	/^inline Real ComputeMeshGeneratorX(std::int64_t index, std::int64_t nrange,$/;"	f
 ConductionCoeff_	mesh.hpp	/^  ConductionCoeffFunc ConductionCoeff_;$/;"	m	class:Mesh
-CorrectMidpointInitialCondition	mesh.cpp	/^void Mesh::CorrectMidpointInitialCondition(std::vector<MeshBlock*> &pmb_array, int nmb) {$/;"	f	class:Mesh
+CorrectMidpointInitialCondition	mesh.cpp	/^void Mesh::CorrectMidpointInitialCondition() {$/;"	f	class:Mesh
+CountMGOctets	meshblock_tree.cpp	/^void MeshBlockTree::CountMGOctets(int *noct) {$/;"	f	class:MeshBlockTree
 CountMeshBlock	meshblock_tree.cpp	/^void MeshBlockTree::CountMeshBlock(int& count) {$/;"	f	class:MeshBlockTree
 CreateAMRMPITag	amr_loadbalance.cpp	/^int Mesh::CreateAMRMPITag(int lid, int ox1, int ox2, int ox3) {$/;"	f	class:Mesh
 CreateRootGrid	meshblock_tree.cpp	/^void MeshBlockTree::CreateRootGrid() {$/;"	f	class:MeshBlockTree
@@ -30,8 +31,12 @@ DefaultMeshGeneratorX1	mesh.hpp	/^inline Real DefaultMeshGeneratorX1(Real x, Reg
 DefaultMeshGeneratorX2	mesh.hpp	/^inline Real DefaultMeshGeneratorX2(Real x, RegionSize rs) {$/;"	f
 DefaultMeshGeneratorX3	mesh.hpp	/^inline Real DefaultMeshGeneratorX3(Real x, RegionSize rs) {$/;"	f
 Derefine	meshblock_tree.cpp	/^void MeshBlockTree::Derefine(int &ndel) {$/;"	f	class:MeshBlockTree
+DustDiffusivity_	mesh.hpp	/^  DustFluidsDiffusionCoeffFunc DustDiffusivity_;$/;"	m	class:Mesh
 EnrollConductionCoefficient	mesh.cpp	/^void Mesh::EnrollConductionCoefficient(ConductionCoeffFunc my_func) {$/;"	f	class:Mesh
+EnrollDustFluidsDiffusivityCoefficient	mesh.cpp	/^void Mesh::EnrollDustFluidsDiffusivityCoefficient(DustFluidsDiffusionCoeffFunc my_func) {$/;"	f	class:Mesh
 EnrollFieldDiffusivity	mesh.cpp	/^void Mesh::EnrollFieldDiffusivity(FieldDiffusionCoeffFunc my_func) {$/;"	f	class:Mesh
+EnrollOrbitalVelocity	mesh.cpp	/^void Mesh::EnrollOrbitalVelocity(OrbitalVelocityFunc my_func) {$/;"	f	class:Mesh
+EnrollOrbitalVelocityDerivative	mesh.cpp	/^void Mesh::EnrollOrbitalVelocityDerivative(int i, OrbitalVelocityFunc my_func) {$/;"	f	class:Mesh
 EnrollUserBoundaryFunction	mesh.cpp	/^void Mesh::EnrollUserBoundaryFunction(BoundaryFace dir, BValFunc my_bc) {$/;"	f	class:Mesh
 EnrollUserBoundaryFunction	mesh.cpp	/^void Mesh::EnrollUserBoundaryFunction(int dir, BValFunc my_bc) {$/;"	f	class:Mesh
 EnrollUserExplicitSourceFunction	mesh.cpp	/^void Mesh::EnrollUserExplicitSourceFunction(SrcTermFunc my_func) {$/;"	f	class:Mesh
@@ -55,9 +60,10 @@ FinishRecvSameLevel	amr_loadbalance.cpp	/^void Mesh::FinishRecvSameLevel(MeshBlo
 GatherCostListAndCheckBalance	amr_loadbalance.cpp	/^bool Mesh::GatherCostListAndCheckBalance() {$/;"	f	class:Mesh
 GetBlockSizeInBytes	meshblock.cpp	/^std::size_t MeshBlock::GetBlockSizeInBytes() {$/;"	f	class:MeshBlock
 GetFluidFormulation	mesh.cpp	/^FluidFormulation GetFluidFormulation(const std::string& input_string) {$/;"	f
+GetGid	meshblock_tree.hpp	/^  int GetGid() const {return gid_;}$/;"	f	class:MeshBlockTree
 GetLeaf	meshblock_tree.hpp	/^  MeshBlockTree* GetLeaf(int ox1, int ox2, int ox3)$/;"	f	class:MeshBlockTree
+GetMGOctetList	meshblock_tree.cpp	/^void MeshBlockTree::GetMGOctetList(std::vector<MGOctet> *oct,$/;"	f	class:MeshBlockTree
 GetMeshBlockList	meshblock_tree.cpp	/^void MeshBlockTree::GetMeshBlockList(LogicalLocation *list, int *pglist, int& count) {$/;"	f	class:MeshBlockTree
-GetNumMeshBlocksThisRank	mesh.hpp	/^  int GetNumMeshBlocksThisRank(int my_rank) {return nblist[my_rank];}$/;"	f	class:Mesh
 GetNumMeshThreads	mesh.hpp	/^  int GetNumMeshThreads() const {return num_mesh_threads_;}$/;"	f	class:Mesh
 GetNumberOfMeshBlockCells	mesh.hpp	/^  int GetNumberOfMeshBlockCells() {$/;"	f	class:MeshBlock
 GetTotalCells	mesh.hpp	/^  std::int64_t GetTotalCells() {return static_cast<std::int64_t> (nbtotal)*$/;"	f	class:Mesh
@@ -80,6 +86,8 @@ MeshGenerator_	mesh.hpp	/^  MeshGenFunc MeshGenerator_[3];$/;"	m	class:Mesh
 MeshRefinement	mesh_refinement.cpp	/^MeshRefinement::MeshRefinement(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:MeshRefinement
 MeshRefinement	mesh_refinement.hpp	/^class MeshRefinement {$/;"	c
 NewTimeStep	mesh.cpp	/^void Mesh::NewTimeStep() {$/;"	f	class:Mesh
+OrbitalVelocityDerivative_	mesh.hpp	/^  OrbitalVelocityFunc OrbitalVelocity_, OrbitalVelocityDerivative_[2];$/;"	m	class:Mesh
+OrbitalVelocity_	mesh.hpp	/^  OrbitalVelocityFunc OrbitalVelocity_, OrbitalVelocityDerivative_[2];$/;"	m	class:Mesh
 OutputCycleDiagnostics	mesh.cpp	/^void Mesh::OutputCycleDiagnostics() {$/;"	f	class:Mesh
 OutputMeshStructure	mesh.cpp	/^void Mesh::OutputMeshStructure(int ndim) {$/;"	f	class:Mesh
 PrepareSendCoarseToFineAMR	amr_loadbalance.cpp	/^void Mesh::PrepareSendCoarseToFineAMR(MeshBlock* pb, Real *sendbuf,$/;"	f	class:Mesh
@@ -109,7 +117,6 @@ SetFourPiG	mesh.hpp	/^  void SetFourPiG(Real fpg) { four_pi_G_=fpg; }$/;"	f	clas
 SetGravitationalConstant	mesh.hpp	/^  void SetGravitationalConstant(Real g) { four_pi_G_=4.0*PI*g; }$/;"	f	class:Mesh
 SetGravityThreshold	mesh.hpp	/^  void SetGravityThreshold(Real eps) { grav_eps_=eps; }$/;"	f	class:Mesh
 SetHydroRefinement	mesh_refinement.cpp	/^void MeshRefinement::SetHydroRefinement(HydroBoundaryQuantity hydro_type) {$/;"	f	class:MeshRefinement
-SetMeanDensity	mesh.hpp	/^  void SetMeanDensity(Real d0) { grav_mean_rho_=d0; }$/;"	f	class:Mesh
 SetUserOutputVariableName	meshblock.cpp	/^void MeshBlock::SetUserOutputVariableName(int n, const char *name) {$/;"	f	class:MeshBlock
 StartTimeMeasurement	meshblock.cpp	/^void MeshBlock::StartTimeMeasurement() {$/;"	f	class:MeshBlock
 StopTimeMeasurement	meshblock.cpp	/^void MeshBlock::StopTimeMeasurement() {$/;"	f	class:MeshBlock
@@ -123,8 +130,9 @@ UserSourceTerm_	mesh.hpp	/^  SrcTermFunc UserSourceTerm_;$/;"	m	class:Mesh
 UserTimeStep_	mesh.hpp	/^  TimeStepFunc UserTimeStep_;$/;"	m	class:Mesh
 ViscosityCoeff_	mesh.hpp	/^  ViscosityCoeffFunc ViscosityCoeff_;$/;"	m	class:Mesh
 WeightedAve	weighted_ave.cpp	/^void MeshBlock::WeightedAve(AthenaArray<Real> &u_out, AthenaArray<Real> &u_in1,$/;"	f	class:MeshBlock
-WeightedAve	weighted_ave.cpp	/^void MeshBlock::WeightedAve(FaceField &b_out, FaceField &b_in1, FaceField &b_in2,$/;"	f	class:MeshBlock
+WeightedAve	weighted_ave.cpp	/^void MeshBlock::WeightedAve(FaceField &b_out, FaceField &b_in1,$/;"	f	class:MeshBlock
 adaptive	mesh.hpp	/^  const bool adaptive, multilevel;$/;"	m	class:Mesh
+amr_updated	mesh.hpp	/^  bool amr_updated;$/;"	m	class:Mesh
 bddisp	mesh.hpp	/^  int *brdisp, *bddisp;$/;"	m	class:Mesh
 block_size	mesh.hpp	/^  RegionSize block_size;$/;"	m	class:MeshBlock
 bnderef	mesh.hpp	/^  int *bnref, *bnderef;$/;"	m	class:Mesh
@@ -153,15 +161,18 @@ dt_parabolic	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_par
 dt_user	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
 f2	mesh.hpp	/^  const bool f2, f3; \/\/ flags indicating (at least) 2D or 3D Mesh$/;"	m	class:Mesh
 f3	mesh.hpp	/^  const bool f2, f3; \/\/ flags indicating (at least) 2D or 3D Mesh$/;"	m	class:Mesh
+false	mesh.cpp	/^                   == BoundaryFlag::shear_periodic ? true : false),$/;"	v
 fluid_setup	mesh.hpp	/^  const FluidFormulation fluid_setup;$/;"	m	class:Mesh
-four_pi_G_	mesh.hpp	/^  Real four_pi_G_, grav_eps_, grav_mean_rho_;$/;"	m	class:Mesh
+four_pi_G_	mesh.hpp	/^  Real four_pi_G_, grav_eps_;$/;"	m	class:Mesh
 fvol_	mesh_refinement.hpp	/^  AthenaArray<Real> fvol_[2][2], sarea_x1_[2][2], sarea_x2_[2][3], sarea_x3_[3][2];$/;"	m	class:MeshRefinement
+gammaj_tilde	mesh.hpp	/^  Real muj, nuj, muj_tilde, gammaj_tilde;$/;"	m	class:Mesh
 gflag	mesh.hpp	/^  int gflag;$/;"	m	class:Mesh
 gflag	mesh.hpp	/^  int gflag;$/;"	m	class:MeshBlock
 gid	mesh.hpp	/^  int gid, lid;$/;"	m	class:MeshBlock
 gid_	meshblock_tree.hpp	/^  int gid_;$/;"	m	class:MeshBlockTree
-grav_eps_	mesh.hpp	/^  Real four_pi_G_, grav_eps_, grav_mean_rho_;$/;"	m	class:Mesh
-grav_mean_rho_	mesh.hpp	/^  Real four_pi_G_, grav_eps_, grav_mean_rho_;$/;"	m	class:Mesh
+gide_	mesh.hpp	/^  int gids_, gide_;$/;"	m	class:Mesh
+gids_	mesh.hpp	/^  int gids_, gide_;$/;"	m	class:Mesh
+grav_eps_	mesh.hpp	/^  Real four_pi_G_, grav_eps_;$/;"	m	class:Mesh
 ie	mesh.hpp	/^  int is, ie, js, je, ks, ke;$/;"	m	class:MeshBlock
 is	mesh.hpp	/^  int is, ie, js, je, ks, ke;$/;"	m	class:MeshBlock
 iuser_mesh_data	mesh.hpp	/^  AthenaArray<int> *iuser_mesh_data;$/;"	m	class:Mesh
@@ -180,16 +191,19 @@ lid	mesh.hpp	/^  int gid, lid;$/;"	m	class:MeshBlock
 loc	mesh.hpp	/^  LogicalLocation loc;$/;"	m	class:MeshBlock
 loc_	meshblock_tree.hpp	/^  LogicalLocation loc_;$/;"	m	class:MeshBlockTree
 loclist	mesh.hpp	/^  LogicalLocation *loclist;$/;"	m	class:Mesh
+main_int	mesh.cpp	/^    sts_loc(TaskType::main_int),$/;"	v
 max_level	mesh.hpp	/^  int root_level, max_level, current_level;$/;"	m	class:Mesh
 mesh_bcs	mesh.hpp	/^  BoundaryFlag mesh_bcs[6];$/;"	m	class:Mesh
 mesh_size	mesh.hpp	/^  RegionSize mesh_size;$/;"	m	class:Mesh
-muj	mesh.hpp	/^  Real muj, nuj, muj_tilde;$/;"	m	class:Mesh
-muj_tilde	mesh.hpp	/^  Real muj, nuj, muj_tilde;$/;"	m	class:Mesh
+muj	mesh.hpp	/^  Real muj, nuj, muj_tilde, gammaj_tilde;$/;"	m	class:Mesh
+muj_tilde	mesh.hpp	/^  Real muj, nuj, muj_tilde, gammaj_tilde;$/;"	m	class:Mesh
 multilevel	mesh.hpp	/^  const bool adaptive, multilevel;$/;"	m	class:Mesh
-nbdel	mesh.hpp	/^  int nbtotal, nbnew, nbdel;$/;"	m	class:Mesh
+my_blocks	mesh.hpp	/^  AthenaArray<MeshBlock*> my_blocks;$/;"	m	class:Mesh
+nbdel	mesh.hpp	/^  int nbtotal, nblocal, nbnew, nbdel;$/;"	m	class:Mesh
 nblist	mesh.hpp	/^  int *nslist, *ranklist, *nblist;$/;"	m	class:Mesh
-nbnew	mesh.hpp	/^  int nbtotal, nbnew, nbdel;$/;"	m	class:Mesh
-nbtotal	mesh.hpp	/^  int nbtotal, nbnew, nbdel;$/;"	m	class:Mesh
+nblocal	mesh.hpp	/^  int nbtotal, nblocal, nbnew, nbdel;$/;"	m	class:Mesh
+nbnew	mesh.hpp	/^  int nbtotal, nblocal, nbnew, nbdel;$/;"	m	class:Mesh
+nbtotal	mesh.hpp	/^  int nbtotal, nblocal, nbnew, nbdel;$/;"	m	class:Mesh
 ncc1	mesh.hpp	/^  int ncc1, ncc2, ncc3;$/;"	m	class:MeshBlock
 ncc2	mesh.hpp	/^  int ncc1, ncc2, ncc3;$/;"	m	class:MeshBlock
 ncc3	mesh.hpp	/^  int ncc1, ncc2, ncc3;$/;"	m	class:MeshBlock
@@ -205,7 +219,6 @@ new_block_dt_	mesh.hpp	/^  Real new_block_dt_, new_block_dt_hyperbolic_, new_blo
 new_block_dt_hyperbolic_	mesh.hpp	/^  Real new_block_dt_, new_block_dt_hyperbolic_, new_block_dt_parabolic_,$/;"	m	class:MeshBlock
 new_block_dt_parabolic_	mesh.hpp	/^  Real new_block_dt_, new_block_dt_hyperbolic_, new_block_dt_parabolic_,$/;"	m	class:MeshBlock
 new_block_dt_user_	mesh.hpp	/^    new_block_dt_user_;$/;"	m	class:MeshBlock
-next	mesh.hpp	/^  MeshBlock *prev, *next;$/;"	m	class:MeshBlock
 next_phys_id_	mesh.hpp	/^  int next_phys_id_; \/\/ next unused value for encoding final component of MPI tag bitfield$/;"	m	class:Mesh
 nint_user_mesh_data_	mesh.hpp	/^  int nreal_user_mesh_data_, nint_user_mesh_data_;$/;"	m	class:Mesh
 nint_user_meshblock_data_	mesh.hpp	/^  int nreal_user_meshblock_data_, nint_user_meshblock_data_;$/;"	m	class:MeshBlock
@@ -219,11 +232,12 @@ nreal_user_mesh_data_	mesh.hpp	/^  int nreal_user_mesh_data_, nint_user_mesh_dat
 nreal_user_meshblock_data_	mesh.hpp	/^  int nreal_user_meshblock_data_, nint_user_meshblock_data_;$/;"	m	class:MeshBlock
 nref	mesh.hpp	/^  int *nref, *nderef;$/;"	m	class:Mesh
 nslist	mesh.hpp	/^  int *nslist, *ranklist, *nblist;$/;"	m	class:Mesh
-nuj	mesh.hpp	/^  Real muj, nuj, muj_tilde;$/;"	m	class:Mesh
+nuj	mesh.hpp	/^  Real muj, nuj, muj_tilde, gammaj_tilde;$/;"	m	class:Mesh
 num_mesh_threads_	mesh.hpp	/^  int num_mesh_threads_;$/;"	m	class:Mesh
 nuser_history_output_	mesh.hpp	/^  int nuser_history_output_;$/;"	m	class:Mesh
 nuser_out_var	mesh.hpp	/^  int nuser_out_var;$/;"	m	class:MeshBlock
-pblock	mesh.hpp	/^  MeshBlock *pblock;$/;"	m	class:Mesh
+operator ==	meshblock_tree.cpp	/^bool operator==(const LogicalLocation &l1, const LogicalLocation &l2) {$/;"	f
+orbital_advection	mesh.hpp	/^  const int orbital_advection;       \/\/ order of the orbital splitting method$/;"	m	class:Mesh
 pbval	mesh.hpp	/^  BoundaryValues *pbval;$/;"	m	class:MeshBlock
 pcoarsec	mesh_refinement.hpp	/^  Coordinates *pcoarsec;$/;"	m	class:MeshRefinement
 pcoord	mesh.hpp	/^  Coordinates *pcoord;$/;"	m	class:MeshBlock
@@ -235,14 +249,15 @@ pfield	mesh.hpp	/^  Field *pfield;$/;"	m	class:MeshBlock
 pgrav	mesh.hpp	/^  Gravity *pgrav;$/;"	m	class:MeshBlock
 phydro	mesh.hpp	/^  Hydro *phydro;$/;"	m	class:MeshBlock
 pleaf_	meshblock_tree.hpp	/^  MeshBlockTree** pleaf_;$/;"	m	class:MeshBlockTree
-pmesh_	meshblock_tree.cpp	/^Mesh* pmesh_;$/;"	v
+pmesh_	meshblock_tree.cpp	/^Mesh* MeshBlockTree::pmesh_;$/;"	m	class:MeshBlockTree	file:
+pmesh_	meshblock_tree.hpp	/^  static Mesh* pmesh_;$/;"	m	class:MeshBlockTree
 pmg	mesh.hpp	/^  MGGravity* pmg;$/;"	m	class:MeshBlock
 pmgrd	mesh.hpp	/^  MGGravityDriver *pmgrd;$/;"	m	class:Mesh
 pmr	mesh.hpp	/^  MeshRefinement *pmr;$/;"	m	class:MeshBlock
 pmy_block_	mesh_refinement.hpp	/^  MeshBlock *pmy_block_;$/;"	m	class:MeshRefinement
 pmy_mesh	mesh.hpp	/^  Mesh *pmy_mesh;  \/\/ ptr to Mesh containing this MeshBlock$/;"	m	class:MeshBlock
+porb	mesh.hpp	/^  OrbitalAdvection *porb;$/;"	m	class:MeshBlock
 precon	mesh.hpp	/^  Reconstruction *precon;$/;"	m	class:MeshBlock
-prev	mesh.hpp	/^  MeshBlock *prev, *next;$/;"	m	class:MeshBlock
 proot_	meshblock_tree.cpp	/^MeshBlockTree* MeshBlockTree::proot_;$/;"	m	class:MeshBlockTree	file:
 proot_	meshblock_tree.hpp	/^  static MeshBlockTree* proot_;$/;"	m	class:MeshBlockTree
 ptrbd	mesh.hpp	/^  TurbulenceDriver *ptrbd;$/;"	m	class:Mesh
@@ -257,10 +272,13 @@ ruser_meshblock_data	mesh.hpp	/^  AthenaArray<Real> *ruser_meshblock_data;$/;"	m
 sarea_x1_	mesh_refinement.hpp	/^  AthenaArray<Real> fvol_[2][2], sarea_x1_[2][2], sarea_x2_[2][3], sarea_x3_[3][2];$/;"	m	class:MeshRefinement
 sarea_x2_	mesh_refinement.hpp	/^  AthenaArray<Real> fvol_[2][2], sarea_x1_[2][2], sarea_x2_[2][3], sarea_x3_[3][2];$/;"	m	class:MeshRefinement
 sarea_x3_	mesh_refinement.hpp	/^  AthenaArray<Real> fvol_[2][2], sarea_x1_[2][2], sarea_x2_[2][3], sarea_x3_[3][2];$/;"	m	class:MeshRefinement
-stage_abscissae	mesh.hpp	/^  Real stage_abscissae[MAX_NSTAGE+1][MAX_NREGISTER];$/;"	m	class:MeshBlock
+shear_periodic	mesh.hpp	/^  const bool shear_periodic;         \/\/ flag of shear periodic b.c.$/;"	m	class:Mesh
 start_time	mesh.cpp	/^    start_time(pin->GetOrAddReal("time", "start_time", 0.0)), time(start_time),$/;"	v
 start_time	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
 step_since_lb	mesh.hpp	/^  int step_since_lb;$/;"	m	class:Mesh
+sts_integrator	mesh.hpp	/^  std::string sts_integrator;$/;"	m	class:Mesh
+sts_loc	mesh.hpp	/^  TaskType sts_loc;$/;"	m	class:Mesh
+sts_max_dt_ratio	mesh.hpp	/^  Real sts_max_dt_ratio;$/;"	m	class:Mesh
 tasks	mesh.hpp	/^  TaskStates tasks;$/;"	m	class:MeshBlock
 time	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh
 tlim	mesh.hpp	/^  Real start_time, time, tlim, dt, dt_hyperbolic, dt_parabolic, dt_user, cfl_number;$/;"	m	class:Mesh

@@ -22,45 +22,45 @@
 #include "eos.hpp"
 
 //----------------------------------------------------------------------------------------
-// \!fn void EquationOfState::DustFluidsConservedToPrimitive(AthenaArray<Real> &cons_df,
-//           const AthenaArray<Real> &r_old,
-//           AthenaArray<Real> &r, Coordinates *pco,
-//           int il, int iu, int jl, int ju, int kl, int ku)
-// \brief Converts conserved into primitive dust fluids variables
+//! \fn void EquationOfState::DustFluidsConservedToPrimitive(AthenaArray<Real> &cons_df,
+//!           const AthenaArray<Real> &prim_df_old,
+//!           AthenaArray<Real> &r, Coordinates *pco,
+//!           int il, int iu, int jl, int ju, int kl, int ku)
+//! \brief Converts conserved into primitive dust fluids variables
 
 void EquationOfState::DustFluidsConservedToPrimitive(
   AthenaArray<Real> &cons_df, const AthenaArray<Real> &prim_df_old,
   AthenaArray<Real> &prim_df,
   Coordinates *pco, int il, int iu, int jl, int ju, int kl, int ku) {
-  for (int n=0; n<NDUSTFLUIDS; n++) {
-  int dust_id = n;
-  int rho_id  = 4*dust_id;
-  int v1_id   = rho_id + 1;
-  int v2_id   = rho_id + 2;
-  int v3_id   = rho_id + 3;
-  for (int k=kl; k<=ku; ++k) {
-    for (int j=jl; j<=ju; ++j) {
+  for (int n=0; n<NDUSTFLUIDS; ++n) {
+    int dust_id = n;
+    int rho_id  = 4*dust_id;
+    int v1_id   = rho_id + 1;
+    int v2_id   = rho_id + 2;
+    int v3_id   = rho_id + 3;
+    for (int k=kl; k<=ku; ++k) {
+      for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
-      for (int i=il; i<=iu; ++i) {
-        Real& cons_df_dens = cons_df(rho_id, k, j, i);
-        Real& cons_df_m1  = cons_df(v1_id,  k, j, i);
-        Real& cons_df_m2  = cons_df(v2_id,  k, j, i);
-        Real& cons_df_m3  = cons_df(v3_id,  k, j, i);
+        for (int i=il; i<=iu; ++i) {
+          Real& cons_df_dens = cons_df(rho_id, k, j, i);
+          Real& cons_df_mom1 = cons_df(v1_id,  k, j, i);
+          Real& cons_df_mom2 = cons_df(v2_id,  k, j, i);
+          Real& cons_df_mom3 = cons_df(v3_id,  k, j, i);
 
-        Real& prim_df_rho = prim_df(rho_id, k, j, i);
-        Real& prim_df_v1  = prim_df(v1_id,  k, j, i);
-        Real& prim_df_v2  = prim_df(v2_id,  k, j, i);
-        Real& prim_df_v3  = prim_df(v3_id,  k, j, i);
+          Real& prim_df_rho = prim_df(rho_id, k, j, i);
+          Real& prim_df_v1  = prim_df(v1_id,  k, j, i);
+          Real& prim_df_v2  = prim_df(v2_id,  k, j, i);
+          Real& prim_df_v3  = prim_df(v3_id,  k, j, i);
 
-        // apply dust fluids floor to conserved variable first, then transform:
-        // (multi-D fluxes may have caused it to drop below floor)
-        cons_df_dens = (cons_df_dens < dustfluids_floor_) ?  dustfluids_floor_ : cons_df_dens;
-        prim_df_rho = cons_df_dens;
+          // apply dust fluids floor to conserved variable first, then transform:
+          // (multi-D fluxes may have caused it to drop below floor)
+          cons_df_dens = (cons_df_dens < dustfluids_floor_) ?  dustfluids_floor_ : cons_df_dens;
+          prim_df_rho = cons_df_dens;
 
-        Real di    = 1.0/cons_df_dens;
-        prim_df_v1 = cons_df_m1*di;
-        prim_df_v2 = cons_df_m2*di;
-        prim_df_v3 = cons_df_m3*di;
+          Real inv_dust_dens = 1.0/cons_df_dens;
+          prim_df_v1         = cons_df_mom1*inv_dust_dens;
+          prim_df_v2         = cons_df_mom2*inv_dust_dens;
+          prim_df_v3         = cons_df_mom3*inv_dust_dens;
         }
       }
     }
@@ -68,19 +68,13 @@ void EquationOfState::DustFluidsConservedToPrimitive(
   return;
 }
 
-//// TODO(felker): a ton of overlap with ConservedToPrimitiveCellAverage in eos.hpp.
-//// AthenaArray<Real> targets + 2x function calls (pointwise EOS and flooring)
+
 void EquationOfState::DustFluidsConservedToPrimitiveCellAverage(
     AthenaArray<Real> &cons_df, const AthenaArray<Real> &prim_df_old, AthenaArray<Real> &prim_df,
     Coordinates *pco, int il, int iu, int jl, int ju, int kl, int ku) {
-  MeshBlock *pmb  = pmy_block_;
+  MeshBlock  *pmb = pmy_block_;
   DustFluids *pdf = pmb->pdustfluids;
-  Hydro      *ph  = pmb->phydro;
-
-  const int num_dust_var = 4*NDUSTFLUIDS;
-
-  int nl = 0;
-  int nu = num_dust_var - 1;
+  int nl = 0; int nu = NDUSTVAR - 1;
   // TODO(felker): assuming uniform mesh with dx1f=dx2f=dx3f, so this should factor out
   // TODO(felker): also, this may need to be dx1v, since Laplacian is cell-centered
   Real h = pco->dx1f(il);  // pco->dx1f(i); inside loop
@@ -113,7 +107,8 @@ void EquationOfState::DustFluidsConservedToPrimitiveCellAverage(
   pco->Laplacian(prim_df, laplacian_cc, il, iu, jl, ju, kl, ku, nl, nu);
 
   // Convert cell-centered conserved values to cell-centered primitive values
-  DustFluidsConservedToPrimitive(cons_df_cc, prim_df_old, prim_df_cc, pco, il, iu, jl, ju, kl, ku);
+  DustFluidsConservedToPrimitive(cons_df_cc, prim_df_old, prim_df_cc, pco, il, iu,
+                                jl, ju, kl, ku);
 
   for (int n=nl; n<=nu; ++n) {
     for (int k=kl; k<=ku; ++k) {
@@ -143,6 +138,7 @@ void EquationOfState::DustFluidsConservedToPrimitiveCellAverage(
   return;
 }
 
+
 //----------------------------------------------------------------------------------------
 // \!fn void EquationOfState::DustFluidsPrimitiveToConserved(const AthenaArray<Real> &prim_df
 //           AthenaArray<Real> &cons_df, Coordinates *pco,
@@ -153,7 +149,7 @@ void EquationOfState::DustFluidsPrimitiveToConserved(
     const AthenaArray<Real> &prim_df,
     AthenaArray<Real> &cons_df, Coordinates *pco,
     int il, int iu, int jl, int ju, int kl, int ku) {
-  for (int n=0; n<NDUSTFLUIDS; n++) {
+  for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
     int rho_id  = 4*dust_id;
     int v1_id   = rho_id + 1;
@@ -164,9 +160,9 @@ void EquationOfState::DustFluidsPrimitiveToConserved(
 #pragma omp simd
         for (int i=il; i<=iu; ++i) {
           Real& cons_df_dens = cons_df(rho_id,k,j,i);
-          Real& cons_df_m1   = cons_df(v1_id,k,j,i);
-          Real& cons_df_m2   = cons_df(v2_id,k,j,i);
-          Real& cons_df_m3   = cons_df(v3_id,k,j,i);
+          Real& cons_df_mom1 = cons_df(v1_id,k,j,i);
+          Real& cons_df_mom2 = cons_df(v2_id,k,j,i);
+          Real& cons_df_mom3 = cons_df(v3_id,k,j,i);
 
           const Real& prim_df_rho = prim_df(rho_id,k,j,i);
           const Real& prim_df_v1  = prim_df(v1_id,k,j,i);
@@ -174,9 +170,9 @@ void EquationOfState::DustFluidsPrimitiveToConserved(
           const Real& prim_df_v3  = prim_df(v3_id,k,j,i);
 
           cons_df_dens = prim_df_rho;
-          cons_df_m1   = prim_df_v1*cons_df_dens;
-          cons_df_m2   = prim_df_v2*cons_df_dens;
-          cons_df_m3   = prim_df_v3*cons_df_dens;
+          cons_df_mom1 = prim_df_v1*cons_df_dens;
+          cons_df_mom2 = prim_df_v2*cons_df_dens;
+          cons_df_mom3 = prim_df_v3*cons_df_dens;
         }
       }
     }
@@ -189,17 +185,17 @@ void EquationOfState::DustFluidsPrimitiveToConserved(
 //                                                     int k, int j, int i)
 // \brief Apply species concentration floor to cell-averaged DUSTFLUIDS or
 // reconstructed L/R cell inteprim_dface states (if PPM is used, e.g.) along:
-// (4*NDUSTFLUIDS x) x1 slices
+// (NDUSTVAR x) x1 slices
 
 void EquationOfState::ApplyDustFluidsFloors(AthenaArray<Real> &prim_df, int n, int k, int j, int i) {
   // TODO(felker): process user-input "hydro/dfloor" in each EquationOfState ctor
   // 8x .cpp files + more in general/. Is there a better way to avoid code duplication?
 
-    int dust_id     = n/4;
-    int rho_id      = 4*dust_id;
+    int dust_id = n/4;
+    int rho_id  = 4*dust_id;
 
     Real& prim_df_n = prim_df(rho_id,i);
-    // apply (prim) dimensionless concentration floor WITHOUT adjusting DUSTFLUIDS
+    // apply dust fluids density floor (df_prim(rho_id)) WITHOUT adjusting DUSTFLUIDS
     // mass (conserved), unlike in floor in standard EOS
     prim_df_n = (prim_df_n > dustfluids_floor_) ?  prim_df_n : dustfluids_floor_;
     return;
@@ -219,8 +215,8 @@ void EquationOfState::ApplyDustFluidsPrimitiveConservedFloors(
   prim_df_n = cons_df_n;
 
   // this next line, when applied indiscriminately, erases the accuracy gains performed in
-  // the 4th order stencils, since <r> != <s>*<1/di>, in general
-  // prim_df_n = cons_df_n*di;
+  // the 4th order stencils, since <r> != <s>*<1/inv_dust_dens>, in general
+  // prim_df_n = cons_df_n*inv_dust_dens;
   // however, if r_n is riding the variable floor, it probably should be applied so that
   // s_n = rho*r_n is consistent (more concerned with conservation than order of accuracy
   // when quantities are floored)
@@ -228,7 +224,7 @@ void EquationOfState::ApplyDustFluidsPrimitiveConservedFloors(
 }
 
 //Real EquationOfState::SoundSpeed_DustFluids(const Real dust_nu, const Real t_eddy) {
-Real EquationOfState::SoundSpeed_DustFluids(const Real prim_df[(4*NDUSTFLUIDS)],
+Real EquationOfState::SoundSpeed_DustFluids(const Real prim_df[(NDUSTVAR)],
         const Real nu_dust, const Real eddy_time) {
     Real iso_dustfluids_sound_speed = std::sqrt(nu_dust/eddy_time);
     return iso_dustfluids_sound_speed;

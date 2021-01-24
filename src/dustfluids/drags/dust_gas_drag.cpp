@@ -3,8 +3,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file dustfluids_diffusion.cpp
-//  \brief Compute dustfluids fluxes corresponding to diffusion processes.
+//! \file dust_gas_drag.cpp
+//! Contains data and functions that implement physical (not coordinate) drag terms
 
 // C++ headers
 #include <algorithm>   // min,max
@@ -26,10 +26,10 @@
 
 DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :
   pmy_dustfluids_(pdf),
-  drags_matrix(num_species, num_species), // The drags matrix
-  aref_matrix(num_species,  num_species), // The matrix for iternative calculation
-  lu_matrix(num_species,    num_species), // The LU decomposition matrix
-  indx_array(num_species) {               // Stores the permutation
+  drags_matrix(NSPECIES, NSPECIES), // The drags matrix
+  aref_matrix(NSPECIES,  NSPECIES), // The matrix for iternative calculation
+  lu_matrix(NSPECIES,    NSPECIES), // The LU decomposition matrix
+  indx_array(NSPECIES) {               // Stores the permutation
 
   integrator        = pin->GetOrAddString("time", "integrator", "vl2");
   DustFeedback_Flag = pin->GetBoolean("dust", "DustFeedback_Flag");

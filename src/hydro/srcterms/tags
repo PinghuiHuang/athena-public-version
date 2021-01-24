@@ -4,7 +4,7 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-AddHydroSourceTerms	hydro_srcterms.cpp	/^void HydroSourceTerms::AddHydroSourceTerms(const Real time, const Real dt,$/;"	f	class:HydroSourceTerms
+AddHydroSourceTerms	hydro_srcterms.cpp	/^void HydroSourceTerms::AddHydroSourceTerms(const Real time, const Real dt, const AthenaArray<Real> *flux,$/;"	f	class:HydroSourceTerms
 ConstantAcceleration	constant_acc.cpp	/^void HydroSourceTerms::ConstantAcceleration(const Real dt,const AthenaArray<Real> *flux,$/;"	f	class:HydroSourceTerms
 GetG1	hydro_srcterms.hpp	/^  Real GetG1() const {return g1_;}$/;"	f	class:HydroSourceTerms
 GetG2	hydro_srcterms.hpp	/^  Real GetG2() const {return g2_;}$/;"	f	class:HydroSourceTerms
@@ -14,11 +14,15 @@ HYDRO_SRCTERMS_HYDRO_SRCTERMS_HPP_	hydro_srcterms.hpp	2;"	d
 HydroSourceTerms	hydro_srcterms.cpp	/^HydroSourceTerms::HydroSourceTerms(Hydro *phyd, ParameterInput *pin) {$/;"	f	class:HydroSourceTerms
 HydroSourceTerms	hydro_srcterms.hpp	/^class HydroSourceTerms {$/;"	c
 Omega_0_	hydro_srcterms.hpp	/^  Real Omega_0_, qshear_; \/\/ Orbital freq and shear rate$/;"	m	class:HydroSourceTerms
+OrbitalAdvectionSourceTerms	orbital_advection_srcterms.cpp	/^void HydroSourceTerms::OrbitalAdvectionSourceTerms$/;"	f	class:HydroSourceTerms
 PointMass	pointmass.cpp	/^void HydroSourceTerms::PointMass(const Real dt, const AthenaArray<Real> *flux,$/;"	f	class:HydroSourceTerms
+RotatingSystemSourceTerms	rotating_system_srcterms.cpp	/^void HydroSourceTerms::RotatingSystemSourceTerms$/;"	f	class:HydroSourceTerms
 SelfGravity	self_gravity.cpp	/^void HydroSourceTerms::SelfGravity(const Real dt,const AthenaArray<Real> *flux,$/;"	f	class:HydroSourceTerms
 ShBoxCoord_	hydro_srcterms.hpp	/^  int  ShBoxCoord_;       \/\/ ShearCoordinate type: 1=xy (default), 2=xz$/;"	m	class:HydroSourceTerms
 ShearingBoxSourceTerms	shearing_box.cpp	/^void HydroSourceTerms::ShearingBoxSourceTerms(const Real dt,$/;"	f	class:HydroSourceTerms
 UserSourceTerm	hydro_srcterms.hpp	/^  SrcTermFunc UserSourceTerm;$/;"	m	class:HydroSourceTerms
+flag_point_mass_	hydro_srcterms.hpp	/^  bool flag_point_mass_;      \/\/ flag for calling PointMass function$/;"	m	class:HydroSourceTerms
+flag_shearing_source_	hydro_srcterms.hpp	/^  int  flag_shearing_source_; \/\/ 1=orbital advection, 2=shearing box, 3=rotating system$/;"	m	class:HydroSourceTerms
 g1_	hydro_srcterms.hpp	/^  Real g1_, g2_, g3_; \/\/ constant acc'n in each direction$/;"	m	class:HydroSourceTerms
 g2_	hydro_srcterms.hpp	/^  Real g1_, g2_, g3_; \/\/ constant acc'n in each direction$/;"	m	class:HydroSourceTerms
 g3_	hydro_srcterms.hpp	/^  Real g1_, g2_, g3_; \/\/ constant acc'n in each direction$/;"	m	class:HydroSourceTerms

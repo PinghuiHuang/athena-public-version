@@ -3,16 +3,16 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file  roe.cpp
-//  \brief Roe's linearized Riemann solver.
-//
-// Computes 1D fluxes using Roe's linearization.  When Roe's method fails because of
-// negative density in the intermediate states, LLF fluxes are used instead (only density,
-// not pressure, is checked in this version).
-//
-// REFERENCES:
-// - P. Roe, "Approximate Riemann solvers, parameter vectors, and difference schemes",
-//   JCP, 43, 357 (1981).
+//! \file  dustfluids_roe_solver.cpp
+//! \brief Roe's linearized Riemann solver.
+//!
+//!Computes 1D fluxes using Roe's linearization.  When Roe's method fails because of
+//!negative density in the intermediate states, LLF fluxes are used instead (only density,
+//!not pressure, is checked in this version).
+//!
+//!REFERENCES:
+//!- P. Roe, "Approximate Riemann solvers, parameter vectors, and difference schemes",
+//!  JCP, 43, 357 (1981).
 
 // C headers
 
@@ -28,59 +28,59 @@
 
 namespace {
 // prototype for function to compute Roe fluxes from eigenmatrices
-inline void RoeFlux(const int rho_id, const Real df_prim_roe[], const Real df_du[],
+inline void RoeFlux(const int irho, const Real df_prim_roe[], const Real df_du[],
       const Real df_prim_li[], const Real cs, Real dust_flux[], Real df_ev[], int &llf_flag);
 } // namespace
 
 //----------------------------------------------------------------------------------------
-//! \fn void Hydro::RiemannSolver
-//  \brief The Roe Riemann solver for hydrodynamics (both adiabatic and isothermal)
+//! \fn void DustFluids::RoeRiemannSolverDustFluids
+//  \brief The Roe Riemann solver for dust fluids (spatially isothermal)
 
 void DustFluids::RoeRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &prim_df_l,
         AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux) {
-  Real df_prim_li[(num_dust_var)], df_prim_ri[(num_dust_var)], df_prim_roe[(num_dust_var)];
-  Real df_fl[(num_dust_var)],      df_fr[(num_dust_var)],      df_flxi[(num_dust_var)];
-	Real df_ev[(num_dust_var)],      df_du[(num_dust_var)];
+  Real df_prim_li[(NDUSTVAR)], df_prim_ri[(NDUSTVAR)], df_prim_roe[(NDUSTVAR)];
+  Real df_fl[(NDUSTVAR)],      df_fr[(NDUSTVAR)],      df_flxi[(NDUSTVAR)];
+	Real df_ev[(NDUSTVAR)],      df_du[(NDUSTVAR)];
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
-    int dust_id = n;
-    int rho_id  = 4*dust_id;
-    int ivx     = (IVX + ((index-IVX))%3)   + rho_id;
-    int ivy     = (IVX + ((index-IVX)+1)%3) + rho_id;
-    int ivz     = (IVX + ((index-IVX)+2)%3) + rho_id;
+    int idust = n;
+    int irho  = 4*idust;
+    int ivx   = (IVX + ((index-IVX))%3)   + irho;
+    int ivy   = (IVX + ((index-IVX)+1)%3) + irho;
+    int ivz   = (IVX + ((index-IVX)+2)%3) + irho;
 
 #pragma omp simd private(df_prim_li, df_prim_ri, df_prim_roe, df_flxi, df_fl, df_fr, df_ev, df_du)
 		for (int i=il; i<=iu; ++i) {
-      const Real &cs = cs_dustfluids_array(dust_id, k, j, i);
+      const Real &cs = cs_dustfluids_array(idust, k, j, i);
 
 			//--- Step 1.  Load L/R states into local variables
-			df_prim_li[rho_id] = prim_df_l(rho_id,i);
-			df_prim_li[ivx]    = prim_df_l(ivx,i);
-			df_prim_li[ivy]    = prim_df_l(ivy,i);
-			df_prim_li[ivz]    = prim_df_l(ivz,i);
+			df_prim_li[irho] = prim_df_l(irho, i);
+			df_prim_li[ivx]  = prim_df_l(ivx,  i);
+			df_prim_li[ivy]  = prim_df_l(ivy,  i);
+			df_prim_li[ivz]  = prim_df_l(ivz,  i);
 
-			df_prim_ri[rho_id] = prim_df_r(rho_id,i);
-			df_prim_ri[ivx]    = prim_df_r(ivx,i);
-			df_prim_ri[ivy]    = prim_df_r(ivy,i);
-			df_prim_ri[ivz]    = prim_df_r(ivz,i);
+			df_prim_ri[irho] = prim_df_r(irho, i);
+			df_prim_ri[ivx]  = prim_df_r(ivx,  i);
+			df_prim_ri[ivy]  = prim_df_r(ivy,  i);
+			df_prim_ri[ivz]  = prim_df_r(ivz,  i);
 
 			//--- Step 2.  Compute Roe-averaged data from left- and right-states
-			Real sqrtdl = std::sqrt(df_prim_li[rho_id]);
-			Real sqrtdr = std::sqrt(df_prim_ri[rho_id]);
+			Real sqrtdl  = std::sqrt(df_prim_li[irho]);
+			Real sqrtdr  = std::sqrt(df_prim_ri[irho]);
 			Real isdlpdr = 1.0/(sqrtdl + sqrtdr);
 
-			df_prim_roe[rho_id] = sqrtdl*sqrtdr;
-			df_prim_roe[ivx]    = (sqrtdl*df_prim_li[ivx] + sqrtdr*df_prim_ri[ivx])*isdlpdr;
-			df_prim_roe[ivy]    = (sqrtdl*df_prim_li[ivy] + sqrtdr*df_prim_ri[ivy])*isdlpdr;
-			df_prim_roe[ivz]    = (sqrtdl*df_prim_li[ivz] + sqrtdr*df_prim_ri[ivz])*isdlpdr;
+			df_prim_roe[irho] = sqrtdl*sqrtdr;
+			df_prim_roe[ivx]  = (sqrtdl*df_prim_li[ivx] + sqrtdr*df_prim_ri[ivx])*isdlpdr;
+			df_prim_roe[ivy]  = (sqrtdl*df_prim_li[ivy] + sqrtdr*df_prim_ri[ivy])*isdlpdr;
+			df_prim_roe[ivz]  = (sqrtdl*df_prim_li[ivz] + sqrtdr*df_prim_ri[ivz])*isdlpdr;
 
 			//--- Step 3.  Compute L/R fluxes
-			Real mxl = df_prim_li[rho_id]*df_prim_li[ivx];
-			Real mxr = df_prim_ri[rho_id]*df_prim_ri[ivx];
+			Real mxl = df_prim_li[irho]*df_prim_li[ivx];
+			Real mxr = df_prim_ri[irho]*df_prim_ri[ivx];
 
-			df_fl[rho_id] = mxl;
-			df_fr[rho_id] = mxr;
+			df_fl[irho] = mxl;
+			df_fr[irho] = mxr;
 
 			df_fl[ivx] = mxl*df_prim_li[ivx];
 			df_fr[ivx] = mxr*df_prim_ri[ivx];
@@ -91,35 +91,35 @@ void DustFluids::RoeRiemannSolverDustFluids(const int k, const int j, const int 
 			df_fl[ivz] = mxl*df_prim_li[ivz];
 			df_fr[ivz] = mxr*df_prim_ri[ivz];
 
-			df_fl[ivx] += (cs*cs)*df_prim_li[rho_id];
-			df_fr[ivx] += (cs*cs)*df_prim_ri[rho_id];
+			df_fl[ivx] += (cs*cs)*df_prim_li[irho];
+			df_fr[ivx] += (cs*cs)*df_prim_ri[irho];
 
 			//--- Step 4.  Compute Roe fluxes.
-			df_du[rho_id] = df_prim_ri[rho_id] - df_prim_li[rho_id];
-			df_du[ivx]    = df_prim_ri[rho_id] * df_prim_ri[ivx] - df_prim_li[rho_id] * df_prim_li[ivx];
-			df_du[ivy]    = df_prim_ri[rho_id] * df_prim_ri[ivy] - df_prim_li[rho_id] * df_prim_li[ivy];
-			df_du[ivz]    = df_prim_ri[rho_id] * df_prim_ri[ivz] - df_prim_li[rho_id] * df_prim_li[ivz];
+			df_du[irho] = df_prim_ri[irho] - df_prim_li[irho];
+			df_du[ivx]  = df_prim_ri[irho] * df_prim_ri[ivx] - df_prim_li[irho] * df_prim_li[ivx];
+			df_du[ivy]  = df_prim_ri[irho] * df_prim_ri[ivy] - df_prim_li[irho] * df_prim_li[ivy];
+			df_du[ivz]  = df_prim_ri[irho] * df_prim_ri[ivz] - df_prim_li[irho] * df_prim_li[ivz];
 
-			df_flxi[rho_id] = 0.5*(df_fl[rho_id] + df_fr[rho_id]);
-			df_flxi[ivx]    = 0.5*(df_fl[ivx]    + df_fr[ivx]);
-			df_flxi[ivy]    = 0.5*(df_fl[ivy]    + df_fr[ivy]);
-			df_flxi[ivz]    = 0.5*(df_fl[ivz]    + df_fr[ivz]);
+			df_flxi[irho] = 0.5*(df_fl[irho] + df_fr[irho]);
+			df_flxi[ivx]  = 0.5*(df_fl[ivx]  + df_fr[ivx]);
+			df_flxi[ivy]  = 0.5*(df_fl[ivy]  + df_fr[ivy]);
+			df_flxi[ivz]  = 0.5*(df_fl[ivz]  + df_fr[ivz]);
 
 			int llf_flag = 0;
-			RoeFlux(rho_id, df_prim_roe, df_du, df_prim_li, cs, df_flxi, df_ev, llf_flag);
+			RoeFlux(irho, df_prim_roe, df_du, df_prim_li, cs, df_flxi, df_ev, llf_flag);
 
 			//--- Step 5.  Overwrite with upwind flux if flow is supersonic
 			if (df_ev[0] >= 0.0) {
-				df_flxi[rho_id] = df_fl[rho_id];
-				df_flxi[ivx]    = df_fl[ivx];
-				df_flxi[ivy]    = df_fl[ivy];
-				df_flxi[ivz]    = df_fl[ivz];
+				df_flxi[irho] = df_fl[irho];
+				df_flxi[ivx]  = df_fl[ivx];
+				df_flxi[ivy]  = df_fl[ivy];
+				df_flxi[ivz]  = df_fl[ivz];
 			}
-			if (df_ev[num_dust_var-1] <= 0.0) {
-				df_flxi[rho_id] = df_fr[rho_id];
-				df_flxi[ivx]    = df_fr[ivx];
-				df_flxi[ivy]    = df_fr[ivy];
-				df_flxi[ivz]    = df_fr[ivz];
+			if (df_ev[NDUSTVAR-1] <= 0.0) {
+				df_flxi[irho] = df_fr[irho];
+				df_flxi[ivx]  = df_fr[ivx];
+				df_flxi[ivy]  = df_fr[ivy];
+				df_flxi[ivz]  = df_fr[ivz];
 			}
 
 			////--- Step 6. Overwrite with LLF flux if any of intermediate states are negative
@@ -128,17 +128,17 @@ void DustFluids::RoeRiemannSolverDustFluids(const int k, const int j, const int 
 				//Real cr = pmy_block->peos->SoundSpeed(df_prim_ri);
 				//Real a  = 0.5*std::max( (std::abs(df_prim_li[ivx]) + cl), (std::abs(df_prim_ri[ivx]) + cr) );
 
-				//df_flxi[rho_id] = 0.5*(df_fl[rho_id] + df_fr[rho_id]) - a*df_du[rho_id];
+				//df_flxi[irho] = 0.5*(df_fl[irho] + df_fr[irho]) - a*df_du[irho];
 				//df_flxi[ivx]    = 0.5*(df_fl[ivx]    + df_fr[ivx])    - a*df_du[ivx];
 				//df_flxi[ivy]    = 0.5*(df_fl[ivy]    + df_fr[ivy])    - a*df_du[ivy];
 				//df_flxi[ivz]    = 0.5*(df_fl[ivz]    + df_fr[ivz])    - a*df_du[ivz];
 			//}
 
 			//--- Step 7. Store results into 3D array of fluxes
-			dust_flux(rho_id, k, j, i) = df_flxi[rho_id];
-			dust_flux(ivx,    k, j, i) = df_flxi[ivx];
-			dust_flux(ivy,    k, j, i) = df_flxi[ivy];
-			dust_flux(ivz,    k, j, i) = df_flxi[ivz];
+			dust_flux(irho, k, j, i) = df_flxi[irho];
+			dust_flux(ivx,  k, j, i) = df_flxi[ivx];
+			dust_flux(ivy,  k, j, i) = df_flxi[ivy];
+			dust_flux(ivz,  k, j, i) = df_flxi[ivz];
 		}
   }
   return;
@@ -177,9 +177,9 @@ inline void RoeFlux(const int rho_id, const Real df_prim_roe[], const Real df_du
 	Real a[(4)];
 	Real coeff[(4)];
 
-  int v1_id   = rho_id + 1;
-  int v2_id   = rho_id + 2;
-  int v3_id   = rho_id + 3;
+  int v1_id = rho_id + 1;
+  int v2_id = rho_id + 2;
+  int v3_id = rho_id + 3;
 
   Real d  = df_prim_roe[rho_id];
   Real v1 = df_prim_roe[v1_id];

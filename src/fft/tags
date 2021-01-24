@@ -134,6 +134,7 @@ fv_sh_	turbulence.hpp	/^  std::complex<Real> **fv_sh_, **fv_co_;$/;"	m	class:Tur
 gcnt_	athena_fft.hpp	/^  std::int64_t cnt_, gcnt_;$/;"	m	class:FFTBlock::AthenaFFTDirection
 gcnt_	athena_fft.hpp	/^  std::int64_t gcnt_;$/;"	m	class:FFTBlock::FFTDriver
 gid_	athena_fft.hpp	/^  int gid_;$/;"	m	class:FFTBlock::AthenaFFTDirection
+global_ps_	turbulence.hpp	/^  bool global_ps_ = false;$/;"	m	class:TurbulenceDriver
 ie	athena_fft.hpp	/^  int nx[3], is[3], ie[3];$/;"	m	class:AthenaFFTIndex
 ihi	plimpton/remap_2d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_2d
 ihi	plimpton/remap_3d.h	/^  int ilo,ihi,isize;$/;"	m	struct:extent_3d
@@ -273,6 +274,7 @@ remap_plan_2d	plimpton/remap_2d.h	/^struct remap_plan_2d {$/;"	s
 remap_plan_3d	plimpton/remap_3d.h	/^struct remap_plan_3d {$/;"	s
 request	plimpton/remap_2d.h	/^  MPI_Request *request;             \/* MPI request for each posted recv *\/$/;"	m	struct:remap_plan_2d
 request	plimpton/remap_3d.h	/^  MPI_Request *request;             \/* MPI request for each posted recv *\/$/;"	m	struct:remap_plan_3d
+rng_generator	turbulence.hpp	/^  std::mt19937_64 rng_generator;$/;"	m	class:TurbulenceDriver
 rseed	turbulence.hpp	/^  std::int64_t rseed;$/;"	m	class:TurbulenceDriver
 scaled	plimpton/fft_2d.h	/^  int scaled;                       \/* whether to scale FFT results *\/$/;"	m	struct:fft_plan_2d
 scaled	plimpton/fft_3d.h	/^  int scaled;                       \/* whether to scale FFT results *\/$/;"	m	struct:fft_plan_3d

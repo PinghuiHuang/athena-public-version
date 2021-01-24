@@ -8,6 +8,7 @@ AddEMF	field_diffusion/field_diffusion.cpp	/^void FieldDiffusion::AddEMF(const E
 AddPoyntingFlux	field_diffusion/field_diffusion.cpp	/^void FieldDiffusion::AddPoyntingFlux(FaceField &p_src) {$/;"	f	class:FieldDiffusion
 AmbipolarEMF	field_diffusion/diffusivity.cpp	/^void FieldDiffusion::AmbipolarEMF(const FaceField &b, const AthenaArray<Real> &bc,$/;"	f	class:FieldDiffusion
 CT	ct.cpp	/^void Field::CT(const Real wght, FaceField &b_out) {$/;"	f	class:Field
+CT_STS	ct.cpp	/^void Field::CT_STS(const Real wght, int stage,$/;"	f	class:Field
 CalcCurrent	field_diffusion/diffusivity.cpp	/^void FieldDiffusion::CalcCurrent(FaceField &b) {$/;"	f	class:FieldDiffusion
 CalcDiffusionEMF	field_diffusion/field_diffusion.cpp	/^void FieldDiffusion::CalcDiffusionEMF(FaceField &bi, const AthenaArray<Real> &bc,$/;"	f	class:FieldDiffusion
 CalcMagDiffCoeff_	field_diffusion/field_diffusion.hpp	/^  FieldDiffusionCoeffFunc CalcMagDiffCoeff_; \/\/ calculate magnetic diffusivities$/;"	m	class:FieldDiffusion
@@ -28,19 +29,21 @@ OhmicEMF	field_diffusion/diffusivity.cpp	/^void FieldDiffusion::OhmicEMF(const F
 PoyntingFlux	field_diffusion/diffusivity.cpp	/^void FieldDiffusion::PoyntingFlux(EdgeField &e, const AthenaArray<Real> &bc) {$/;"	f	class:FieldDiffusion
 SetDiffusivity	field_diffusion/field_diffusion.cpp	/^void FieldDiffusion::SetDiffusivity(const AthenaArray<Real> &w,$/;"	f	class:FieldDiffusion
 ambipolar	field_diffusion/field_diffusion.hpp	/^  enum DiffProcess {ohmic=0, hall=1, ambipolar=2};$/;"	e	enum:FieldDiffusion::DiffProcess
-b	field.hpp	/^  FaceField b;       \/\/ time-integrator memory register #1$/;"	m	class:Field
-b1	field.hpp	/^  FaceField b1;      \/\/ time-integrator memory register #2$/;"	m	class:Field
-b2	field.hpp	/^  FaceField b2;      \/\/ time-integrator memory register #3$/;"	m	class:Field
-bcc	field.hpp	/^  AthenaArray<Real> bcc;  \/\/ time-integrator memory register #1$/;"	m	class:Field
+b	field.hpp	/^  FaceField b;       \/\/!> time-integrator memory register #1$/;"	m	class:Field
+b0	field.hpp	/^  FaceField b0, ct_update; \/\/ rkl2 STS memory registers$/;"	m	class:Field
+b1	field.hpp	/^  FaceField b1;      \/\/!> time-integrator memory register #2$/;"	m	class:Field
+b2	field.hpp	/^  FaceField b2;      \/\/!> time-integrator memory register #3$/;"	m	class:Field
+bcc	field.hpp	/^  AthenaArray<Real> bcc;  \/\/!> time-integrator memory register #1$/;"	m	class:Field
 bmag_	field_diffusion/field_diffusion.hpp	/^  AthenaArray<Real> bmag_; \/\/ B field strength$/;"	m	class:FieldDiffusion
 cc_e_	field.hpp	/^  AthenaArray<Real> cc_e_;$/;"	m	class:Field
 cell_volume_	field_diffusion/field_diffusion.hpp	/^  AthenaArray<Real>  cell_volume_;$/;"	m	class:FieldDiffusion
 coarse_b_	field.hpp	/^  FaceField coarse_b_;$/;"	m	class:Field
 coarse_bcc_	field.hpp	/^  AthenaArray<Real> coarse_bcc_;$/;"	m	class:Field
+ct_update	field.hpp	/^  FaceField b0, ct_update; \/\/ rkl2 STS memory registers$/;"	m	class:Field
 dx1_	field_diffusion/field_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_, len_;$/;"	m	class:FieldDiffusion
 dx2_	field_diffusion/field_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_, len_;$/;"	m	class:FieldDiffusion
 dx3_	field_diffusion/field_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_, len_;$/;"	m	class:FieldDiffusion
-e	field.hpp	/^  EdgeField e;    \/\/ edge-centered electric fields used in CT$/;"	m	class:Field
+e	field.hpp	/^  EdgeField e;    \/\/!> edge-centered electric fields used in CT$/;"	m	class:Field
 e1_x2f	field.hpp	/^  AthenaArray<Real> e1_x2f, e3_x2f; \/\/ electric fields at x2-face from Riemann solver$/;"	m	class:Field
 e1_x3f	field.hpp	/^  AthenaArray<Real> e1_x3f, e2_x3f; \/\/ electric fields at x3-face from Riemann solver$/;"	m	class:Field
 e2_x1f	field.hpp	/^  AthenaArray<Real> e2_x1f, e3_x1f; \/\/ electric fields at x1-face from Riemann solver$/;"	m	class:Field
@@ -75,6 +78,6 @@ jfz	field_diffusion/field_diffusion.hpp	/^  AthenaArray<Real> jfx, jfy, jfz; \/\
 len_	field_diffusion/field_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_, len_;$/;"	m	class:FieldDiffusion
 ohmic	field_diffusion/field_diffusion.hpp	/^  enum DiffProcess {ohmic=0, hall=1, ambipolar=2};$/;"	e	enum:FieldDiffusion::DiffProcess
 pflux	field_diffusion/field_diffusion.hpp	/^  FaceField pflux;        \/\/ face-centered energy (Poynting) flux$/;"	m	class:FieldDiffusion
-pmy_block	field.hpp	/^  MeshBlock* pmy_block;  \/\/ ptr to MeshBlock containing this Field$/;"	m	class:Field
+pmy_block	field.hpp	/^  MeshBlock* pmy_block;  \/\/!> ptr to MeshBlock containing this Field$/;"	m	class:Field
 pmy_block	field_diffusion/field_diffusion.hpp	/^  MeshBlock* pmy_block;$/;"	m	class:FieldDiffusion
-wght	field.hpp	/^  FaceField wght; \/\/ weights used to integrate E to corner using GS algorithm$/;"	m	class:Field
+wght	field.hpp	/^  FaceField wght; \/\/!> weights used to integrate E to corner using GS algorithm$/;"	m	class:Field

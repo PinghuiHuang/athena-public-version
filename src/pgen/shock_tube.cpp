@@ -4,10 +4,10 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file shock_tube.cpp
-//  \brief Problem generator for shock tube problems.
-//
-// Problem generator for shock tube (1-D Riemann) problems. Initializes plane-parallel
-// shock along x1 (in 1D, 2D, 3D), along x2 (in 2D, 3D), and along x3 (in 3D).
+//! \brief Problem generator for shock tube problems.
+//!
+//! Problem generator for shock tube (1-D Riemann) problems. Initializes plane-parallel
+//! shock along x1 (in 1D, 2D, 3D), along x2 (in 2D, 3D), and along x3 (in 3D).
 //========================================================================================
 
 // C headers
@@ -29,12 +29,11 @@
 #include "../hydro/hydro.hpp"
 #include "../mesh/mesh.hpp"
 #include "../parameter_input.hpp"
-//#include "../scalars/scalars.hpp"
-#include "../dustfluids/dustfluids.hpp"
+#include "../scalars/scalars.hpp"
 
 //========================================================================================
 //! \fn Real press(Real rho, Real T)
-//  \brief Calculate pressure as a function of density and temperature for H EOS.
+//! \brief Calculate pressure as a function of density and temperature for H EOS.
 //========================================================================================
 
 Real press(Real rho, Real T) {
@@ -45,11 +44,11 @@ Real press(Real rho, Real T) {
 
 //========================================================================================
 //! \fn void Mesh::UserWorkAfterLoop(ParameterInput *pin)
-//  \brief Calculate L1 errors in Sod (hydro) and RJ2a (MHD) tests
+//! \brief Calculate L1 errors in Sod (hydro) and RJ2a (MHD) tests
 //========================================================================================
 
 void Mesh::UserWorkAfterLoop(ParameterInput *pin) {
-  MeshBlock *pmb = pblock;
+  MeshBlock *pmb = my_blocks(0);
 
   if (!pin->GetOrAddBoolean("problem","compute_error",false)) return;
 
@@ -301,7 +300,7 @@ void Mesh::UserWorkAfterLoop(ParameterInput *pin) {
 
 //========================================================================================
 //! \fn void MeshBlock::ProblemGenerator(ParameterInput *pin)
-//  \brief Problem Generator for the shock tube tests
+//! \brief Problem Generator for the shock tube tests
 //========================================================================================
 
 void MeshBlock::ProblemGenerator(ParameterInput *pin) {
@@ -559,17 +558,17 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
   // uniformly fill all scalars to have equal concentration
   // mass fraction? or concentration?
-  //constexpr int scalar_norm = NSCALARS > 0 ? NSCALARS : 1.0;
-  //if (NSCALARS > 0) {
-    //for (int n=0; n<NSCALARS; ++n) {
-      //for (int k=ks; k<=ke; ++k) {
-        //for (int j=js; j<=je; ++j) {
-          //for (int i=is; i<=ie; ++i) {
-            //pscalars->s(n,k,j,i) = 1.0/scalar_norm*phydro->u(IDN,k,j,i);
-          //}
-        //}
-      //}
-    //}
-  //}
+  constexpr int scalar_norm = NSCALARS > 0 ? NSCALARS : 1.0;
+  if (NSCALARS > 0) {
+    for (int n=0; n<NSCALARS; ++n) {
+      for (int k=ks; k<=ke; ++k) {
+        for (int j=js; j<=je; ++j) {
+          for (int i=is; i<=ie; ++i) {
+            pscalars->s(n,k,j,i) = 1.0/scalar_norm*phydro->u(IDN,k,j,i);
+          }
+        }
+      }
+    }
+  }
   return;
 }

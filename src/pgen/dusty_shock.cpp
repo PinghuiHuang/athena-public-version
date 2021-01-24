@@ -38,10 +38,12 @@ Real wl[NHYDRO];
 Real wr[NHYDRO];
 Real wl_d[4];
 Real wr_d[4];
-void MySource(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons);
-void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons);
+void MySource(MeshBlock *pmb, const Real time, const Real dt,
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df, const AthenaArray<Real> &bcc,
+    AthenaArray<Real> &cons, AthenaArray<Real> &cons_df);
+void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt,
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df, const AthenaArray<Real> &bcc,
+    AthenaArray<Real> &cons, AthenaArray<Real> &cons_df);
 } // namespace
 
 Real press(Real rho, Real T) {
@@ -89,7 +91,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
     EnrollUserTimeStepFunction(MyTimeStep);
 
   // Enroll local isothermal equation of state
-  EnrollUserExplicitSourceFunction(MySource);
+  //EnrollUserExplicitSourceFunction(MySource);
 
   return;
 }
@@ -102,17 +104,17 @@ Real MyTimeStep(MeshBlock *pmb)
 }
 
 void MySource(MeshBlock *pmb, const Real time, const Real dt,
-    const AthenaArray<Real> &prim, const AthenaArray<Real> &bcc,
-    AthenaArray<Real> &cons)
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df, const AthenaArray<Real> &bcc,
+    AthenaArray<Real> &cons, AthenaArray<Real> &cons_df)
 {
   if (NON_BAROTROPIC_EOS)
-    LocalIsothermalEOS(pmb, time, dt, prim, bcc, cons);
+    LocalIsothermalEOS(pmb, time, dt, prim, prim_df, bcc, cons, cons_df);
   return;
 }
 
 void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt,
-    const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons) {
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df, const AthenaArray<Real> &bcc,
+    AthenaArray<Real> &cons, AthenaArray<Real> &cons_df) {
   // Local Isothermal equation of state
   DustFluids *pdf = pmb->pdustfluids;
   Real rad, phi, z;

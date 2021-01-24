@@ -33,6 +33,7 @@
 #include "../mesh/mesh.hpp"
 #include "../parameter_input.hpp"
 #include "../dustfluids/dustfluids.hpp"
+#include "../orbital_advection/orbital_advection.hpp"
 
 namespace {
 void GetCylCoord(Coordinates *pco,Real &rad,Real &phi,Real &z,int i,int j,int k);
@@ -60,20 +61,25 @@ Real Delta_dust_vr(const Real ts,   const Real vk, const Real d_vgr, const Real 
 Real Delta_dust_vphi(const Real ts, const Real vk, const Real d_vgr, const Real d_vgphi);
 
 // User Sources
-void MySource(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons);
-void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons);
-void OuterWavedamping(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons);
-void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons);
+void MySource(MeshBlock *pmb, const Real time, const Real dt,
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons, AthenaArray<Real> &cons_df);
+void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt,
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons, AthenaArray<Real> &cons_df);
+void OuterWavedamping(MeshBlock *pmb, const Real time, const Real dt,
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons, AthenaArray<Real> &cons_df);
+void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt,
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons, AthenaArray<Real> &cons_df);
 
 Real gm0, r0, rho_0, dslope, p0_over_r0, pslope, gamma_gas, dfloor, user_dt, iso_cs2_r0;
 Real tau_relax, rs, gmp, rad_planet, phi_planet, t0pot, omega_p, Bump_flag, A0, dwidth, rn, rand_amp, dust_dens_slope;
 Real x1min, x1max, tau_damping, damping_rate;
 Real radius_inner_damping, radius_outer_damping, inner_ratio_region, outer_ratio_region,
      inner_width_damping, outer_width_damping;
+Real Omega0;
 
 Real SN_const(0.0), QN_const(0.0), Psi_const(0.0);
 
@@ -130,6 +136,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
   // The normalized wave damping timescale, in unit of dynamical timescale.
   damping_rate = pin->GetOrAddReal("problem", "damping_rate", 1.0);
+
+  Omega0 = pin->GetOrAddReal("orbital_advection","Omega0",0.0);
 
   // The parameters of one planet
   tau_relax  = pin->GetOrAddReal("hydro",   "tau_relax",  0.01);
@@ -200,16 +208,21 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   Real rad(0.0),   phi(0.0),   z(0.0);
   Real g_v1(0.0),  g_v2(0.0),  g_v3(0.0);
   Real df_v1(0.0), df_v2(0.0), df_v3(0.0);
+  Real x1, x2, x3;
 
+  OrbitalVelocityFunc &vK = porb->OrbitalVelocity;
   Real igm1 = 1.0/(gamma_gas - 1.0);
   // Initialize density and momenta
   for (int k=ks; k<=ke; ++k) {
+    x3 = pcoord->x3v(k);
     for (int j=js; j<=je; ++j) {
+      x2 = pcoord->x2v(j);
       for (int i=is; i<=ie; ++i) {
-        Real &gas_den    = phydro->u(IDN, k, j, i);
-        Real &gas_m1     = phydro->u(IM1, k, j, i);
-        Real &gas_m2     = phydro->u(IM2, k, j, i);
-        Real &gas_m3     = phydro->u(IM3, k, j, i);
+        x1 = pcoord->x1v(i);
+        Real &gas_den = phydro->u(IDN, k, j, i);
+        Real &gas_m1  = phydro->u(IM1, k, j, i);
+        Real &gas_m2  = phydro->u(IM2, k, j, i);
+        Real &gas_m3  = phydro->u(IM3, k, j, i);
 
         // convert to cylindrical coordinates
         GetCylCoord(pcoord, rad, phi, z, i, j, k);
@@ -232,6 +245,10 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
         //GasVelProfileCyl_NSH(SN, QN, Psi, rad, phi, z, g_v1, g_v2, g_v3);
         GasVelProfileCyl_NSH(SN_const, QN_const, Psi_const, rad, phi, z, g_v1, g_v2, g_v3);
+        if (porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+          g_v2 -= vK(porb, x1, x2, x3);
+        if (porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+          g_v3 -= vK(porb, x1, x2, x3);
         gas_m1 = gas_den * g_v1;
         gas_m2 = gas_den * g_v2;
         gas_m3 = gas_den * g_v3;
@@ -257,6 +274,10 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
           //DustVelProfileCyl_NSH(Stokes_number[dust_id], SN, QN, Psi, rad, phi, z, df_v1, df_v2, df_v3);
           DustVelProfileCyl_NSH(Stokes_number[dust_id], SN_const, QN_const, Psi_const, rad, phi, z, df_v1, df_v2, df_v3);
+          if (porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+            df_v2 -= vK(porb, x1, x2, x3);
+          if (porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+            df_v3 -= vK(porb, x1, x2, x3);
           dust_m1 = dust_den * df_v1;
           dust_m2 = dust_den * df_v2;
           dust_m3 = dust_den * df_v3;
@@ -271,16 +292,17 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 namespace {
 //----------------------------------------------------------------------------------------
 void MySource(MeshBlock *pmb, const Real time, const Real dt,
-    const AthenaArray<Real> &prim, const AthenaArray<Real> &bcc,
-    AthenaArray<Real> &cons)
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc,
+    AthenaArray<Real> &cons, AthenaArray<Real> &cons_df)
 {
   if (Damping_Flag) {
-    InnerWavedamping(pmb, time, dt, prim, bcc, cons);
-    OuterWavedamping(pmb, time, dt, prim, bcc, cons);
+    InnerWavedamping(pmb, time, dt, prim, prim_df, bcc, cons, cons_df);
+    OuterWavedamping(pmb, time, dt, prim, prim_df, bcc, cons, cons_df);
   }
 
   if (NON_BAROTROPIC_EOS)
-    LocalIsothermalEOS(pmb, time, dt, prim, bcc, cons);
+    LocalIsothermalEOS(pmb, time, dt, prim, prim_df, bcc, cons, cons_df);
 
   return;
 }
@@ -294,10 +316,9 @@ Real MyTimeStep(MeshBlock *pmb)
 //----------------------------------------------------------------------------------------
 // Wavedamping function
 void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt,
-        const AthenaArray<Real> &prim, const AthenaArray<Real> &bcc,
-        AthenaArray<Real> &cons) {
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons, AthenaArray<Real> &cons_df) {
 
-  DustFluids *pdf = pmb->pdustfluids;
   Real rad, phi, z, gas_v1_0, gas_v2_0, gas_v3_0, dust_v1_0, dust_v2_0, dust_v3_0;
 
   int is = pmb->is; int ie = pmb->ie;
@@ -306,11 +327,16 @@ void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt,
 
   Real igm1           = 1.0/(gamma_gas - 1.0);
   Real inv_inner_damp = 1.0/inner_width_damping;
+  Real x1, x2, x3;
+  OrbitalVelocityFunc &vK = pmb->porb->OrbitalVelocity;
 
   for (int k=ks; k<=ke; ++k){
+    x3 = pmb->pcoord->x3v(k);
     for (int j=js; j<=je; ++j){
+    x2 = pmb->pcoord->x2v(j);
 #pragma omp simd
       for (int i=is; i<=ie; ++i){
+        x1 = pmb->pcoord->x1v(i);
         GetCylCoord(pmb->pcoord, rad, phi, z, i, j, k);
 
         if (rad >= x1min && rad < radius_inner_damping) {
@@ -330,6 +356,10 @@ void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt,
 
           //GasVelProfileCyl_NSH(SN, QN, Psi, rad, phi, z, gas_v1_0, gas_v2_0, gas_v3_0);
           GasVelProfileCyl_NSH(SN_const, QN_const, Psi_const, rad, phi, z, gas_v1_0, gas_v2_0, gas_v3_0);
+          if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+            gas_v2_0 -= vK(pmb->porb, x1, x2, x3);
+          if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+            gas_v3_0 -= vK(pmb->porb, x1, x2, x3);
 
           // See de Val-Borro et al. 2006 & 2007
           Real R_func        = SQR((rad - radius_inner_damping)*inv_inner_damp);
@@ -352,7 +382,6 @@ void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt,
           //if (NON_BAROTROPIC_EOS) {
             //Real gas_erg_0  = PoverR(rad,phi,z)*gas_den_0*igm1;
             //gas_erg_0      += 0.5*(SQR(gas_den_0*gas_v1_0) + SQR(gas_den_0*gas_v2_0) + SQR(gas_den_0*gas_v3_0))/gas_den_0;
-
             //Real &gas_erg   = cons(IEN,k,j,i);
             //gas_erg         = gas_erg*alpha_ori + gas_erg_0*alpha_dam;
           //}
@@ -367,11 +396,15 @@ void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt,
             Real dust_den_0 = initial_D2G[dust_id]*gas_den_0;
             //DustVelProfileCyl_NSH(Stokes_number[dust_id], SN, QN, Psi, rad, phi, z, dust_v1_0, dust_v2_0, dust_v3_0);
             DustVelProfileCyl_NSH(Stokes_number[dust_id], SN_const, QN_const, Psi_const, rad, phi, z, dust_v1_0, dust_v2_0, dust_v3_0);
+            if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+              dust_v2_0 -= vK(pmb->porb, x1, x2, x3);
+            if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+              dust_v3_0 -= vK(pmb->porb, x1, x2, x3);
 
-            Real &dust_den        = pdf->df_cons(rho_id, k, j, i);
-            Real &dust_m1         = pdf->df_cons(v1_id,  k, j, i);
-            Real &dust_m2         = pdf->df_cons(v2_id,  k, j, i);
-            Real &dust_m3         = pdf->df_cons(v3_id,  k, j, i);
+            Real &dust_den        = cons_df(rho_id, k, j, i);
+            Real &dust_m1         = cons_df(v1_id,  k, j, i);
+            Real &dust_m2         = cons_df(v2_id,  k, j, i);
+            Real &dust_m3         = cons_df(v3_id,  k, j, i);
             Real inv_den_dust_ori = 1./dust_den;
 
             dust_den = dust_den*alpha_ori                           + dust_den_0*alpha_dam;
@@ -389,10 +422,9 @@ void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt,
 
 
 void OuterWavedamping(MeshBlock *pmb, const Real time, const Real dt,
-        const AthenaArray<Real> &prim, const AthenaArray<Real> &bcc,
-        AthenaArray<Real> &cons) {
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons, AthenaArray<Real> &cons_df) {
 
-  DustFluids *pdf = pmb->pdustfluids;
   Real rad, phi, z, gas_v1_0, gas_v2_0, gas_v3_0, dust_v1_0, dust_v2_0, dust_v3_0;
 
   int is = pmb->is; int ie = pmb->ie;
@@ -401,11 +433,16 @@ void OuterWavedamping(MeshBlock *pmb, const Real time, const Real dt,
 
   Real igm1           = 1.0/(gamma_gas - 1.0);
   Real inv_outer_damp = 1.0/outer_width_damping;
+  Real x1, x2, x3;
+  OrbitalVelocityFunc &vK = pmb->porb->OrbitalVelocity;
 
-  for (int k=ks; k<=ke; ++k) {
-    for (int j=js; j<=je; ++j) {
+  for (int k=ks; k<=ke; ++k){
+    x3 = pmb->pcoord->x3v(k);
+    for (int j=js; j<=je; ++j){
+    x2 = pmb->pcoord->x2v(j);
 #pragma omp simd
-      for (int i=is; i<=ie; ++i) {
+      for (int i=is; i<=ie; ++i){
+        x1 = pmb->pcoord->x1v(i);
         GetCylCoord(pmb->pcoord, rad, phi, z, i, j, k);
 
         if (rad <= x1max && rad > radius_outer_damping) {
@@ -425,6 +462,10 @@ void OuterWavedamping(MeshBlock *pmb, const Real time, const Real dt,
 
           //GasVelProfileCyl_NSH(SN, QN, Psi, rad, phi, z, gas_v1_0, gas_v2_0, gas_v3_0);
           GasVelProfileCyl_NSH(SN_const, QN_const, Psi_const, rad, phi, z, gas_v1_0, gas_v2_0, gas_v3_0);
+          if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+            gas_v2_0 -= vK(pmb->porb, x1, x2, x3);
+          if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+            gas_v3_0 -= vK(pmb->porb, x1, x2, x3);
 
           // See de Val-Borro et al. 2006 & 2007
           Real R_func        = SQR((rad - radius_outer_damping)*inv_outer_damp);
@@ -462,11 +503,15 @@ void OuterWavedamping(MeshBlock *pmb, const Real time, const Real dt,
             Real dust_den_0 = initial_D2G[dust_id]*gas_den_0;
             //DustVelProfileCyl_NSH(Stokes_number[dust_id], SN, QN, Psi, rad, phi, z, dust_v1_0, dust_v2_0, dust_v3_0);
             DustVelProfileCyl_NSH(Stokes_number[dust_id], SN_const, QN_const, Psi_const, rad, phi, z, dust_v1_0, dust_v2_0, dust_v3_0);
+            if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+              dust_v2_0 -= vK(pmb->porb, x1, x2, x3);
+            if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+              dust_v3_0 -= vK(pmb->porb, x1, x2, x3);
 
-            Real &dust_den        = pdf->df_cons(rho_id, k, j, i);
-            Real &dust_m1         = pdf->df_cons(v1_id,  k, j, i);
-            Real &dust_m2         = pdf->df_cons(v2_id,  k, j, i);
-            Real &dust_m3         = pdf->df_cons(v3_id,  k, j, i);
+            Real &dust_den        = cons_df(rho_id, k, j, i);
+            Real &dust_m1         = cons_df(v1_id,  k, j, i);
+            Real &dust_m2         = cons_df(v2_id,  k, j, i);
+            Real &dust_m3         = cons_df(v3_id,  k, j, i);
             Real inv_den_dust_ori = 1./dust_den;
 
             dust_den = dust_den*alpha_ori                           + dust_den_0*alpha_dam;
@@ -483,8 +528,9 @@ void OuterWavedamping(MeshBlock *pmb, const Real time, const Real dt,
 }
 
 
-void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt, const AthenaArray<Real> &prim,
-    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons) {
+void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt,
+    const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df,
+    const AthenaArray<Real> &bcc, AthenaArray<Real> &cons, AthenaArray<Real> &cons_df) {
   // Local Isothermal equation of state
   DustFluids *pdf = pmb->pdustfluids;
   Real rad, phi, z, g_v1, g_v2, g_v3;
@@ -500,11 +546,11 @@ void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt, const At
       for (int i=is; i<=ie; ++i) {
         GetCylCoord(pmb->pcoord, rad, phi, z, i, j, k);
 
-        Real &gas_den    = cons(IDN, k, j, i);
-        Real &gas_m1     = cons(IM1, k, j, i);
-        Real &gas_m2     = cons(IM2, k, j, i);
-        Real &gas_m3     = cons(IM3, k, j, i);
-        Real &gas_erg    = cons(IEN, k, j, i);
+        Real &gas_den = cons(IDN, k, j, i);
+        Real &gas_m1  = cons(IM1, k, j, i);
+        Real &gas_m2  = cons(IM2, k, j, i);
+        Real &gas_m3  = cons(IM3, k, j, i);
+        Real &gas_erg = cons(IEN, k, j, i);
 
         // compute the initial density in cylindrical and spherical coordinates
         //gas_den = DenProfileCyl(rad, phi, z);
@@ -522,7 +568,7 @@ void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt, const At
         //Psi = 1.0/((SN + beta_gas)*(SN + 2.0*ks_gas) + SQR(QN));
 
         //GasVelProfileCyl_NSH(SN,       QN,       Psi,       rad, phi, z, g_v1, g_v2, g_v3);
-        ////GasVelProfileCyl_NSH(SN_const, QN_const, Psi_const, rad, phi, z, g_v1, g_v2, g_v3);
+        //GasVelProfileCyl_NSH(SN_const, QN_const, Psi_const, rad, phi, z, g_v1, g_v2, g_v3);
 
         //gas_m1 = gas_den * g_v1;
         //gas_m2 = gas_den * g_v2;
@@ -741,10 +787,15 @@ void InnerX1_NSH(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceF
   Real rad_gh, phi_gh, z_gh, rad_ac, phi_ac, z_ac;
   Real v1_gh,  v2_gh,  v3_gh, df_v1_gh, df_v2_gh, df_v3_gh;
   Real v1_ac,  v2_ac,  v3_ac, df_v1_ac, df_v2_ac, df_v3_ac;
+  Real x1, x2, x3;
 
+  OrbitalVelocityFunc &vK = pmb->porb->OrbitalVelocity;
   for (int k=kl; k<=ku; ++k) {
+    x3 = pco->x3v(k);
     for (int j=jl; j<=ju; ++j) {
+      x2 = pco->x2v(j);
       for (int i=1; i<=ngh; ++i) {
+        x1 = pco->x1v(i);
         GetCylCoord(pco, rad_gh, phi_gh, z_gh, il-i, j, k);
 
         Real &gas_rho_gh    = prim(IDN, k, j, il-i);
@@ -768,6 +819,10 @@ void InnerX1_NSH(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceF
 
         //GasVelProfileCyl_NSH(SN, QN, Psi, rad_gh, phi_gh, z_gh, v1_gh, v2_gh, v3_gh);
         GasVelProfileCyl_NSH(SN_const, QN_const, Psi_const, rad_gh, phi_gh, z_gh, v1_gh, v2_gh, v3_gh);
+        if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+          v2_gh -= vK(pmb->porb, x1, x2, x3);
+        if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+          v3_gh -= vK(pmb->porb, x1, x2, x3);
         gas_v1_gh = v1_gh;
         gas_v2_gh = v2_gh;
         gas_v3_gh = v3_gh;
@@ -794,6 +849,10 @@ void InnerX1_NSH(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceF
                 //df_v1_gh, df_v2_gh, df_v3_gh);
             DustVelProfileCyl_NSH(Stokes_number[dust_id], SN_const, QN_const, Psi_const, rad_gh, phi_gh, z_gh,
                 df_v1_gh, df_v2_gh, df_v3_gh);
+            if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+              df_v2_gh -= vK(pmb->porb, x1, x2, x3);
+            if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+              df_v3_gh -= vK(pmb->porb, x1, x2, x3);
 
 						dust_v1_gh = df_v1_gh;
 						dust_v2_gh = df_v2_gh;
@@ -813,10 +872,15 @@ void OuterX1_NSH(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceF
   Real rad_gh, phi_gh, z_gh,  rad_ac,   phi_ac,   z_ac;
   Real v1_gh,  v2_gh,  v3_gh, df_v1_gh, df_v2_gh, df_v3_gh;
   Real v1_ac,  v2_ac,  v3_ac, df_v1_ac, df_v2_ac, df_v3_ac;
+  Real x1, x2, x3;
 
+  OrbitalVelocityFunc &vK = pmb->porb->OrbitalVelocity;
   for (int k=kl; k<=ku; ++k) {
+    x3 = pco->x3v(k);
     for (int j=jl; j<=ju; ++j) {
+      x2 = pco->x2v(j);
       for (int i=1; i<=ngh; ++i) {
+        x1 = pco->x1v(i);
         GetCylCoord(pco, rad_gh, phi_gh, z_gh, iu+i, j, k);
 
         Real &gas_rho_gh    = prim(IDN, k, j, iu+i);
@@ -840,6 +904,10 @@ void OuterX1_NSH(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceF
 
         //GasVelProfileCyl_NSH(SN, QN, Psi, rad_gh, phi_gh, z_gh, v1_gh, v2_gh, v3_gh);
         GasVelProfileCyl_NSH(SN_const, QN_const, Psi_const, rad_gh, phi_gh, z_gh, v1_gh, v2_gh, v3_gh);
+        if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+          v2_gh -= vK(pmb->porb, x1, x2, x3);
+        if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+          v3_gh -= vK(pmb->porb, x1, x2, x3);
         gas_v1_gh = v1_gh;
         gas_v2_gh = v2_gh;
         gas_v3_gh = v3_gh;
@@ -866,6 +934,10 @@ void OuterX1_NSH(MeshBlock *pmb,Coordinates *pco, AthenaArray<Real> &prim, FaceF
                 //df_v1_gh, df_v2_gh, df_v3_gh);
             DustVelProfileCyl_NSH(Stokes_number[dust_id], SN_const, QN_const, Psi_const, rad_gh, phi_gh, z_gh,
                 df_v1_gh, df_v2_gh, df_v3_gh);
+            if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0))
+              df_v2_gh -= vK(pmb->porb, x1, x2, x3);
+            if (pmb->porb->orbital_advection_defined && (std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0))
+              df_v3_gh -= vK(pmb->porb, x1, x2, x3);
 
 						dust_v1_gh = df_v1_gh;
 						dust_v2_gh = df_v2_gh;

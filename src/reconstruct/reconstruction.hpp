@@ -6,7 +6,7 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file reconstruction.hpp
-//  \brief defines class Reconstruction, data and functions for spatial reconstruction
+//! \brief defines class Reconstruction, data and functions for spatial reconstruction
 
 // C headers
 
@@ -21,7 +21,7 @@ class MeshBlock;
 class ParameterInput;
 
 //! \class Reconstruction
-//  \brief member functions implement various spatial reconstruction algorithms
+//! \brief member functions implement various spatial reconstruction algorithms
 
 class Reconstruction {
  public:
@@ -130,41 +130,41 @@ class Reconstruction {
                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
   void DonorCellX1_DustFluids(const int k, const int j, const int il, const int iu,
-                   const AthenaArray<Real> &prim_df,
-                   AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r);
+                             const AthenaArray<Real> &q,
+                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
   void DonorCellX2_DustFluids(const int k, const int j, const int il, const int iu,
-                   const AthenaArray<Real> &prim_df,
-                   AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r);
+                             const AthenaArray<Real> &q,
+                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
   void DonorCellX3_DustFluids(const int k, const int j, const int il, const int iu,
-                   const AthenaArray<Real> &prim_df,
-                   AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r);
+                             const AthenaArray<Real> &q,
+                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
   void PiecewiseLinearX1_DustFluids(const int k, const int j, const int il, const int iu,
-                         const AthenaArray<Real> &prim_df,
-                         AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r);
+                             const AthenaArray<Real> &q,
+                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
   void PiecewiseLinearX2_DustFluids(const int k, const int j, const int il, const int iu,
-                         const AthenaArray<Real> &prim_df,
-                         AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r);
+                             const AthenaArray<Real> &q,
+                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
   void PiecewiseLinearX3_DustFluids(const int k, const int j, const int il, const int iu,
-                         const AthenaArray<Real> &prim_df,
-                         AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r);
+                             const AthenaArray<Real> &q,
+                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
 
-  void PiecewiseParabolicX1_DustFluids(
-      const int k, const int j, const int il, const int iu,
-      const AthenaArray<Real> &prim_df, AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r);
+  void PiecewiseParabolicX1_DustFluids(const int k, const int j, const int il, const int iu,
+                             const AthenaArray<Real> &q,
+                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
-  void PiecewiseParabolicX2_DustFluids(
-      const int k, const int j, const int il, const int iu,
-      const AthenaArray<Real> &prim_df, AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r);
+  void PiecewiseParabolicX2_DustFluids(const int k, const int j, const int il, const int iu,
+                             const AthenaArray<Real> &q,
+                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
-  void PiecewiseParabolicX3_DustFluids(
-      const int k, const int j, const int il, const int iu,
-      const AthenaArray<Real> &prim_df, AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r);
+  void PiecewiseParabolicX3_DustFluids(const int k, const int j, const int il, const int iu,
+                             const AthenaArray<Real> &q,
+                             AthenaArray<Real> &ql, AthenaArray<Real> &qr);
 
  private:
   MeshBlock* pmy_block_;  // ptr to MeshBlock containing this Reconstruction

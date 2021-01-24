@@ -3,7 +3,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//  \brief functions to calculate viscous stresses
+//! \file viscosity.cpp
+//! \brief functions to calculate viscous stresses
 
 // C headers
 
@@ -20,7 +21,7 @@
 
 //----------------------------------------------------------------------------------------
 //! \fn void HydroDiffusion::ViscousFluxIso
-//  \brief Calculate isotropic viscous stress as fluxes
+//! \brief Calculate isotropic viscous stress as fluxes
 
 void GetCylCoord(Coordinates *pco,Real &rad,Real &phi,Real &z,int i,int j,int k);
 
@@ -371,7 +372,9 @@ void HydroDiffusion::ViscousFluxAlpha(const AthenaArray<Real> &prim,
   return;
 }
 //-------------------------------------------------------------------------------------
-// Calculate divergence of momenta
+//! \fn void HydroDiffusion::DivVelocity(const AthenaArray<Real> &prim,
+//!                                 AthenaArray<Real> &div_vel)
+//! \brief Calculate divergence of momenta
 
 void HydroDiffusion::DivVelocity(const AthenaArray<Real> &prim,
                                  AthenaArray<Real> &div_vel) {
@@ -646,7 +649,7 @@ void HydroDiffusion::FaceZdz(const int k, const int j, const int il, const int i
 
 //----------------------------------------------------------------------------------------
 //! \fn void HydroDiffusion::ViscousFluxAniso
-//  \brief Calculate anisotropic viscous stress as fluxes
+//! \brief Calculate anisotropic viscous stress as fluxes
 
 void HydroDiffusion::ViscousFluxAniso(const AthenaArray<Real> &prim,
                                       const AthenaArray<Real> &cons,
@@ -655,7 +658,7 @@ void HydroDiffusion::ViscousFluxAniso(const AthenaArray<Real> &prim,
 }
 
 //----------------------------------------------------------------------------------------
-// constant viscosity
+//! constant viscosity
 
 void ConstViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,
                     const AthenaArray<Real> &bcc, int is, int ie, int js, int je,

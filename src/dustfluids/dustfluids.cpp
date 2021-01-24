@@ -4,7 +4,7 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file dustfluids.cpp
-//  \brief implementation of functions in class DustFluids
+//! \brief implementation of functions in class DustFluids
 
 // C headers
 
@@ -32,27 +32,27 @@ class DustFluidsDiffusion;
 class DustGasDrag;
 class DustFluidsSourceTerms;
 
-// constructor, initializes data structures and parameters
+//! constructor, initializes data structures and parameters
 DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   pmy_block(pmb), pco_(pmb->pcoord),
-  df_cons(num_dust_var,    pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons1(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons_bs(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_cons_as(num_dust_var, pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_prim(num_dust_var,    pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_prim1(num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_prim_n(num_dust_var,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
-  df_flux{{num_dust_var,   pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
-            {num_dust_var, pmb->ncells3, pmb->ncells2+1, pmb->ncells1,
+  df_cons(NDUSTVAR,    pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons1(NDUSTVAR,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons_bs(NDUSTVAR, pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_cons_as(NDUSTVAR, pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim(NDUSTVAR,    pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim1(NDUSTVAR,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_prim_n(NDUSTVAR,  pmb->ncells3, pmb->ncells2, pmb->ncells1),
+  df_flux{{NDUSTVAR,   pmb->ncells3, pmb->ncells2, pmb->ncells1+1},
+            {NDUSTVAR, pmb->ncells3, pmb->ncells2+1, pmb->ncells1,
             (pmb->pmy_mesh->f2 ? AthenaArray<Real>::DataStatus::allocated :
             AthenaArray<Real>::DataStatus::empty)},
-            {num_dust_var, pmb->ncells3+1, pmb->ncells2, pmb->ncells1,
+            {NDUSTVAR, pmb->ncells3+1, pmb->ncells2, pmb->ncells1,
             (pmb->pmy_mesh->f3 ? AthenaArray<Real>::DataStatus::allocated :
             AthenaArray<Real>::DataStatus::empty)}},
-  coarse_df_cons_(num_dust_var, pmb->ncc3, pmb->ncc2, pmb->ncc1,
+  coarse_df_cons_(NDUSTVAR, pmb->ncc3, pmb->ncc2, pmb->ncc1,
             (pmb->pmy_mesh->multilevel ? AthenaArray<Real>::DataStatus::allocated :
              AthenaArray<Real>::DataStatus::empty)),
-  coarse_df_prim_(num_dust_var, pmb->ncc3, pmb->ncc2, pmb->ncc1,
+  coarse_df_prim_(NDUSTVAR, pmb->ncc3, pmb->ncc2, pmb->ncc1,
             (pmb->pmy_mesh->multilevel ? AthenaArray<Real>::DataStatus::allocated :
              AthenaArray<Real>::DataStatus::empty)),
   stopping_time_array(NDUSTFLUIDS,   pmb->ncells3, pmb->ncells2, pmb->ncells1),
@@ -97,8 +97,8 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   // Allocate optional dustfluids variable memory registers for time-integrator
   if (pmb->precon->xorder == 4) {
     // fourth-order cell-centered approximations
-    df_cons_cc.NewAthenaArray(num_dust_var, nc3, nc2, nc1);
-    df_prim_cc.NewAthenaArray(num_dust_var, nc3, nc2, nc1);
+    df_cons_cc.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
+    df_prim_cc.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
   }
 
   // If user-requested time integrator is type 3S*, allocate additional memory registers
@@ -106,26 +106,42 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
 
   if (integrator == "ssprk5_4" || STS_ENABLED)
     // future extension may add "int nregister" to Hydro class
-    df_cons2.NewAthenaArray(num_dust_var, nc3, nc2, nc1);
+    df_cons2.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
+
+  // If STS RKL2, allocate additional memory registers
+  if (STS_ENABLED) {
+    std::string sts_integrator = pin->GetOrAddString("time", "sts_integrator", "rkl1");
+    if (sts_integrator == "rkl2") {
+      df_cons0.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
+      df_cons_fl_div.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
+    }
+  }
 
   // "Enroll" in SMR/AMR by adding to vector of pointers in MeshRefinement class
   if (pm->multilevel) {
     refinement_idx = pmy_block->pmr->AddToRefinement(&df_cons, &coarse_df_cons_);
   }
 
-  // enroll CellCenteredBoundaryVariable object
+  // enroll DustFluidsBoundaryVariable object
   dfbvar.bvar_index = pmb->pbval->bvars.size();
   pmb->pbval->bvars.push_back(&dfbvar);
   pmb->pbval->bvars_main_int.push_back(&dfbvar);
+
+  if (STS_ENABLED) {
+    if (dfdif.dustfluids_diffusion_defined) {
+      pmb->pbval->bvars_sts.push_back(&dfbvar);
+    }
+  }
+
 
   // Allocate memory for scratch arrays
   dt1_.NewAthenaArray(nc1);
   dt2_.NewAthenaArray(nc1);
   dt3_.NewAthenaArray(nc1);
   //dx_df_prim_.NewAthenaArray(nc1);
-  df_prim_l_.NewAthenaArray(num_dust_var,  nc1);
-  df_prim_r_.NewAthenaArray(num_dust_var,  nc1);
-  df_prim_lb_.NewAthenaArray(num_dust_var, nc1);
+  df_prim_l_.NewAthenaArray(NDUSTVAR,  nc1);
+  df_prim_r_.NewAthenaArray(NDUSTVAR,  nc1);
+  df_prim_lb_.NewAthenaArray(NDUSTVAR, nc1);
   x1face_area_.NewAthenaArray(nc1+1);
 
   if (pm->f2) {
@@ -138,15 +154,15 @@ DustFluids::DustFluids(MeshBlock *pmb, ParameterInput *pin)  :
   }
 
   cell_volume_.NewAthenaArray(nc1);
-  dflx_.NewAthenaArray(num_dust_var, nc1);
+  dflx_.NewAthenaArray(NDUSTVAR, nc1);
 
   // fourth-order integration scheme
   if (pmb->precon->xorder == 4) {
     // 4D scratch arrays
-    df_prim_l3d_.NewAthenaArray(num_dust_var, nc3, nc2, nc1);
-    df_prim_r3d_.NewAthenaArray(num_dust_var, nc3, nc2, nc1);
-    scr1_nkji_.NewAthenaArray(num_dust_var,   nc3, nc2, nc1);
-    scr2_nkji_.NewAthenaArray(num_dust_var,   nc3, nc2, nc1);
+    df_prim_l3d_.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
+    df_prim_r3d_.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
+    scr1_nkji_.NewAthenaArray(NDUSTVAR,   nc3, nc2, nc1);
+    scr2_nkji_.NewAthenaArray(NDUSTVAR,   nc3, nc2, nc1);
     // store all face-centered mass fluxes (all 3x coordinate directions) from Hydro:
 
     // 1D scratch arrays
@@ -177,9 +193,9 @@ void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, 
 void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
             const int il, const int iu, const AthenaArray<Real> internal_density,
             const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df, AthenaArray<Real> &stopping_time){
-  //Real rad, phi, z;
-  //Real inv_gm0 = 1.0/dfsrc.gm_;
-  Real inv_Omega = 1.0/dfsrc.Omega_0_;
+  Real rad, phi, z;
+  Real inv_gm0 = 1.0/dfsrc.gm_;
+  //Real inv_Omega = 1.0/dfsrc.Omega_0_;
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
@@ -198,14 +214,14 @@ void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int j
           //st_time = dust_rho/internal_density(dust_id);
 
           // Constant Stokes number in disk problems
-          //if ( (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0) ||
-                //std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0) {
-            //dfdif.GetCylCoord(pco_, rad, phi, z, i, j, k);
-            //st_time = internal_density(dust_id)*std::pow(rad, 1.5)*std::pow(inv_gm0, -0.5);
-          //}
+          if ( (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0) ||
+                std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0) {
+            dfdif.GetCylCoord(pco_, rad, phi, z, i, j, k);
+            st_time = internal_density(dust_id)*std::pow(rad, 1.5)*std::pow(inv_gm0, -0.5);
+          }
 
           // NSH equilibrium && Streaming Instability test
-          st_time = internal_density(dust_id)*inv_Omega;
+          //st_time = internal_density(dust_id)*inv_Omega;
 
         }
       }

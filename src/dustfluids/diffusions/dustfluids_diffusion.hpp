@@ -5,9 +5,9 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file DustFluids_diffusion.hpp
-//  \brief defines class DustFluidsDiffusion
-//  Contains data and functions that implement the diffusion processes
+//! \file dustfluids_diffusion.hpp
+//! \brief defines class DustFluidsDiffusion
+//! Contains data and functions that implement the diffusion processes
 
 // C headers
 
@@ -25,7 +25,7 @@ class Coordinates;
 
 
 //! \class DustFluidsDiffusion
-//  \brief data and functions for physical diffusion processes in the DustFluids
+//! \brief data and functions for physical diffusion processes in the DustFluids
 
 class DustFluidsDiffusion {
   public:
@@ -41,8 +41,8 @@ class DustFluidsDiffusion {
 
     // Functions
     // Calculate the diffusion flux
-    void CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &prim_df,
-        const AthenaArray<Real> &cons_df);
+    void CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
+        const AthenaArray<Real> &u, const AthenaArray<Real> &cons_df);
 
     // Add the diffusion flux on df_flux
     void AddDustFluidsDiffusionFlux(AthenaArray<Real> *flux_diff,
@@ -88,7 +88,6 @@ class DustFluidsDiffusion {
       const AthenaArray<Real> &w, AthenaArray<Real> *df_flx);
 
   private:
-    static const int num_dust_var = 4*NDUSTFLUIDS;  // Number of dust variables (rho, v1, v2, v3)*4
     bool              disk_problem;
     DustFluids        *pmy_dustfluids_;             // ptr to DustFluids containing this DustFluidsDiffusion
     MeshBlock         *pmb_;                        // ptr to meshblock containing this DustFluidsDiffusion
@@ -99,6 +98,6 @@ class DustFluidsDiffusion {
     Real r0_;                                       // The length unit of radial direction in disk problem
 
     // functions pointer to calculate spatial dependent coefficients
-    // DustFluidsDiffusionCoeffFunc CalcDustFluidsDiffusivityCoeff_;
+    DustFluidsDiffusionCoeffFunc CalcDustFluidsDiffusivityCoeff_;
 };
 #endif // DUSTFLUIDS_DIFFUSION_HPP_

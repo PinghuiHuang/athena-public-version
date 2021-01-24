@@ -14,7 +14,7 @@ FileMode	io_wrapper.hpp	/^  enum class FileMode {read, write};$/;"	c	class:IOWra
 FormattedTableOutput	outputs.hpp	/^  explicit FormattedTableOutput(OutputParameters oparams) : OutputType(oparams) {}$/;"	f	class:FormattedTableOutput
 FormattedTableOutput	outputs.hpp	/^class FormattedTableOutput : public OutputType {$/;"	c
 GetPosition	io_wrapper.cpp	/^IOWrapperSizeT IOWrapper::GetPosition() {$/;"	f	class:IOWrapper
-H5T_NATIVE_REAL	athena_hdf5.cpp	45;"	d	file:
+H5T_NATIVE_REAL	athena_hdf5.cpp	47;"	d	file:
 HistoryOutput	outputs.hpp	/^  explicit HistoryOutput(OutputParameters oparams) : OutputType(oparams) {}$/;"	f	class:HistoryOutput
 HistoryOutput	outputs.hpp	/^class HistoryOutput : public OutputType {$/;"	c
 IOWrapper	io_wrapper.hpp	/^  IOWrapper() : fh_(nullptr), comm_(MPI_COMM_WORLD) {}$/;"	f	class:IOWrapper
@@ -23,7 +23,7 @@ IsBigEndian	vtk.cpp	/^int IsBigEndian() {$/;"	f
 LoadOutputData	outputs.cpp	/^void OutputType::LoadOutputData(MeshBlock *pmb) {$/;"	f	class:OutputType
 MakeOutputs	outputs.cpp	/^void Outputs::MakeOutputs(Mesh *pm, ParameterInput *pin, bool wtflag) {$/;"	f	class:Outputs
 MakeXDMF	athena_hdf5.cpp	/^void ATHDF5Output::MakeXDMF() {$/;"	f	class:ATHDF5Output
-NHISTORY_VARS	history.cpp	38;"	d	file:
+NHISTORY_VARS	history.cpp	39;"	d	file:
 OUTPUTS_IO_WRAPPER_HPP_	io_wrapper.hpp	2;"	d
 OUTPUTS_OUTPUTS_HPP_	outputs.hpp	2;"	d
 Open	io_wrapper.cpp	/^int IOWrapper::Open(const char* fname, FileMode rw) {$/;"	f	class:IOWrapper
@@ -87,6 +87,7 @@ num_vars_	outputs.hpp	/^  int num_vars_;             \/\/ number of variables in
 nx1	outputs.hpp	/^  int nx1, nx2, nx3;                          \/\/ sizes of MeshBlocks$/;"	m	class:ATHDF5Output
 nx2	outputs.hpp	/^  int nx1, nx2, nx3;                          \/\/ sizes of MeshBlocks$/;"	m	class:ATHDF5Output
 nx3	outputs.hpp	/^  int nx1, nx2, nx3;                          \/\/ sizes of MeshBlocks$/;"	m	class:ATHDF5Output
+orbital_system_output	outputs.hpp	/^  bool orbital_system_output;$/;"	m	struct:OutputParameters
 out_ie	outputs.hpp	/^  int out_is, out_ie, out_js, out_je, out_ks, out_ke;  \/\/ OutputData array start\/end index$/;"	m	class:OutputType
 out_is	outputs.hpp	/^  int out_is, out_ie, out_js, out_je, out_ks, out_ke;  \/\/ OutputData array start\/end index$/;"	m	class:OutputType
 out_je	outputs.hpp	/^  int out_is, out_ie, out_js, out_je, out_ks, out_ke;  \/\/ OutputData array start\/end index$/;"	m	class:OutputType

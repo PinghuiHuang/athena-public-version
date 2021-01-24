@@ -12,7 +12,7 @@ CalcViscCoeff_	hydro_diffusion.hpp	/^  ViscosityCoeffFunc CalcViscCoeff_;$/;"	m	
 ClearFlux	hydro_diffusion.cpp	/^void HydroDiffusion::ClearFlux(AthenaArray<Real> *flux) {$/;"	f	class:HydroDiffusion
 ConstConduction	conduction.cpp	/^void ConstConduction(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,$/;"	f
 ConstViscosity	viscosity.cpp	/^void ConstViscosity(HydroDiffusion *phdif, MeshBlock *pmb, const AthenaArray<Real> &prim,$/;"	f
-DiffProcess	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2};$/;"	g	class:HydroDiffusion
+DiffProcess	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, alpha=1, aniso=2};$/;"	g	class:HydroDiffusion
 DivVelocity	viscosity.cpp	/^void HydroDiffusion::DivVelocity(const AthenaArray<Real> &prim,$/;"	f	class:HydroDiffusion
 FaceXdx	viscosity.cpp	/^void HydroDiffusion::FaceXdx(const int k, const int j, const int il, const int iu,$/;"	f	class:HydroDiffusion
 FaceXdy	viscosity.cpp	/^void HydroDiffusion::FaceXdy(const int k, const int j, const int il, const int iu,$/;"	f	class:HydroDiffusion
@@ -34,9 +34,9 @@ ThermalFluxIso	conduction.cpp	/^void HydroDiffusion::ThermalFluxIso($/;"	f	class
 ViscousFluxAlpha	viscosity.cpp	/^void HydroDiffusion::ViscousFluxAlpha(const AthenaArray<Real> &prim,$/;"	f	class:HydroDiffusion
 ViscousFluxAniso	viscosity.cpp	/^void HydroDiffusion::ViscousFluxAniso(const AthenaArray<Real> &prim,$/;"	f	class:HydroDiffusion
 ViscousFluxIso	viscosity.cpp	/^void HydroDiffusion::ViscousFluxIso(const AthenaArray<Real> &prim,$/;"	f	class:HydroDiffusion
-alpha	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2};$/;"	e	enum:HydroDiffusion::DiffProcess
+alpha	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, alpha=1, aniso=2};$/;"	e	enum:HydroDiffusion::DiffProcess
 alpha_disk_model	hydro_diffusion.hpp	/^  bool alpha_disk_model;           \/\/ true or false$/;"	m	class:HydroDiffusion
-aniso	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2};$/;"	e	enum:HydroDiffusion::DiffProcess
+aniso	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, alpha=1, aniso=2};$/;"	e	enum:HydroDiffusion::DiffProcess
 cndflx	hydro_diffusion.hpp	/^  AthenaArray<Real> cndflx[3]; \/\/ thermal stress tensor$/;"	m	class:HydroDiffusion
 div_vel_	hydro_diffusion.hpp	/^  AthenaArray<Real> div_vel_; \/\/ divergence of velocity$/;"	m	class:HydroDiffusion
 dx1_	hydro_diffusion.hpp	/^  AthenaArray<Real> dx1_, dx2_, dx3_;$/;"	m	class:HydroDiffusion
@@ -46,7 +46,7 @@ fx_	hydro_diffusion.hpp	/^  AthenaArray<Real> fx_, fy_, fz_;$/;"	m	class:HydroDi
 fy_	hydro_diffusion.hpp	/^  AthenaArray<Real> fx_, fy_, fz_;$/;"	m	class:HydroDiffusion
 fz_	hydro_diffusion.hpp	/^  AthenaArray<Real> fx_, fy_, fz_;$/;"	m	class:HydroDiffusion
 hydro_diffusion_defined	hydro_diffusion.hpp	/^  bool hydro_diffusion_defined;    \/\/ true or false$/;"	m	class:HydroDiffusion
-iso	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, aniso=1, alpha=2};$/;"	e	enum:HydroDiffusion::DiffProcess
+iso	hydro_diffusion.hpp	/^  enum DiffProcess {iso=0, alpha=1, aniso=2};$/;"	e	enum:HydroDiffusion::DiffProcess
 kappa	hydro_diffusion.hpp	/^  AthenaArray<Real> kappa;     \/\/ conduction array$/;"	m	class:HydroDiffusion
 kappa_aniso	hydro_diffusion.hpp	/^  Real kappa_iso, kappa_aniso; \/\/ thermal conduction coeff$/;"	m	class:HydroDiffusion
 kappa_iso	hydro_diffusion.hpp	/^  Real kappa_iso, kappa_aniso; \/\/ thermal conduction coeff$/;"	m	class:HydroDiffusion

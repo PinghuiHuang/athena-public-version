@@ -10,9 +10,12 @@ AddCoordTermsDivergence	gr_user.cpp	/^void GRUser::AddCoordTermsDivergence(const
 AddCoordTermsDivergence	kerr-schild.cpp	/^void KerrSchild::AddCoordTermsDivergence($/;"	f	class:KerrSchild
 AddCoordTermsDivergence	schwarzschild.cpp	/^void Schwarzschild::AddCoordTermsDivergence($/;"	f	class:Schwarzschild
 AddCoordTermsDivergence	spherical_polar.cpp	/^void SphericalPolar::AddCoordTermsDivergence(const Real dt, const AthenaArray<Real> *flux,$/;"	f	class:SphericalPolar
-AddCoordTermsDivergence_DustFluids	coordinates.cpp	/^void Coordinates::AddCoordTermsDivergence_DustFluids($/;"	f	class:Coordinates
-AddCoordTermsDivergence_DustFluids	cylindrical.cpp	/^void Cylindrical::AddCoordTermsDivergence_DustFluids($/;"	f	class:Cylindrical
-AddCoordTermsDivergence_DustFluids	spherical_polar.cpp	/^void SphericalPolar::AddCoordTermsDivergence_DustFluids(const Real dt, const AthenaArray<Real> *df_flx,$/;"	f	class:SphericalPolar
+AddCoordTermsDivergenceDustFluids	coordinates.cpp	/^void Coordinates::AddCoordTermsDivergenceDustFluids($/;"	f	class:Coordinates
+AddCoordTermsDivergenceDustFluids	cylindrical.cpp	/^void Cylindrical::AddCoordTermsDivergenceDustFluids($/;"	f	class:Cylindrical
+AddCoordTermsDivergenceDustFluids	spherical_polar.cpp	/^void SphericalPolar::AddCoordTermsDivergenceDustFluids(const Real dt, const AthenaArray<Real> *df_flx,$/;"	f	class:SphericalPolar
+AddCoordTermsDivergence_STS	coordinates.cpp	/^void Coordinates::AddCoordTermsDivergence_STS($/;"	f	class:Coordinates
+AddCoordTermsDivergence_STS	cylindrical.cpp	/^void Cylindrical::AddCoordTermsDivergence_STS($/;"	f	class:Cylindrical
+AddCoordTermsDivergence_STS	spherical_polar.cpp	/^void SphericalPolar::AddCoordTermsDivergence_STS(const Real dt, int stage,$/;"	f	class:SphericalPolar
 COORDINATES_COORDINATES_HPP_	coordinates.hpp	2;"	d
 CalculateTransformation	gr_user.cpp	/^void CalculateTransformation($/;"	f	namespace:__anon2
 Cartesian	cartesian.cpp	/^Cartesian::Cartesian(MeshBlock *pmb, ParameterInput *pin, bool flag)$/;"	f	class:Cartesian
@@ -309,6 +312,8 @@ final	coordinates.hpp	/^                     AthenaArray<Real> &u) final;$/;"	m	
 final	coordinates.hpp	/^                     AthenaArray<Real> &u) final;$/;"	m	class:KerrSchild
 final	coordinates.hpp	/^                     AthenaArray<Real> &u) final;$/;"	m	class:Schwarzschild
 final	coordinates.hpp	/^                     AthenaArray<Real> &u) final;$/;"	m	class:SphericalPolar
+final	coordinates.hpp	/^                     AthenaArray<Real> &u, AthenaArray<Real> &flux_div) final;$/;"	m	class:Cylindrical
+final	coordinates.hpp	/^                     AthenaArray<Real> &u, AthenaArray<Real> &flux_div) final;$/;"	m	class:SphericalPolar
 final	coordinates.hpp	/^                     const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df) final;$/;"	m	class:Cylindrical
 final	coordinates.hpp	/^                     const AthenaArray<Real> &prim_df, AthenaArray<Real> &cons_df) final;$/;"	m	class:SphericalPolar
 final	coordinates.hpp	/^                    AthenaArray<Real> &dx1) final;$/;"	m	class:GRUser

@@ -1,0 +1,115 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CalculateOrbitalAdvectionCC	calculate_orbital_advection.cpp	/^void OrbitalAdvection::CalculateOrbitalAdvectionCC(const Real dt,$/;"	f	class:OrbitalAdvection
+CalculateOrbitalAdvectionFC	calculate_orbital_advection.cpp	/^void OrbitalAdvection::CalculateOrbitalAdvectionFC(const Real dt, EdgeField &e) {$/;"	f	class:OrbitalAdvection
+CartOrbitalVelocity	default_orbital_velocity.cpp	/^Real CartOrbitalVelocity(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+CartOrbitalVelocity_x	default_orbital_velocity.cpp	/^Real CartOrbitalVelocity_x(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+ConvertOrbitalSystem	orbital_system_conversion.cpp	/^void OrbitalAdvection::ConvertOrbitalSystem(const AthenaArray<Real> &w0,$/;"	f	class:OrbitalAdvection
+ConvertOrbitalSystemDustFluids	orbital_system_conversion.cpp	/^void OrbitalAdvection::ConvertOrbitalSystemDustFluids(const int dust_id, const AthenaArray<Real> &df_prim0,$/;"	f	class:OrbitalAdvection
+CylOrbitalVelocity2D	default_orbital_velocity.cpp	/^Real CylOrbitalVelocity2D(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+CylOrbitalVelocity2D_r	default_orbital_velocity.cpp	/^Real CylOrbitalVelocity2D_r(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+CylOrbitalVelocity3D	default_orbital_velocity.cpp	/^Real CylOrbitalVelocity3D(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+CylOrbitalVelocity3D_r	default_orbital_velocity.cpp	/^Real CylOrbitalVelocity3D_r(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+CylOrbitalVelocity3D_z	default_orbital_velocity.cpp	/^Real CylOrbitalVelocity3D_z(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+InitializeOrbitalAdvection	orbital_advection.cpp	/^void OrbitalAdvection::InitializeOrbitalAdvection() {$/;"	f	class:OrbitalAdvection
+NewOrbitalAdvectionDt	orbital_advection.cpp	/^Real OrbitalAdvection::NewOrbitalAdvectionDt() {$/;"	f	class:OrbitalAdvection
+ORBITAL_ADVECTION_ORBITAL_ADVECTION_HPP_	orbital_advection.hpp	2;"	d
+Omega0	orbital_advection.hpp	/^  Real Omega0, qshear, shboxcoord; \/\/ parameters for shearing box in cartesian$/;"	m	class:OrbitalTransform::OrbitalAdvection
+OrbitalAdvection	orbital_advection.cpp	/^OrbitalAdvection::OrbitalAdvection(MeshBlock *pmb, ParameterInput *pin)$/;"	f	class:OrbitalAdvection
+OrbitalAdvection	orbital_advection.hpp	/^class OrbitalAdvection{$/;"	c	class:OrbitalTransform
+OrbitalTransform	orbital_advection.hpp	/^enum class OrbitalTransform {none=0, prim=1, cons=2, all=3};$/;"	c
+OrbitalVelocity	orbital_advection.hpp	/^  OrbitalVelocityFunc OrbitalVelocity, OrbitalVelocityDerivative[2];$/;"	m	class:OrbitalTransform::OrbitalAdvection
+OrbitalVelocityDerivative	orbital_advection.hpp	/^  OrbitalVelocityFunc OrbitalVelocity, OrbitalVelocityDerivative[2];$/;"	m	class:OrbitalTransform::OrbitalAdvection
+RemapFluxPlm	orbital_remapping.cpp	/^void OrbitalAdvection::RemapFluxPlm(AthenaArray<Real> &pflux_,$/;"	f	class:OrbitalAdvection
+RemapFluxPpm	orbital_remapping.cpp	/^void OrbitalAdvection::RemapFluxPpm(AthenaArray<Real> &pflux_,$/;"	f	class:OrbitalAdvection
+ResetOrbitalSystemConversionFlag	orbital_system_conversion.cpp	/^void OrbitalAdvection::ResetOrbitalSystemConversionFlag() {$/;"	f	class:OrbitalAdvection
+SetDvKc	orbital_advection.cpp	/^void OrbitalAdvection::SetDvKc() {$/;"	f	class:OrbitalAdvection
+SetOrbitalAdvectionCC	set_orbital_advection.cpp	/^void OrbitalAdvection::SetOrbitalAdvectionCC(const AthenaArray<Real> &u,$/;"	f	class:OrbitalAdvection
+SetOrbitalAdvectionFC	set_orbital_advection.cpp	/^void OrbitalAdvection::SetOrbitalAdvectionFC(const FaceField &b) {$/;"	f	class:OrbitalAdvection
+SetOrbitalEdgeCC	set_orbital_advection.cpp	/^void OrbitalAdvection::SetOrbitalEdgeCC(const Real dt, int *ssize[2], int *rsize[2]) {$/;"	f	class:OrbitalAdvection
+SetOrbitalEdgeFC	set_orbital_advection.cpp	/^void OrbitalAdvection::SetOrbitalEdgeFC(const Real dt, int *ssize[2], int *rsize[2]) {$/;"	f	class:OrbitalAdvection
+SetVKc	orbital_advection.cpp	/^void OrbitalAdvection::SetVKc() {$/;"	f	class:OrbitalAdvection
+SetVKcCoarse	orbital_advection.cpp	/^void OrbitalAdvection::SetVKcCoarse() {$/;"	f	class:OrbitalAdvection
+SetVKf	orbital_advection.cpp	/^void OrbitalAdvection::SetVKf() {$/;"	f	class:OrbitalAdvection
+SetVKfCoarse	orbital_advection.cpp	/^void OrbitalAdvection::SetVKfCoarse() {$/;"	f	class:OrbitalAdvection
+SphOrbitalVelocity	default_orbital_velocity.cpp	/^Real SphOrbitalVelocity(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+SphOrbitalVelocity_r	default_orbital_velocity.cpp	/^Real SphOrbitalVelocity_r(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+SphOrbitalVelocity_t	default_orbital_velocity.cpp	/^Real SphOrbitalVelocity_t(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+ZeroOrbitalVelocity	default_orbital_velocity.cpp	/^Real ZeroOrbitalVelocity(OrbitalAdvection *porb, Real x_, Real y_, Real z_) {$/;"	f
+all	orbital_advection.hpp	/^enum class OrbitalTransform {none=0, prim=1, cons=2, all=3};$/;"	m	class:OrbitalTransform
+b1_coarse_send	orbital_advection.hpp	/^  AthenaArray<Real> b1_coarse_send, b2_coarse_send;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+b2_coarse_send	orbital_advection.hpp	/^  AthenaArray<Real> b1_coarse_send, b2_coarse_send;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+b_coarse_recv	orbital_advection.hpp	/^  FaceField b_temp, b_coarse_recv;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+b_temp	orbital_advection.hpp	/^  FaceField b_temp, b_coarse_recv;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+cons	orbital_advection.hpp	/^enum class OrbitalTransform {none=0, prim=1, cons=2, all=3};$/;"	m	class:OrbitalTransform
+d_src	orbital_advection.hpp	/^  AthenaArray<Real> s_src[5], d_src[13]; \/\/ s_src for deep copy, d_src for shallow copy$/;"	m	class:OrbitalTransform::OrbitalAdvection
+df_cons_coarse_recv	orbital_advection.hpp	/^  AthenaArray<Real> df_cons_coarse_send, df_cons_coarse_recv, df_cons_temp;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+df_cons_coarse_send	orbital_advection.hpp	/^  AthenaArray<Real> df_cons_coarse_send, df_cons_coarse_recv, df_cons_temp;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+df_cons_orb	orbital_advection.hpp	/^  AthenaArray<Real> df_prim_orb, df_cons_orb; \/\/ buffer for orbital advection system output for dust fluids$/;"	m	class:OrbitalTransform::OrbitalAdvection
+df_cons_temp	orbital_advection.hpp	/^  AthenaArray<Real> df_cons_coarse_send, df_cons_coarse_recv, df_cons_temp;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+df_prim_orb	orbital_advection.hpp	/^  AthenaArray<Real> df_prim_orb, df_cons_orb; \/\/ buffer for orbital advection system output for dust fluids$/;"	m	class:OrbitalTransform::OrbitalAdvection
+dfbuf	orbital_advection.hpp	/^  AthenaArray<Real> dfbuf;    \/\/ pencil buffer for shallow copy for dust fluids calculation$/;"	m	class:OrbitalTransform::OrbitalAdvection
+dvKc1	orbital_advection.hpp	/^  AthenaArray<Real> dvKc1, dvKc2;  \/\/ Derivatives of vKc$/;"	m	class:OrbitalTransform::OrbitalAdvection
+dvKc2	orbital_advection.hpp	/^  AthenaArray<Real> dvKc1, dvKc2;  \/\/ Derivatives of vKc$/;"	m	class:OrbitalTransform::OrbitalAdvection
+dx	orbital_advection.hpp	/^  Real dx;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+gm	orbital_advection.hpp	/^  Real gm;                         \/\/ central gravity in cylindrical\/spherical_polar$/;"	m	class:OrbitalTransform::OrbitalAdvection
+hbuf	orbital_advection.hpp	/^  AthenaArray<Real> hbuf;     \/\/ pencil buffer for shallow copy for hydro calculation$/;"	m	class:OrbitalTransform::OrbitalAdvection
+max_ofc_coarse	orbital_advection.hpp	/^  int max_ofc_coarse, min_ofc_coarse;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+max_off_coarse	orbital_advection.hpp	/^  int max_off_coarse, min_off_coarse;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+min_dt	orbital_advection.hpp	/^  Real min_dt;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+min_ofc_coarse	orbital_advection.hpp	/^  int max_ofc_coarse, min_ofc_coarse;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+min_off_coarse	orbital_advection.hpp	/^  int max_off_coarse, min_off_coarse;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+nc1	orbital_advection.hpp	/^  int nc1, nc2, nc3;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+nc2	orbital_advection.hpp	/^  int nc1, nc2, nc3;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+nc3	orbital_advection.hpp	/^  int nc1, nc2, nc3;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+none	orbital_advection.hpp	/^enum class OrbitalTransform {none=0, prim=1, cons=2, all=3};$/;"	m	class:OrbitalTransform
+ofc	orbital_advection.hpp	/^  AthenaArray<int>  ofc, off[2]; \/\/ orbital offset of cell-centered values$/;"	m	class:OrbitalTransform::OrbitalAdvection
+ofc_coarse	orbital_advection.hpp	/^  AthenaArray<int>  ofc_coarse, off_coarse[2];$/;"	m	class:OrbitalTransform::OrbitalAdvection
+off	orbital_advection.hpp	/^  AthenaArray<int>  ofc, off[2]; \/\/ orbital offset of cell-centered values$/;"	m	class:OrbitalTransform::OrbitalAdvection
+off_coarse	orbital_advection.hpp	/^  AthenaArray<int>  ofc_coarse, off_coarse[2];$/;"	m	class:OrbitalTransform::OrbitalAdvection
+onx	orbital_advection.hpp	/^  int onx;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orb_bc	orbital_advection.hpp	/^  OrbitalBoundaryCommunication *orb_bc;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_advection_active	orbital_advection.hpp	/^  bool orbital_advection_active;  \/\/!> flag for solving orbital advection$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_advection_defined	orbital_advection.hpp	/^  bool orbital_advection_defined; \/\/!> flag for the orbital advection system$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_b1	orbital_advection.hpp	/^  AthenaArray<Real> orbital_b1,   orbital_b2;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_b2	orbital_advection.hpp	/^  AthenaArray<Real> orbital_b1,   orbital_b2;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_cons	orbital_advection.hpp	/^  AthenaArray<Real> orbital_cons, orbital_df_cons;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_df_cons	orbital_advection.hpp	/^  AthenaArray<Real> orbital_cons, orbital_df_cons;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_direction	orbital_advection.hpp	/^  int  orbital_direction;         \/\/!> the direction of orbital motion x2(=1), x3 (=2)$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_refinement	orbital_advection.hpp	/^  bool orbital_refinement;        \/\/!> flag for refinement in the orbital direction$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_splitting_order	orbital_advection.hpp	/^  int  orbital_splitting_order;   \/\/!> order of the orbital splitting method$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_system_conversion_done	orbital_advection.hpp	/^  int orbital_system_conversion_done; \/\/$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orbital_uniform_mesh	orbital_advection.hpp	/^  bool orbital_uniform_mesh;      \/\/!> true: uniform grid, false: un-uniform grid$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orc	orbital_advection.hpp	/^  AthenaArray<Real> orc, orf[2]; \/\/ orbital residual of cell-centered values$/;"	m	class:OrbitalTransform::OrbitalAdvection
+orf	orbital_advection.hpp	/^  AthenaArray<Real> orc, orf[2]; \/\/ orbital residual of cell-centered values$/;"	m	class:OrbitalTransform::OrbitalAdvection
+pbval_	orbital_advection.hpp	/^  BoundaryValues *pbval_; \/\/ ptr to Boundaryvalues$/;"	m	class:OrbitalTransform::OrbitalAdvection
+pco_	orbital_advection.hpp	/^  Coordinates    *pco_;   \/\/ ptr to Coordinates$/;"	m	class:OrbitalTransform::OrbitalAdvection
+pdf_	orbital_advection.hpp	/^  DustFluids     *pdf_;   \/\/ ptr to DustFluids$/;"	m	class:OrbitalTransform::OrbitalAdvection
+pf_	orbital_advection.hpp	/^  Field          *pf_;    \/\/ ptr to Field$/;"	m	class:OrbitalTransform::OrbitalAdvection
+pflux	orbital_advection.hpp	/^  AthenaArray<Real> pflux;    \/\/ pencil buffer for flux$/;"	m	class:OrbitalTransform::OrbitalAdvection
+pflux_df	orbital_advection.hpp	/^  AthenaArray<Real> pflux_df; \/\/ pencil buffer for flux (dust fluids)$/;"	m	class:OrbitalTransform::OrbitalAdvection
+ph_	orbital_advection.hpp	/^  Hydro          *ph_;    \/\/ ptr to Hydro$/;"	m	class:OrbitalTransform::OrbitalAdvection
+pm_	orbital_advection.hpp	/^  Mesh           *pm_;    \/\/ ptr to Mesh$/;"	m	class:OrbitalTransform::OrbitalAdvection
+pmb_	orbital_advection.hpp	/^  MeshBlock      *pmb_;   \/\/ ptr to this meshblock$/;"	m	class:OrbitalTransform::OrbitalAdvection
+prim	orbital_advection.hpp	/^enum class OrbitalTransform {none=0, prim=1, cons=2, all=3};$/;"	m	class:OrbitalTransform
+qshear	orbital_advection.hpp	/^  Real Omega0, qshear, shboxcoord; \/\/ parameters for shearing box in cartesian$/;"	m	class:OrbitalTransform::OrbitalAdvection
+s_src	orbital_advection.hpp	/^  AthenaArray<Real> s_src[5], d_src[13]; \/\/ s_src for deep copy, d_src for shallow copy$/;"	m	class:OrbitalTransform::OrbitalAdvection
+shboxcoord	orbital_advection.hpp	/^  Real Omega0, qshear, shboxcoord; \/\/ parameters for shearing box in cartesian$/;"	m	class:OrbitalTransform::OrbitalAdvection
+u_coarse_recv	orbital_advection.hpp	/^  AthenaArray<Real> u_coarse_send, u_coarse_recv, u_temp;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+u_coarse_send	orbital_advection.hpp	/^  AthenaArray<Real> u_coarse_send, u_coarse_recv, u_temp;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+u_orb	orbital_advection.hpp	/^  AthenaArray<Real> w_orb,       u_orb;       \/\/ buffer for orbital advection system output$/;"	m	class:OrbitalTransform::OrbitalAdvection
+u_temp	orbital_advection.hpp	/^  AthenaArray<Real> u_coarse_send, u_coarse_recv, u_temp;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+vK_max	orbital_advection.hpp	/^  Real vK_max, vK_min;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+vK_min	orbital_advection.hpp	/^  Real vK_max, vK_min;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+vKc	orbital_advection.hpp	/^  AthenaArray<Real> vKc,   vKf[2]; \/\/ Orbital Velocity (cell-centered and face)$/;"	m	class:OrbitalTransform::OrbitalAdvection
+vKc_coarse	orbital_advection.hpp	/^  AthenaArray<Real> vKc_coarse, vKf_coarse[2];$/;"	m	class:OrbitalTransform::OrbitalAdvection
+vKf	orbital_advection.hpp	/^  AthenaArray<Real> vKc,   vKf[2]; \/\/ Orbital Velocity (cell-centered and face)$/;"	m	class:OrbitalTransform::OrbitalAdvection
+vKf_coarse	orbital_advection.hpp	/^  AthenaArray<Real> vKc_coarse, vKf_coarse[2];$/;"	m	class:OrbitalTransform::OrbitalAdvection
+w_orb	orbital_advection.hpp	/^  AthenaArray<Real> w_orb,       u_orb;       \/\/ buffer for orbital advection system output$/;"	m	class:OrbitalTransform::OrbitalAdvection
+xgh	orbital_advection.hpp	/^  int xorder, xgh;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+xorder	orbital_advection.hpp	/^  int xorder, xgh;$/;"	m	class:OrbitalTransform::OrbitalAdvection
+~OrbitalAdvection	orbital_advection.cpp	/^OrbitalAdvection::~OrbitalAdvection() {$/;"	f	class:OrbitalAdvection

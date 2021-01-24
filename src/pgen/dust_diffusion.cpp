@@ -76,7 +76,6 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   Real x1, x2, x3; // x2 and x3 are set but unused
   Real rad,z,phi,theta;
 
-  const int num_dust_var = 4*NDUSTFLUIDS;
   //  Initialize density and momenta in Cartesian grids
   if (iprob == 0) { //visc column
     if (nuiso == 0) {

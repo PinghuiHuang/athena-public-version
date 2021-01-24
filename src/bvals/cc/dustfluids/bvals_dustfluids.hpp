@@ -1,12 +1,12 @@
-#ifndef BVALS_CC_DUSTFLUIDS_BVALS_HPP_
-#define BVALS_CC_DUSTFLUIDS_BVALS_HPP_
+#ifndef BVALS_CC_DUSTFLUIDS_BVALS_DUSTFLUIDS_HPP_
+#define BVALS_CC_DUSTFLUIDS_BVALS_DUSTFLUIDS_HPP_
 //========================================================================================
 // Athena++ astrophysical MHD code
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file bvals_dustfluids.hpp
-//  \brief
+//! \brief
 
 // C headers
 
@@ -19,7 +19,7 @@
 
 //----------------------------------------------------------------------------------------
 //! \class CellCenteredBoundaryVariable
-//  \brief
+//! \brief
 
 class DustFluidsBoundaryVariable : public CellCenteredBoundaryVariable {
  public:
@@ -37,7 +37,8 @@ class DustFluidsBoundaryVariable : public CellCenteredBoundaryVariable {
   void AddDustFluidsShearForInit();
   void ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) override;
 
-  // BoundaryPhysics: need to flip sign of velocity vectors for Reflect*()
+  //!@{
+  //! BoundaryPhysics: need to flip sign of velocity vectors for Reflect*()
   void ReflectInnerX1(Real time, Real dt,
                       int il, int jl, int ju, int kl, int ku, int ngh) override;
   void ReflectOuterX1(Real time, Real dt,
@@ -50,11 +51,19 @@ class DustFluidsBoundaryVariable : public CellCenteredBoundaryVariable {
                       int il, int iu, int jl, int ju, int kl, int ngh) override;
   void ReflectOuterX3(Real time, Real dt,
                       int il, int iu, int jl, int ju, int ku, int ngh) override;
+  //!@}
+
   //protected:
  private:
-  // DustFluids is a unique cell-centered variable because of the relationship between
-  // DustFluidsBoundaryQuantity::cons_df and DustFluidsBoundaryQuantity::prim_df.
+  void SetBoundarySameLevel(Real *buf, const NeighborBlock& nb) override;
+  //! DustFluids is a unique cell-centered variable because of the relationship between
+  //! DustFluidsBoundaryQuantity::cons_df and DustFluidsBoundaryQuantity::prim_df.
   DustFluidsBoundaryQuantity dustfluids_type_;
+  int LoadFluxBoundaryBufferSameLevel(Real *buf, const NeighborBlock& nb) final;
+  void SetBoundaryFromCoarser(Real *buf, const NeighborBlock& nb) final;
+  void SetBoundaryFromFiner(Real *buf, const NeighborBlock& nb) final;
+  void PolarWedgeInnerX2( Real time, Real dt, int il, int iu, int jl, int kl, int ku, int ngh) final;
+  void PolarWedgeOuterX2( Real time, Real dt, int il, int iu, int jl, int kl, int ku, int ngh) final;
 };
 
-#endif // BVALS_CC_DUSTFLUIDS_BVALS_HPP_
+#endif // BVALS_CC_DUSTFLUIDS_BVALS_DUSTFLUIDS_HPP_

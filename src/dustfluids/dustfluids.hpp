@@ -5,8 +5,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file dust_fluid.hpp
-//  \brief definitions for DustFluid class
+//! \file dustfluids.hpp
+//! \brief definitions for DustFluid class
 
 // C headers
 
@@ -29,7 +29,7 @@ class DustFluidsDiffusion;
 class DustGasDrag;
 
 //! \class DustFluids
-//  \brief
+//! \brief dust fluids data and functions
 
 class DustFluids {
   friend class EquationOfState;
@@ -42,8 +42,9 @@ class DustFluids {
     // Leaving as ctor parameter in case of run-time "ndustfluids" option
 
     // public data:
-    // "conservative vars" = density, momentums of dust
+    // "conservative vars" = density, momentums of dust fluids
     AthenaArray<Real> df_cons, df_cons1, df_cons2; // time-integrator memory register #1
+    AthenaArray<Real> df_cons0, df_cons_fl_div;    // rkl2 STS memory registers;
     AthenaArray<Real> df_cons_bs, df_cons_as;      // time-integrator memory register before and after explicit sources terms
 
     // "primitive vars" = density, velocities of dust
@@ -66,7 +67,7 @@ class DustFluids {
     AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; // coarse df_cons and coarse df_prim, used in mesh refinement
     int refinement_idx{-1};                             // vector of pointers in MeshRefinement class
 
-    DustFluidsBoundaryVariable dfbvar;  // Dust Fluids boundary variables (Cell-Centered)
+    DustFluidsBoundaryVariable dfbvar;  // Dust Fluids boundary variables Object (Cell-Centered)
     DustGasDrag                dfdrag;  // Object used in calculating the dust-gas drags
     DustFluidsDiffusion        dfdif;   // Object used in calculating the diffusions of dust
     DustFluidsSourceTerms      dfsrc;   // Object used in calculating the source terms of dust
@@ -92,7 +93,9 @@ class DustFluids {
 
     // Calculate dust fluids flux
     void AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> &cons_df); // Add flux divergence
-    void CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &prim_df); // Calculate fluxes of dust fluids
+    void AddDustFluidsFluxDivergence_STS(const Real wght, int stage, AthenaArray<Real> &cons_df_out,
+                                           AthenaArray<Real> &cons_df_fl_div_out); // Add flux divergence
+    void CalculateDustFluidsFluxes(AthenaArray<Real> &prim_df, const int order);   // Calculate fluxes of dust fluids
     void CalculateDustFluidsFluxes_STS(); // Calculate fluxes of dust fluids in super time step
 
     // Riemann Solvers for dust fluids
@@ -120,10 +123,8 @@ class DustFluids {
 
 
   private:
-    // Number of dust variables (rho, v1, v2, v3)*4
-    static const int num_dust_var = 4*NDUSTFLUIDS;
-    Coordinates *pco_;    // ptr to coordinates class
-
+    // ptr to coordinates class
+    Coordinates *pco_;
     // scratch space used to compute fluxes
     // 2D scratch arrays
     AthenaArray<Real> dt1_, dt2_, dt3_;                     // scratch arrays used in NewAdvectionDt
@@ -134,7 +135,7 @@ class DustFluids {
     AthenaArray<Real> x2face_area_p1_, x3face_area_p1_;         // face area in x2, x3 directions
     AthenaArray<Real> cell_volume_;                             // the volume of the cells
     AthenaArray<Real> dflx_;
-    //AthenaArray<Real> dx_df_prim_;
+    // AthenaArray<Real> dx_df_prim_;
 
     // fourth-order
     // 4D scratch arrays

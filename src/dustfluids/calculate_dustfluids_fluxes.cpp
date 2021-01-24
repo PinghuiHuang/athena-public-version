@@ -4,8 +4,9 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file calculate_dust_fluid_fluxes.cpp
-//  \brief Calculate dust fluids fluxes
+//! \brief Calculate dust fluids fluxes
 
+// C headers
 
 // C++ headers
 #include <algorithm>   // min,max
@@ -26,20 +27,12 @@
 #include <omp.h>
 #endif
 
-
 //----------------------------------------------------------------------------------------
 //! \fn  void DustFluids::CalculateFluxes
-//  \brief Calculate dust fluids fluxes using reconstruction + weighted upwinding rule
+//! \brief Calculate dust fluids fluxes using reconstruction + weighted upwinding rule
 
-void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &prim_df) {
+void DustFluids::CalculateDustFluidsFluxes(AthenaArray<Real> &prim_df, const int order) {
   MeshBlock *pmb = pmy_block;
-  // design decision: do not pass Hydro::flux (for mass flux) via function parameters,
-  // since 1) it is unlikely that anything else would be passed, 2) the current
-  // DustFluids class/feature implementation is inherently coupled to Hydro class
-  // 3) high-order calculation of dust fluxes will require other Hydro flux //TODO
-  // approximations (flux_fc in calculate_fluxes.cpp is currently not saved persistently
-  // in Hydro class but each flux dir is temp. stored in 4D scratch array scr1_nkji_)
-
   AthenaArray<Real> &x1flux = df_flux[X1DIR];
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
@@ -53,7 +46,6 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
 
   // set the loop limits
   jl = js, ju = je, kl = ks, ku = ke;
-  // TODO(felker): fix loop limits for fourth-order hydro
   //  if (MAGNETIC_FIELDS_ENABLED) {
   if (pmb->block_size.nx2 > 1) {
     if (pmb->block_size.nx3 == 1) // 2D
@@ -72,7 +64,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         pmb->precon->PiecewiseLinearX1_DustFluids(k, j, is-1, ie+1, prim_df, df_prim_l_, df_prim_r_);
       } else {
         pmb->precon->PiecewiseParabolicX1_DustFluids(k, j, is-1, ie+1, prim_df, df_prim_l_, df_prim_r_);
-        for (int n=0; n<num_dust_var; ++n) {
+        for (int n=0; n<NDUSTVAR; ++n) {
 #pragma omp simd
           for (int i=is; i<=ie+1; ++i) {
             pmb->peos->ApplyDustFluidsFloors(df_prim_l_, n, k, j, i);
@@ -88,10 +80,10 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         HLLENoCsRiemannSolverDustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
 
       if (order == 4) {
-        for (int n=0; n<num_dust_var; n++) {
+        for (int n=0; n<NDUSTVAR; n++) {
           for (int i=is; i<=ie+1; i++) {
-            df_prim_l3d_(n,k,j,i) = df_prim_l_(n,i);
-            df_prim_r3d_(n,k,j,i) = df_prim_r_(n,i);
+            df_prim_l3d_(n, k, j, i) = df_prim_l_(n, i);
+            df_prim_r3d_(n, k, j, i) = df_prim_r_(n, i);
           }
         }
       }
@@ -105,13 +97,13 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
     Real C = (h*h)/24.0;
 
     // construct Laplacian from x1flux
-    pmb->pcoord->LaplacianX1All(x1flux, laplacian_all_fc, 0, num_dust_var-1,
+    pmb->pcoord->LaplacianX1All(x1flux, laplacian_all_fc, 0, NDUSTVAR-1,
         kl, ku, jl, ju, is, ie+1);
 
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
         // Compute Laplacian of x1 face states
-        for (int n=0; n<num_dust_var; ++n) {
+        for (int n=0; n<NDUSTVAR; ++n) {
           pmb->pcoord->LaplacianX1(df_prim_l3d_, laplacian_l_df_fc_, n, k, j, is, ie+1);
           pmb->pcoord->LaplacianX1(df_prim_r3d_, laplacian_r_df_fc_, n, k, j, is, ie+1);
 #pragma omp simd
@@ -130,16 +122,15 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           HLLENoCsRiemannSolverDustFluids(k, j, is, ie+1, 1, df_prim_l_, df_prim_r_, x1flux);
 
         // Apply Laplacian of second-order accurate face-averaged flux on x1 faces
-        for (int n=0; n<num_dust_var; ++n) {
+        for (int n=0; n<NDUSTVAR; ++n) {
 #pragma omp simd
           for (int i=is; i<=ie+1; i++)
-            x1flux(n,k,j,i) = flux_fc(n,k,j,i) + C*laplacian_all_fc(n,k,j,i);
+            x1flux(n, k, j, i) = flux_fc(n, k, j, i) + C*laplacian_all_fc(n, k, j, i);
         }
       }
     }
   } // end if (order == 4)
   //------------------------------------------------------------------------------
-  // end x1 fourth-order hydro
 
   //--------------------------------------------------------------------------------------
   // j-direction
@@ -149,7 +140,6 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
 
     // set the loop limits
     il = is-1, iu = ie+1, kl = ks, ku = ke;
-    // TODO(felker): fix loop limits for fourth-order hydro
     //    if (MAGNETIC_FIELDS_ENABLED) {
     if (pmb->block_size.nx3 == 1) // 2D
       kl = ks, ku = ke;
@@ -165,7 +155,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         pmb->precon->PiecewiseLinearX2_DustFluids(k, js-1, il, iu, prim_df, df_prim_l_, df_prim_r_);
       } else {
         pmb->precon->PiecewiseParabolicX2_DustFluids(k, js-1, il, iu, prim_df, df_prim_l_, df_prim_r_);
-        for (int n=0; n<num_dust_var; ++n) {
+        for (int n=0; n<NDUSTVAR; ++n) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
             pmb->peos->ApplyDustFluidsFloors(df_prim_l_, n, k, js-1, i);
@@ -182,7 +172,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           pmb->precon->PiecewiseLinearX2_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
         } else {
           pmb->precon->PiecewiseParabolicX2_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
-          for (int n=0; n<num_dust_var; ++n) {
+          for (int n=0; n<NDUSTVAR; ++n) {
 #pragma omp simd
             for (int i=il; i<=iu; ++i) {
               pmb->peos->ApplyDustFluidsFloors(df_prim_lb_, n, k, j, i);
@@ -197,10 +187,10 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
 
         if (order == 4) {
-          for (int n=0; n<num_dust_var; n++) {
+          for (int n=0; n<NDUSTVAR; n++) {
             for (int i=il; i<=iu; i++) {
-              df_prim_l3d_(n,k,j,i) = df_prim_l_(n,i);
-              df_prim_r3d_(n,k,j,i) = df_prim_r_(n,i);
+              df_prim_l3d_(n, k, j, i) = df_prim_l_(n, i);
+              df_prim_r3d_(n, k, j, i) = df_prim_r_(n, i);
             }
           }
         }
@@ -216,14 +206,14 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
       Real C = (h*h)/24.0;
 
       // construct Laplacian from x2flux
-      pmb->pcoord->LaplacianX2All(x2flux, laplacian_all_fc, 0, num_dust_var-1,
+      pmb->pcoord->LaplacianX2All(x2flux, laplacian_all_fc, 0, NDUSTVAR-1,
           kl, ku, js, je+1, il, iu);
 
       // Approximate x2 face-centered states
       for (int k=kl; k<=ku; ++k) {
         for (int j=js; j<=je+1; ++j) {
           // Compute Laplacian of x2 face states
-          for (int n=0; n<num_dust_var; ++n) {
+          for (int n=0; n<NDUSTVAR; ++n) {
             pmb->pcoord->LaplacianX2(df_prim_l3d_, laplacian_l_df_fc_, n, k, j, il, iu);
             pmb->pcoord->LaplacianX2(df_prim_r3d_, laplacian_r_df_fc_, n, k, j, il, iu);
 #pragma omp simd
@@ -242,7 +232,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
             HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 2, df_prim_l_, df_prim_r_, x2flux);
 
           // Apply Laplacian of second-order accurate face-averaged flux on x1 faces
-          for (int n=0; n<num_dust_var; ++n) {
+          for (int n=0; n<NDUSTVAR; ++n) {
 #pragma omp simd
             for (int i=il; i<=iu; i++)
               x2flux(n,k,j,i) = flux_fc(n,k,j,i) + C*laplacian_all_fc(n,k,j,i);
@@ -259,8 +249,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
     AthenaArray<Real> &x3flux = df_flux[X3DIR];
 
     // set the loop limits
-    // TODO(felker): fix loop limits for fourth-order hydro
-    //    if (MAGNETIC_FIELDS_ENABLED)
+    // if (MAGNETIC_FIELDS_ENABLED)
     il = is-1, iu = ie+1, jl = js-1, ju = je+1;
 
     for (int j=jl; j<=ju; ++j) { // this loop ordering is intentional
@@ -271,7 +260,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
         pmb->precon->PiecewiseLinearX3_DustFluids(ks-1, j, il, iu, prim_df, df_prim_l_, df_prim_r_);
       } else {
         pmb->precon->PiecewiseParabolicX3_DustFluids(ks-1, j, il, iu, prim_df, df_prim_l_, df_prim_r_);
-        for (int n=0; n<num_dust_var; ++n) {
+        for (int n=0; n<NDUSTVAR; ++n) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
             pmb->peos->ApplyDustFluidsFloors(df_prim_l_, n, ks-1, j, i);
@@ -287,7 +276,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           pmb->precon->PiecewiseLinearX3_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
         } else {
           pmb->precon->PiecewiseParabolicX3_DustFluids(k, j, il, iu, prim_df, df_prim_lb_, df_prim_r_);
-          for (int n=0; n<num_dust_var; ++n) {
+          for (int n=0; n<NDUSTVAR; ++n) {
 #pragma omp simd
             for (int i=il; i<=iu; ++i) {
               pmb->peos->ApplyDustFluidsFloors(df_prim_lb_, n, k, j, i);
@@ -302,10 +291,10 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
           HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
 
         if (order == 4) {
-          for (int n=0; n<num_dust_var; n++) {
+          for (int n=0; n<NDUSTVAR; n++) {
             for (int i=il; i<=iu; i++) {
-              df_prim_l3d_(n,k,j,i) = df_prim_l_(n,i);
-              df_prim_r3d_(n,k,j,i) = df_prim_r_(n,i);
+              df_prim_l3d_(n, k, j, i) = df_prim_l_(n, i);
+              df_prim_r3d_(n, k, j, i) = df_prim_r_(n, i);
             }
           }
         }
@@ -321,20 +310,20 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
       Real C = (h*h)/24.0;
 
       // construct Laplacian from x3flux
-      pmb->pcoord->LaplacianX3All(x3flux, laplacian_all_fc, 0, num_dust_var-1,
+      pmb->pcoord->LaplacianX3All(x3flux, laplacian_all_fc, 0, NDUSTVAR-1,
                                   ks, ke+1, jl, ju, il, iu);
 
       // Approximate x3 face-centered states
       for (int k=ks; k<=ke+1; ++k) {
         for (int j=jl; j<=ju; ++j) {
           // Compute Laplacian of x3 face states
-          for (int n=0; n<num_dust_var; ++n) {
+          for (int n=0; n<NDUSTVAR; ++n) {
             pmb->pcoord->LaplacianX3(df_prim_l3d_, laplacian_l_df_fc_, n, k, j, il, iu);
             pmb->pcoord->LaplacianX3(df_prim_r3d_, laplacian_r_df_fc_, n, k, j, il, iu);
 #pragma omp simd
             for (int i=il; i<=iu; ++i) {
-              df_prim_l_(n,i) = df_prim_l3d_(n,k,j,i) - C*laplacian_l_df_fc_(i);
-              df_prim_r_(n,i) = df_prim_r3d_(n,k,j,i) - C*laplacian_r_df_fc_(i);
+              df_prim_l_(n, i) = df_prim_l3d_(n, k, j, i) - C*laplacian_l_df_fc_(i);
+              df_prim_r_(n, i) = df_prim_r3d_(n, k, j, i) - C*laplacian_r_df_fc_(i);
               pmb->peos->ApplyDustFluidsFloors(df_prim_l_, n, k, j, i);
               pmb->peos->ApplyDustFluidsFloors(df_prim_r_, n, k, j, i);
             }
@@ -347,7 +336,7 @@ void DustFluids::CalculateDustFluidsFluxes(const int order, AthenaArray<Real> &p
             HLLENoCsRiemannSolverDustFluids(k, j, il, iu, 3, df_prim_l_, df_prim_r_, x3flux);
 
           // Apply Laplacian of second-order accurate face-averaged flux on x3 faces
-          for (int n=0; n<num_dust_var; ++n) {
+          for (int n=0; n<NDUSTVAR; ++n) {
 #pragma omp simd
             for (int i=il; i<=iu; i++)
               x3flux(n,k,j,i) = flux_fc(n,k,j,i) + C*laplacian_all_fc(n,k,j,i);

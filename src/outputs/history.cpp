@@ -4,8 +4,8 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file history.cpp
-//  \brief writes history output data, volume-averaged quantities that are output
-//         frequently in time to trace their history.
+//! \brief writes history output data, volume-averaged quantities that are output
+//!        frequently in time to trace their history.
 
 // C headers
 
@@ -29,20 +29,21 @@
 #include "../gravity/gravity.hpp"
 #include "../hydro/hydro.hpp"
 #include "../mesh/mesh.hpp"
+#include "../orbital_advection/orbital_advection.hpp"
 #include "../dustfluids/dustfluids.hpp"
 #include "outputs.hpp"
 
 // NEW_OUTPUT_TYPES:
 
 // "3" for 1-KE, 2-KE, 3-KE additional columns (come before tot-E)
-#define NHISTORY_VARS ((NHYDRO) + (SELF_GRAVITY_ENABLED) + (NFIELD) + 3 + (4*NDUSTFLUIDS))
+#define NHISTORY_VARS ((NHYDRO) + (SELF_GRAVITY_ENABLED) + (NFIELD) + 3 + (NDUSTVAR))
 
 //----------------------------------------------------------------------------------------
-//! \fn void OutputType::HistoryFile()
-//  \brief Writes a history file
+//! \fn void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag)
+//! \brief Writes a history file
 
 void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag) {
-  MeshBlock *pmb = pm->pblock;
+  MeshBlock *pmb = pm->my_blocks(0);
   Real real_max = std::numeric_limits<Real>::max();
   Real real_lowest = std::numeric_limits<Real>::lowest();
   AthenaArray<Real> vol(pmb->ncells1);
@@ -66,58 +67,120 @@ void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag) {
   }
 
   // Loop over MeshBlocks
-  while (pmb != nullptr) {
-    Hydro *phyd = pmb->phydro;
-    Field *pfld = pmb->pfield;
-    DustFluids *pdfs = pmb->pdustfluids;
-    Gravity *pgrav = pmb->pgrav;
+  for (int b=0; b<pm->nblocal; ++b) {
+    pmb                     = pm->my_blocks(b);
+    Hydro            *phyd  = pmb->phydro;
+    Field            *pfld  = pmb->pfield;
+    DustFluids       *pdfs  = pmb->pdustfluids;
+    Gravity          *pgrav = pmb->pgrav;
+    OrbitalAdvection *porb  = pmb->porb;
 
-    // Sum history variables over cells.  Note ghost cells are never included in sums
-    for (int k=pmb->ks; k<=pmb->ke; ++k) {
-      for (int j=pmb->js; j<=pmb->je; ++j) {
-        pmb->pcoord->CellVolume(k, j, pmb->is, pmb->ie, vol);
-        for (int i=pmb->is; i<=pmb->ie; ++i) {
-          // NEW_OUTPUT_TYPES:
+    // Sum history variables over cells. Note ghost cells are never included in sums
+    if(porb->orbital_advection_defined
+       && !output_params.orbital_system_output) {
+      porb->ConvertOrbitalSystem(phyd->w, phyd->u, OrbitalTransform::cons);
+			if (NDUSTFLUIDS > 0) {
+				for (int dust_id=0; dust_id<NDUSTFLUIDS; ++dust_id) {
+					pmb->porb->ResetOrbitalSystemConversionFlag(); // TODO
+					porb->ConvertOrbitalSystemDustFluids(dust_id, pdfs->df_prim, pdfs->df_cons, OrbitalTransform::cons);
+				}
+			}
+      for (int k=pmb->ks; k<=pmb->ke; ++k) {
+        for (int j=pmb->js; j<=pmb->je; ++j) {
+          pmb->pcoord->CellVolume(k, j, pmb->is, pmb->ie, vol);
+          for (int i=pmb->is; i<=pmb->ie; ++i) {
+            // NEW_OUTPUT_TYPES:
 
-          // Hydro conserved variables:
-          Real& u_d  = phyd->u(IDN,k,j,i);
-          Real& u_mx = phyd->u(IM1,k,j,i);
-          Real& u_my = phyd->u(IM2,k,j,i);
-          Real& u_mz = phyd->u(IM3,k,j,i);
+            // Hydro conserved variables:
+            Real& u_d  = porb->u_orb(IDN,k,j,i);
+            Real& u_mx = porb->u_orb(IM1,k,j,i);
+            Real& u_my = porb->u_orb(IM2,k,j,i);
+            Real& u_mz = porb->u_orb(IM3,k,j,i);
 
-          hst_data[0] += vol(i)*u_d;
-          hst_data[1] += vol(i)*u_mx;
-          hst_data[2] += vol(i)*u_my;
-          hst_data[3] += vol(i)*u_mz;
-          // + partitioned KE by coordinate direction:
-          hst_data[4] += vol(i)*0.5*SQR(u_mx)/u_d;
-          hst_data[5] += vol(i)*0.5*SQR(u_my)/u_d;
-          hst_data[6] += vol(i)*0.5*SQR(u_mz)/u_d;
+            hst_data[0] += vol(i)*u_d;
+            hst_data[1] += vol(i)*u_mx;
+            hst_data[2] += vol(i)*u_my;
+            hst_data[3] += vol(i)*u_mz;
+            // + partitioned KE by coordinate direction:
+            hst_data[4] += vol(i)*0.5*SQR(u_mx)/u_d;
+            hst_data[5] += vol(i)*0.5*SQR(u_my)/u_d;
+            hst_data[6] += vol(i)*0.5*SQR(u_mz)/u_d;
 
-          if (NON_BAROTROPIC_EOS) {
-            Real& u_e = phyd->u(IEN,k,j,i);;
-            hst_data[7] += vol(i)*u_e;
+            if (NON_BAROTROPIC_EOS) {
+              Real& u_e = porb->u_orb(IEN,k,j,i);
+              hst_data[7] += vol(i)*u_e;
+            }
+            // Graviatational potential energy:
+            if (SELF_GRAVITY_ENABLED) {
+              Real& phi = pgrav->phi(k,j,i);
+              hst_data[NHYDRO + 3] += vol(i)*0.5*u_d*phi;
+            }
+            // Cell-centered magnetic energy, partitioned by coordinate direction:
+            if (MAGNETIC_FIELDS_ENABLED) {
+              Real& bcc1 = pfld->bcc(IB1,k,j,i);
+              Real& bcc2 = pfld->bcc(IB2,k,j,i);
+              Real& bcc3 = pfld->bcc(IB3,k,j,i);
+              constexpr int prev_out = NHYDRO + 3 + SELF_GRAVITY_ENABLED;
+              hst_data[prev_out] += vol(i)*0.5*bcc1*bcc1;
+              hst_data[prev_out + 1] += vol(i)*0.5*bcc2*bcc2;
+              hst_data[prev_out + 2] += vol(i)*0.5*bcc3*bcc3;
+            }
+            // (conserved variable) Dust Fluids:
+            for (int n=0; n<NDUSTVAR; n++) {
+              Real& df_cons = porb->df_cons_orb(n,k,j,i);
+              constexpr int prev_out = NHYDRO + 3 + SELF_GRAVITY_ENABLED + NFIELD;
+              hst_data[prev_out + n] += vol(i)*df_cons;
+            }
           }
-          // Graviatational potential energy:
-          if (SELF_GRAVITY_ENABLED) {
-            Real& phi = pgrav->phi(k,j,i);
-            hst_data[NHYDRO + 3] += vol(i)*0.5*u_d*phi;
-          }
-          // Cell-centered magnetic energy, partitioned by coordinate direction:
-          if (MAGNETIC_FIELDS_ENABLED) {
-            Real& bcc1 = pfld->bcc(IB1,k,j,i);
-            Real& bcc2 = pfld->bcc(IB2,k,j,i);
-            Real& bcc3 = pfld->bcc(IB3,k,j,i);
-            constexpr int prev_out = NHYDRO + 3 + SELF_GRAVITY_ENABLED;
-            hst_data[prev_out] += vol(i)*0.5*bcc1*bcc1;
-            hst_data[prev_out + 1] += vol(i)*0.5*bcc2*bcc2;
-            hst_data[prev_out + 2] += vol(i)*0.5*bcc3*bcc3;
-          }
-          // (conserved variable) Dust Fluids:
-          for (int n=0; n<4*NDUSTFLUIDS; n++) {
-            Real& df_cons = pdfs->df_cons(n,k,j,i);
-            constexpr int prev_out = NHYDRO + 3 + SELF_GRAVITY_ENABLED + NFIELD;
-            hst_data[prev_out + n] += vol(i)*df_cons;
+        }
+      }
+    } else {
+      for (int k=pmb->ks; k<=pmb->ke; ++k) {
+        for (int j=pmb->js; j<=pmb->je; ++j) {
+          pmb->pcoord->CellVolume(k, j, pmb->is, pmb->ie, vol);
+          for (int i=pmb->is; i<=pmb->ie; ++i) {
+            // NEW_OUTPUT_TYPES:
+
+            // Hydro conserved variables:
+            Real& u_d  = phyd->u(IDN,k,j,i);
+            Real& u_mx = phyd->u(IM1,k,j,i);
+            Real& u_my = phyd->u(IM2,k,j,i);
+            Real& u_mz = phyd->u(IM3,k,j,i);
+
+            hst_data[0] += vol(i)*u_d;
+            hst_data[1] += vol(i)*u_mx;
+            hst_data[2] += vol(i)*u_my;
+            hst_data[3] += vol(i)*u_mz;
+            // + partitioned KE by coordinate direction:
+            hst_data[4] += vol(i)*0.5*SQR(u_mx)/u_d;
+            hst_data[5] += vol(i)*0.5*SQR(u_my)/u_d;
+            hst_data[6] += vol(i)*0.5*SQR(u_mz)/u_d;
+
+            if (NON_BAROTROPIC_EOS) {
+              Real& u_e = phyd->u(IEN,k,j,i);
+              hst_data[7] += vol(i)*u_e;
+            }
+            // Graviatational potential energy:
+            if (SELF_GRAVITY_ENABLED) {
+              Real& phi = pgrav->phi(k,j,i);
+              hst_data[NHYDRO + 3] += vol(i)*0.5*u_d*phi;
+            }
+            // Cell-centered magnetic energy, partitioned by coordinate direction:
+            if (MAGNETIC_FIELDS_ENABLED) {
+              Real& bcc1 = pfld->bcc(IB1,k,j,i);
+              Real& bcc2 = pfld->bcc(IB2,k,j,i);
+              Real& bcc3 = pfld->bcc(IB3,k,j,i);
+              constexpr int prev_out = NHYDRO + 3 + SELF_GRAVITY_ENABLED;
+              hst_data[prev_out] += vol(i)*0.5*bcc1*bcc1;
+              hst_data[prev_out + 1] += vol(i)*0.5*bcc2*bcc2;
+              hst_data[prev_out + 2] += vol(i)*0.5*bcc3*bcc3;
+            }
+            // (conserved variable) Dust Fluids:
+            for (int n=0; n<NDUSTVAR; n++) {
+              Real& df_cons = pdfs->df_cons(n,k,j,i);
+              constexpr int prev_out = NHYDRO + 3 + SELF_GRAVITY_ENABLED + NFIELD;
+              hst_data[prev_out + n] += vol(i)*df_cons;
+            }
           }
         }
       }
@@ -141,7 +204,6 @@ void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag) {
         }
       }
     }
-    pmb = pmb->next;
   }  // end loop over MeshBlocks
 
 #ifdef MPI_PARALLEL
@@ -200,7 +262,7 @@ void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag) {
 
       int iout = 1;
       std::fprintf(pfile,"# Athena++ history data\n"); // descriptor is first line
-      std::fprintf(pfile,"# [%d]=time     ", iout++);
+      std::fprintf(pfile,"# [%d]=time   ", iout++);
       std::fprintf(pfile,"[%d]=dt       ", iout++);
       std::fprintf(pfile,"[%d]=mass     ", iout++);
       std::fprintf(pfile,"[%d]=1-mom    ", iout++);
@@ -216,18 +278,18 @@ void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag) {
         std::fprintf(pfile,"[%d]=2-ME    ", iout++);
         std::fprintf(pfile,"[%d]=3-ME    ", iout++);
       }
-      for (int n=0; n<4*NDUSTFLUIDS; n++) {
-        int num_dust     = n/4 + 1;
-        int num_dust_var = n%4;
-        switch ( num_dust_var )
+      for (int n=0; n<NDUSTVAR; n++) {
+        int dust_index     = n/4 + 1;
+        int dust_var_index = n%4;
+        switch ( dust_var_index )
         {
-          case 1: std::fprintf(pfile,  "[%d]=df-%d-mom1 ", iout++, num_dust);
+          case 1: std::fprintf(pfile,  "[%d]=df-%d-mom1 ", iout++, dust_index);
             continue;
-          case 2: std::fprintf(pfile,  "[%d]=df-%d-mom2 ", iout++, num_dust);
+          case 2: std::fprintf(pfile,  "[%d]=df-%d-mom2 ", iout++, dust_index);
             continue;
-          case 3: std::fprintf(pfile,  "[%d]=df-%d-mom3 ", iout++, num_dust);
+          case 3: std::fprintf(pfile,  "[%d]=df-%d-mom3 ", iout++, dust_index);
             continue;
-          default: std::fprintf(pfile, "[%d]=df-%d-mass ", iout++, num_dust);
+          default: std::fprintf(pfile, "[%d]=df-%d-mass ", iout++, dust_index);
             continue;
         }
       }

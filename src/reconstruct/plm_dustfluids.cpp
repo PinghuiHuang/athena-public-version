@@ -4,13 +4,13 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file plm_simple.cpp
-//  \brief  piecewise linear reconstruction for both uniform and non-uniform meshes
-//  Operates on the entire nx4 range of a single AthenaArray<Real> input (no MHD).
-//  No assumptions of hydrodynamic fluid variable input; no characteristic projection.
-
-// REFERENCES:
-// (Mignone) A. Mignone, "High-order conservative reconstruction schemes for finite volume
-// methods in cylindrical and spherical coordinates", JCP, 270, 784 (2014)
+//! \brief  piecewise linear reconstruction for both uniform and non-uniform meshes
+//! Operates on the entire nx4 range of a single AthenaArray<Real> input (no MHD).
+//! No assumptions of hydrodynamic fluid variable input; no characteristic projection.
+//!
+//! REFERENCES:
+//! - (Mignone) A. Mignone, "High-order conservative reconstruction schemes for finite
+//!   volume methods in cylindrical and spherical coordinates", JCP, 270, 784 (2014)
 //========================================================================================
 
 // C headers
@@ -25,53 +25,54 @@
 #include "reconstruction.hpp"
 
 //----------------------------------------------------------------------------------------
-//! \fn Reconstruction::PiecewiseLinearX1()
-//  \brief
+//! \fn Reconstruction::PiecewiseLinearX1_DustFluids(const int k, const int j,
+//!                              const int il, const int iu,
+//!                              const AthenaArray<Real> &w, const AthenaArray<Real> &bcc,
+//!                              AthenaArray<Real> &wl, AthenaArray<Real> &wr)
+//! \brief
 
 void Reconstruction::PiecewiseLinearX1_DustFluids(
     const int k, const int j, const int il, const int iu,
-    const AthenaArray<Real> &prim_df,
-    AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r) {
+    const AthenaArray<Real> &q,
+    AthenaArray<Real> &ql, AthenaArray<Real> &qr) {
   Coordinates *pco = pmy_block_->pcoord;
   // set work arrays to shallow copies of scratch arrays
-  AthenaArray<Real> &qc = scr1_ni_df_, &d_prim_dfl = scr2_ni_df_, &dprim_df_r = scr3_ni_df_,
-                   &d_prim_dfm = scr4_ni_df_;
-  const int nu = prim_df.GetDim4() - 1;
+  AthenaArray<Real> &qc = scr1_ni_df_, &dql = scr2_ni_df_, &dqr = scr3_ni_df_,
+                   &dqm = scr4_ni_df_;
+  const int nu = q.GetDim4() - 1;
 
   // compute L/R slopes for each variable
   for (int n=0; n<=nu; ++n) {
 #pragma omp simd
     for (int i=il; i<=iu; ++i) {
-      // renamed dw* -> d_prim_df* from plm.cpp
-      d_prim_dfl(n,i) = (prim_df(n,k,j,i  ) - prim_df(n,k,j,i-1));
-      dprim_df_r(n,i) = (prim_df(n,k,j,i+1) - prim_df(n,k,j,i  ));
-      qc(n,i) = prim_df(n,k,j,i);
+      // renamed dw* -> dq* from plm.cpp
+      dql(n,i) = (q(n,k,j,i  ) - q(n,k,j,i-1));
+      dqr(n,i) = (q(n,k,j,i+1) - q(n,k,j,i  ));
+      qc(n,i) = q(n,k,j,i);
     }
   }
 
-  //std::cout << " In PiecewiseLinearX1 #2 ========, ph->u.getSize() is " << pmy_block_->phydro->u.GetSize() << std::endl;
   // Apply simplified van Leer (VL) limiter expression for a Cartesian-like coordinate
   // with uniform mesh spacing
   if (uniform[X1DIR] && !curvilinear[X1DIR]) {
     for (int n=0; n<=nu; ++n) {
 #pragma omp simd simdlen(SIMD_WIDTH)
       for (int i=il; i<=iu; ++i) {
-        Real d_prim_df2 = d_prim_dfl(n,i)*dprim_df_r(n,i);
-        d_prim_dfm(n,i) = 2.0*d_prim_df2/(d_prim_dfl(n,i) + dprim_df_r(n,i));
-        if (d_prim_df2 <= 0.0) d_prim_dfm(n,i) = 0.0;
+        Real dq2 = dql(n,i)*dqr(n,i);
+        dqm(n,i) = 2.0*dq2/(dql(n,i) + dqr(n,i));
+        if (dq2 <= 0.0) dqm(n,i) = 0.0;
       }
     }
 
-  //std::cout << " In PiecewiseLinearX1 #2.1 |||||||||||, ph->u.getSize() is " << pmy_block_->phydro->u.GetSize() << std::endl;
     // Apply general VL limiter expression w/ the Mignone correction for a Cartesian-like
     // coordinate with nonuniform mesh spacing or for any curvilinear coordinate spacing
   } else {
     for (int n=0; n<=nu; ++n) {
 #pragma omp simd simdlen(SIMD_WIDTH)
       for (int i=il; i<=iu; ++i) {
-        Real d_prim_dfF =  dprim_df_r(n,i)*pco->dx1f(i)/pco->dx1v(i);
-        Real d_prim_dfB =  d_prim_dfl(n,i)*pco->dx1f(i)/pco->dx1v(i-1);
-        Real d_prim_df2 = d_prim_dfF*d_prim_dfB;
+        Real dqF =  dqr(n,i)*pco->dx1f(i)/pco->dx1v(i);
+        Real dqB =  dql(n,i)*pco->dx1f(i)/pco->dx1v(i-1);
+        Real dq2 = dqF*dqB;
         // cf, cb -> 2 (uniform Cartesian mesh / original VL value) w/ vanishing curvature
         // (may not exactly hold for nonuniform meshes, but converges w/ smooth
         // nonuniformity)
@@ -79,52 +80,55 @@ void Reconstruction::PiecewiseLinearX1_DustFluids(
         Real cb = pco->dx1v(i-1)/(pco->x1v(i  ) - pco->x1f(i));
         // (modified) VL limiter (Mignone eq 37)
         // (dQ^F term from eq 31 pulled into eq 37, then multiply by (dQ^F/dQ^F)^2)
-        d_prim_dfm(n,i) = (d_prim_df2*(cf*d_prim_dfB + cb*d_prim_dfF)/
-                    (SQR(d_prim_dfB) + SQR(d_prim_dfF) + d_prim_df2*(cf + cb - 2.0)));
-        if (d_prim_df2 <= 0.0) d_prim_dfm(n,i) = 0.0; // ---> no concern for divide-by-0 in above line
+        dqm(n,i) = (dq2*(cf*dqB + cb*dqF)/
+                    (SQR(dqB) + SQR(dqF) + dq2*(cf + cb - 2.0)));
+        if (dq2 <= 0.0) dqm(n,i) = 0.0; // ---> no concern for divide-by-0 in above line
 
-        // Real v = d_prim_dfB/d_prim_dfF;
+        // Real v = dqB/dqF;
         // monotoniced central (MC) limiter (Mignone eq 38)
         // (std::min calls should avoid issue if divide-by-zero causes v=Inf)
-        //d_prim_dfm(n,i) = d_prim_dfF*std::max(0.0, std::min(0.5*(1.0 + v), std::min(cf, cb*v)));
+        //dqm(n,i) = dqF*std::max(0.0, std::min(0.5*(1.0 + v), std::min(cf, cb*v)));
       }
     }
   }
 
-  // compute ql_(i+1/2) and prim_df_r_(i-1/2) using limited slopes
+  // compute ql_(i+1/2) and qr_(i-1/2) using limited slopes
   for (int n=0; n<=nu; ++n) {
 #pragma omp simd simdlen(SIMD_WIDTH)
     for (int i=il; i<=iu; ++i) {
       // Mignone equation 30
-      prim_df_l(n,i+1) = qc(n,i) + ((pco->x1f(i+1) - pco->x1v(i))/pco->dx1f(i))*d_prim_dfm(n,i);
-      prim_df_r(n,i  ) = qc(n,i) - ((pco->x1v(i  ) - pco->x1f(i))/pco->dx1f(i))*d_prim_dfm(n,i);
+      ql(n,i+1) = qc(n,i) + ((pco->x1f(i+1) - pco->x1v(i))/pco->dx1f(i))*dqm(n,i);
+      qr(n,i  ) = qc(n,i) - ((pco->x1v(i  ) - pco->x1f(i))/pco->dx1f(i))*dqm(n,i);
     }
   }
   return;
 }
 
 //----------------------------------------------------------------------------------------
-//! \fn Reconstruction::PiecewiseLinearX2()
-//  \brief
+//! \fn Reconstruction::PiecewiseLinearX2_DustFluids(const int k, const int j,
+//!                              const int il, const int iu,
+//!                              const AthenaArray<Real> &w, const AthenaArray<Real> &bcc,
+//!                              AthenaArray<Real> &wl, AthenaArray<Real> &wr)
+//! \brief
 
 void Reconstruction::PiecewiseLinearX2_DustFluids(
     const int k, const int j, const int il, const int iu,
-    const AthenaArray<Real> &prim_df,
-    AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r) {
+    const AthenaArray<Real> &q,
+    AthenaArray<Real> &ql, AthenaArray<Real> &qr) {
   Coordinates *pco = pmy_block_->pcoord;
   // set work arrays to shallow copies of scratch arrays
-  AthenaArray<Real> &qc = scr1_ni_df_, &d_prim_dfl = scr2_ni_df_,
-                   &dprim_df_r = scr3_ni_df_, &d_prim_dfm = scr4_ni_df_;
-  const int nu = prim_df.GetDim4() - 1;
+  AthenaArray<Real> &qc = scr1_ni_df_, &dql = scr2_ni_df_,
+                   &dqr = scr3_ni_df_, &dqm = scr4_ni_df_;
+  const int nu = q.GetDim4() - 1;
 
   // compute L/R slopes for each variable
   for (int n=0; n<=nu; ++n) {
 #pragma omp simd
     for (int i=il; i<=iu; ++i) {
-      // renamed dw* -> d_prim_df* from plm.cpp
-      d_prim_dfl(n,i) = (prim_df(n,k,j  ,i) - prim_df(n,k,j-1,i));
-      dprim_df_r(n,i) = (prim_df(n,k,j+1,i) - prim_df(n,k,j  ,i));
-      qc(n,i) = prim_df(n,k,j,i);
+      // renamed dw* -> dq* from plm.cpp
+      dql(n,i) = (q(n,k,j  ,i) - q(n,k,j-1,i));
+      dqr(n,i) = (q(n,k,j+1,i) - q(n,k,j  ,i));
+      qc(n,i) = q(n,k,j,i);
     }
   }
 
@@ -134,9 +138,9 @@ void Reconstruction::PiecewiseLinearX2_DustFluids(
     for (int n=0; n<=nu; ++n) {
 #pragma omp simd simdlen(SIMD_WIDTH)
       for (int i=il; i<=iu; ++i) {
-        Real d_prim_df2 = d_prim_dfl(n,i)*dprim_df_r(n,i);
-        d_prim_dfm(n,i) = 2.0*d_prim_df2/(d_prim_dfl(n,i) + dprim_df_r(n,i));
-        if (d_prim_df2 <= 0.0) d_prim_dfm(n,i) = 0.0;
+        Real dq2 = dql(n,i)*dqr(n,i);
+        dqm(n,i) = 2.0*dq2/(dql(n,i) + dqr(n,i));
+        if (dq2 <= 0.0) dqm(n,i) = 0.0;
       }
     }
 
@@ -150,57 +154,60 @@ void Reconstruction::PiecewiseLinearX2_DustFluids(
     for (int n=0; n<=nu; ++n) {
 #pragma omp simd simdlen(SIMD_WIDTH)
       for (int i=il; i<=iu; ++i) {
-        Real d_prim_dfF =  dprim_df_r(n,i)*dxF;
-        Real d_prim_dfB =  d_prim_dfl(n,i)*dxB;
-        Real d_prim_df2 = d_prim_dfF*d_prim_dfB;
+        Real dqF =  dqr(n,i)*dxF;
+        Real dqB =  dql(n,i)*dxB;
+        Real dq2 = dqF*dqB;
         // (modified) VL limiter (Mignone eq 37)
-        d_prim_dfm(n,i) = (d_prim_df2*(cf*d_prim_dfB + cb*d_prim_dfF)/
-                    (SQR(d_prim_dfB) + SQR(d_prim_dfF) + d_prim_df2*(cf + cb - 2.0)));
-        if (d_prim_df2 <= 0.0) d_prim_dfm(n,i) = 0.0; // ---> no concern for divide-by-0 in above line
+        dqm(n,i) = (dq2*(cf*dqB + cb*dqF)/
+                    (SQR(dqB) + SQR(dqF) + dq2*(cf + cb - 2.0)));
+        if (dq2 <= 0.0) dqm(n,i) = 0.0; // ---> no concern for divide-by-0 in above line
 
-        // Real v = d_prim_dfB/d_prim_dfF;
+        // Real v = dqB/dqF;
         // // monotoniced central (MC) limiter (Mignone eq 38)
         // // (std::min calls should avoid issue if divide-by-zero causes v=Inf)
-        // d_prim_dfm(n,i) = d_prim_dfF*std::max(0.0, std::min(0.5*(1.0 + v), std::min(cf, cb*v)));
+        // dqm(n,i) = dqF*std::max(0.0, std::min(0.5*(1.0 + v), std::min(cf, cb*v)));
       }
     }
   }
 
-  // compute ql_(j+1/2) and prim_df_r_(j-1/2) using limited slopes
+  // compute ql_(j+1/2) and qr_(j-1/2) using limited slopes
   // dimensionless, not technically a "dx" quantity
   Real dxp = (pco->x2f(j+1) - pco->x2v(j))/pco->dx2f(j);
   Real dxm = (pco->x2v(j  ) - pco->x2f(j))/pco->dx2f(j);
   for (int n=0; n<=nu; ++n) {
 #pragma omp simd simdlen(SIMD_WIDTH)
     for (int i=il; i<=iu; ++i) {
-      prim_df_l(n,i) = qc(n,i) + dxp*d_prim_dfm(n,i);
-      prim_df_r(n,i) = qc(n,i) - dxm*d_prim_dfm(n,i);
+      ql(n,i) = qc(n,i) + dxp*dqm(n,i);
+      qr(n,i) = qc(n,i) - dxm*dqm(n,i);
     }
   }
 }
 
 //----------------------------------------------------------------------------------------
-//! \fn Reconstruction::PiecewiseLinearX3()
-//  \brief
+//! \fn Reconstruction::PiecewiseLinearX3_DustFluids(const int k, const int j,
+//!                              const int il, const int iu,
+//!                              const AthenaArray<Real> &w, const AthenaArray<Real> &bcc,
+//!                              AthenaArray<Real> &wl, AthenaArray<Real> &wr)
+//! \brief
 
 void Reconstruction::PiecewiseLinearX3_DustFluids(
     const int k, const int j, const int il, const int iu,
-    const AthenaArray<Real> &prim_df,
-    AthenaArray<Real> &prim_df_l, AthenaArray<Real> &prim_df_r) {
+    const AthenaArray<Real> &q,
+    AthenaArray<Real> &ql, AthenaArray<Real> &qr) {
   Coordinates *pco = pmy_block_->pcoord;
   // set work arrays to shallow copies of scratch arrays
-  AthenaArray<Real> &qc = scr1_ni_df_, &d_prim_dfl = scr2_ni_df_, &dprim_df_r = scr3_ni_df_,
-                   &d_prim_dfm = scr4_ni_df_;
-  const int nu = prim_df.GetDim4() - 1;
+  AthenaArray<Real> &qc = scr1_ni_df_, &dql = scr2_ni_df_, &dqr = scr3_ni_df_,
+                   &dqm = scr4_ni_df_;
+  const int nu = q.GetDim4() - 1;
 
   // compute L/R slopes for each variable
   for (int n=0; n<=nu; ++n) {
 #pragma omp simd
     for (int i=il; i<=iu; ++i) {
-      // renamed dw* -> d_prim_df* from plm.cpp
-      d_prim_dfl(n,i) = (prim_df(n,k  ,j,i) - prim_df(n,k-1,j,i));
-      dprim_df_r(n,i) = (prim_df(n,k+1,j,i) - prim_df(n,k  ,j,i));
-      qc(n,i) = prim_df(n,k,j,i);
+      // renamed dw* -> dq* from plm.cpp
+      dql(n,i) = (q(n,k  ,j,i) - q(n,k-1,j,i));
+      dqr(n,i) = (q(n,k+1,j,i) - q(n,k  ,j,i));
+      qc(n,i) = q(n,k,j,i);
     }
   }
 
@@ -210,9 +217,9 @@ void Reconstruction::PiecewiseLinearX3_DustFluids(
     for (int n=0; n<=nu; ++n) {
 #pragma omp simd simdlen(SIMD_WIDTH)
       for (int i=il; i<=iu; ++i) {
-        Real d_prim_df2 = d_prim_dfl(n,i)*dprim_df_r(n,i);
-        d_prim_dfm(n,i) = 2.0*d_prim_df2/(d_prim_dfl(n,i) + dprim_df_r(n,i));
-        if (d_prim_df2 <= 0.0) d_prim_dfm(n,i) = 0.0;
+        Real dq2 = dql(n,i)*dqr(n,i);
+        dqm(n,i) = 2.0*dq2/(dql(n,i) + dqr(n,i));
+        if (dq2 <= 0.0) dqm(n,i) = 0.0;
       }
     }
 
@@ -224,26 +231,26 @@ void Reconstruction::PiecewiseLinearX3_DustFluids(
     for (int n=0; n<=nu; ++n) {
 #pragma omp simd simdlen(SIMD_WIDTH)
       for (int i=il; i<=iu; ++i) {
-        Real d_prim_dfF =  dprim_df_r(n,i)*dxF;
-        Real d_prim_dfB =  d_prim_dfl(n,i)*dxB;
-        Real d_prim_df2 = d_prim_dfF*d_prim_dfB;
+        Real dqF =  dqr(n,i)*dxF;
+        Real dqB =  dql(n,i)*dxB;
+        Real dq2 = dqF*dqB;
         // original VL limiter (Mignone eq 36)
-        d_prim_dfm(n,i) = 2.0*d_prim_df2/(d_prim_dfF + d_prim_dfB);
-        // d_prim_df2 > 0 ---> d_prim_dfF, d_prim_dfB are nonzero and have the same sign ----> no risk for
-        // (d_prim_dfF + d_prim_dfB) = 0 cancellation causing a divide-by-0 in the above line
-        if (d_prim_df2 <= 0.0) d_prim_dfm(n,i) = 0.0;
+        dqm(n,i) = 2.0*dq2/(dqF + dqB);
+        // dq2 > 0 ---> dqF, dqB are nonzero and have the same sign ----> no risk for
+        // (dqF + dqB) = 0 cancellation causing a divide-by-0 in the above line
+        if (dq2 <= 0.0) dqm(n,i) = 0.0;
       }
     }
   }
 
-  // compute ql_(k+1/2) and prim_df_r_(k-1/2) using limited slopes
+  // compute ql_(k+1/2) and qr_(k-1/2) using limited slopes
   Real dxp = (pco->x3f(k+1) - pco->x3v(k))/pco->dx3f(k);
   Real dxm = (pco->x3v(k  ) - pco->x3f(k))/pco->dx3f(k);
   for (int n=0; n<=nu; ++n) {
 #pragma omp simd simdlen(SIMD_WIDTH)
     for (int i=il; i<=iu; ++i) {
-      prim_df_l(n,i) = qc(n,i) + dxp*d_prim_dfm(n,i);
-      prim_df_r(n,i) = qc(n,i) - dxm*d_prim_dfm(n,i);
+      ql(n,i) = qc(n,i) + dxp*dqm(n,i);
+      qr(n,i) = qc(n,i) - dxm*dqm(n,i);
     }
   }
   return;

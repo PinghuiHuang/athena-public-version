@@ -4,13 +4,13 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file plm_simple.cpp
-//  \brief  piecewise linear reconstruction for both uniform and non-uniform meshes
-//  Operates on the entire nx4 range of a single AthenaArray<Real> input (no MHD).
-//  No assumptions of hydrodynamic fluid variable input; no characteristic projection.
-
-// REFERENCES:
-// (Mignone) A. Mignone, "High-order conservative reconstruction schemes for finite volume
-// methods in cylindrical and spherical coordinates", JCP, 270, 784 (2014)
+//! \brief  piecewise linear reconstruction for both uniform and non-uniform meshes
+//! Operates on the entire nx4 range of a single AthenaArray<Real> input (no MHD).
+//! No assumptions of hydrodynamic fluid variable input; no characteristic projection.
+//!
+//! REFERENCES:
+//! - (Mignone) A. Mignone, "High-order conservative reconstruction schemes for finite
+//!   volume methods in cylindrical and spherical coordinates", JCP, 270, 784 (2014)
 //========================================================================================
 
 // C headers
@@ -25,8 +25,11 @@
 #include "reconstruction.hpp"
 
 //----------------------------------------------------------------------------------------
-//! \fn Reconstruction::PiecewiseLinearX1()
-//  \brief
+//! \fn Reconstruction::PiecewiseLinearX1(const int k, const int j,
+//!                              const int il, const int iu,
+//!                              const AthenaArray<Real> &w, const AthenaArray<Real> &bcc,
+//!                              AthenaArray<Real> &wl, AthenaArray<Real> &wr)
+//! \brief
 
 void Reconstruction::PiecewiseLinearX1(
     const int k, const int j, const int il, const int iu,
@@ -34,8 +37,8 @@ void Reconstruction::PiecewiseLinearX1(
     AthenaArray<Real> &ql, AthenaArray<Real> &qr) {
   Coordinates *pco = pmy_block_->pcoord;
   // set work arrays to shallow copies of scratch arrays
-  AthenaArray<Real> &qc = scr1_ni_df_, &dql = scr2_ni_df_, &dqr = scr3_ni_df_,
-                   &dqm = scr4_ni_df_;
+  AthenaArray<Real> &qc = scr1_ni_, &dql = scr2_ni_, &dqr = scr3_ni_,
+                   &dqm = scr4_ni_;
   const int nu = q.GetDim4() - 1;
 
   // compute L/R slopes for each variable
@@ -49,7 +52,6 @@ void Reconstruction::PiecewiseLinearX1(
     }
   }
 
-  std::cout << " In PiecewiseLinearX1 #2 ========, ph->u.getSize() is " << pmy_block_->phydro->u.GetSize() << std::endl;
   // Apply simplified van Leer (VL) limiter expression for a Cartesian-like coordinate
   // with uniform mesh spacing
   if (uniform[X1DIR] && !curvilinear[X1DIR]) {
@@ -62,7 +64,6 @@ void Reconstruction::PiecewiseLinearX1(
       }
     }
 
-  std::cout << " In PiecewiseLinearX1 #2.1 |||||||||||, ph->u.getSize() is " << pmy_block_->phydro->u.GetSize() << std::endl;
     // Apply general VL limiter expression w/ the Mignone correction for a Cartesian-like
     // coordinate with nonuniform mesh spacing or for any curvilinear coordinate spacing
   } else {
@@ -104,8 +105,11 @@ void Reconstruction::PiecewiseLinearX1(
 }
 
 //----------------------------------------------------------------------------------------
-//! \fn Reconstruction::PiecewiseLinearX2()
-//  \brief
+//! \fn Reconstruction::PiecewiseLinearX2(const int k, const int j,
+//!                              const int il, const int iu,
+//!                              const AthenaArray<Real> &w, const AthenaArray<Real> &bcc,
+//!                              AthenaArray<Real> &wl, AthenaArray<Real> &wr)
+//! \brief
 
 void Reconstruction::PiecewiseLinearX2(
     const int k, const int j, const int il, const int iu,
@@ -113,8 +117,8 @@ void Reconstruction::PiecewiseLinearX2(
     AthenaArray<Real> &ql, AthenaArray<Real> &qr) {
   Coordinates *pco = pmy_block_->pcoord;
   // set work arrays to shallow copies of scratch arrays
-  AthenaArray<Real> &qc = scr1_ni_df_, &dql = scr2_ni_df_,
-                   &dqr = scr3_ni_df_, &dqm = scr4_ni_df_;
+  AthenaArray<Real> &qc = scr1_ni_, &dql = scr2_ni_,
+                   &dqr = scr3_ni_, &dqm = scr4_ni_;
   const int nu = q.GetDim4() - 1;
 
   // compute L/R slopes for each variable
@@ -180,8 +184,11 @@ void Reconstruction::PiecewiseLinearX2(
 }
 
 //----------------------------------------------------------------------------------------
-//! \fn Reconstruction::PiecewiseLinearX3()
-//  \brief
+//! \fn Reconstruction::PiecewiseLinearX3(const int k, const int j,
+//!                              const int il, const int iu,
+//!                              const AthenaArray<Real> &w, const AthenaArray<Real> &bcc,
+//!                              AthenaArray<Real> &wl, AthenaArray<Real> &wr)
+//! \brief
 
 void Reconstruction::PiecewiseLinearX3(
     const int k, const int j, const int il, const int iu,
@@ -189,8 +196,8 @@ void Reconstruction::PiecewiseLinearX3(
     AthenaArray<Real> &ql, AthenaArray<Real> &qr) {
   Coordinates *pco = pmy_block_->pcoord;
   // set work arrays to shallow copies of scratch arrays
-  AthenaArray<Real> &qc = scr1_ni_df_, &dql = scr2_ni_df_, &dqr = scr3_ni_df_,
-                   &dqm = scr4_ni_df_;
+  AthenaArray<Real> &qc = scr1_ni_, &dql = scr2_ni_, &dqr = scr3_ni_,
+                   &dqm = scr4_ni_;
   const int nu = q.GetDim4() - 1;
 
   // compute L/R slopes for each variable

@@ -4,7 +4,7 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file bvals_shear_dustfluids.cpp
-//  \brief functions that apply shearing box BCs for dustfluids variables
+//! \brief functions that apply shearing box BCs for dustfluids variables
 //========================================================================================
 
 // C headers
@@ -25,7 +25,6 @@
 #include "../../../athena_arrays.hpp"
 #include "../../../coordinates/coordinates.hpp"
 #include "../../../eos/eos.hpp"
-#include "../../../field/field.hpp"
 #include "../../../globals.hpp"
 #include "../../../dustfluids/dustfluids.hpp"
 #include "../../../mesh/mesh.hpp"
@@ -39,9 +38,9 @@
 #include <mpi.h>
 #endif
 
-//--------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 //! \fn void DustFluidsBoundaryVariable::AddDustFluidsShearForInit()
-//  \brief Send shearing box boundary buffers for dustfluids variables
+//! \brief Send shearing box boundary buffers for dustfluids variables
 
 void DustFluidsBoundaryVariable::AddDustFluidsShearForInit() {
   MeshBlock *pmb = pmy_block_;
@@ -71,39 +70,32 @@ void DustFluidsBoundaryVariable::AddDustFluidsShearForInit() {
       for (int n=0; n<NDUSTFLUIDS; ++n) {
 				int dust_id = n;
 				int rho_id  = 4*dust_id;
-				int v1_id   = rho_id + 1;
 				int v2_id   = rho_id + 2;
-				int v3_id   = rho_id + 3;
 				for (int k=kl; k<=ku; k++) {
 					for (int j=jl; j<=ju; j++) {
 						for (int i=0; i<NGHOST; i++) {
-							int ii = ib[upper] + i;
 							// add shear to conservative
-							shear_cc_[upper](v2_id, k, j, i) = var(v2_id, k, j, ii)
-																						+ sign[upper]*qomL*var(rho_id, k, j, ii);
-							var(v2_id, k, j, ii) = shear_cc_[upper](v2_id, k, j, i);
+							int ii = ib[upper] + i;
+							var(v2_id, k, j, ii) += sign[upper]*qomL*var(rho_id, k, j, ii);
 						}
 					}
 				}
 			}
-		}  // if boundary is shearing
-	}  // loop over inner/outer boundaries
+    }  // if boundary is shearing
+  }  // loop over inner/outer boundaries
   return;
 }
-// --------------------------------------------------------------------------------------
-// ! \fn void DustFluidsBoundaryVariable::ShearQuantities(AthenaArray<Real> &shear_cc_,
-//                                                   bool upper)
-//  \brief Apply shear to DustFluids x2 momentum and energy
+//----------------------------------------------------------------------------------------
+//! \fn void DustFluidsBoundaryVariable::ShearQuantities(AthenaArray<Real> &shear_cc_,
+//!                                                   bool upper)
+//! \brief Apply shear to DustFluids x2 momentum
 
 void DustFluidsBoundaryVariable::ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) {
   MeshBlock *pmb = pmy_block_;
   Mesh *pmesh = pmb->pmy_mesh;
-  AthenaArray<Real> &var = *var_cc;
-  int js = pmb->js;
-  int je = pmb->je;
-
-  int jl = js - NGHOST;
-  int ju = je + NGHOST;
+  int &xgh = pbval_->xgh_;
+  int jl = pmb->js - NGHOST;
+  int ju = pmb->je + NGHOST+2*xgh+1;
   int kl = pmb->ks;
   int ku = pmb->ke;
   if (pmesh->mesh_size.nx3 > 1) {
@@ -118,14 +110,11 @@ void DustFluidsBoundaryVariable::ShearQuantities(AthenaArray<Real> &shear_cc_, b
 	for (int n=0; n<NDUSTFLUIDS; ++n) {
 		int dust_id = n;
 		int rho_id  = 4*dust_id;
-		int v1_id   = rho_id + 1;
 		int v2_id   = rho_id + 2;
-		int v3_id   = rho_id + 3;
 		for (int k=kl; k<=ku; k++) {
-			for (int j=jl; j<=ju; j++) {
-				for (int i=0; i<NGHOST; i++) {
-					int ii = ib[upper] + i;
-					shear_cc_(v2_id,k,j,i) += + sign[upper]*qomL*var(rho_id,k,j,ii);
+			for (int i=0; i<NGHOST; i++) {
+				for (int j=jl; j<=ju; j++) {
+					shear_cc_(v2_id, k, i, j) += + sign[upper]*qomL*shear_cc_(rho_id, k, i, j);
 				}
 			}
 		}

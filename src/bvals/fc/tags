@@ -10,7 +10,6 @@ ClearBoundary	bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::ClearBoundary(Bo
 ClearCoarseFluxBoundary	flux_correction_fc.cpp	/^void FaceCenteredBoundaryVariable::ClearCoarseFluxBoundary() {$/;"	f	class:FaceCenteredBoundaryVariable
 ClearEMFShearing	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::ClearEMFShearing(EdgeField &work) {$/;"	f	class:FaceCenteredBoundaryVariable
 ComputeFluxCorrectionBufferSize	bvals_fc.cpp	/^int FaceCenteredBoundaryVariable::ComputeFluxCorrectionBufferSize($/;"	f	class:FaceCenteredBoundaryVariable
-ComputeShear	bvals_shear_fc.cpp	/^void FaceCenteredBoundaryVariable::ComputeShear(const Real time) {$/;"	f	class:FaceCenteredBoundaryVariable
 ComputeVariableBufferSize	bvals_fc.cpp	/^int FaceCenteredBoundaryVariable::ComputeVariableBufferSize(const NeighborIndexes& ni,$/;"	f	class:FaceCenteredBoundaryVariable
 CopyPolarBufferSameProcess	flux_correction_fc.cpp	/^void FaceCenteredBoundaryVariable::CopyPolarBufferSameProcess($/;"	f	class:FaceCenteredBoundaryVariable
 CountFineEdges	bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::CountFineEdges() {$/;"	f	class:FaceCenteredBoundaryVariable
@@ -19,11 +18,11 @@ FaceCenteredBoundaryVariable	bvals_fc.hpp	/^class FaceCenteredBoundaryVariable :
 LoadBoundaryBufferSameLevel	bvals_fc.cpp	/^int FaceCenteredBoundaryVariable::LoadBoundaryBufferSameLevel(Real *buf,$/;"	f	class:FaceCenteredBoundaryVariable
 LoadBoundaryBufferToCoarser	bvals_fc.cpp	/^int FaceCenteredBoundaryVariable::LoadBoundaryBufferToCoarser(Real *buf,$/;"	f	class:FaceCenteredBoundaryVariable
 LoadBoundaryBufferToFiner	bvals_fc.cpp	/^int FaceCenteredBoundaryVariable::LoadBoundaryBufferToFiner(Real *buf,$/;"	f	class:FaceCenteredBoundaryVariable
-LoadEMFShearing	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::LoadEMFShearing(EdgeField &src,$/;"	f	class:FaceCenteredBoundaryVariable
+LoadEMFShearingBoxBoundarySameLevel	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::LoadEMFShearingBoxBoundarySameLevel($/;"	f	class:FaceCenteredBoundaryVariable
 LoadFluxBoundaryBufferSameLevel	flux_correction_fc.cpp	/^int FaceCenteredBoundaryVariable::LoadFluxBoundaryBufferSameLevel($/;"	f	class:FaceCenteredBoundaryVariable
 LoadFluxBoundaryBufferToCoarser	flux_correction_fc.cpp	/^int FaceCenteredBoundaryVariable::LoadFluxBoundaryBufferToCoarser($/;"	f	class:FaceCenteredBoundaryVariable
 LoadFluxBoundaryBufferToPolar	flux_correction_fc.cpp	/^int FaceCenteredBoundaryVariable::LoadFluxBoundaryBufferToPolar($/;"	f	class:FaceCenteredBoundaryVariable
-LoadShearing	bvals_shear_fc.cpp	/^void FaceCenteredBoundaryVariable::LoadShearing(FaceField &src, Real *buf, int nb) {$/;"	f	class:FaceCenteredBoundaryVariable
+LoadShearingBoxBoundarySameLevel	bvals_shear_fc.cpp	/^void FaceCenteredBoundaryVariable::LoadShearingBoxBoundarySameLevel($/;"	f	class:FaceCenteredBoundaryVariable
 OutflowInnerX1	outflow_fc.cpp	/^void FaceCenteredBoundaryVariable::OutflowInnerX1($/;"	f	class:FaceCenteredBoundaryVariable
 OutflowInnerX2	outflow_fc.cpp	/^void FaceCenteredBoundaryVariable::OutflowInnerX2($/;"	f	class:FaceCenteredBoundaryVariable
 OutflowInnerX3	outflow_fc.cpp	/^void FaceCenteredBoundaryVariable::OutflowInnerX3($/;"	f	class:FaceCenteredBoundaryVariable
@@ -45,9 +44,6 @@ ReflectInnerX3	reflect_fc.cpp	/^void FaceCenteredBoundaryVariable::ReflectInnerX
 ReflectOuterX1	reflect_fc.cpp	/^void FaceCenteredBoundaryVariable::ReflectOuterX1($/;"	f	class:FaceCenteredBoundaryVariable
 ReflectOuterX2	reflect_fc.cpp	/^void FaceCenteredBoundaryVariable::ReflectOuterX2($/;"	f	class:FaceCenteredBoundaryVariable
 ReflectOuterX3	reflect_fc.cpp	/^void FaceCenteredBoundaryVariable::ReflectOuterX3($/;"	f	class:FaceCenteredBoundaryVariable
-RemapEMFShearingBoxBoundary	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::RemapEMFShearingBoxBoundary() {$/;"	f	class:FaceCenteredBoundaryVariable
-RemapFlux	bvals_shear_fc.cpp	/^void FaceCenteredBoundaryVariable::RemapFlux(const int k, const int jinner,$/;"	f	class:FaceCenteredBoundaryVariable
-RemapFluxEMF	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::RemapFluxEMF(const int k, const int jinner,$/;"	f	class:FaceCenteredBoundaryVariable
 SendEMFShearingBoxBoundaryCorrection	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::SendEMFShearingBoxBoundaryCorrection() {$/;"	f	class:FaceCenteredBoundaryVariable
 SendFluxCorrection	flux_correction_fc.cpp	/^void FaceCenteredBoundaryVariable::SendFluxCorrection() {$/;"	f	class:FaceCenteredBoundaryVariable
 SendShearingBoxBoundaryBuffers	bvals_shear_fc.cpp	/^void FaceCenteredBoundaryVariable::SendShearingBoxBoundaryBuffers() {$/;"	f	class:FaceCenteredBoundaryVariable
@@ -55,11 +51,13 @@ SetBoundaries	bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::SetBoundaries() 
 SetBoundaryFromCoarser	bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::SetBoundaryFromCoarser(Real *buf,$/;"	f	class:FaceCenteredBoundaryVariable
 SetBoundaryFromFiner	bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::SetBoundaryFromFiner(Real *buf,$/;"	f	class:FaceCenteredBoundaryVariable
 SetBoundarySameLevel	bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::SetBoundarySameLevel(Real *buf,$/;"	f	class:FaceCenteredBoundaryVariable
-SetEMFShearingBoxBoundarySameLevel	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::SetEMFShearingBoxBoundarySameLevel(EdgeField &dst,$/;"	f	class:FaceCenteredBoundaryVariable
+SetEMFShearingBoxBoundaryCorrection	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::SetEMFShearingBoxBoundaryCorrection() {$/;"	f	class:FaceCenteredBoundaryVariable
+SetEMFShearingBoxBoundarySameLevel	bvals_shear_emf.cpp	/^void FaceCenteredBoundaryVariable::SetEMFShearingBoxBoundarySameLevel($/;"	f	class:FaceCenteredBoundaryVariable
 SetFluxBoundaryFromFiner	flux_correction_fc.cpp	/^void FaceCenteredBoundaryVariable::SetFluxBoundaryFromFiner(Real *buf,$/;"	f	class:FaceCenteredBoundaryVariable
 SetFluxBoundaryFromPolar	flux_correction_fc.cpp	/^void FaceCenteredBoundaryVariable::SetFluxBoundaryFromPolar(Real **buf_list, int num_bufs,$/;"	f	class:FaceCenteredBoundaryVariable
 SetFluxBoundarySameLevel	flux_correction_fc.cpp	/^void FaceCenteredBoundaryVariable::SetFluxBoundarySameLevel(Real *buf,$/;"	f	class:FaceCenteredBoundaryVariable
-SetShearingBoxBoundarySameLevel	bvals_shear_fc.cpp	/^void FaceCenteredBoundaryVariable::SetShearingBoxBoundarySameLevel(Real *buf,$/;"	f	class:FaceCenteredBoundaryVariable
+SetShearingBoxBoundaryBuffers	bvals_shear_fc.cpp	/^void FaceCenteredBoundaryVariable::SetShearingBoxBoundaryBuffers() {$/;"	f	class:FaceCenteredBoundaryVariable
+SetShearingBoxBoundarySameLevel	bvals_shear_fc.cpp	/^void FaceCenteredBoundaryVariable::SetShearingBoxBoundarySameLevel($/;"	f	class:FaceCenteredBoundaryVariable
 SetupPersistentMPI	bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::SetupPersistentMPI() {$/;"	f	class:FaceCenteredBoundaryVariable
 StartReceiving	bvals_fc.cpp	/^void FaceCenteredBoundaryVariable::StartReceiving(BoundaryCommSubset phase) {$/;"	f	class:FaceCenteredBoundaryVariable
 StartReceivingShear	bvals_shear_fc.cpp	/^void FaceCenteredBoundaryVariable::StartReceivingShear(BoundaryCommSubset phase) {$/;"	f	class:FaceCenteredBoundaryVariable
@@ -95,7 +93,6 @@ override	bvals_fc.hpp	/^  int LoadBoundaryBufferSameLevel(Real *buf, const Neigh
 override	bvals_fc.hpp	/^  int LoadBoundaryBufferToCoarser(Real *buf, const NeighborBlock& nb) override;$/;"	m	class:FaceCenteredBoundaryVariable
 override	bvals_fc.hpp	/^  int LoadBoundaryBufferToFiner(Real *buf, const NeighborBlock& nb) override;$/;"	m	class:FaceCenteredBoundaryVariable
 override	bvals_fc.hpp	/^  void ClearBoundary(BoundaryCommSubset phase) override;$/;"	m	class:FaceCenteredBoundaryVariable
-override	bvals_fc.hpp	/^  void ComputeShear(const Real time) override;$/;"	m	class:FaceCenteredBoundaryVariable
 override	bvals_fc.hpp	/^  void PolarBoundarySingleAzimuthalBlock() override;$/;"	m	class:FaceCenteredBoundaryVariable
 override	bvals_fc.hpp	/^  void ReceiveAndSetBoundariesWithWait() override;$/;"	m	class:FaceCenteredBoundaryVariable
 override	bvals_fc.hpp	/^  void SendFluxCorrection() override;$/;"	m	class:FaceCenteredBoundaryVariable
@@ -106,6 +103,7 @@ override	bvals_fc.hpp	/^  void SetBoundarySameLevel(Real *buf, const NeighborBlo
 override	bvals_fc.hpp	/^  void SetupPersistentMPI() override;$/;"	m	class:FaceCenteredBoundaryVariable
 override	bvals_fc.hpp	/^  void StartReceiving(BoundaryCommSubset phase) override;$/;"	m	class:FaceCenteredBoundaryVariable
 override	bvals_fc.hpp	/^  void StartReceivingShear(BoundaryCommSubset phase) override;$/;"	m	class:FaceCenteredBoundaryVariable
+pbuf	bvals_fc.hpp	/^  AthenaArray<Real> pbuf;$/;"	m	class:FaceCenteredBoundaryVariable
 recv_flx_same_lvl_	bvals_fc.hpp	/^  bool recv_flx_same_lvl_;$/;"	m	class:FaceCenteredBoundaryVariable
 req_flux_north_recv_	bvals_fc.hpp	/^  MPI_Request *req_flux_north_send_, *req_flux_north_recv_;$/;"	m	class:FaceCenteredBoundaryVariable
 req_flux_north_send_	bvals_fc.hpp	/^  MPI_Request *req_flux_north_send_, *req_flux_north_recv_;$/;"	m	class:FaceCenteredBoundaryVariable
@@ -114,13 +112,13 @@ req_flux_south_send_	bvals_fc.hpp	/^  MPI_Request *req_flux_south_send_, *req_fl
 shear_emf_phys_id_	bvals_fc.hpp	/^  int shear_emf_phys_id_;$/;"	m	class:FaceCenteredBoundaryVariable
 shear_fc_	bvals_fc.hpp	/^  FaceField shear_fc_[2];$/;"	m	class:FaceCenteredBoundaryVariable
 shear_fc_phys_id_	bvals_fc.hpp	/^  int shear_fc_phys_id_;$/;"	m	class:FaceCenteredBoundaryVariable
-shear_flx_emf_	bvals_fc.hpp	/^  EdgeField shear_flx_emf_[2];$/;"	m	class:FaceCenteredBoundaryVariable
-shear_flx_fc_	bvals_fc.hpp	/^  FaceField shear_flx_fc_[2];$/;"	m	class:FaceCenteredBoundaryVariable
 shear_map_emf_	bvals_fc.hpp	/^  EdgeField shear_map_emf_[2];$/;"	m	class:FaceCenteredBoundaryVariable
-shear_recv_count_emf_	bvals_fc.hpp	/^  int shear_send_count_emf_[2][4], shear_recv_count_emf_[2][4];$/;"	m	class:FaceCenteredBoundaryVariable
+shear_recv_count_emf_	bvals_fc.hpp	/^  int shear_send_count_emf_[2][3], shear_recv_count_emf_[2][3];$/;"	m	class:FaceCenteredBoundaryVariable
 shear_recv_count_fc_	bvals_fc.hpp	/^  int shear_send_count_fc_[2][4], shear_recv_count_fc_[2][4];$/;"	m	class:FaceCenteredBoundaryVariable
-shear_send_count_emf_	bvals_fc.hpp	/^  int shear_send_count_emf_[2][4], shear_recv_count_emf_[2][4];$/;"	m	class:FaceCenteredBoundaryVariable
+shear_send_count_emf_	bvals_fc.hpp	/^  int shear_send_count_emf_[2][3], shear_recv_count_emf_[2][3];$/;"	m	class:FaceCenteredBoundaryVariable
 shear_send_count_fc_	bvals_fc.hpp	/^  int shear_send_count_fc_[2][4], shear_recv_count_fc_[2][4];$/;"	m	class:FaceCenteredBoundaryVariable
 shear_var_emf_	bvals_fc.hpp	/^  EdgeField shear_var_emf_[2];$/;"	m	class:FaceCenteredBoundaryVariable
 var_fc	bvals_fc.hpp	/^  FaceField *var_fc;$/;"	m	class:FaceCenteredBoundaryVariable
+xgh_	bvals_fc.hpp	/^  int xorder_, xgh_;$/;"	m	class:FaceCenteredBoundaryVariable
+xorder_	bvals_fc.hpp	/^  int xorder_, xgh_;$/;"	m	class:FaceCenteredBoundaryVariable
 ~FaceCenteredBoundaryVariable	bvals_fc.cpp	/^FaceCenteredBoundaryVariable::~FaceCenteredBoundaryVariable() {$/;"	f	class:FaceCenteredBoundaryVariable

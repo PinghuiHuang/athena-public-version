@@ -5,9 +5,12 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AddDustFluidsShearForInit	bvals_shear_dustfluids.cpp	/^void DustFluidsBoundaryVariable::AddDustFluidsShearForInit() {$/;"	f	class:DustFluidsBoundaryVariable
-BVALS_CC_DUSTFLUIDS_BVALS_HPP_	bvals_dustfluids.hpp	2;"	d
+BVALS_CC_DUSTFLUIDS_BVALS_DUSTFLUIDS_HPP_	bvals_dustfluids.hpp	2;"	d
 DustFluidsBoundaryVariable	bvals_dustfluids.cpp	/^DustFluidsBoundaryVariable::DustFluidsBoundaryVariable($/;"	f	class:DustFluidsBoundaryVariable
 DustFluidsBoundaryVariable	bvals_dustfluids.hpp	/^class DustFluidsBoundaryVariable : public CellCenteredBoundaryVariable {$/;"	c
+LoadFluxBoundaryBufferSameLevel	flux_correction_dustfluids.cpp	/^int DustFluidsBoundaryVariable::LoadFluxBoundaryBufferSameLevel(Real *buf,$/;"	f	class:DustFluidsBoundaryVariable
+PolarWedgeInnerX2	polarwedge_dustfluids.cpp	/^void DustFluidsBoundaryVariable::PolarWedgeInnerX2($/;"	f	class:DustFluidsBoundaryVariable
+PolarWedgeOuterX2	polarwedge_dustfluids.cpp	/^void DustFluidsBoundaryVariable::PolarWedgeOuterX2($/;"	f	class:DustFluidsBoundaryVariable
 ReflectInnerX1	reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectInnerX1($/;"	f	class:DustFluidsBoundaryVariable
 ReflectInnerX2	reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectInnerX2($/;"	f	class:DustFluidsBoundaryVariable
 ReflectInnerX3	reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectInnerX3($/;"	f	class:DustFluidsBoundaryVariable
@@ -15,13 +18,22 @@ ReflectOuterX1	reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::Reflect
 ReflectOuterX2	reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectOuterX2($/;"	f	class:DustFluidsBoundaryVariable
 ReflectOuterX3	reflect_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ReflectOuterX3($/;"	f	class:DustFluidsBoundaryVariable
 SelectCoarseBuffer	bvals_dustfluids.cpp	/^void DustFluidsBoundaryVariable::SelectCoarseBuffer(DustFluidsBoundaryQuantity dustfluids_type) {$/;"	f	class:DustFluidsBoundaryVariable
+SetBoundaryFromCoarser	bvals_dustfluids.cpp	/^void DustFluidsBoundaryVariable::SetBoundaryFromCoarser(Real *buf,$/;"	f	class:DustFluidsBoundaryVariable
+SetBoundaryFromFiner	bvals_dustfluids.cpp	/^void DustFluidsBoundaryVariable::SetBoundaryFromFiner(Real *buf,$/;"	f	class:DustFluidsBoundaryVariable
+SetBoundarySameLevel	bvals_dustfluids.cpp	/^void DustFluidsBoundaryVariable::SetBoundarySameLevel(Real *buf,$/;"	f	class:DustFluidsBoundaryVariable
 ShearQuantities	bvals_shear_dustfluids.cpp	/^void DustFluidsBoundaryVariable::ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) {$/;"	f	class:DustFluidsBoundaryVariable
 SwapDustFluidsQuantity	bvals_dustfluids.cpp	/^void DustFluidsBoundaryVariable::SwapDustFluidsQuantity(AthenaArray<Real> &var_dustfluids,$/;"	f	class:DustFluidsBoundaryVariable
 dustfluids_type_	bvals_dustfluids.hpp	/^  DustFluidsBoundaryQuantity dustfluids_type_;$/;"	m	class:DustFluidsBoundaryVariable
+final	bvals_dustfluids.hpp	/^  int LoadFluxBoundaryBufferSameLevel(Real *buf, const NeighborBlock& nb) final;$/;"	m	class:DustFluidsBoundaryVariable
+final	bvals_dustfluids.hpp	/^  void PolarWedgeInnerX2( Real time, Real dt, int il, int iu, int jl, int kl, int ku, int ngh) final;$/;"	m	class:DustFluidsBoundaryVariable
+final	bvals_dustfluids.hpp	/^  void PolarWedgeOuterX2( Real time, Real dt, int il, int iu, int jl, int kl, int ku, int ngh) final;$/;"	m	class:DustFluidsBoundaryVariable
+final	bvals_dustfluids.hpp	/^  void SetBoundaryFromCoarser(Real *buf, const NeighborBlock& nb) final;$/;"	m	class:DustFluidsBoundaryVariable
+final	bvals_dustfluids.hpp	/^  void SetBoundaryFromFiner(Real *buf, const NeighborBlock& nb) final;$/;"	m	class:DustFluidsBoundaryVariable
 override	bvals_dustfluids.hpp	/^                      int il, int iu, int jl, int ju, int kl, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
 override	bvals_dustfluids.hpp	/^                      int il, int iu, int jl, int ju, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
 override	bvals_dustfluids.hpp	/^                      int il, int iu, int jl, int kl, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
 override	bvals_dustfluids.hpp	/^                      int il, int iu, int ju, int kl, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
 override	bvals_dustfluids.hpp	/^                      int il, int jl, int ju, int kl, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
 override	bvals_dustfluids.hpp	/^                      int iu, int jl, int ju, int kl, int ku, int ngh) override;$/;"	m	class:DustFluidsBoundaryVariable
+override	bvals_dustfluids.hpp	/^  void SetBoundarySameLevel(Real *buf, const NeighborBlock& nb) override;$/;"	m	class:DustFluidsBoundaryVariable
 override	bvals_dustfluids.hpp	/^  void ShearQuantities(AthenaArray<Real> &shear_cc_, bool upper) override;$/;"	m	class:DustFluidsBoundaryVariable

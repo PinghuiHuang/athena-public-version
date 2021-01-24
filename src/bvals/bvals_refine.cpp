@@ -4,7 +4,51 @@
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
 //! \file bvals_refine.cpp
-//  \brief constructor/destructor and utility functions for BoundaryValues class
+//! \brief constructor/destructor and utility functions for BoundaryValues class
+//!
+//! SWITCHING BETWEEN PRIMITIVE VS. CONSERVED AND STANDARD VS. COARSE BUFFERS HERE:
+//! -----------
+//!
+//! In both Mesh::Initialize and time_integartor.cpp, this wrapper function
+//! ProlongateBoundaries expects to have Hydro (and Dust Fluids)-associated
+//! BoundaryVariable objects with member pointers pointing to their CONSERVED VARIABLE
+//! ARRAYS (standard and coarse buffers) by the time this function is called.
+//!
+//! E.g. in time_integrator.cpp, the PROLONG task is called after SEND_HYD, SETB_HYD,
+//! SEND_SCLR, SETB_SCLR, all of which indepedently switch to their associated CONSERVED
+//! VARIABLE ARRAYS and before CON2PRIM which switches to PRIMITIVE VARIABLE ARRAYS.
+//!
+//! However, this is currently not a strict requirement, since all below
+//! MeshRefinement::Prolongate*() and Restrict*() calls refer directly to
+//! MeshRefinement::pvars_cc_, pvars_fc_ vectors, NOT the var_cc, coarse_buf ptr members
+//! of CellCenteredBoundaryVariable objects, e.g. And the first step in this function,
+//! RestrictGhostCellsOnSameLevel, by default operates on the S/AMR-enrolled:
+//! (u, coarse_cons) for Hydro and (df_cons, coarse_df_cons) for DustFluids
+//! (also on (w, coarse_prim) for Hydro if GR):
+//!
+//! __________
+//! There are three sets of variable pointers used in this file:
+//! 1. BoundaryVariable pointer members: var_cc, coarse_buf
+//!   - Only used in ApplyPhysicalBoundariesOnCoarseLevel()
+//! 2. MeshRefinement tuples of pointers: pvars_cc_
+//!   - Used in RestrictGhostCellsOnSameLevel() and ProlongateGhostCells()
+//! 3. Hardcoded pointers through MeshBlock members (pmb->phydro->w, e.g. )
+//!   - Used in ApplyPhysicalBoundariesOnCoarseLevel() and ProlongateGhostCells() where
+//!     physical quantities are coupled through EquationOfState
+//!
+//! SUMMARY OF BELOW PTR CHANGES:
+//! -----------
+//! 1. RestrictGhostCellsOnSameLevel (MeshRefinement::pvars_cc)
+//!   - change standard and coarse CONSERVED
+//!     (also temporarily change to standard and coarse PRIMITIVE for GR simulations)
+//! 2. ApplyPhysicalBoundariesOnCoarseLevel (CellCenteredBoundaryVariable::var_cc)
+//!   - ONLY var_cc (var_fc) is changed to = coarse_buf, PRIMITIVE
+//!     (automatically switches var_cc to standard and coarse_buf to coarse primitive
+//!     arrays after fn returns)
+//!
+//! 3. ProlongateGhostCells (MeshRefinement::pvars_cc)
+//!   - change to standard and coarse PRIMITIVE
+//!     (automatically switches back to conserved variables at the end of fn)
 
 // C headers
 
@@ -12,6 +56,7 @@
 #include <algorithm>  // min
 #include <cmath>
 #include <iterator>
+#include <vector>
 
 // Athena++ headers
 #include "../athena.hpp"
@@ -26,58 +71,30 @@
 #include "cc/dustfluids/bvals_dustfluids.hpp"
 #include "fc/bvals_fc.hpp"
 
-// -----------
-// NOTE ON SWITCHING BETWEEN PRIMITIVE VS. CONSERVED AND STANDARD VS. COARSE BUFFERS HERE:
-// -----------
+//----------------------------------------------------------------------------------------
+//! \fn void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt,
+//!                                       std::vector<BoundaryVariable *> bvars_subset)
+//! \brief Prolongate boundaries
+//!
+//! \note
+//! - temporarily hardcode Hydro and Field array access for the below switch
+//!   around ApplyPhysicalBoundariesOnCoarseLevel()
+//! - This hardcoded technique is also used to manually specify the coupling between
+//!   physical variables in:
+//!   - step 2, ApplyPhysicalBoundariesOnCoarseLevel():
+//!     calls to W(U) and user BoundaryFunc
+//!   - step 3, ProlongateGhostCells(): calls to calculate bcc and U(W)
+//! - Additionally, pmr->SetHydroRefinement() is currently used in
+//!   RestrictGhostCellsOnSameLevel() (GR) and ProlongateGhostCells() (always) to switch
+//!   between conserved and primitive tuples in MeshRefinement::pvars_cc_, but this does
+//!   not require ph, pf due to MeshRefinement::SetHydroRefinement(hydro_type)
+//! - downcast BoundaryVariable pointers to known derived class pointer types:
+//!   RTTI via dynamic_case
 
-// In both Mesh::Initialize and time_integartor.cpp, this wrapper function
-// ProlongateBoundaries expects to have Hydro (and dust fluids)-associated
-// BoundaryVariable objects with member pointers pointing to their CONSERVED VARIABLE
-// ARRAYS (standard and coarse buffers) by the time this function is called.
-
-// E.g. in time_integrator.cpp, the PROLONG task is called after SEND_HYD, SETB_HYD,
-// SEND_SCLR, SETB_SCLR, all of which indepedently switch to their associated CONSERVED
-// VARIABLE ARRAYS and before CON2PRIM which switches to PRIMITIVE VARIABLE ARRAYS.
-
-// However, this is currently not a strict requirement, since all below
-// MeshRefinement::Prolongate*() and Restrict*() calls refer directly to
-// MeshRefinement::pvars_cc_, pvars_fc_ vectors, NOT the var_cc, coarse_buf ptr members of
-// CellCenteredBoundaryVariable objects, e.g. And the first step in this function,
-// RestrictGhostCellsOnSameLevel, by default operates on the S/AMR-enrolled:
-// (u, coarse_cons) for Hydro and (s, coarse_s) for DustFluids
-// (also on (w, coarse_prim) for Hydro if GR):
-
-// -----------
-// There are three sets of variable pointers used in this file:
-// 1) BoundaryVariable pointer members: var_cc, coarse_buf
-// -- Only used in ApplyPhysicalBoundariesOnCoarseLevel()
-
-// 2) MeshRefinement tuples of pointers: pvars_cc_
-// -- Used in RestrictGhostCellsOnSameLevel() and ProlongateGhostCells()
-
-// 3) Hardcoded pointers through MeshBlock members (pmb->phydro->w, e.g. )
-// -- Used in ApplyPhysicalBoundariesOnCoarseLevel() and ProlongateGhostCells() where
-// physical quantities are coupled through EquationOfState
-
-// -----------
-// SUMMARY OF BELOW PTR CHANGES:
-// -----------
-// 1. RestrictGhostCellsOnSameLevel (MeshRefinement::pvars_cc)
-// --- change standard and coarse CONSERVED
-// (also temporarily change to standard and coarse PRIMITIVE for GR simulations)
-
-// 2. ApplyPhysicalBoundariesOnCoarseLevel (CellCenteredBoundaryVariable::var_cc)
-// --- ONLY var_cc (var_fc) is changed to = coarse_buf, PRIMITIVE
-// (automatically switches var_cc to standard and coarse_buf to coarse primitive
-// arrays after fn returns)
-
-// 3. ProlongateGhostCells (MeshRefinement::pvars_cc)
-// --- change to standard and coarse PRIMITIVE
-// (automatically switches back to conserved variables at the end of fn)
-
-void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
+void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt,
+                                          std::vector<BoundaryVariable *> bvars_subset) {
   MeshBlock *pmb = pmy_block_;
-  int &mylevel = pmb->loc.level;
+  int &mylevel = loc.level;
 
   // TODO(KGF): temporarily hardcode Hydro and Field array access for the below switch
   // around ApplyPhysicalBoundariesOnCoarseLevel()
@@ -104,7 +121,7 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
     pdf = pmb->pdustfluids;
     // cannot assume the vector index:
     //pdfbvar = dynamic_cast<DustFluidsCenteredBoundaryVariable *>(bvars_main_int[???]);
-    pdfbvar = dynamic_cast<DustFluidsBoundaryVariable *>(bvars_main_int[0]); // TODO
+    pdfbvar = dynamic_cast<DustFluidsBoundaryVariable *>(bvars_main_int[0]); // TODO:P.H.
   }
 
   FaceCenteredBoundaryVariable *pfbvar = nullptr;
@@ -158,7 +175,7 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
     int cn = pmb->cnghost - 1;
     int si, ei, sj, ej, sk, ek;
     if (nb.ni.ox1 == 0) {
-      std::int64_t &lx1 = pmb->loc.lx1;
+      std::int64_t &lx1 = loc.lx1;
       si = pmb->cis, ei = pmb->cie;
       if ((lx1 & 1LL) == 0LL) ei += cn;
       else             si -= cn;
@@ -167,7 +184,7 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
     if (nb.ni.ox2 == 0) {
       sj = pmb->cjs, ej = pmb->cje;
       if (pmb->block_size.nx2 > 1) {
-        std::int64_t &lx2 = pmb->loc.lx2;
+        std::int64_t &lx2 = loc.lx2;
         if ((lx2 & 1LL) == 0LL) ej += cn;
         else             sj -= cn;
       }
@@ -176,7 +193,7 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
     if (nb.ni.ox3 == 0) {
       sk = pmb->cks, ek = pmb->cke;
       if (pmb->block_size.nx3 > 1) {
-        std::int64_t &lx3 = pmb->loc.lx3;
+        std::int64_t &lx3 = loc.lx3;
         if ((lx3 & 1LL) == 0LL) ek += cn;
         else             sk -= cn;
       }
@@ -189,11 +206,13 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
     if (MAGNETIC_FIELDS_ENABLED)
       pfbvar->var_fc = &(pf->coarse_b_);
     if (NDUSTFLUIDS > 0) {
+      DustFluids *pdf = pmb->pdustfluids;
       pdfbvar->var_cc = &(pdf->coarse_df_prim_);
     }
 
     // Step 2. Re-apply physical boundaries on the coarse boundary:
-    ApplyPhysicalBoundariesOnCoarseLevel(nb, time, dt, si, ei, sj, ej, sk, ek);
+    ApplyPhysicalBoundariesOnCoarseLevel(nb, time, dt, si, ei, sj, ej, sk, ek,
+                                         bvars_subset);
 
     // (temp workaround) swap BoundaryVariable var_cc/fc to standard primitive variable
     // arrays (not coarse) from coarse primitive variables arrays
@@ -201,6 +220,7 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
     if (MAGNETIC_FIELDS_ENABLED)
       pfbvar->var_fc = &(pf->b);
     if (NDUSTFLUIDS > 0) {
+      DustFluids *pdf = pmb->pdustfluids;
       pdfbvar->var_cc = &(pdf->df_prim);
     }
 
@@ -211,6 +231,10 @@ void BoundaryValues::ProlongateBoundaries(const Real time, const Real dt) {
 }
 
 
+//----------------------------------------------------------------------------------------
+//! \fn void BoundaryValues::RestrictGhostCellsOnSameLevel(const NeighborBlock& nb,
+//!                                                        int nk, int nj, int ni)
+//! \brief Restrict ghost cells on same level
 void BoundaryValues::RestrictGhostCellsOnSameLevel(const NeighborBlock& nb, int nk,
                                                    int nj, int ni) {
   MeshBlock *pmb = pmy_block_;
@@ -218,13 +242,9 @@ void BoundaryValues::RestrictGhostCellsOnSameLevel(const NeighborBlock& nb, int 
 
   int ris, rie, rjs, rje, rks, rke;
   if (ni == 0) {
-    ris = pmb->cis;
-    rie = pmb->cie;
-    if (nb.ni.ox1 == 1) {
-      ris = pmb->cie;
-    } else if (nb.ni.ox1 == -1) {
-      rie = pmb->cis;
-    }
+    ris = pmb->cis, rie = pmb->cie;
+    if (nb.ni.ox1 == 1)       ris = pmb->cie;
+    else if (nb.ni.ox1 == -1) rie = pmb->cis;
   } else if (ni == 1) {
     ris = pmb->cie + 1, rie = pmb->cie + 1;
   } else { //(ni ==  - 1)
@@ -232,7 +252,7 @@ void BoundaryValues::RestrictGhostCellsOnSameLevel(const NeighborBlock& nb, int 
   }
   if (nj == 0) {
     rjs = pmb->cjs, rje = pmb->cje;
-    if (nb.ni.ox2 == 1) rjs = pmb->cje;
+    if (nb.ni.ox2 == 1)       rjs = pmb->cje;
     else if (nb.ni.ox2 == -1) rje = pmb->cjs;
   } else if (nj == 1) {
     rjs = pmb->cje + 1, rje = pmb->cje + 1;
@@ -241,7 +261,7 @@ void BoundaryValues::RestrictGhostCellsOnSameLevel(const NeighborBlock& nb, int 
   }
   if (nk == 0) {
     rks = pmb->cks, rke = pmb->cke;
-    if (nb.ni.ox3 == 1) rks = pmb->cke;
+    if (nb.ni.ox3 == 1)       rks = pmb->cke;
     else if (nb.ni.ox3 == -1) rke = pmb->cks;
   } else if (nk == 1) {
     rks = pmb->cke + 1, rke = pmb->cke + 1;
@@ -271,7 +291,7 @@ void BoundaryValues::RestrictGhostCellsOnSameLevel(const NeighborBlock& nb, int 
   for (auto fc_pair : pmr->pvars_fc_) {
     FaceField *var_fc = std::get<0>(fc_pair);
     FaceField *coarse_fc = std::get<1>(fc_pair);
-    int &mylevel = pmb->loc.level;
+    int &mylevel = loc.level;
     int rs = ris, re = rie + 1;
     if (rs == pmb->cis   && nblevel[nk+1][nj+1][ni  ] < mylevel) rs++;
     if (re == pmb->cie+1 && nblevel[nk+1][nj+1][ni+2] < mylevel) re--;
@@ -309,24 +329,27 @@ void BoundaryValues::RestrictGhostCellsOnSameLevel(const NeighborBlock& nb, int 
 
 //----------------------------------------------------------------------------------------
 //! \fn void BoundaryValues::ApplyPhysicalBoundariesOnCoarseLevel(
-//           const NeighborBlock& nb, const Real time, const Real dt,
-//           int si, int ei, int sj, int ej, int sk, int ek)
-//  \brief
+//!          const NeighborBlock& nb, const Real time, const Real dt,
+//!          int si, int ei, int sj, int ej, int sk, int ek,
+//!          std::vector<BoundaryVariable *> bvars_subset)
+//! \brief physical boundaries
+//!
+//! \note temporarily hardcode Hydro and Field array access
 
 void BoundaryValues::ApplyPhysicalBoundariesOnCoarseLevel(
     const NeighborBlock& nb, const Real time, const Real dt,
-    int si, int ei, int sj, int ej, int sk, int ek) {
+    int si, int ei, int sj, int ej, int sk, int ek,
+    std::vector<BoundaryVariable *> bvars_subset) {
   MeshBlock *pmb = pmy_block_;
   MeshRefinement *pmr = pmb->pmr;
 
   // temporarily hardcode Hydro and Field array access:
-  Hydro *ph = pmb->phydro;
-  Field *pf = nullptr;
+  Hydro      *ph  = pmb->phydro;
+  Field      *pf  = nullptr;
   DustFluids *pdf = nullptr;
   if (MAGNETIC_FIELDS_ENABLED) {
     pf = pmb->pfield;
   }
-
   if (NDUSTFLUIDS > 0) {
     pdf = pmb->pdustfluids;
   }
@@ -360,10 +383,12 @@ void BoundaryValues::ApplyPhysicalBoundariesOnCoarseLevel(
     }
   }
 
-  // TODO(KGF): passing nullptrs (pf) if no MHD. Might no longer be an issue to set
-  // pf=pmb->pfield even if no MHD. Originally was a problem when dereferencing in order
-  // to bind references to coarse_b_, coarse_bcc, since coarse_* are no longer members of
-  // MeshRefinement that always exist (even if not allocated).
+  //! \note (felker):
+  //! - passing nullptrs (pf) if no MHD.
+  //! - Might no longer be an issue to set pf=pmb->pfield even if no MHD.
+  //! - Originally was a problem when dereferencing in order
+  //!   to bind references to coarse_b_, coarse_bcc, since coarse_* are
+  //!   no longer members of MeshRefinement that always exist (even if not allocated).
 
   // KGF: COUPLING OF QUANTITIES (must be manually specified)
   pmb->peos->ConservedToPrimitive(ph->coarse_cons_, ph->coarse_prim_,
@@ -382,40 +407,52 @@ void BoundaryValues::ApplyPhysicalBoundariesOnCoarseLevel(
     if (apply_bndry_fn_[BoundaryFace::inner_x1]) {
       DispatchBoundaryFunctions(pmb, pmr->pcoarsec, time, dt,
                                 pmb->cis, pmb->cie, sj, ej, sk, ek, 1,
-                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::inner_x1);
+                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::inner_x1,
+                                bvars_subset);
     }
     if (apply_bndry_fn_[BoundaryFace::outer_x1]) {
       DispatchBoundaryFunctions(pmb, pmr->pcoarsec, time, dt,
                                 pmb->cis, pmb->cie, sj, ej, sk, ek, 1,
-                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::outer_x1);
+                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::outer_x1,
+                                bvars_subset);
     }
   }
   if (nb.ni.ox2 == 0 && pmb->block_size.nx2 > 1) {
     if (apply_bndry_fn_[BoundaryFace::inner_x2]) {
       DispatchBoundaryFunctions(pmb, pmr->pcoarsec, time, dt,
                                 si, ei, pmb->cjs, pmb->cje, sk, ek, 1,
-                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::inner_x2);
+                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::inner_x2,
+                                bvars_subset);
     }
     if (apply_bndry_fn_[BoundaryFace::outer_x2]) {
       DispatchBoundaryFunctions(pmb, pmr->pcoarsec, time, dt,
                                 si, ei, pmb->cjs, pmb->cje, sk, ek, 1,
-                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::outer_x2);
+                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::outer_x2,
+                                bvars_subset);
     }
   }
   if (nb.ni.ox3 == 0 && pmb->block_size.nx3 > 1) {
     if (apply_bndry_fn_[BoundaryFace::inner_x3]) {
       DispatchBoundaryFunctions(pmb, pmr->pcoarsec, time, dt,
                                 si, ei, sj, ej, pmb->cks, pmb->cke, 1,
-                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::inner_x3);
+                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::inner_x3,
+                                bvars_subset);
     }
     if (apply_bndry_fn_[BoundaryFace::outer_x3]) {
       DispatchBoundaryFunctions(pmb, pmr->pcoarsec, time, dt,
                                 si, ei, sj, ej, pmb->cks, pmb->cke, 1,
-                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::outer_x3);
+                                ph->coarse_prim_, pf->coarse_b_, BoundaryFace::outer_x3,
+                                bvars_subset);
     }
   }
   return;
 }
+
+//----------------------------------------------------------------------------------------
+//! \fn void BoundaryValues::ProlongateGhostCells(const NeighborBlock& nb,
+//!                                               int si, int ei, int sj, int ej,
+//!                                               int sk, int ek)
+//! \brief Prolongate ghost cells
 
 void BoundaryValues::ProlongateGhostCells(const NeighborBlock& nb,
                                           int si, int ei, int sj, int ej,
@@ -426,13 +463,10 @@ void BoundaryValues::ProlongateGhostCells(const NeighborBlock& nb,
   // prolongate cell-centered S/AMR-enrolled quantities (hydro, radiation, dust fluids, ...)
   //(unique to Hydro, DustFluids): swap ptrs to (w, coarse_prim) from (u, coarse_cons)
   pmr->SetHydroRefinement(HydroBoundaryQuantity::prim);
-  // (r, coarse_r) from (s, coarse_s)
-  //if (NDUSTFLUIDS > 0) {
-    //DustFluids *pdf = pmb->pdustfluids;
-    //pmr->pvars_cc_[pdf->refinement_idx] = std::make_tuple(&pdf->df_prim, &pdf->coarse_df_prim_);
-  //}
-  if (NDUSTFLUIDS > 0)
+  // (df_prim, coarse_df_prim) from (df_cons, coarse_df_cons)
+  if (NDUSTFLUIDS > 0) {
     pmr->SetDustFluidsRefinement(DustFluidsBoundaryQuantity::prim_df);
+  }
 
   for (auto cc_pair : pmr->pvars_cc_) {
     AthenaArray<Real> *var_cc = std::get<0>(cc_pair);
@@ -443,12 +477,10 @@ void BoundaryValues::ProlongateGhostCells(const NeighborBlock& nb,
   }
   // swap back MeshRefinement ptrs to standard/coarse conserved variable arrays:
   pmr->SetHydroRefinement(HydroBoundaryQuantity::cons);
-  //if (NDUSTFLUIDS > 0) {
-    //DustFluids *pdf = pmb->pdustfluids;
-    //pmr->pvars_cc_[pdf->refinement_idx] = std::make_tuple(&pdf->df_cons, &pdf->coarse_df_cons_);
-  //}
-  if (NDUSTFLUIDS > 0)
+  if (NDUSTFLUIDS > 0) {
+    DustFluids *pdf = pmb->pdustfluids;
     pmr->SetDustFluidsRefinement(DustFluidsBoundaryQuantity::cons_df);
+  }
 
   // prolongate face-centered S/AMR-enrolled quantities (magnetic fields)
   int &mylevel = pmb->loc.level;
@@ -524,8 +556,10 @@ void BoundaryValues::ProlongateGhostCells(const NeighborBlock& nb,
     pf->CalculateCellCenteredField(pf->b, pf->bcc, pmb->pcoord,
                                    fsi, fei, fsj, fej, fsk, fek);
   }
-  // TODO(KGF): passing nullptrs (pf) if no MHD (coarse_* no longer in MeshRefinement)
-  // (may be fine to unconditionally directly set to pmb->pfield now. see above comment)
+  //! \note (felker):
+  //! - passing nullptrs (pf) if no MHD (coarse_* no longer in MeshRefinement)
+  //!   (may be fine to unconditionally directly set to pmb->pfield now.
+  //!    see comment in ApplyPhysicalBoundariesOnCoarseLevel()
 
   // KGF: COUPLING OF QUANTITIES (must be manually specified)
   // calculate conservative variables

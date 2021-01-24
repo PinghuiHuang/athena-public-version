@@ -5,7 +5,8 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ApplyKernel	fft_gravity.cpp	/^void FFTGravity::ApplyKernel(int mode) {$/;"	f	class:FFTGravity
-CalculateDefect	mg_gravity.cpp	/^void MGGravity::CalculateDefect() {$/;"	f	class:MGGravity
+CalculateDefect	mg_gravity.cpp	/^void MGGravity::CalculateDefect(AthenaArray<Real> &def, const AthenaArray<Real> &u,$/;"	f	class:MGGravity
+CalculateFASRHS	mg_gravity.cpp	/^void MGGravity::CalculateFASRHS(AthenaArray<Real> &src, const AthenaArray<Real> &u,$/;"	f	class:MGGravity
 FFTGravity	fft_gravity.hpp	/^  FFTGravity(FFTDriver *pfd, LogicalLocation iloc, int igid,$/;"	f	class:FFTGravity
 FFTGravity	fft_gravity.hpp	/^class FFTGravity : public FFTBlock {$/;"	c
 FFTGravityDriver	fft_gravity.cpp	/^FFTGravityDriver::FFTGravityDriver(Mesh *pm, ParameterInput *pin)$/;"	f	class:FFTGravityDriver
@@ -15,17 +16,20 @@ GRAVITY_GRAVITY_HPP_	gravity.hpp	2;"	d
 GRAVITY_MG_GRAVITY_HPP_	mg_gravity.hpp	2;"	d
 Gravity	gravity.cpp	/^Gravity::Gravity(MeshBlock *pmb, ParameterInput *pin) :$/;"	f	class:Gravity
 Gravity	gravity.hpp	/^class Gravity {$/;"	c
-MGGravity	mg_gravity.hpp	/^  MGGravity(MultigridDriver *pmd, MeshBlock *pmb) : Multigrid(pmd, pmb, 1, 1)$/;"	f	class:MGGravity
+MGGravity	mg_gravity.cpp	/^MGGravity::MGGravity(MultigridDriver *pmd, MeshBlock *pmb) : Multigrid(pmd, pmb, 1, 1) {$/;"	f	class:MGGravity
 MGGravity	mg_gravity.hpp	/^class MGGravity : public Multigrid {$/;"	c
 MGGravityDriver	mg_gravity.cpp	/^MGGravityDriver::MGGravityDriver(Mesh *pm, ParameterInput *pin)$/;"	f	class:MGGravityDriver
-MGGravityDriver	mg_gravity.hpp	/^class MGGravityDriver : public MultigridDriver{$/;"	c
-Smooth	mg_gravity.cpp	/^void MGGravity::Smooth(int color) {$/;"	f	class:MGGravity
+MGGravityDriver	mg_gravity.hpp	/^class MGGravityDriver : public MultigridDriver {$/;"	c
+ProlongateOctetBoundariesFluxCons	mg_gravity.cpp	/^void MGGravityDriver::ProlongateOctetBoundariesFluxCons(AthenaArray<Real> &dst) {$/;"	f	class:MGGravityDriver
+Smooth	mg_gravity.cpp	/^void MGGravity::Smooth(AthenaArray<Real> &u, const AthenaArray<Real> &src, int rlev,$/;"	f	class:MGGravity
 Solve	fft_gravity.cpp	/^void FFTGravityDriver::Solve(int stage, int mode) {$/;"	f	class:FFTGravityDriver
 Solve	mg_gravity.cpp	/^void MGGravityDriver::Solve(int stage) {$/;"	f	class:MGGravityDriver
 empty_flux	gravity.hpp	/^  AthenaArray<Real> empty_flux[3];$/;"	m	class:Gravity
 final	fft_gravity.hpp	/^  void ApplyKernel(int mode) final;$/;"	m	class:FFTGravity
-final	mg_gravity.hpp	/^  void CalculateDefect() final;$/;"	m	class:MGGravity
-final	mg_gravity.hpp	/^  void Smooth(int color) final;$/;"	m	class:MGGravity
+final	mg_gravity.hpp	/^                       int il, int iu, int jl, int ju, int kl, int ku) final;$/;"	m	class:MGGravity
+final	mg_gravity.hpp	/^                       int rlev, int il, int iu, int jl, int ju, int kl, int ku) final;$/;"	m	class:MGGravity
+final	mg_gravity.hpp	/^              int rlev, int il, int iu, int jl, int ju, int kl, int ku, int color) final;$/;"	m	class:MGGravity
+final	mg_gravity.hpp	/^  void ProlongateOctetBoundariesFluxCons(AthenaArray<Real> &dst) final;$/;"	m	class:MGGravityDriver
 final	mg_gravity.hpp	/^  void Solve(int stage) final;$/;"	m	class:MGGravityDriver
 four_pi_G	gravity.hpp	/^  Real gconst, four_pi_G;$/;"	m	class:Gravity
 four_pi_G_	fft_gravity.hpp	/^  Real four_pi_G_;$/;"	m	class:FFTGravityDriver
@@ -33,7 +37,6 @@ four_pi_G_	mg_gravity.hpp	/^  Real four_pi_G_;$/;"	m	class:MGGravityDriver
 gbvar	gravity.cpp	/^    gbvar(pmb, &phi, nullptr, empty_flux) {$/;"	f
 gbvar	gravity.hpp	/^  CellCenteredBoundaryVariable gbvar;$/;"	m	class:Gravity
 gconst	gravity.hpp	/^  Real gconst, four_pi_G;$/;"	m	class:Gravity
-grav_mean_rho	gravity.hpp	/^  Real grav_mean_rho;$/;"	m	class:Gravity
 gravity_tensor_energy_	gravity.hpp	/^  bool gravity_tensor_energy_;$/;"	m	class:Gravity
 gravity_tensor_momentum_	gravity.hpp	/^  bool gravity_tensor_momentum_;$/;"	m	class:Gravity
 gtlist_	fft_gravity.hpp	/^  FFTGravitySolverTaskList *gtlist_;$/;"	m	class:FFTGravityDriver
@@ -43,4 +46,5 @@ pmy_block	gravity.hpp	/^  MeshBlock* pmy_block;  \/\/ ptr to MeshBlock containin
 srcterm	gravity.hpp	/^  bool srcterm;$/;"	m	class:Gravity
 ~FFTGravity	fft_gravity.hpp	/^  ~FFTGravity() {}$/;"	f	class:FFTGravity
 ~FFTGravityDriver	fft_gravity.cpp	/^FFTGravityDriver::~FFTGravityDriver() {$/;"	f	class:FFTGravityDriver
+~MGGravity	mg_gravity.cpp	/^MGGravity::~MGGravity() {$/;"	f	class:MGGravity
 ~MGGravityDriver	mg_gravity.cpp	/^MGGravityDriver::~MGGravityDriver() {$/;"	f	class:MGGravityDriver

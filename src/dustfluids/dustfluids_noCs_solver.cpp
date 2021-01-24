@@ -3,21 +3,21 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file dustfluids_hlle_solver.cpp
-//  \brief spatially isothermal HLLE Riemann solver for dust fludis, no dust sound speed
-//
-//  Computes 1D df_fluxes using the Harten-Lax-van Leer (HLL) Riemann solver.  This df_flux is
-//  very diffusive, especially for contacts, and so it is not recommended for use in
-//  applications.  However, as shown by Einfeldt et al.(1991), it is positively
-//  conservative (cannot return negative densities or pressure), so it is a useful
-//  option when other approximate solvers fail and/or when extra dissipation is needed.
-//
-// REFERENCES:
-// - E.F. Toro, "Riemann Solvers and numerical methods for df_fluid dynamics", 2nd ed.,
-//   Springer-Verlag, Berlin, (1999) chpt. 10.
-// - Einfeldt et al., "On Godunov-type methods near low densities", JCP, 92, 273 (1991)
-// - A. Harten, P. D. Lax and B. van Leer, "On upstream differencing and Godunov-type
-//   schemes for hyperbolic conservation laws", SIAM Review 25, 35-61 (1983).
+//! \file dustfluids_noCs_solver.cpp
+//! \brief HLLE Riemann solver for dust fludis (no dust sound speed)
+//!
+//! Computes 1D fluxes using the Harten-Lax-van Leer (HLL) Riemann solver.  This flux is
+//! very diffusive, especially for contacts, and so it is not recommended for use in
+//! applications.  However, as shown by Einfeldt et al.(1991), it is positively
+//! conservative (cannot return negative densities or pressure), so it is a useful
+//! option when other approximate solvers fail and/or when extra dissipation is needed.
+//!
+//!REFERENCES:
+//!- E.F. Toro, "Riemann Solvers and numerical methods for fluid dynamics", 2nd ed.,
+//!  Springer-Verlag, Berlin, (1999) chpt. 10.
+//!- Einfeldt et al., "On Godunov-type methods near low densities", JCP, 92, 273 (1991)
+//!- A. Harten, P. D. Lax and B. van Leer, "On upstream differencing and Godunov-type
+//!  schemes for hyperbolic conservation laws", SIAM Review 25, 35-61 (1983).
 
 // C headers
 
@@ -29,48 +29,46 @@
 #include "../athena.hpp"
 #include "../athena_arrays.hpp"
 #include "../eos/eos.hpp"
-#include "../hydro/hydro.hpp"
 #include "dustfluids.hpp"
 
 //----------------------------------------------------------------------------------------
 //! \fn void DustFluids::HLLE_RiemannSolver_DustFluids
-//  \brief The HLLE Riemann solver for Dust Fluids (no dust sound speed)
+//! \brief The HLLE Riemann solver for Dust Fluids (no dust sound speed)
 
 void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
                           const int index, AthenaArray<Real> &prim_df_l,
                           AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux) {
 
-  Real df_prim_li[(num_dust_var)], df_prim_ri[(num_dust_var)], df_prim_roe[(num_dust_var)];
-  Real df_fl[(num_dust_var)],      df_fr[(num_dust_var)],      df_flxi[(num_dust_var)];
+  Real df_prim_li[(NDUSTVAR)], df_prim_ri[(NDUSTVAR)], df_prim_roe[(NDUSTVAR)];
+  Real df_fl[(NDUSTVAR)],      df_fr[(NDUSTVAR)],      df_flxi[(NDUSTVAR)];
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
-    int dust_id = n;
-    int rho_id  = 4*dust_id;
-    int ivx     = (IVX + ((index-IVX))%3)   + rho_id;
-    int ivy     = (IVX + ((index-IVX)+1)%3) + rho_id;
-    int ivz     = (IVX + ((index-IVX)+2)%3) + rho_id;
+    int idust = n;
+    int irho  = 4*idust;
+    int ivx   = (IVX + ((index-IVX))%3)   + irho;
+    int ivy   = (IVX + ((index-IVX)+1)%3) + irho;
+    int ivz   = (IVX + ((index-IVX)+2)%3) + irho;
 #pragma omp simd private(df_prim_li, df_prim_ri, df_prim_roe, df_fl, df_fr, df_flxi)
     for (int i=il; i<=iu; ++i) {
-
       //Load L/R states into local variables
-      df_prim_li[rho_id] = prim_df_l(rho_id, i);
-      df_prim_li[ivx]    = prim_df_l(ivx,    i);
-      df_prim_li[ivy]    = prim_df_l(ivy,    i);
-      df_prim_li[ivz]    = prim_df_l(ivz,    i);
+      df_prim_li[irho] = prim_df_l(irho, i);
+      df_prim_li[ivx]  = prim_df_l(ivx,  i);
+      df_prim_li[ivy]  = prim_df_l(ivy,  i);
+      df_prim_li[ivz]  = prim_df_l(ivz,  i);
 
-      df_prim_ri[rho_id] = prim_df_r(rho_id, i);
-      df_prim_ri[ivx]    = prim_df_r(ivx,    i);
-      df_prim_ri[ivy]    = prim_df_r(ivy,    i);
-      df_prim_ri[ivz]    = prim_df_r(ivz,    i);
+      df_prim_ri[irho] = prim_df_r(irho, i);
+      df_prim_ri[ivx]  = prim_df_r(ivx,  i);
+      df_prim_ri[ivy]  = prim_df_r(ivy,  i);
+      df_prim_ri[ivz]  = prim_df_r(ivz,  i);
 
       //Compute middle state estimates with PVRS (Toro 10.5.2)
       //Real al, ar, el, er;
-      Real sqrtdl  = std::sqrt(df_prim_li[rho_id]);
-      Real sqrtdr  = std::sqrt(df_prim_ri[rho_id]);
+      Real sqrtdl  = std::sqrt(df_prim_li[irho]);
+      Real sqrtdr  = std::sqrt(df_prim_ri[irho]);
       Real isdlpdr = 1.0/(sqrtdl + sqrtdr);
 
-      df_prim_roe[rho_id] = sqrtdl*sqrtdr;
-      df_prim_roe[ivx]    = (sqrtdl*df_prim_li[ivx] + sqrtdr*df_prim_ri[ivx])*isdlpdr;
+      df_prim_roe[irho] = sqrtdl*sqrtdr;
+      df_prim_roe[ivx]  = (sqrtdl*df_prim_li[ivx] + sqrtdr*df_prim_ri[ivx])*isdlpdr;
 
       //Compute the max/min wave speeds based on L/R and Roe-averaged values
       Real al = std::min(df_prim_roe[ivx],df_prim_li[ivx]);
@@ -83,31 +81,31 @@ void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const
       Real vxl = df_prim_li[ivx] - bm;
       Real vxr = df_prim_ri[ivx] - bp;
 
-      df_fl[rho_id] = vxl * df_prim_li[rho_id];
-      df_fr[rho_id] = vxr * df_prim_ri[rho_id];
+      df_fl[irho] = vxl * df_prim_li[irho];
+      df_fr[irho] = vxr * df_prim_ri[irho];
 
-      df_fl[ivx]    = df_prim_li[ivx] * df_fl[rho_id];
-      df_fr[ivx]    = df_prim_ri[ivx] * df_fr[rho_id];
+      df_fl[ivx]  = df_prim_li[ivx] * df_fl[irho];
+      df_fr[ivx]  = df_prim_ri[ivx] * df_fr[irho];
 
-      df_fl[ivy]    = df_prim_li[ivy] * df_fl[rho_id];
-      df_fr[ivy]    = df_prim_ri[ivy] * df_fr[rho_id];
+      df_fl[ivy]  = df_prim_li[ivy] * df_fl[irho];
+      df_fr[ivy]  = df_prim_ri[ivy] * df_fr[irho];
 
-      df_fl[ivz]    = df_prim_li[ivz] * df_fl[rho_id];
-      df_fr[ivz]    = df_prim_ri[ivz] * df_fr[rho_id];
+      df_fl[ivz]  = df_prim_li[ivz] * df_fl[irho];
+      df_fr[ivz]  = df_prim_ri[ivz] * df_fr[irho];
 
       //Compute the HLLE df_flux at interface.
       Real tmp  = 0.0;
       if (bp != bm) tmp = 0.5*(bp + bm)/(bp - bm);
 
-      df_flxi[rho_id] = 0.5*(df_fl[rho_id] + df_fr[rho_id]) + (df_fl[rho_id] - df_fr[rho_id])*tmp;
-      df_flxi[ivx]    = 0.5*(df_fl[ivx]+df_fr[ivx]) + (df_fl[ivx]-df_fr[ivx])*tmp;
-      df_flxi[ivy]    = 0.5*(df_fl[ivy]+df_fr[ivy]) + (df_fl[ivy]-df_fr[ivy])*tmp;
-      df_flxi[ivz]    = 0.5*(df_fl[ivz]+df_fr[ivz]) + (df_fl[ivz]-df_fr[ivz])*tmp;
+      df_flxi[irho] = 0.5*(df_fl[irho] + df_fr[irho]) + (df_fl[irho] - df_fr[irho])*tmp;
+      df_flxi[ivx]  = 0.5*(df_fl[ivx]+df_fr[ivx]) + (df_fl[ivx]-df_fr[ivx])*tmp;
+      df_flxi[ivy]  = 0.5*(df_fl[ivy]+df_fr[ivy]) + (df_fl[ivy]-df_fr[ivy])*tmp;
+      df_flxi[ivz]  = 0.5*(df_fl[ivz]+df_fr[ivz]) + (df_fl[ivz]-df_fr[ivz])*tmp;
 
-      dust_flux(rho_id,k,j,i) = df_flxi[rho_id];
-      dust_flux(ivx,k,j,i)    = df_flxi[ivx];
-      dust_flux(ivy,k,j,i)    = df_flxi[ivy];
-      dust_flux(ivz,k,j,i)    = df_flxi[ivz];
+      dust_flux(irho, k, j, i) = df_flxi[irho];
+      dust_flux(ivx,  k, j, i)  = df_flxi[ivx];
+      dust_flux(ivy,  k, j, i)  = df_flxi[ivy];
+      dust_flux(ivz,  k, j, i)  = df_flxi[ivz];
     }
   }
 
