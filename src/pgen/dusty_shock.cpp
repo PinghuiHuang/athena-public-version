@@ -65,7 +65,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   iso_cs    = pin->GetOrAddReal("hydro",   "iso_sound_speed", 1e-1);
   gamma_gas = pin->GetReal("hydro",        "gamma");
 
-  xshock  = pin->GetReal("problem","xshock");
+  xshock  = pin->GetReal("problem", "xshock");
   wl[IDN] = pin->GetReal("problem", "dl");
   wl[IVX] = pin->GetReal("problem", "ul");
   wl[IVY] = pin->GetReal("problem", "vl");
@@ -76,10 +76,10 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   wl_d[2] = pin->GetReal("dust", "vl_d");
   wl_d[3] = pin->GetReal("dust", "wl_d");
 
-  wr[IDN] = pin->GetReal("problem","dr");
-  wr[IVX] = pin->GetReal("problem","ur");
-  wr[IVY] = pin->GetReal("problem","vr");
-  wr[IVZ] = pin->GetReal("problem","wr");
+  wr[IDN] = pin->GetReal("problem", "dr");
+  wr[IVX] = pin->GetReal("problem", "ur");
+  wr[IVY] = pin->GetReal("problem", "vr");
+  wr[IVZ] = pin->GetReal("problem", "wr");
 
   wr_d[0] = pin->GetReal("dust", "dr_d");
   wr_d[1] = pin->GetReal("dust", "ur_d");
@@ -103,6 +103,7 @@ Real MyTimeStep(MeshBlock *pmb)
   return min_user_dt;
 }
 
+
 void MySource(MeshBlock *pmb, const Real time, const Real dt,
     const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df, const AthenaArray<Real> &bcc,
     AthenaArray<Real> &cons, AthenaArray<Real> &cons_df)
@@ -111,6 +112,7 @@ void MySource(MeshBlock *pmb, const Real time, const Real dt,
     LocalIsothermalEOS(pmb, time, dt, prim, prim_df, bcc, cons, cons_df);
   return;
 }
+
 
 void LocalIsothermalEOS(MeshBlock *pmb, const Real time, const Real dt,
     const AthenaArray<Real> &prim, const AthenaArray<Real> &prim_df, const AthenaArray<Real> &bcc,

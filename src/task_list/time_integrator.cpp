@@ -966,20 +966,6 @@ TimeIntegratorTaskList::TimeIntegratorTaskList(ParameterInput *pin, Mesh *pm) {
         AddTask(SEND_DFS,CALC_HYDORB);
         AddTask(RECV_DFS,NONE);
         AddTask(SETB_DFS,(RECV_DFS|CALC_HYDORB));
-
-        //AddTask(SEND_HYDORB,(DRAG_DUSTGAS|SRCTERM_HYD));
-        //AddTask(RECV_HYDORB,NONE);
-        //AddTask(CALC_HYDORB,(SEND_HYDORB|RECV_HYDORB));
-        //AddTask(SEND_HYD,CALC_HYDORB);
-        //AddTask(RECV_HYD,NONE);
-        //AddTask(SETB_HYD,(RECV_HYD|CALC_HYDORB));
-
-        //AddTask(SEND_DFSORB,(DRAG_DUSTGAS|SRCTERM_DFS));
-        //AddTask(RECV_DFSORB,NONE);
-        //AddTask(CALC_DFSORB,(SEND_DFSORB|RECV_DFSORB));
-        //AddTask(SEND_DFS,CALC_DFSORB);
-        //AddTask(RECV_DFS,NONE);
-        //AddTask(SETB_DFS,(RECV_DFS|CALC_DFSORB));
       } else {
         AddTask(SEND_HYDORB,SRCTERM_HYD);
         AddTask(RECV_HYDORB,NONE);
@@ -2485,7 +2471,7 @@ TaskStatus TimeIntegratorTaskList::SendDustFluids(MeshBlock *pmb, int stage) {
 
 
 //----------------------------------------------------------------------------------------
-//! Functions to receive DustFluids variables between MeshBlocks
+//! Function to receive DustFluids variables between MeshBlocks
 
 TaskStatus TimeIntegratorTaskList::ReceiveDustFluids(MeshBlock *pmb, int stage) {
   bool ret;
@@ -2502,7 +2488,7 @@ TaskStatus TimeIntegratorTaskList::ReceiveDustFluids(MeshBlock *pmb, int stage) 
 }
 
 //----------------------------------------------------------------------------------------
-//! Functions to set DustFluids boundaries
+//! Function to set DustFluids boundaries
 
 TaskStatus TimeIntegratorTaskList::SetBoundariesDustFluids(MeshBlock *pmb, int stage) {
   if (stage <= nstages) {
@@ -2515,7 +2501,7 @@ TaskStatus TimeIntegratorTaskList::SetBoundariesDustFluids(MeshBlock *pmb, int s
 
 
 //----------------------------------------------------------------------------------------
-//! Functions to communicate DustFluids variables between MeshBlocks with shear
+//! Function to communicate DustFluids variables between MeshBlocks with shear
 
 TaskStatus TimeIntegratorTaskList::SendDustFluidsShear(MeshBlock *pmb, int stage) {
   if (stage <= nstages) {
@@ -2528,7 +2514,7 @@ TaskStatus TimeIntegratorTaskList::SendDustFluidsShear(MeshBlock *pmb, int stage
 
 
 //----------------------------------------------------------------------------------------
-//! Functions to communicate DustFluids variables between MeshBlocks with shear
+//! Function to communicate DustFluids variables between MeshBlocks with shear
 
 TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsShear(MeshBlock *pmb, int stage) {
   bool ret;
@@ -2547,7 +2533,7 @@ TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsShear(MeshBlock *pmb, int st
 }
 
 //----------------------------------------------------------------------------------------
-//! Functions to communicate DustFluids variables between MeshBlocks with shear
+//! Function to communicate DustFluids variables between MeshBlocks with shear
 
 TaskStatus TimeIntegratorTaskList::SendDustFluidsFluxShear(MeshBlock *pmb, int stage) {
   if (stage <= nstages) {
@@ -2561,6 +2547,9 @@ TaskStatus TimeIntegratorTaskList::SendDustFluidsFluxShear(MeshBlock *pmb, int s
   return TaskStatus::fail;
 }
 
+
+//----------------------------------------------------------------------------------------
+//! Function to communicate DustFluids variables between MeshBlocks with shear
 
 TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsFluxShear(MeshBlock *pmb, int stage) {
   if (stage <= nstages) {
@@ -2581,6 +2570,9 @@ TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsFluxShear(MeshBlock *pmb, in
 }
 
 
+//----------------------------------------------------------------------------------------
+//! Function to calculate the drags between dust and gas
+
 TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
   DustFluids *pdf = pmb->pdustfluids;
   Hydro      *ph  = pmb->phydro;
@@ -2599,50 +2591,4 @@ TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
   }
   return TaskStatus::fail;
 }
-
-
-//TaskStatus TimeIntegratorTaskList::SendDustFluidsOrbital(MeshBlock *pmb, int stage) {
-  //if (!stage_wghts[stage-1].orbital_stage) {
-    //return TaskStatus::success;
-  //} else {
-    //OrbitalAdvection *porb = pmb->porb;
-    //if (!porb->orbital_advection_active) return TaskStatus::success;
-    //Hydro      *ph  = pmb->phydro;
-    //DustFluids *pdf = pmb->pdustfluids;
-    //porb->SetOrbitalAdvectionCC(ph->u, pdf->df_cons);
-    //porb->orb_bc->SendBoundaryBuffersCC();
-    //return TaskStatus::success;
-  //}
-  //return TaskStatus::fail;
-//}
-
-
-//TaskStatus TimeIntegratorTaskList::ReceiveDustFluidsOrbital(MeshBlock *pmb, int stage) {
-  //if (!stage_wghts[stage-1].orbital_stage) {
-    //return TaskStatus::success;
-  //} else {
-    //OrbitalAdvection *porb = pmb->porb;
-    //if (!porb->orbital_advection_active) return TaskStatus::success;
-    //if (porb->orb_bc->ReceiveBoundaryBuffersCC()) {
-      //return TaskStatus::success;
-    //}
-  //}
-  //return TaskStatus::fail;
-//}
-
-
-//TaskStatus TimeIntegratorTaskList::CalculateDustFluidsOrbital(MeshBlock *pmb, int stage) {
-  //if (!stage_wghts[stage-1].orbital_stage) {
-    //return TaskStatus::success;
-  //} else {
-    //OrbitalAdvection *porb = pmb->porb;
-    //Hydro            *ph   = pmb->phydro;
-    //DustFluids       *pdf  = pmb->pdustfluids;
-    //Real             dt    = pmb->pmy_mesh->dt
-              //*(stage_wghts[(stage-1)].ebeta-stage_wghts[(stage-1)].sbeta);
-    //porb->CalculateOrbitalAdvectionCC(dt, ph->u, pdf->df_cons);
-    //return TaskStatus::success;
-  //}
-  //return TaskStatus::fail;
-//}
 //TaskStatus TimeIntegratorTaskList::

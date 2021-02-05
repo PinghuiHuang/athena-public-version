@@ -29,11 +29,9 @@
 #include "../mesh/mesh.hpp"
 #include "../parameter_input.hpp"
 #include "../utils/utils.hpp" // ran2()
+#include "../orbital_advection/orbital_advection.hpp"
 
 
-#if !SHEARING_BOX
-#error "This problem generator requires shearing box"
-#endif
 
 namespace {
 Real amp, nwx, nwy, nwz, rhog0; // amplitude, Wavenumbers
@@ -72,19 +70,19 @@ Real MyTimeStep(MeshBlock *pmb);
 void Mesh::InitUserMeshData(ParameterInput *pin) {
   // initialize global variables
   amp        = pin->GetReal("problem",         "amp");
-  rhog0      = pin->GetOrAddReal("problem",    "rhog0",      1.0);
-  nwx        = pin->GetOrAddInteger("problem", "nwx",        1);
-  nwy        = pin->GetOrAddInteger("problem", "nwy",        1);
-  nwz        = pin->GetOrAddInteger("problem", "nwz",        1);
-  ShBoxCoord = pin->GetOrAddInteger("problem", "shboxcoord", 2);
-  ipert      = pin->GetOrAddInteger("problem", "ipert",      1);
-  Omega_0    = pin->GetOrAddReal("problem",    "Omega0",     1.0);
-  qshear     = pin->GetOrAddReal("problem",    "qshear",     1.5);
-  etaVk      = pin->GetOrAddReal("problem",    "etaVk",      0.05);
+  rhog0      = pin->GetOrAddReal("problem",    "rhog0",   1.0);
+  nwx        = pin->GetOrAddInteger("problem", "nwx",     1);
+  nwy        = pin->GetOrAddInteger("problem", "nwy",     1);
+  nwz        = pin->GetOrAddInteger("problem", "nwz",     1);
+  ipert      = pin->GetOrAddInteger("problem", "ipert",   1);
+  etaVk      = pin->GetOrAddReal("problem",    "etaVk",   0.05);
   iso_cs     = pin->GetReal("hydro",           "iso_sound_speed");
-  //etaVk      *= iso_cs; // switch to code unit
-  user_dt    = pin->GetOrAddReal("time",       "user_dt",    0.0);
-  Kpar       = pin->GetOrAddReal("problem",    "Kpar",       30.0);
+  user_dt    = pin->GetOrAddReal("time",       "user_dt", 0.0);
+  Kpar       = pin->GetOrAddReal("problem",    "Kpar",    30.0);
+
+  ShBoxCoord = pin->GetOrAddInteger("orbital_advection", "shboxcoord", 2);
+  Omega_0    = pin->GetOrAddReal("orbital_advection",    "Omega0",     1.0);
+  qshear     = pin->GetOrAddReal("orbital_advection",    "qshear",     1.5);
 
   kappap     = 2.0*(2.0 - qshear);
   kappap2    = SQR(kappap);
@@ -161,7 +159,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   // ipert = 1 - isentropic perturbations to P & d [default]
   // ipert = 2 - uniform Vx=amp, sinusoidal density
 
-  if (block_size.nx3 > 1 || ShBoxCoord == 1) {
+  if (ShBoxCoord == 1) {
     for (int k=ks; k<=ke; k++) {
       for (int j=js; j<=je; j++) {
         for (int i=is; i<=ie; i++) {
@@ -171,10 +169,14 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
           Real K_vel    = qshear*Omega_0*x_dis;
           Real gas_vel1 = AN*Kai0*Psi;
-          Real gas_vel2 = -1.0*K_vel - 0.5*kappap2*BN*Kai0*Psi;
+          Real gas_vel2 = 0.0;
+          if(porb->orbital_advection_defined)
+            gas_vel2 = -0.5*kappap2*BN*Kai0*Psi;
+          else
+            gas_vel2 = -1.0*K_vel -0.5*kappap2*BN*Kai0*Psi;
           Real gas_vel3 = 0.0;
 
-          Real delta_gas_rho  = amp*rhog0*amp*(ran2(&iseed) - 0.5);
+          Real delta_gas_rho  = amp*rhog0*(ran2(&iseed) - 0.5);
           Real delta_gas_vel1 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
           Real delta_gas_vel2 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
           Real delta_gas_vel3 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
@@ -198,15 +200,26 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               int v2_id   = rho_id + 2;
               int v3_id   = rho_id + 3;
 
-              Real delta_dust_rho  = amp*rhog0*amp*(ran2(&iseed) - 0.5);
+              Real delta_dust_rho  = amp*rhog0*(ran2(&iseed) - 0.5);
               Real delta_dust_vel1 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
               Real delta_dust_vel2 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
               Real delta_dust_vel3 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
 
-              Real dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel2 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
-              Real dust_vel2  = -1.0 * K_vel;
-              dust_vel2      += ((gas_vel2 + K_vel) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
-              Real dust_vel3  = 0.0;
+              Real dust_vel1 = 0.0;
+              Real dust_vel2 = 0.0;
+              Real dust_vel3 = 0.0;
+
+              if(porb->orbital_advection_defined) {
+                dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel2))/(1.0 + kappap2*SQR(Stokes[dust_id]));
+                dust_vel2  = ((gas_vel2) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
+                dust_vel3  = 0.0;
+              }
+              else {
+                dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel2 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
+                dust_vel2  = -1.0 * K_vel;
+                dust_vel2 += ((gas_vel2 + K_vel) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
+                dust_vel3  = 0.0;
+              }
 
               Real &dust_den  = pdustfluids->df_cons(rho_id, k, j, i);
               Real &dust_mom1 = pdustfluids->df_cons(v1_id,  k, j, i);
@@ -224,7 +237,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
         }
       }
     }
-  } else if (block_size.nx3 == 1 && ShBoxCoord == 2) {
+  } else {
     for (int k=ks; k<=ke; k++) {
       for (int j=js; j<=je; j++) {
         for (int i=is; i<=ie; i++) {
@@ -232,7 +245,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           z_dis = pcoord->x2v(j);
           y_dis = pcoord->x3v(k);
 
-          //Real delta_gas_rho  = amp*rhog0*amp*(ran2(&iseed) - 0.5);
+          //Real delta_gas_rho  = amp*rhog0*(ran2(&iseed) - 0.5);
           //Real delta_gas_vel1 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
           //Real delta_gas_vel2 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
           //Real delta_gas_vel3 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
@@ -245,7 +258,11 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           Real K_vel    = qshear*Omega_0*x_dis;
           Real gas_vel1 = AN*Kai0*Psi;
           Real gas_vel2 = 0.0;
-          Real gas_vel3 = -1.0*K_vel - 0.5*kappap2*BN*Kai0*Psi;
+          Real gas_vel3 = 0.0;
+          if (porb->orbital_advection_defined)
+            gas_vel3 = -0.5*kappap2*BN*Kai0*Psi;
+          else
+            gas_vel3 = -1.0*K_vel - 0.5*kappap2*BN*Kai0*Psi;
 
           Real &gas_den  = phydro->u(IDN, k, j, i);
           Real &gas_mom1 = phydro->u(IM1, k, j, i);
@@ -267,15 +284,25 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               int v2_id   = rho_id + 2;
               int v3_id   = rho_id + 3;
 
-              Real delta_dust_rho  = amp*rhog0*amp*(ran2(&iseed) - 0.5);
+              Real delta_dust_rho  = amp*rhog0*(ran2(&iseed) - 0.5);
               Real delta_dust_vel1 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
               Real delta_dust_vel2 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
               Real delta_dust_vel3 = amp*etaVk*iso_cs*(ran2(&iseed) - 0.5);
 
-              Real dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel3 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
-              Real dust_vel2  = 0.0;
-              Real dust_vel3  = -1.0 * K_vel;
-              dust_vel3      += ((gas_vel3 + K_vel) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
+              Real dust_vel1 = 0.0;
+              Real dust_vel2 = 0.0;
+              Real dust_vel3 = 0.0;
+              if (porb->orbital_advection_defined) {
+                dust_vel1 = (gas_vel1 + 2.0*Stokes[dust_id]*gas_vel3)/(1.0 + kappap2*SQR(Stokes[dust_id]));
+                dust_vel2 = 0.0;
+                dust_vel3 = ((gas_vel3) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
+              }
+              else {
+                dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel3 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
+                dust_vel2  = 0.0;
+                dust_vel3  = -1.0 * K_vel;
+                dust_vel3 += ((gas_vel3 + K_vel) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
+              }
 
               Real &dust_den  = pdustfluids->df_cons(rho_id, k, j, i);
               Real &dust_mom1 = pdustfluids->df_cons(v1_id,  k, j, i);
@@ -293,8 +320,6 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
         }
       }
     }
-  } else {
-    std::cout << "[ShearingBoxSourceTerms]: not compatible to 1D !!" << std::endl;
   }
   return;
 }

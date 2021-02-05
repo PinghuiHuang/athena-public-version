@@ -31,10 +31,6 @@ void OrbitalAdvection::ConvertOrbitalSystem(const AthenaArray<Real> &w0,
                        const AthenaArray<Real> &u0, const OrbitalTransform trans) {
   int flag = static_cast<int>(trans);
   if ((orbital_system_conversion_done&flag) > 0) {
-  //std::cout << "Gas orbital_system_conversion_done is " << orbital_system_conversion_done << std::endl;
-  //std::cout << "Gas flag is " << flag << std::endl;
-  //std::cout << "Gas ConvertOrbitalSystem " << std::endl;
-  //std::cout << "orbital_system_conversion_done&flag is " << (orbital_system_conversion_done&flag) << std::endl;
     int il = pmb_->is-(NGHOST); int jl = pmb_->js; int kl = pmb_->ks;
     int iu = pmb_->ie+(NGHOST); int ju = pmb_->je; int ku = pmb_->ke;
     if (nc2>1) {
@@ -126,9 +122,6 @@ void OrbitalAdvection::ConvertOrbitalSystemDustFluids(const int dust_id, const A
                        const AthenaArray<Real> &df_cons0, const OrbitalTransform trans) {
   int flag = static_cast<int>(trans);
   if ((orbital_system_conversion_done&flag) > 0) {
-  //std::cout << "Dust orbital_system_conversion_done is " << orbital_system_conversion_done << std::endl;
-  //std::cout << "Dust flag is " << flag << std::endl;
-  //std::cout << "Dust ConvertOrbitalSystemDustFluids " << std::endl;
     int il = pmb_->is-(NGHOST); int jl = pmb_->js; int kl = pmb_->ks;
     int iu = pmb_->ie+(NGHOST); int ju = pmb_->je; int ku = pmb_->ke;
     if (nc2>1) {

@@ -53,7 +53,6 @@ void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
       int v2_id   = rho_id + 2;
-      int v3_id   = rho_id + 3;
       for (int k=pmb->ks; k<=pmb->ke; ++k) {
         for (int j=pmb->js; j<=pmb->je; ++j) {
 #pragma omp simd
@@ -61,7 +60,6 @@ void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,
             const Real &dust_rho  = prim_df(rho_id, k, j, i);
             const Real &dust_vel1 = prim_df(v1_id,  k, j, i);
             const Real &dust_vel2 = prim_df(v2_id,  k, j, i);
-            const Real &dust_vel3 = prim_df(v3_id,  k, j, i);
 
             Real qO2  = qshear_*SQR(Omega_0_);
             Real mom1 = dust_rho*dust_vel1;
@@ -69,7 +67,6 @@ void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,
 
             cons_df(v1_id, k, j, i) += 2.0*dt*(Omega_0_*(dust_rho*dust_vel2)+qO2*dust_rho*xc);
             cons_df(v2_id, k, j, i) -= 2.0*dt*Omega_0_*mom1;
-
           }
         }
       }
@@ -80,14 +77,12 @@ void DustFluidsSourceTerms::ShearingBoxSourceTermsDustFluids(const Real dt,
       int dust_id = n;
       int rho_id  = 4*dust_id;
       int v1_id   = rho_id + 1;
-      int v2_id   = rho_id + 2;
       int v3_id   = rho_id + 3;
       for (int j=pmb->js; j<=pmb->je; ++j) {
 #pragma omp simd
         for (int i=pmb->is; i<=pmb->ie; ++i) {
           const Real &dust_rho  = prim_df(rho_id, ks, j, i);
           const Real &dust_vel1 = prim_df(v1_id,  ks, j, i);
-          const Real &dust_vel2 = prim_df(v2_id,  ks, j, i);
           const Real &dust_vel3 = prim_df(v3_id,  ks, j, i);
 
           Real qO2  = qshear_*SQR(Omega_0_);

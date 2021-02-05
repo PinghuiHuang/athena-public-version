@@ -350,9 +350,6 @@ const TaskID CALC_HYDORB(66);
 const TaskID SEND_FLDORB(67);
 const TaskID RECV_FLDORB(68);
 const TaskID CALC_FLDORB(69);
-//const TaskID SEND_DFSORB(70);
-//const TaskID RECV_DFSORB(71);
-//const TaskID CALC_DFSORB(72);
 
 }  // namespace HydroIntegratorTaskNames
 #endif  // TASK_LIST_TASK_LIST_HPP_

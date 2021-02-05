@@ -218,9 +218,19 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
     AthenaArray<Real> delta_m2_implicit(NSPECIES);
     AthenaArray<Real> delta_m3_implicit(NSPECIES);
 
+    AthenaArray<Real> delta_m1_implicit_p(NSPECIES);
+    AthenaArray<Real> delta_m2_implicit_p(NSPECIES);
+    AthenaArray<Real> delta_m3_implicit_p(NSPECIES);
+
+    AthenaArray<Real> delta_m1_explicit_p(NSPECIES);
+    AthenaArray<Real> delta_m2_explicit_p(NSPECIES);
+    AthenaArray<Real> delta_m3_explicit_p(NSPECIES);
+
     AthenaArray<Real> jacobi_matrix_n(NSPECIES, NSPECIES);
     AthenaArray<Real> lambda_matrix_n(NSPECIES, NSPECIES);
+    AthenaArray<Real> lambda_matrix_p(NSPECIES, NSPECIES);
     AthenaArray<Real> lambda_inv_matrix_n(NSPECIES, NSPECIES);
+    AthenaArray<Real> lambda_inv_matrix_p(NSPECIES, NSPECIES);
 
     for (int k=ks; k<=ke; ++k) {
       for (int j=js; j<=je; ++j) {
@@ -232,21 +242,26 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
 
           jacobi_matrix_n.ZeroClear();
           lambda_matrix_n.ZeroClear();
+          lambda_matrix_p.ZeroClear();
           lambda_inv_matrix_n.ZeroClear();
+          lambda_inv_matrix_p.ZeroClear();
 
           delta_m1_implicit.ZeroClear();
           delta_m2_implicit.ZeroClear();
           delta_m3_implicit.ZeroClear();
 
+          delta_m1_implicit_p.ZeroClear();
+          delta_m2_implicit_p.ZeroClear();
+          delta_m3_implicit_p.ZeroClear();
+
+          delta_m1_explicit_p.ZeroClear();
+          delta_m2_explicit_p.ZeroClear();
+          delta_m3_explicit_p.ZeroClear();
+
           const Real &gas_rho_n = w_n(IDN, k, j, i);
           const Real &gas_v1_n  = w_n(IVX, k, j, i);
           const Real &gas_v2_n  = w_n(IVY, k, j, i);
           const Real &gas_v3_n  = w_n(IVZ, k, j, i);
-
-          const Real &gas_rho_p = w(IDN, k, j, i);
-          const Real &gas_v1_p  = w(IVX, k, j, i);
-          const Real &gas_v2_p  = w(IVY, k, j, i);
-          const Real &gas_v3_p  = w(IVZ, k, j, i);
 
           // Set the drag force
           for (int index=1; index<=NDUSTFLUIDS; ++index) {
@@ -323,6 +338,26 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
           Multiplication(lambda_inv_matrix_n, force_x2_n, delta_m2_implicit);
           Multiplication(lambda_inv_matrix_n, force_x3_n, delta_m3_implicit);
 
+          // calculate lambda_matrix_half = I - h/2*jacobi_matrix_n
+          Multiplication(dt, jacobi_matrix_n, lambda_matrix_p);
+          Addition(1.0, -0.5, lambda_matrix_p);
+
+          // cauculate the inverse matrix_n of lambda_matrix_n
+          LUdecompose(lambda_matrix_p);
+          Inverse(lambda_matrix_p, lambda_inv_matrix_p);
+
+          // Delta_M = h/2 * (lambda_matrix_n)^(-1) * f(M)
+          Multiplication(0.5*dt, lambda_inv_matrix_p);
+          Multiplication(lambda_inv_matrix_p, force_x1_n, delta_m1_implicit_p);
+          Multiplication(lambda_inv_matrix_p, force_x2_n, delta_m2_implicit_p);
+          Multiplication(lambda_inv_matrix_p, force_x3_n, delta_m3_implicit_p);
+
+          for (int n=0; n<=NDUSTFLUIDS; ++n) {
+            delta_m1_explicit_p(n) = force_x1_n(n) * 0.5 * dt;
+            delta_m2_explicit_p(n) = force_x2_n(n) * 0.5 * dt;
+            delta_m3_explicit_p(n) = force_x3_n(n) * 0.5 * dt;
+          }
+
           // Alias the conserves of gas
           Real &gas_m1 = u(IM1, k, j, i);
           Real &gas_m2 = u(IM2, k, j, i);
@@ -332,17 +367,13 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
           Real delta_gas_m2_a = ONE_3RD * delta_m2_implicit(0);
           Real delta_gas_m3_a = ONE_3RD * delta_m3_implicit(0);
 
-          Real delta_gas_m1_b = 2.0 * TWO_3RD * gas_rho_p * gas_v1_p;
-          Real delta_gas_m2_b = 2.0 * TWO_3RD * gas_rho_p * gas_v2_p;
-          Real delta_gas_m3_b = 2.0 * TWO_3RD * gas_rho_p * gas_v3_p;
+          Real delta_gas_m1_b = TWO_3RD * (delta_m1_implicit_p(0) + delta_m1_explicit_p(0));
+          Real delta_gas_m2_b = TWO_3RD * (delta_m2_implicit_p(0) + delta_m2_explicit_p(0));
+          Real delta_gas_m3_b = TWO_3RD * (delta_m3_implicit_p(0) + delta_m3_explicit_p(0));
 
-          Real delta_gas_m1_c = -2.0 * TWO_3RD * gas_rho_n * gas_v1_n;
-          Real delta_gas_m2_c = -2.0 * TWO_3RD * gas_rho_n * gas_v2_n;
-          Real delta_gas_m3_c = -2.0 * TWO_3RD * gas_rho_n * gas_v3_n;
-
-          Real delta_gas_m1 = delta_gas_m1_a + delta_gas_m1_b + delta_gas_m1_c;
-          Real delta_gas_m2 = delta_gas_m2_a + delta_gas_m2_b + delta_gas_m2_c;
-          Real delta_gas_m3 = delta_gas_m3_a + delta_gas_m3_b + delta_gas_m3_c;
+          Real delta_gas_m1 = delta_gas_m1_a + delta_gas_m1_b;
+          Real delta_gas_m2 = delta_gas_m2_a + delta_gas_m2_b;
+          Real delta_gas_m3 = delta_gas_m3_a + delta_gas_m3_b;
 
           gas_m1 += delta_gas_m1;
           gas_m2 += delta_gas_m2;
@@ -367,36 +398,23 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
             Real &dust_m2 = cons_df(v2_id, k, j, i);
             Real &dust_m3 = cons_df(v3_id, k, j, i);
 
-            const Real &dust_rho_n = prim_df_n(rho_id, k, j, i);
-            const Real &dust_v1_n  = prim_df_n(v1_id,  k, j, i);
-            const Real &dust_v2_n  = prim_df_n(v2_id,  k, j, i);
-            const Real &dust_v3_n  = prim_df_n(v3_id,  k, j, i);
-
-            const Real &dust_rho_p = prim_df(rho_id, k, j, i);
-            const Real &dust_v1_p  = prim_df(v1_id,  k, j, i);
-            const Real &dust_v2_p  = prim_df(v2_id,  k, j, i);
-            const Real &dust_v3_p  = prim_df(v3_id,  k, j, i);
-
             Real delta_dust_m1_a = ONE_3RD * delta_m1_implicit(n);
             Real delta_dust_m2_a = ONE_3RD * delta_m2_implicit(n);
             Real delta_dust_m3_a = ONE_3RD * delta_m3_implicit(n);
 
-            Real delta_dust_m1_b = 2.0 * TWO_3RD * dust_rho_p * dust_v1_p;
-            Real delta_dust_m2_b = 2.0 * TWO_3RD * dust_rho_p * dust_v2_p;
-            Real delta_dust_m3_b = 2.0 * TWO_3RD * dust_rho_p * dust_v3_p;
+            Real delta_dust_m1_b = TWO_3RD * (delta_m1_implicit_p(n) + delta_m1_explicit_p(n));
+            Real delta_dust_m2_b = TWO_3RD * (delta_m2_implicit_p(n) + delta_m2_explicit_p(n));
+            Real delta_dust_m3_b = TWO_3RD * (delta_m3_implicit_p(n) + delta_m3_explicit_p(n));
 
-            Real delta_dust_m1_c = -2.0 * TWO_3RD * dust_rho_n * dust_v1_n;
-            Real delta_dust_m2_c = -2.0 * TWO_3RD * dust_rho_n * dust_v2_n;
-            Real delta_dust_m3_c = -2.0 * TWO_3RD * dust_rho_n * dust_v3_n;
-
-            Real delta_dust_m1 = delta_dust_m1_a + delta_dust_m1_b + delta_dust_m1_c;
-            Real delta_dust_m2 = delta_dust_m2_a + delta_dust_m2_b + delta_dust_m2_c;
-            Real delta_dust_m3 = delta_dust_m3_a + delta_dust_m3_b + delta_dust_m3_c;
+            Real delta_dust_m1 = delta_dust_m1_a + delta_dust_m1_b;
+            Real delta_dust_m2 = delta_dust_m2_a + delta_dust_m2_b;
+            Real delta_dust_m3 = delta_dust_m3_a + delta_dust_m3_b;
 
             dust_m1 += delta_dust_m1;
             dust_m2 += delta_dust_m2;
             dust_m3 += delta_dust_m3;
           }
+
         }
       }
     }
@@ -557,9 +575,19 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
     AthenaArray<Real> delta_m2_implicit(NSPECIES);
     AthenaArray<Real> delta_m3_implicit(NSPECIES);
 
+    AthenaArray<Real> delta_m1_implicit_p(NSPECIES);
+    AthenaArray<Real> delta_m2_implicit_p(NSPECIES);
+    AthenaArray<Real> delta_m3_implicit_p(NSPECIES);
+
+    AthenaArray<Real> delta_m1_explicit_p(NSPECIES);
+    AthenaArray<Real> delta_m2_explicit_p(NSPECIES);
+    AthenaArray<Real> delta_m3_explicit_p(NSPECIES);
+
     AthenaArray<Real> jacobi_matrix_n(NSPECIES, NSPECIES);
     AthenaArray<Real> lambda_matrix_n(NSPECIES, NSPECIES);
+    AthenaArray<Real> lambda_matrix_p(NSPECIES, NSPECIES);
     AthenaArray<Real> lambda_inv_matrix_n(NSPECIES, NSPECIES);
+    AthenaArray<Real> lambda_inv_matrix_p(NSPECIES, NSPECIES);
 
     for (int k=ks; k<=ke; ++k) {
       for (int j=js; j<=je; ++j) {
@@ -571,11 +599,21 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
 
           jacobi_matrix_n.ZeroClear();
           lambda_matrix_n.ZeroClear();
+          lambda_matrix_p.ZeroClear();
           lambda_inv_matrix_n.ZeroClear();
+          lambda_inv_matrix_p.ZeroClear();
 
           delta_m1_implicit.ZeroClear();
           delta_m2_implicit.ZeroClear();
           delta_m3_implicit.ZeroClear();
+
+          delta_m1_implicit_p.ZeroClear();
+          delta_m2_implicit_p.ZeroClear();
+          delta_m3_implicit_p.ZeroClear();
+
+          delta_m1_explicit_p.ZeroClear();
+          delta_m2_explicit_p.ZeroClear();
+          delta_m3_explicit_p.ZeroClear();
 
           const Real &gas_rho_n = w_n(IDN, k, j, i);
           const Real &gas_v1_n  = w_n(IVX, k, j, i);
@@ -637,6 +675,26 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
           Multiplication(lambda_inv_matrix_n, force_x2_n, delta_m2_implicit);
           Multiplication(lambda_inv_matrix_n, force_x3_n, delta_m3_implicit);
 
+          // calculate lambda_matrix_half = I - h/2*jacobi_matrix_n
+          Multiplication(dt, jacobi_matrix_n, lambda_matrix_p);
+          Addition(1.0, -0.5, lambda_matrix_p);
+
+          // cauculate the inverse matrix_n of lambda_matrix_n
+          LUdecompose(lambda_matrix_p);
+          Inverse(lambda_matrix_p, lambda_inv_matrix_p);
+
+          // Delta_M = h/2 * (lambda_matrix_n)^(-1) * f(M)
+          Multiplication(0.5*dt, lambda_inv_matrix_p);
+          Multiplication(lambda_inv_matrix_p, force_x1_n, delta_m1_implicit_p);
+          Multiplication(lambda_inv_matrix_p, force_x2_n, delta_m2_implicit_p);
+          Multiplication(lambda_inv_matrix_p, force_x3_n, delta_m3_implicit_p);
+
+          for (int n=1; n<=NDUSTFLUIDS; ++n) {
+            delta_m1_explicit_p(n) = force_x1_n(n) * 0.5 * dt;
+            delta_m2_explicit_p(n) = force_x2_n(n) * 0.5 * dt;
+            delta_m3_explicit_p(n) = force_x3_n(n) * 0.5 * dt;
+          }
+
           for (int n=1; n<=NDUSTFLUIDS; ++n){
             int dust_id = n-1;
             int rho_id  = 4 * dust_id;
@@ -649,36 +707,23 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
             Real &dust_m2 = cons_df(v2_id, k, j, i);
             Real &dust_m3 = cons_df(v3_id, k, j, i);
 
-            const Real &dust_rho_n = prim_df_n(rho_id, k, j, i);
-            const Real &dust_v1_n  = prim_df_n(v1_id,  k, j, i);
-            const Real &dust_v2_n  = prim_df_n(v2_id,  k, j, i);
-            const Real &dust_v3_n  = prim_df_n(v3_id,  k, j, i);
-
-            const Real &dust_rho_p = prim_df(rho_id, k, j, i);
-            const Real &dust_v1_p  = prim_df(v1_id,  k, j, i);
-            const Real &dust_v2_p  = prim_df(v2_id,  k, j, i);
-            const Real &dust_v3_p  = prim_df(v3_id,  k, j, i);
-
             Real delta_dust_m1_a = ONE_3RD * delta_m1_implicit(n);
             Real delta_dust_m2_a = ONE_3RD * delta_m2_implicit(n);
             Real delta_dust_m3_a = ONE_3RD * delta_m3_implicit(n);
 
-            Real delta_dust_m1_b = 2.0 * TWO_3RD * dust_rho_p * dust_v1_p;
-            Real delta_dust_m2_b = 2.0 * TWO_3RD * dust_rho_p * dust_v2_p;
-            Real delta_dust_m3_b = 2.0 * TWO_3RD * dust_rho_p * dust_v3_p;
+            Real delta_dust_m1_b = TWO_3RD * (delta_m1_implicit_p(n) + delta_m1_explicit_p(n));
+            Real delta_dust_m2_b = TWO_3RD * (delta_m2_implicit_p(n) + delta_m2_explicit_p(n));
+            Real delta_dust_m3_b = TWO_3RD * (delta_m3_implicit_p(n) + delta_m3_explicit_p(n));
 
-            Real delta_dust_m1_c = -2.0 * TWO_3RD * dust_rho_n * dust_v1_n;
-            Real delta_dust_m2_c = -2.0 * TWO_3RD * dust_rho_n * dust_v2_n;
-            Real delta_dust_m3_c = -2.0 * TWO_3RD * dust_rho_n * dust_v3_n;
-
-            Real delta_dust_m1 = delta_dust_m1_a + delta_dust_m1_b + delta_dust_m1_c;
-            Real delta_dust_m2 = delta_dust_m2_a + delta_dust_m2_b + delta_dust_m2_c;
-            Real delta_dust_m3 = delta_dust_m3_a + delta_dust_m3_b + delta_dust_m3_c;
+            Real delta_dust_m1 = delta_dust_m1_a + delta_dust_m1_b;
+            Real delta_dust_m2 = delta_dust_m2_a + delta_dust_m2_b;
+            Real delta_dust_m3 = delta_dust_m3_a + delta_dust_m3_b;
 
             dust_m1 += delta_dust_m1;
             dust_m2 += delta_dust_m2;
             dust_m3 += delta_dust_m3;
           }
+
         }
       }
     }

@@ -78,15 +78,15 @@ void HydroBoundaryVariable::SetBoundarySameLevel(Real *buf,
   int si, sj, sk, ei, ej, ek;
   AthenaArray<Real> &var = *var_cc;
 
-  if (nb.ni.ox1 == 0)     si = pmb->is,        ei = pmb->ie;
+  if (nb.ni.ox1 == 0)     si = pmb->is,          ei = pmb->ie;
   else if (nb.ni.ox1 > 0) si = pmb->ie + 1,      ei = pmb->ie + NGHOST;
-  else              si = pmb->is - NGHOST, ei = pmb->is - 1;
-  if (nb.ni.ox2 == 0)     sj = pmb->js,        ej = pmb->je;
+  else                    si = pmb->is - NGHOST, ei = pmb->is - 1;
+  if (nb.ni.ox2 == 0)     sj = pmb->js,          ej = pmb->je;
   else if (nb.ni.ox2 > 0) sj = pmb->je + 1,      ej = pmb->je + NGHOST;
-  else              sj = pmb->js - NGHOST, ej = pmb->js - 1;
-  if (nb.ni.ox3 == 0)     sk = pmb->ks,        ek = pmb->ke;
+  else                    sj = pmb->js - NGHOST, ej = pmb->js - 1;
+  if (nb.ni.ox3 == 0)     sk = pmb->ks,          ek = pmb->ke;
   else if (nb.ni.ox3 > 0) sk = pmb->ke + 1,      ek = pmb->ke + NGHOST;
-  else              sk = pmb->ks - NGHOST, ek = pmb->ks - 1;
+  else                    sk = pmb->ks - NGHOST, ek = pmb->ks - 1;
 
   int p = 0;
 

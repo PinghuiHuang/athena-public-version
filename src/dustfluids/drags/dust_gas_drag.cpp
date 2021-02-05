@@ -27,9 +27,9 @@
 DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :
   pmy_dustfluids_(pdf),
   drags_matrix(NSPECIES, NSPECIES), // The drags matrix
-  aref_matrix(NSPECIES,  NSPECIES), // The matrix for iternative calculation
-  lu_matrix(NSPECIES,    NSPECIES), // The LU decomposition matrix
-  indx_array(NSPECIES) {               // Stores the permutation
+  aref_matrix(NSPECIES, NSPECIES),  // The matrix for iternative calculation
+  lu_matrix(NSPECIES, NSPECIES),    // The LU decomposition matrix
+  indx_array(NSPECIES) {            // Stores the permutation
 
   integrator        = pin->GetOrAddString("time", "integrator", "vl2");
   DustFeedback_Flag = pin->GetBoolean("dust", "DustFeedback_Flag");

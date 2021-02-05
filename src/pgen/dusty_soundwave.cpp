@@ -52,7 +52,7 @@
 namespace {
 // Parameters which define initial solution -- made global so that they can be shared
 // with functions A1,2,3 which compute vector potentials
-Real d0, p0, u0, v0, w0, bx0, by0, bz0, dby, dbz;
+Real rhog0, p0, u0, v0, w0, bx0, by0, bz0, dby, dbz;
 Real delta_rho_gas_real, delta_rho_gas_imag;
 Real delta_vel_gas_real, delta_vel_gas_imag;
 Real user_dt;
@@ -85,7 +85,7 @@ Real MyTimeStep(MeshBlock *pmb)
 
 void Mesh::InitUserMeshData(ParameterInput *pin) {
   // read global parameters
-  d0      = pin->GetOrAddReal("problem", "d0",      1.0);
+  rhog0   = pin->GetOrAddReal("problem", "rhog0",      1.0);
   user_dt = pin->GetOrAddReal("time",    "user_dt", 1.375e-2);
   amp     = pin->GetReal("problem",      "amp");
   vflow   = pin->GetOrAddReal("problem", "vflow",   0.0);
@@ -97,7 +97,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   delta_vel_gas_imag = pin->GetReal("problem", "delta_vel_gas_imag");
 
   if (NDUSTFLUIDS > 0) {
-    for (int n=0; n<NDUSTFLUIDS; n++) {
+    for (int n=0; n<NDUSTFLUIDS; ++n) {
       delta_rho_dust_real[n] = pin->GetReal("dust", "delta_rho_d_" + std::to_string(n+1) + "_real");
       delta_rho_dust_imag[n] = pin->GetReal("dust", "delta_rho_d_" + std::to_string(n+1) + "_imag");
 
@@ -126,9 +126,10 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   u0     = vflow;
   v0     = 0.0;
   w0     = 0.0;
-  p0     = SQR(iso_cs)*d0;
+  p0     = SQR(iso_cs)*rhog0;
 
-  EnrollUserTimeStepFunction(MyTimeStep);
+  if (user_dt > 0.0)
+    EnrollUserTimeStepFunction(MyTimeStep);
   return;
 }
 
@@ -147,15 +148,15 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
         Real &gas_m2  = phydro->u(IM2, k, j, i);
         Real &gas_m3  = phydro->u(IM3, k, j, i);
 
-        Real delta_rho = amp*d0*(cn*delta_rho_gas_real     - sn*delta_rho_gas_imag);
+        Real delta_rho = amp*rhog0*(cn*delta_rho_gas_real  - sn*delta_rho_gas_imag);
         Real delta_vel = amp*iso_cs*(cn*delta_vel_gas_real - sn*delta_vel_gas_imag);
-        gas_den        = d0 + delta_rho;
-        gas_m1         = d0*(u0 + delta_vel);
+        gas_den        = rhog0 + delta_rho;
+        gas_m1         = rhog0*(u0 + delta_vel);
         gas_m2         = 0.0;
         gas_m3         = 0.0;
 
         if (NDUSTFLUIDS >0) {
-          for (int n=0; n<NDUSTFLUIDS; n++) {
+          for (int n=0; n<NDUSTFLUIDS; ++n) {
             int dust_id = n;
             int rho_id  = 4*dust_id;
             int v1_id   = rho_id + 1;
@@ -167,12 +168,12 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
             Real &dust_m2  = pdustfluids->df_cons(v2_id,  k, j, i);
             Real &dust_m3  = pdustfluids->df_cons(v3_id,  k, j, i);
 
-            Real dd          = initial_D2G[dust_id] * d0;
-            Real delta_d_rho = d0*amp*(cn*delta_rho_dust_real[n]     - sn*delta_rho_dust_imag[n]);
-            Real delta_d_vel = amp*iso_cs*(cn*delta_vel_dust_real[n] - sn*delta_vel_dust_imag[n]);
+            Real rhod0          = initial_D2G[dust_id] * rhog0;
+            Real delta_dust_rho = rhog0*amp*(cn*delta_rho_dust_real[n]  - sn*delta_rho_dust_imag[n]);
+            Real delta_dust_vel = amp*iso_cs*(cn*delta_vel_dust_real[n] - sn*delta_vel_dust_imag[n]);
 
-            dust_den = dd + delta_d_rho;
-            dust_m1  = dd*(vflow + delta_d_vel);
+            dust_den = rhod0 + delta_dust_rho;
+            dust_m1  = rhod0*(vflow + delta_dust_vel);
             dust_m2  = 0.0;
             dust_m3  = 0.0;
           }

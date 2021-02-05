@@ -193,36 +193,37 @@ void DustFluids::ConstantStoppingTime(const int kl, const int ku, const int jl, 
 void DustFluids::UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
             const int il, const int iu, const AthenaArray<Real> internal_density,
             const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df, AthenaArray<Real> &stopping_time){
-  Real rad, phi, z;
-  Real inv_gm0 = 1.0/dfsrc.gm_;
-  //Real inv_Omega = 1.0/dfsrc.Omega_0_;
+  //Real rad, phi, z;
+  //Real sqrt_gm0 = std::sqrt(dfsrc.gm_);
+  Real inv_Omega = 1.0/dfsrc.Omega_0_;
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
     int rho_id  = 4*dust_id;
+    //Real inv_internal = 1.0/internal_density(dust_id);
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
         for (int i=il; i<=iu; ++i) {
           Real &st_time = stopping_time(dust_id, k, j, i);
 
+          // The Stopping time is inversely proportional to the density of gas
           //const Real &gas_rho = w(IDN, k, j, i);
           //st_time = internal_density(dust_id)/gas_rho;
 
           // Dusty Shock Test
           //const Real &dust_rho = prim_df(rho_id, k, j, i);
-          //st_time = dust_rho/internal_density(dust_id);
+          //st_time = dust_rho*inv_internal;
 
           // Constant Stokes number in disk problems
-          if ( (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0) ||
-                std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0) {
-            dfdif.GetCylCoord(pco_, rad, phi, z, i, j, k);
-            st_time = internal_density(dust_id)*std::pow(rad, 1.5)*std::pow(inv_gm0, -0.5);
-          }
+          //if ( (std::strcmp(COORDINATE_SYSTEM, "cylindrical") == 0) ||
+                //std::strcmp(COORDINATE_SYSTEM, "spherical_polar") == 0) {
+            //dfdif.GetCylCoord(pco_, rad, phi, z, i, j, k);
+            //st_time = internal_density(dust_id)*std::pow(rad, 1.5)*sqrt_gm0;
+          //}
 
-          // NSH equilibrium && Streaming Instability test
-          //st_time = internal_density(dust_id)*inv_Omega;
-
+          // NSH equilibrium Test && Streaming Instability Test
+          st_time = internal_density(dust_id)*inv_Omega;
         }
       }
     }

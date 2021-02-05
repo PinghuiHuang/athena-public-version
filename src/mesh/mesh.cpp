@@ -48,8 +48,6 @@
 #include "../reconstruct/reconstruction.hpp"
 #include "../dustfluids/dustfluids.hpp"
 #include "../dustfluids/diffusions/dustfluids_diffusion.hpp"
-#include "../dustfluids/srcterms/dustfluids_srcterms.hpp"
-#include "../dustfluids/drags/dust_gas_drag.hpp"
 #include "../utils/buffer_utils.hpp"
 #include "mesh.hpp"
 #include "mesh_refinement.hpp"

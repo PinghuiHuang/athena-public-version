@@ -140,12 +140,5 @@ void DustFluidsSourceTerms::AddDustFluidsSourceTerms(const Real time, const Real
   else if (flag_shearing_source_ == 3)
     RotatingSystemSourceTermsDustFluids(dt, flux_df, prim_df, cons_df);
 
-  // MyNewSourceTerms()
-
-  //  user-defined source terms
-  //if (UserSourceTerm != nullptr) {
-    //UserSourceTerm(pmb, time, dt, prim_df, cons_df);
-  //}
-
   return;
 }

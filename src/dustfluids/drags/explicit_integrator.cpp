@@ -143,13 +143,6 @@ void DustGasDrag::ExplicitFeedback(const int stage,
     }
   }
 
-  //force_x1.DeleteAthenaArray();
-  //force_x2.DeleteAthenaArray();
-  //force_x3.DeleteAthenaArray();
-  //delta_m1_explicit.DeleteAthenaArray();
-  //delta_m2_explicit.DeleteAthenaArray();
-  //delta_m3_explicit.DeleteAthenaArray();
-
   return;
 }
 

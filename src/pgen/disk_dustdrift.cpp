@@ -364,8 +364,8 @@ void InnerWavedamping(MeshBlock *pmb, const Real time, const Real dt,
           // See de Val-Borro et al. 2006 & 2007
           Real R_func        = SQR((rad - radius_inner_damping)*inv_inner_damp);
           Real damping_speed = damping_rate*omega_dyn*R_func;
-          Real alpha_ori     = 1.0/(1.0 + dt*damping_speed);
-          //Real alpha_ori     = 1.0/(1.0 + damping_speed);
+          //Real alpha_ori     = 1.0/(1.0 + dt*damping_speed);
+          Real alpha_ori     = 1.0/(1.0 + damping_speed);
           Real alpha_dam     = 1.0 - alpha_ori;
 
           Real &gas_den        = cons(IDN, k, j, i);
@@ -470,8 +470,8 @@ void OuterWavedamping(MeshBlock *pmb, const Real time, const Real dt,
           // See de Val-Borro et al. 2006 & 2007
           Real R_func        = SQR((rad - radius_outer_damping)*inv_outer_damp);
           Real damping_speed = damping_rate*omega_dyn*R_func;
-          Real alpha_ori     = 1.0/(1.0 + dt*damping_speed);
-          //Real alpha_ori     = 1.0/(1.0 + damping_speed);
+          //Real alpha_ori     = 1.0/(1.0 + dt*damping_speed);
+          Real alpha_ori     = 1.0/(1.0 + damping_speed);
           Real alpha_dam     = 1.0 - alpha_ori;
 
           Real &gas_den        = cons(IDN, k, j, i);

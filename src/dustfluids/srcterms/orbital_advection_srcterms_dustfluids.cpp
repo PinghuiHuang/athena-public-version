@@ -11,7 +11,6 @@
 #include "../../athena.hpp"
 #include "../../athena_arrays.hpp"
 #include "../../coordinates/coordinates.hpp"
-#include "../../field/field.hpp"
 #include "../../mesh/mesh.hpp"
 #include "../../orbital_advection/orbital_advection.hpp"
 #include "../dustfluids.hpp"

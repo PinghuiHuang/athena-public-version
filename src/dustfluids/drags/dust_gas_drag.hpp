@@ -75,7 +75,7 @@ class DustGasDrag {
     Real Determinant();
 
     // Time Integrators
-    // Explitcit Integartor
+    // Explitcit Integartors, these are consistent with default integrators in athena++
     void ExplicitFeedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -87,7 +87,7 @@ class DustGasDrag {
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
     // Semi-Implicit Integrators
-    // Trapezoid Method (Crank-Nicholson Method), 2nd order
+    // Trapezoid Methods (Crank-Nicholson Methods), 2nd order time convergence
     void TrapezoidFeedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -98,7 +98,7 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // Trapezoid Backward Differentiation Formula 2, 2nd order
+    // Trapezoid Backward Differentiation Formula 2 methods, 2nd order time convergence
     void TRBDF2Feedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -110,7 +110,7 @@ class DustGasDrag {
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
     // Fully Implicit Integartors
-    // Backward Euler (Backward Differentiation Formula 1, BDF1), 1st order
+    // Backward Euler methods (Backward Differentiation Formula 1, BDF1), 1st order time convergence
     void BackwardEulerFeedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -121,7 +121,7 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // Backward Differentiation Formula 2, BDF2, 1st order
+    // Backward Differentiation Formula 2 methods, BDF2, 1st order time convergence
     void BDF2Feedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -132,7 +132,7 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // Van Leer 2 Implicit method, 2nd order
+    // Van Leer 2 Implicit methods, 2nd order time convergence
     void VL2ImplicitFeedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
@@ -143,7 +143,7 @@ class DustGasDrag {
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
         const AthenaArray<Real> &u, AthenaArray<Real> &cons_df);
 
-    // Runge Kutta 2 Implicit method, 2nd order
+    // Runge Kutta 2 Implicit methods, 2nd order time convergence
     void RK2ImplicitFeedback(const int stage, const Real dt,
         const AthenaArray<Real> &stopping_time,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,

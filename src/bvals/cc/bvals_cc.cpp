@@ -127,7 +127,7 @@ CellCenteredBoundaryVariable::~CellCenteredBoundaryVariable() {
     for (int upper=0; upper<2; upper++) {
       if (pbval_->is_shear[upper]) { // if true for shearing inner blocks
         for (int n=0; n<4; n++) {
-          delete[] shear_bd_var_[upper].send[n];
+          delete[] shear_bd_var_[upper].send[n]; // TODO: a bug locates here.
           delete[] shear_bd_var_[upper].recv[n];
         }
         for (int n=0; n<3; n++) {

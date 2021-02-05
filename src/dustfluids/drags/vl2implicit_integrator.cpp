@@ -47,7 +47,7 @@ void DustGasDrag::VL2ImplicitFeedback(const int stage,
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
 
-    AthenaArray<Real> jacobi_matrix(NSPECIES,  NSPECIES);
+    AthenaArray<Real> jacobi_matrix(NSPECIES, NSPECIES);
     AthenaArray<Real> lambda_matrix(NSPECIES, NSPECIES);
     AthenaArray<Real> lambda_inv_matrix(NSPECIES, NSPECIES);
 
@@ -405,7 +405,7 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
 
-    AthenaArray<Real> jacobi_matrix(NSPECIES,  NSPECIES);
+    AthenaArray<Real> jacobi_matrix(NSPECIES, NSPECIES);
 
     AthenaArray<Real> lambda_matrix(NSPECIES, NSPECIES);
     AthenaArray<Real> lambda_inv_matrix(NSPECIES, NSPECIES);
@@ -526,9 +526,9 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
     AthenaArray<Real> temp_B_matrix(NSPECIES, NSPECIES);
     AthenaArray<Real> temp_C_matrix(NSPECIES, NSPECIES);
 
-    AthenaArray<Real> jacobi_matrix(NSPECIES,     NSPECIES);
-    AthenaArray<Real> jacobi_matrix_n(NSPECIES,   NSPECIES);
-    AthenaArray<Real> lambda_matrix(NSPECIES,     NSPECIES);
+    AthenaArray<Real> jacobi_matrix(NSPECIES, NSPECIES);
+    AthenaArray<Real> jacobi_matrix_n(NSPECIES, NSPECIES);
+    AthenaArray<Real> lambda_matrix(NSPECIES, NSPECIES);
     AthenaArray<Real> lambda_inv_matrix(NSPECIES, NSPECIES);
 
     for (int k=ks; k<=ke; ++k) {
@@ -557,12 +557,6 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
           const Real &gas_v1  = w(IVX, k, j, i);
           const Real &gas_v2  = w(IVY, k, j, i);
           const Real &gas_v3  = w(IVZ, k, j, i);
-
-          // Alias the primitives of gas
-          const Real &gas_rho_n = w_n(IDN, k, j, i);
-          const Real &gas_v1_n  = w_n(IVX, k, j, i);
-          const Real &gas_v2_n  = w_n(IVY, k, j, i);
-          const Real &gas_v3_n  = w_n(IVZ, k, j, i);
 
           // Set the drag force
           for (int index=1; index<=NDUSTFLUIDS; ++index) {

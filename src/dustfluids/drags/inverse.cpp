@@ -25,7 +25,7 @@
 #include <omp.h>
 #endif
 
-// The algorithms come from "Nurmerical Recipes, 3ed", Charpter 2.3, William H. Press et al. 2007
+// Reference: "Nurmerical Recipes, 3ed", Charpter 2.3, William H. Press et al. 2007
 // LUdecompose and Matrix Inverse
 void DustGasDrag::LUdecompose(const AthenaArray<Real> &a_matrix)
 {
@@ -101,8 +101,8 @@ void DustGasDrag::SolveLinearEquation(AthenaArray<Real> &b_vector, AthenaArray<R
     x_vector(i) = b_vector(i);
 
   for (i = 0; i<NSPECIES; ++i) { // When ii is set to a positive value,
-    ip           = indx_array(i);   // it will become the index of the first nonvanishing element of b.
-    sum          = x_vector(ip);    // We now do the forward substitution
+    ip  = indx_array(i); // it will become the index of the first nonvanishing element of b.
+    sum = x_vector(ip);  // We now do the forward substitution
     x_vector(ip) = x_vector(i);     // The only new wrinkle is to unscramble the permutation
     if (ii != 0)
       for (j = ii-1; j<i; ++j) sum -= lu_matrix(i, j)*x_vector(j);
