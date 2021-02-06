@@ -3,8 +3,8 @@
 // Copyright(C) 2014 James M. Stone <jmstone@princeton.edu> and other code contributors
 // Licensed under the 3-clause BSD License, see LICENSE file for details
 //========================================================================================
-//! \file dustfluids_hlle_solver.cpp
-//! \brief spatially isothermal HLLE Riemann solver for dust fludis
+//! \file dustfluids_noCs_solver.cpp
+//! \brief HLLE Riemann solver for dust fludis (no dust sound speed)
 //!
 //! Computes 1D fluxes using the Harten-Lax-van Leer (HLL) Riemann solver.  This flux is
 //! very diffusive, especially for contacts, and so it is not recommended for use in
@@ -32,15 +32,15 @@
 #include "dustfluids.hpp"
 
 //----------------------------------------------------------------------------------------
-//! \fn void DustFluids::HLLE_RiemannSolver_DustFluids
-//! \brief The HLLE Riemann solver for Dust Fluids (spatially isothermal)
+//! \fn void DustFluids::RiemannSolver_DustFluids
+//! \brief The HLLE Riemann solver for Dust Fluids (no dust sound speed)
 
-void DustFluids::HLLERiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
+void DustFluids::RiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
                           const int index, AthenaArray<Real> &prim_df_l,
                           AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux) {
 
   Real df_prim_li[(NDUSTVAR)], df_prim_ri[(NDUSTVAR)], df_prim_roe[(NDUSTVAR)];
-  Real df_fl[(NDUSTVAR)],      df_fr[(NDUSTVAR)],      df_flxi[(NDUSTVAR)];
+  //Real df_fl[(NDUSTVAR)],      df_fr[(NDUSTVAR)],      df_flxi[(NDUSTVAR)];
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int idust = n;
@@ -48,11 +48,8 @@ void DustFluids::HLLERiemannSolverDustFluids(const int k, const int j, const int
     int ivx   = (IVX + ((index-IVX))%3)   + irho;
     int ivy   = (IVX + ((index-IVX)+1)%3) + irho;
     int ivz   = (IVX + ((index-IVX)+2)%3) + irho;
-#pragma omp simd private(df_prim_li, df_prim_ri, df_prim_roe, df_fl, df_fr, df_flxi)
-    for (int i=il; i<=iu; ++i) {
-      const Real &cs = cs_dustfluids_array(idust, k, j, i);
-
-      //Load L/R states into local variables
+#pragma omp simd private(df_prim_li, df_prim_ri, df_prim_roe)
+    for (int i=il; i<=iu; i++) {
       df_prim_li[irho] = prim_df_l(irho, i);
       df_prim_li[ivx]  = prim_df_l(ivx,  i);
       df_prim_li[ivy]  = prim_df_l(ivy,  i);
@@ -63,56 +60,40 @@ void DustFluids::HLLERiemannSolverDustFluids(const int k, const int j, const int
       df_prim_ri[ivy]  = prim_df_r(ivy,  i);
       df_prim_ri[ivz]  = prim_df_r(ivz,  i);
 
-      //Compute middle state estimates with PVRS (Toro 10.5.2)
-      //Real al, ar, el, er;
       Real sqrtdl  = std::sqrt(df_prim_li[irho]);
       Real sqrtdr  = std::sqrt(df_prim_ri[irho]);
       Real isdlpdr = 1.0/(sqrtdl + sqrtdr);
 
       df_prim_roe[irho] = sqrtdl*sqrtdr;
-      df_prim_roe[ivx]  = (sqrtdl*df_prim_li[ivx]+ sqrtdr*df_prim_ri[ivx])*isdlpdr;
+      df_prim_roe[ivx]  = (sqrtdl*df_prim_li[ivx] + sqrtdr*df_prim_ri[ivx])*isdlpdr;
 
-      //Compute the max/min wave speeds based on L/R and Roe-averaged values
-      Real al = std::min((df_prim_roe[ivx] - cs),(df_prim_li[ivx] - cs));
-      Real ar = std::max((df_prim_roe[ivx] + cs),(df_prim_ri[ivx] + cs));
+      if (df_prim_li[ivx] < 0.0 && df_prim_ri[ivx] > 0.0) {
+        dust_flux(irho, k, j, i) = 0.0;
+        dust_flux(ivx,  k, j, i) = 0.0;
+        dust_flux(ivy,  k, j, i) = 0.0;
+        dust_flux(ivz,  k, j, i) = 0.0;
+      } else {
+        if (df_prim_roe[ivx] > 0.0) {
+          dust_flux(irho, k, j, i) = df_prim_li[irho] * df_prim_li[ivx];
+          dust_flux(ivx,  k, j, i) = df_prim_li[ivx]  * dust_flux(irho, k, j, i);
+          dust_flux(ivy,  k, j, i) = df_prim_li[ivy]  * dust_flux(irho, k, j, i);
+          dust_flux(ivz,  k, j, i) = df_prim_li[ivz]  * dust_flux(irho, k, j, i);
+        } else if (df_prim_roe[ivx] < 0.0) {
+          dust_flux(irho, k, j, i) = df_prim_ri[irho] * df_prim_ri[ivx];
+          dust_flux(ivx,  k, j, i) = df_prim_ri[ivx]  * dust_flux(irho, k, j, i);
+          dust_flux(ivy,  k, j, i) = df_prim_ri[ivy]  * dust_flux(irho, k, j, i);
+          dust_flux(ivz,  k, j, i) = df_prim_ri[ivz]  * dust_flux(irho, k, j, i);
+        } else{
+          dust_flux(irho, k, j, i) = 0.5*(df_prim_li[irho] * df_prim_li[ivx] + df_prim_ri[irho] * df_prim_ri[ivx]);
+          dust_flux(ivx,  k, j, i) = 0.5*(df_prim_li[ivx] + df_prim_ri[ivx]) * dust_flux(irho, k, j, i);
+          dust_flux(ivy,  k, j, i) = 0.5*(df_prim_li[ivy] + df_prim_ri[ivy]) * dust_flux(irho, k, j, i);
+          dust_flux(ivz,  k, j, i) = 0.5*(df_prim_li[ivz] + df_prim_ri[ivz]) * dust_flux(irho, k, j, i);
+        }
+      }
 
-      Real bp = ar > 0.0 ? ar : 0.0;
-      Real bm = al < 0.0 ? al : 0.0;
-
-      //Compute L/R df_fluxes along lines bm/bp: F_L - (S_L)U_L; F_R - (S_R)U_R
-      Real vxl = df_prim_li[ivx] - bm;
-      Real vxr = df_prim_ri[ivx] - bp;
-
-      df_fl[irho]  = vxl * df_prim_li[irho];
-      df_fr[irho]  = vxr * df_prim_ri[irho];
-
-      df_fl[ivx]   = df_prim_li[ivx] * df_fl[irho];
-      df_fr[ivx]   = df_prim_ri[ivx] * df_fr[irho];
-
-      df_fl[ivy]   = df_prim_li[ivy] * df_fl[irho];
-      df_fr[ivy]   = df_prim_ri[ivy] * df_fr[irho];
-
-      df_fl[ivz]   = df_prim_li[ivz] * df_fl[irho];
-      df_fr[ivz]   = df_prim_ri[ivz] * df_fr[irho];
-
-      df_fl[ivx]  += (cs*cs) * df_prim_li[irho];
-      df_fr[ivx]  += (cs*cs) * df_prim_ri[irho];
-
-      //Compute the HLLE df_flux at interface.
-      Real tmp  = 0.0;
-      if (bp != bm) tmp = 0.5*(bp + bm)/(bp - bm);
-
-      df_flxi[irho] = 0.5*(df_fl[irho] + df_fr[irho]) + (df_fl[irho] - df_fr[irho])*tmp;
-      df_flxi[ivx]  = 0.5*(df_fl[ivx] + df_fr[ivx]) + (df_fl[ivx] - df_fr[ivx])*tmp;
-      df_flxi[ivy]  = 0.5*(df_fl[ivy] + df_fr[ivy]) + (df_fl[ivy] - df_fr[ivy])*tmp;
-      df_flxi[ivz]  = 0.5*(df_fl[ivz] + df_fr[ivz]) + (df_fl[ivz] - df_fr[ivz])*tmp;
-
-      dust_flux(irho, k, j, i) = df_flxi[irho];
-      dust_flux(ivx,  k, j, i) = df_flxi[ivx];
-      dust_flux(ivy,  k, j, i) = df_flxi[ivy];
-      dust_flux(ivz,  k, j, i) = df_flxi[ivz];
     }
   }
 
   return;
 }
+

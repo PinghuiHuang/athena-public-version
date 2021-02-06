@@ -42,7 +42,7 @@ class DustFluids {
     // Leaving as ctor parameter in case of run-time "ndustfluids" option
 
     // public data:
-    // "conservative vars" = density, momentums of dust fluids
+    // "conservative vars" = density, momentums of dust
     AthenaArray<Real> df_cons, df_cons1, df_cons2; // time-integrator memory register #1
     AthenaArray<Real> df_cons0, df_cons_fl_div;    // rkl2 STS memory registers;
     AthenaArray<Real> df_cons_bs, df_cons_as;      // time-integrator memory register before and after explicit sources terms
@@ -111,6 +111,11 @@ class DustFluids {
 
     // Roe solver of dust
     void RoeRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
+        const int index, AthenaArray<Real> &prim_df_l,
+        AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
+
+    // Riemann solver
+    void RiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &prim_df_l,
         AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
 

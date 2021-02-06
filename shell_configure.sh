@@ -24,7 +24,7 @@ hdf5path=/usr/lib/x86_64-linux-gnu/hdf5/openmpi
 
 #python configure.py --prob=nsh_dust --ndustfluids=1 --eos=isothermal -mpi -hdf5 --hdf5_path=${hdf5path} -debug -h5double
 
-python configure.py --prob=streaming_eigen --ndustfluids=1 --eos=isothermal --flux=roe -mpi -hdf5 --hdf5_path=${hdf5path} -debug -h5double
+python configure.py --prob=streaming_eigen --ndustfluids=1 --eos=isothermal -mpi -hdf5 --hdf5_path=${hdf5path} -debug -h5double
 
 #python configure.py --prob=dust_streaming --ndustfluids=1 --eos=isothermal -mpi -hdf5 --hdf5_path=${hdf5path} -debug -h5double
 

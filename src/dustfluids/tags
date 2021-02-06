@@ -74,6 +74,7 @@ PassiveScalars	scalars/scalars.hpp	/^class PassiveScalars {$/;"	c
 PointMassDustFluids	srcterms/pointmass_dustfluids.cpp	/^void DustFluidsSourceTerms::PointMassDustFluids(const Real dt, const AthenaArray<Real> *flux_df,$/;"	f	class:DustFluidsSourceTerms
 RK2ImplicitFeedback	drags/rk2implicit_integrator.cpp	/^void DustGasDrag::RK2ImplicitFeedback(const int stage,$/;"	f	class:DustGasDrag
 RK2ImplicitNoFeedback	drags/rk2implicit_integrator.cpp	/^void DustGasDrag::RK2ImplicitNoFeedback(const int stage,$/;"	f	class:DustGasDrag
+RiemannSolverDustFluids	dustfluids_Riemann_solver.cpp	/^void DustFluids::RiemannSolverDustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:DustFluids
 RoeFlux	dustfluids_roe_solver.cpp	/^inline void RoeFlux(const int rho_id, const Real df_prim_roe[], const Real df_du[],$/;"	f	namespace:__anon2
 RoeRiemannSolverDustFluids	dustfluids_roe_solver.cpp	/^void DustFluids::RoeRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,$/;"	f	class:DustFluids
 RotatingSystemSourceTermsDustFluids	srcterms/rotating_system_srcterms_dustfluids.cpp	/^void DustFluidsSourceTerms::RotatingSystemSourceTermsDustFluids$/;"	f	class:DustFluidsSourceTerms

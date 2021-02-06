@@ -478,7 +478,6 @@ void BoundaryValues::ProlongateGhostCells(const NeighborBlock& nb,
   // swap back MeshRefinement ptrs to standard/coarse conserved variable arrays:
   pmr->SetHydroRefinement(HydroBoundaryQuantity::cons);
   if (NDUSTFLUIDS > 0) {
-    DustFluids *pdf = pmb->pdustfluids;
     pmr->SetDustFluidsRefinement(DustFluidsBoundaryQuantity::cons_df);
   }
 
