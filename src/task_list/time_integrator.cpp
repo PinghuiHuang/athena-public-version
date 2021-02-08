@@ -2238,8 +2238,7 @@ TaskStatus TimeIntegratorTaskList::CalculateDustFluidsFlux(MeshBlock *pmb, int s
 					pmb->WeightedAve(pdf->cs_dustfluids_array_n, pdf->cs_dustfluids_array,
 							pdf->cs_dustfluids_array, pdf->cs_dustfluids_array, pdf->cs_dustfluids_array, wghts);
 				}
-			}
-			else { // second order orbital splitting
+			} else { // second order orbital splitting
 				if (stage == 2) {
 					Real wghts[5] = {0.0, 1.0, 0.0, 0.0, 0.0};
 					pmb->WeightedAve(pdf->stopping_time_array_n, pdf->stopping_time_array,
@@ -2309,8 +2308,7 @@ TaskStatus TimeIntegratorTaskList::IntegrateDustFluids(MeshBlock *pmb, int stage
 			if (pmb->pmy_mesh->orbital_advection < 2) { // zeroth or first order orbital splitting
 				if ( stage == 1 )
 					pmb->WeightedAve(pdf->df_prim_n, pdf->df_prim, pdf->df_prim, pdf->df_prim, pdf->df_prim, wghts);
-			}
-			else { // second order orbital splitting
+			} else { // second order orbital splitting
 				if ( stage == 2 )
 					pmb->WeightedAve(pdf->df_prim_n, pdf->df_prim, pdf->df_prim, pdf->df_prim, pdf->df_prim, wghts);
 			}
@@ -2414,8 +2412,7 @@ TaskStatus TimeIntegratorTaskList::DiffuseDustFluids(MeshBlock *pmb, int stage) 
 					pmb->WeightedAve(pdf->cs_dustfluids_array_n, pdf->cs_dustfluids_array,
 							pdf->cs_dustfluids_array, pdf->cs_dustfluids_array, pdf->cs_dustfluids_array, wghts);
 				}
-			}
-			else { // second order orbital splitting
+			} else { // second order orbital splitting
 				if (stage == 2) {
 					Real wghts[5] = {0.0, 1.0, 0.0, 0.0, 0.0};
 					pmb->WeightedAve(pdf->stopping_time_array_n, pdf->stopping_time_array,
@@ -2584,8 +2581,8 @@ TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
       // Scaled coefficient for RHS update
       Real dt = (stage_wghts[(stage-1)].beta)*(pmb->pmy_mesh->dt);
       // Evaluate the time-dependent drags at the time at the beginning of the stage
-      pdf->dfdrag.DragIntegrate(stage, t_start_stage, dt, pdf->stopping_time_array,
-                                  ph->w, pdf->df_prim, ph->u, pdf->df_cons);
+      //pdf->dfdrag.DragIntegrate(stage, t_start_stage, dt, pdf->stopping_time_array,
+                                  //ph->w, pdf->df_prim, ph->u, pdf->df_cons);
     }
     return TaskStatus::next;
   }

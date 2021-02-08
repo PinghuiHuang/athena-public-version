@@ -52,10 +52,11 @@ class DustFluids {
     AthenaArray<Real> df_flux[3];                    // face-averaged flux vector
 
     AthenaArray<Real> stopping_time_array;      // Arrays of stopping time of dust
-    AthenaArray<Real> stopping_time_array_n;    // Arrays of stopping time of dust at stage n
     AthenaArray<Real> nu_dustfluids_array;      // Arrays of dust diffusivity array, nu_d
-    AthenaArray<Real> nu_dustfluids_array_n;    // Arrays of dust diffusivity array, nu_d at stage n
     AthenaArray<Real> cs_dustfluids_array;      // Arrays of sound speed of dust, cs_d^2 = nu_d/T_eddy
+
+    AthenaArray<Real> stopping_time_array_n;    // Arrays of stopping time of dust at stage n
+    AthenaArray<Real> nu_dustfluids_array_n;    // Arrays of dust diffusivity array, nu_d at stage n
     AthenaArray<Real> cs_dustfluids_array_n;    // Arrays of sound speed of dust, cs_d^2 = nu_d/T_eddy at stage n
 
     // fourth-order intermediate quantities
@@ -114,7 +115,7 @@ class DustFluids {
         const int index, AthenaArray<Real> &prim_df_l,
         AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
 
-    // Riemann solver
+    // Riemann solver of dust
     void RiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &prim_df_l,
         AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);

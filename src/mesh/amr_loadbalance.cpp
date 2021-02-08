@@ -20,6 +20,7 @@
 #include "../field/field.hpp"
 #include "../globals.hpp"
 #include "../hydro/hydro.hpp"
+#include "../dustfluids/dustfluids.hpp"
 #include "../utils/buffer_utils.hpp"
 #include "mesh.hpp"
 #include "mesh_refinement.hpp"
