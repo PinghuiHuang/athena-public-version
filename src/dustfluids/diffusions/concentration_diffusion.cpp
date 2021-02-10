@@ -36,7 +36,7 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
   int il, iu, jl, ju, kl, ku;
   int is = pmb_->is; int js = pmb_->js; int ks = pmb_->ks;
   int ie = pmb_->ie; int je = pmb_->je; int ke = pmb_->ke;
-  Real nu_face, rho_face, df_d11, df_d22, df_d33;
+  Real nu_face, gas_rho_face, gra_x1_con, gra_x2_con, gra_x3_con;
 
   AthenaArray<Real> &nu_dust = pdf->nu_dustfluids_array;
 
@@ -54,19 +54,16 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
     int rho_id  = 4*dust_id;
-    int v1_id   = rho_id + 1;
-    int v2_id   = rho_id + 2;
-    int v3_id   = rho_id + 3;
     for (int k=kl; k<=ku; ++k) {
       for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
         for (int i=is; i<=ie+1; ++i) {
-          nu_face  = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k,j,i-1));
-          rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k,j,i-1));
-          // df_d11 = D(rho_d/rho_g)_x1/D(x1)
-          df_d11   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j,i-1)/w(IDN,k,j,i-1))
-                      /pco_->dx1v(i-1);
-          x1flux(rho_id,k,j,i) -= nu_face*rho_face*df_d11;
+          nu_face      = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k,j,i-1));
+          gas_rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k,j,i-1));
+          // gra_x1_con = D(rho_d/rho_g)_x1/D(x1)
+          gra_x1_con   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j,i-1)/w(IDN,k,j,i-1))
+                                      /pco_->dx1v(i-1);
+          x1flux(rho_id,k,j,i) -= nu_face*gas_rho_face*gra_x1_con;
         }
       }
     }
@@ -86,19 +83,16 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
     for (int n=0; n<NDUSTFLUIDS; ++n) {
       int dust_id = n;
       int rho_id  = 4*dust_id;
-      int v1_id   = rho_id + 1;
-      int v2_id   = rho_id + 2;
-      int v3_id   = rho_id + 3;
       for (int k=kl; k<=ku; ++k) {
         for (int j=js; j<=je+1; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            nu_face  = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k,j-1,i));
-            rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k,j-1,i));
-            // df_d22 = D(rho_d/rho_g)_x2/D(x2)
-            df_d22   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j-1,i)/w(IDN,k,j-1,i))
+            nu_face      = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k,j-1,i));
+            gas_rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k,j-1,i));
+            // gra_x2_con = D(rho_d/rho_g)_x2/D(x2)
+            gra_x2_con   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k,j-1,i)/w(IDN,k,j-1,i))
                                       /pco_->h2v(i)/pco_->dx2v(j-1);
-            x2flux(rho_id,k,j,i) -= nu_face*rho_face*df_d22;
+            x2flux(rho_id,k,j,i) -= nu_face*gas_rho_face*gra_x2_con;
           }
         }
       }
@@ -119,19 +113,16 @@ void DustFluidsDiffusion::DustFluidsConcentrationDiffusiveFlux(const AthenaArray
     for (int n=0; n<NDUSTFLUIDS; ++n) {
       int dust_id = n;
       int rho_id  = 4*dust_id;
-      int v1_id   = rho_id + 1;
-      int v2_id   = rho_id + 2;
-      int v3_id   = rho_id + 3;
       for (int k=ks; k<=ke+1; ++k) {
         for (int j=jl; j<=ju; ++j) {
 #pragma omp simd
           for (int i=il; i<=iu; ++i) {
-            nu_face  = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k-1,j,i));
-            rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k-1,j,i));
-            // df_d33 = D(rho_d/rho_g)_x3/D(x3)
-            df_d33   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k-1,j,i)/w(IDN,k-1,j,i))
-                              /pco_->dx3v(k-1)/pco_->h31v(i)/pco_->h32v(j);
-            x3flux(rho_id,k,j,i) -= nu_face*rho_face*df_d33;
+            nu_face      = 0.5*(nu_dust(dust_id,k,j,i) + nu_dust(dust_id,k-1,j,i));
+            gas_rho_face = 0.5*(w(IDN,k,j,i) + w(IDN,k-1,j,i));
+            // gra_x3_con = D(rho_d/rho_g)_x3/D(x3)
+            gra_x3_con   = (prim_df(rho_id,k,j,i)/w(IDN,k,j,i) - prim_df(rho_id,k-1,j,i)/w(IDN,k-1,j,i))
+                                      /pco_->dx3v(k-1)/pco_->h31v(i)/pco_->h32v(j);
+            x3flux(rho_id,k,j,i) -= nu_face*gas_rho_face*gra_x3_con;
           }
         }
       }

@@ -42,7 +42,7 @@ void DustFluids::AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> 
     for (int j=js; j<=je; ++j) {
       // calculate x1-flux divergence
       pmb->pcoord->Face1Area(k, j, is, ie+1, x1area);
-      for (int n=0; n<NDUSTVAR; ++n) {
+      for (int n=0; n<NDUSTVARS; ++n) {
 #pragma omp simd
         for (int i=is; i<=ie; ++i) {
           dflx(n, i) = (x1area(i+1)*x1flux(n, k, j, i+1) - x1area(i)*x1flux(n, k, j, i));
@@ -53,7 +53,7 @@ void DustFluids::AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> 
       if (pmb->block_size.nx2 > 1) {
         pmb->pcoord->Face2Area(k, j  , is, ie, x2area   );
         pmb->pcoord->Face2Area(k, j+1, is, ie, x2area_p1);
-        for (int n=0; n<NDUSTVAR; ++n) {
+        for (int n=0; n<NDUSTVARS; ++n) {
 #pragma omp simd
           for (int i=is; i<=ie; ++i) {
             dflx(n, i) += (x2area_p1(i)*x2flux(n, k, j+1, i) - x2area(i)*x2flux(n, k, j, i));
@@ -65,7 +65,7 @@ void DustFluids::AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> 
       if (pmb->block_size.nx3 > 1) {
         pmb->pcoord->Face3Area(k  , j, is, ie, x3area   );
         pmb->pcoord->Face3Area(k+1, j, is, ie, x3area_p1);
-        for (int n=0; n<NDUSTVAR; ++n) {
+        for (int n=0; n<NDUSTVARS; ++n) {
 #pragma omp simd
           for (int i=is; i<=ie; ++i) {
             dflx(n, i) += (x3area_p1(i)*x3flux(n, k+1, j, i) - x3area(i)*x3flux(n, k, j, i));
@@ -75,7 +75,7 @@ void DustFluids::AddDustFluidsFluxDivergence(const Real wght, AthenaArray<Real> 
 
       // update conserved variables
       pmb->pcoord->CellVolume(k, j, is, ie, vol);
-      for (int n=0; n<NDUSTVAR; ++n) {
+      for (int n=0; n<NDUSTVARS; ++n) {
 #pragma omp simd
         for (int i=is; i<=ie; ++i) {
           cons_df_out(n, k, j, i) -= wght*dflx(n, i)/vol(i);
@@ -110,7 +110,7 @@ void DustFluids::AddDustFluidsFluxDivergence_STS(const Real wght, int stage,
     for (int j=js; j<=je; ++j) {
       // calculate x1-flux divergence
       pmb->pcoord->Face1Area(k, j, is, ie+1, x1area);
-      for (int n=0; n<NDUSTVAR; ++n) {
+      for (int n=0; n<NDUSTVARS; ++n) {
 #pragma omp simd
         for (int i=is; i<=ie; ++i) {
           dflx(n, i) = (x1area(i+1)*x1flux(n, k, j, i+1) - x1area(i)*x1flux(n, k, j, i));
@@ -121,7 +121,7 @@ void DustFluids::AddDustFluidsFluxDivergence_STS(const Real wght, int stage,
       if (pmb->block_size.nx2 > 1) {
         pmb->pcoord->Face2Area(k, j  , is, ie, x2area   );
         pmb->pcoord->Face2Area(k, j+1, is, ie, x2area_p1);
-        for (int n=0; n<NDUSTVAR; ++n) {
+        for (int n=0; n<NDUSTVARS; ++n) {
 #pragma omp simd
           for (int i=is; i<=ie; ++i) {
             dflx(n, i) += (x2area_p1(i)*x2flux(n, k, j+1, i) - x2area(i)*x2flux(n, k, j, i));
@@ -133,7 +133,7 @@ void DustFluids::AddDustFluidsFluxDivergence_STS(const Real wght, int stage,
       if (pmb->block_size.nx3 > 1) {
         pmb->pcoord->Face3Area(k  , j, is, ie, x3area   );
         pmb->pcoord->Face3Area(k+1, j, is, ie, x3area_p1);
-        for (int n=0; n<NDUSTVAR; ++n) {
+        for (int n=0; n<NDUSTVARS; ++n) {
 #pragma omp simd
           for (int i=is; i<=ie; ++i) {
             dflx(n, i) += (x3area_p1(i)*x3flux(n, k+1, j, i) - x3area(i)*x3flux(n, k, j, i));
@@ -143,7 +143,7 @@ void DustFluids::AddDustFluidsFluxDivergence_STS(const Real wght, int stage,
 
       // update conserved variables
       pmb->pcoord->CellVolume(k, j, is, ie, vol);
-      for (int n=0; n<NDUSTVAR; ++n) {
+      for (int n=0; n<NDUSTVARS; ++n) {
 #pragma omp simd
         for (int i=is; i<=ie; ++i) {
           cons_df_out(n, k, j, i) -= wght*dflx(n, i)/vol(i);

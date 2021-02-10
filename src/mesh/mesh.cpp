@@ -1795,7 +1795,7 @@ void Mesh::CorrectMidpointInitialCondition() {
       }
     }
 
-    int ncells4_df = NDUSTVAR;
+    int ncells4_df = NDUSTVARS;
     int nl_df = 0;
     int nu_df = ncells4_df -1;
     if (NDUSTFLUIDS > 0) {

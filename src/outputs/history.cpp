@@ -36,7 +36,7 @@
 // NEW_OUTPUT_TYPES:
 
 // "3" for 1-KE, 2-KE, 3-KE additional columns (come before tot-E)
-#define NHISTORY_VARS ((NHYDRO) + (SELF_GRAVITY_ENABLED) + (NFIELD) + 3 + (NDUSTVAR))
+#define NHISTORY_VARS ((NHYDRO) + (SELF_GRAVITY_ENABLED) + (NFIELD) + 3 + (NDUSTVARS))
 
 //----------------------------------------------------------------------------------------
 //! \fn void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag)
@@ -126,7 +126,7 @@ void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag) {
               hst_data[prev_out + 2] += vol(i)*0.5*bcc3*bcc3;
             }
             // (conserved variable) Dust Fluids:
-            for (int n=0; n<NDUSTVAR; n++) {
+            for (int n=0; n<NDUSTVARS; n++) {
               Real& df_cons = porb->df_cons_orb(n,k,j,i);
               constexpr int prev_out = NHYDRO + 3 + SELF_GRAVITY_ENABLED + NFIELD;
               hst_data[prev_out + n] += vol(i)*df_cons;
@@ -176,7 +176,7 @@ void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag) {
               hst_data[prev_out + 2] += vol(i)*0.5*bcc3*bcc3;
             }
             // (conserved variable) Dust Fluids:
-            for (int n=0; n<NDUSTVAR; n++) {
+            for (int n=0; n<NDUSTVARS; n++) {
               Real& df_cons = pdfs->df_cons(n,k,j,i);
               constexpr int prev_out = NHYDRO + 3 + SELF_GRAVITY_ENABLED + NFIELD;
               hst_data[prev_out + n] += vol(i)*df_cons;
@@ -278,7 +278,7 @@ void HistoryOutput::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag) {
         std::fprintf(pfile,"[%d]=2-ME    ", iout++);
         std::fprintf(pfile,"[%d]=3-ME    ", iout++);
       }
-      for (int n=0; n<NDUSTVAR; n++) {
+      for (int n=0; n<NDUSTVARS; n++) {
         int dust_index     = n/4 + 1;
         int dust_var_index = n%4;
         switch ( dust_var_index )

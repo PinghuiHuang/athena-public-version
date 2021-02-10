@@ -52,6 +52,8 @@ void DustFluidsDiffusion::ConstantDustDiffusivity(const AthenaArray<Real> &nu_ga
   const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
   const AthenaArray<Real> &stopping_time,
   AthenaArray<Real> &dust_diffusivity, AthenaArray<Real> &dust_cs){
+
+  Real inv_eddy_time = 1.0/eddy_timescale_r0;
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int dust_id = n;
     for (int k=kl; k<=ku; ++k) {
@@ -61,15 +63,16 @@ void DustFluidsDiffusion::ConstantDustDiffusivity(const AthenaArray<Real> &nu_ga
           Real rad, phi, z;
           GetCylCoord(pco_, rad, phi, z, i, j, k);
           Real &diffusivity = dust_diffusivity(dust_id,k,j,i);
-          diffusivity       = pmy_dustfluids_->const_nu_dust(dust_id);
+          diffusivity       = pmy_dustfluids_->const_nu_dust[dust_id];
           Real &soundspeed  = dust_cs(dust_id,k,j,i);
-          soundspeed        = std::sqrt(diffusivity/eddy_timescale_r0);
+          soundspeed        = std::sqrt(diffusivity*inv_eddy_time);
         }
       }
     }
   }
   return;
 }
+
 
 void DustFluidsDiffusion::ZeroDustDiffusivity(const AthenaArray<Real> &nu_gas,
   const int kl, const int ku, const int jl, const int ju, const int il, const int iu,
@@ -102,7 +105,7 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
   // Disk problems and Shakura & Sunyaev (1973) viscoisty profile
   bool alpha_disk_model = ((hd.nu_alpha > 0.0) && (disk_problem));
 
-  if (alpha_disk_model){
+  if (alpha_disk_model) {
     for (int n=0; n<NDUSTFLUIDS; n++) {
       int dust_id = n;
       for (int k=kl; k<=ku; ++k) {
@@ -121,8 +124,7 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
         }
       }
     }
-  }
-  else if ((hd.nu_iso > 0.0) && (disk_problem)) { // if nu_iso >0 and disk problem used
+  } else if ((hd.nu_iso > 0.0) && (disk_problem)) { // if nu_iso >0 and disk problem used
     for (int n=0; n<NDUSTFLUIDS; n++) {
       int dust_id = n;
       for (int k=kl; k<=ku; ++k) {
@@ -141,8 +143,7 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
         }
       }
     }
-  }
-  else if ((hd.nu_iso > 0.0)){
+  } else if ((hd.nu_iso > 0.0)){
     for (int n=0; n<NDUSTFLUIDS; n++) {
       int dust_id = n;
       for (int k=kl; k<=ku; ++k) {
@@ -161,8 +162,7 @@ void DustFluidsDiffusion::UserDefinedDustDiffusivity(const AthenaArray<Real> &nu
         }
       }
     }
-  }
-  else {
+  } else {
     for (int n=0; n<NDUSTFLUIDS; n++) {
       int dust_id = n;
       for (int k=kl; k<=ku; ++k) {

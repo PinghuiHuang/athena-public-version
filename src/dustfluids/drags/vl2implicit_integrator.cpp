@@ -31,9 +31,10 @@ void DustGasDrag::VL2ImplicitFeedback(const int stage,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  MeshBlock  *pmb = pmy_dustfluids_->pmy_block;
-  DustFluids *pdf = pmy_dustfluids_;
-  Hydro      *ph  = pmb->phydro;
+  MeshBlock  *pmb   = pmy_dustfluids_->pmy_block;
+  DustFluids *pdf   = pmy_dustfluids_;
+  Hydro      *ph    = pmb->phydro;
+  int orb_advection = pmb->pmy_mesh->orbital_advection;
 
   AthenaArray<Real> &w_n             = ph->w_n;
   AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
@@ -42,7 +43,7 @@ void DustGasDrag::VL2ImplicitFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  if ( stage == 1 ) {
+  if (((orb_advection < 2) && stage == 1) || ((orb_advection == 2) && stage == 2)) {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
@@ -185,12 +186,10 @@ void DustGasDrag::VL2ImplicitFeedback(const int stage,
             dust_m2 += delta_m2(n);
             dust_m3 += delta_m3(n);
           }
-
         }
       }
     }
-  }
-  else { // stage == 2
+  } else {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
@@ -270,10 +269,6 @@ void DustGasDrag::VL2ImplicitFeedback(const int stage,
             force_x1(index) = epsilon * alpha * gas_mom1 - alpha * dust_mom1;
             force_x2(index) = epsilon * alpha * gas_mom2 - alpha * dust_mom2;
             force_x3(index) = epsilon * alpha * gas_mom3 - alpha * dust_mom3;
-
-            //force_x1(index) = epsilon_n * alpha_n * gas_mom1 - alpha_n * dust_mom1;
-            //force_x2(index) = epsilon_n * alpha_n * gas_mom2 - alpha_n * dust_mom2;
-            //force_x3(index) = epsilon_n * alpha_n * gas_mom3 - alpha_n * dust_mom3;
           }
 
           for (int index = 1; index <= NDUSTFLUIDS; ++index) {
@@ -375,7 +370,6 @@ void DustGasDrag::VL2ImplicitFeedback(const int stage,
             dust_m2 += delta_m2(n);
             dust_m3 += delta_m3(n);
           }
-
         }
       }
     }
@@ -389,9 +383,10 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  MeshBlock  *pmb = pmy_dustfluids_->pmy_block;
-  DustFluids *pdf = pmy_dustfluids_;
-  Hydro      *ph  = pmb->phydro;
+  MeshBlock  *pmb   = pmy_dustfluids_->pmy_block;
+  DustFluids *pdf   = pmy_dustfluids_;
+  Hydro      *ph    = pmb->phydro;
+  int orb_advection = pmb->pmy_mesh->orbital_advection;
 
   AthenaArray<Real> &w_n             = ph->w_n;
   AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
@@ -400,13 +395,12 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  if ( stage == 1 ) {
+  if (((orb_advection < 2) && stage == 1) || ((orb_advection == 2) && stage == 2)) {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
 
     AthenaArray<Real> jacobi_matrix(NSPECIES, NSPECIES);
-
     AthenaArray<Real> lambda_matrix(NSPECIES, NSPECIES);
     AthenaArray<Real> lambda_inv_matrix(NSPECIES, NSPECIES);
 
@@ -508,12 +502,10 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
             dust_m2 += delta_m2(n);
             dust_m3 += delta_m3(n);
           }
-
         }
       }
     }
-  }
-  else { // stage == 2
+  } else {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
@@ -526,9 +518,9 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
     AthenaArray<Real> temp_B_matrix(NSPECIES, NSPECIES);
     AthenaArray<Real> temp_C_matrix(NSPECIES, NSPECIES);
 
-    AthenaArray<Real> jacobi_matrix(NSPECIES, NSPECIES);
-    AthenaArray<Real> jacobi_matrix_n(NSPECIES, NSPECIES);
-    AthenaArray<Real> lambda_matrix(NSPECIES, NSPECIES);
+    AthenaArray<Real> jacobi_matrix(NSPECIES,     NSPECIES);
+    AthenaArray<Real> jacobi_matrix_n(NSPECIES,   NSPECIES);
+    AthenaArray<Real> lambda_matrix(NSPECIES,     NSPECIES);
     AthenaArray<Real> lambda_inv_matrix(NSPECIES, NSPECIES);
 
     for (int k=ks; k<=ke; ++k) {
@@ -543,12 +535,12 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
           delta_m2.ZeroClear();
           delta_m3.ZeroClear();
 
-          jacobi_matrix.ZeroClear();
-          jacobi_matrix_n.ZeroClear();
           temp_A_matrix.ZeroClear();
           temp_B_matrix.ZeroClear();
           temp_C_matrix.ZeroClear();
 
+          jacobi_matrix.ZeroClear();
+          jacobi_matrix_n.ZeroClear();
           lambda_matrix.ZeroClear();
           lambda_inv_matrix.ZeroClear();
 
@@ -558,16 +550,25 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
           const Real &gas_v2  = w(IVY, k, j, i);
           const Real &gas_v3  = w(IVZ, k, j, i);
 
+          // Alias the primitives of gas
+          const Real &gas_rho_n = w_n(IDN, k, j, i);
+          const Real &gas_v1_n  = w_n(IVX, k, j, i);
+          const Real &gas_v2_n  = w_n(IVY, k, j, i);
+          const Real &gas_v3_n  = w_n(IVZ, k, j, i);
+
           // Set the drag force
           for (int index=1; index<=NDUSTFLUIDS; ++index) {
-            int dust_id          = index - 1;
-            int rho_id           = 4 * dust_id;
-            int v1_id            = rho_id + 1;
-            int v2_id            = rho_id + 2;
-            int v3_id            = rho_id + 3;
-            const Real &dust_rho = prim_df(rho_id, k, j, i);
-            Real alpha           = 1.0/(stopping_time(dust_id, k, j, i) + TINY_NUMBER);
-            Real epsilon         = dust_rho/gas_rho;
+            int dust_id            = index - 1;
+            int rho_id             = 4 * dust_id;
+            int v1_id              = rho_id + 1;
+            int v2_id              = rho_id + 2;
+            int v3_id              = rho_id + 3;
+            const Real &dust_rho   = prim_df(rho_id, k, j, i);
+            const Real &dust_rho_n = prim_df_n(rho_id, k, j, i);
+            Real alpha             = 1.0/(stopping_time(dust_id, k, j, i) + TINY_NUMBER);
+            Real epsilon           = dust_rho/gas_rho;
+            Real alpha_n           = 1.0/(stopping_time_n(dust_id, k, j, i) + TINY_NUMBER);
+            Real epsilon_n         = dust_rho_n/gas_rho_n;
 
             const Real &dust_v1 = prim_df(v1_id, k, j, i);
             const Real &dust_v2 = prim_df(v2_id, k, j, i);
@@ -601,7 +602,7 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
             jacobi_matrix_n(pivot, pivot) = -1.0*jacobi_matrix_n(col, 0);
           }
 
-          // calculate temp_A_matrix = I - 0.5*h*jacobi_matrix_n, dt = h
+          // calculate temp_A_matrix = I - 0.5*h*jacobi_matrix, dt = h
           Multiplication(dt, jacobi_matrix_n, temp_A_matrix);
           Addition(1.0, -0.5, temp_A_matrix);
 
@@ -644,7 +645,6 @@ void DustGasDrag::VL2ImplicitNoFeedback(const int stage,
             dust_m2 += delta_m2(n);
             dust_m3 += delta_m3(n);
           }
-
         }
       }
     }

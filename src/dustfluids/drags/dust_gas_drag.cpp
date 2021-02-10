@@ -31,7 +31,7 @@ DustGasDrag::DustGasDrag(DustFluids *pdf, ParameterInput *pin) :
   lu_matrix(NSPECIES, NSPECIES),    // The LU decomposition matrix
   indx_array(NSPECIES) {            // Stores the permutation
 
-  integrator        = pin->GetOrAddString("time", "integrator", "vl2");
+  integrator = pin->GetOrAddString("time", "integrator", "vl2");
   DustFeedback_Flag = pin->GetBoolean("dust", "DustFeedback_Flag");
 
   drag_method = pin->GetOrAddString("dust", "drag_method", "2nd-implicit");
@@ -56,14 +56,12 @@ void DustGasDrag::DragIntegrate(const int stage, const Real t_start, const Real 
           VL2ImplicitFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
         else
           VL2ImplicitNoFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
-      }
-      else if (integrator == "rk2") {
+      } else if (integrator == "rk2") {
         if (DustFeedback_Flag)
           RK2ImplicitFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
         else
           RK2ImplicitNoFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
-      }
-      else {
+      } else {
         std::stringstream msg;
         msg << "The integrator combined with the 2nd-implicit methods must be \"VL2\" or \"RK2\"!" << std::endl;
         ATHENA_ERROR(msg);
@@ -76,8 +74,7 @@ void DustGasDrag::DragIntegrate(const int stage, const Real t_start, const Real 
           BDF2Feedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
         else
           BDF2NoFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
-      }
-      else {
+      } else {
         if (DustFeedback_Flag)
           BackwardEulerFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
         else
@@ -91,14 +88,12 @@ void DustGasDrag::DragIntegrate(const int stage, const Real t_start, const Real 
           TRBDF2Feedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
         else
           TRBDF2NoFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
-      }
-      else if (integrator == "rk2") {
+      } else if (integrator == "rk2") {
         if (DustFeedback_Flag)
           TrapezoidFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
         else
           TrapezoidNoFeedback(stage, dt, stopping_time, w, prim_df, u, cons_df);
-      }
-      else {
+      } else {
         std::stringstream msg;
         msg << "The integrator combined with the semi-implicit methods must be \"VL2\" or \"RK2\"!" << std::endl;
         ATHENA_ERROR(msg);

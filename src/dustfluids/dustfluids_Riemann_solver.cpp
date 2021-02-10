@@ -39,7 +39,7 @@ void DustFluids::RiemannSolverDustFluids(const int k, const int j, const int il,
                           const int index, AthenaArray<Real> &prim_df_l,
                           AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux) {
 
-  Real df_prim_li[(NDUSTVAR)], df_prim_ri[(NDUSTVAR)], df_prim_roe[(NDUSTVAR)];
+  Real df_prim_li[(NDUSTVARS)], df_prim_ri[(NDUSTVARS)], df_prim_roe[(NDUSTVARS)];
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int idust = n;
@@ -70,20 +70,20 @@ void DustFluids::RiemannSolverDustFluids(const int k, const int j, const int il,
       Real positive_ri = df_prim_ri[ivx] > 0.0 ? 1.0 : 0.0;
       Real temp        = 1.0 - negative_li * positive_ri;
 
-      Real sign_roe = (df_prim_roe[ivx] > 0.0) ? 1.0 : 0.0;
-      if (df_prim_roe[ivx] == 0.0) sign_roe = 0.5;
+      Real fra_roe = (df_prim_roe[ivx] > 0.0) ? 1.0 : 0.0;
+      if (df_prim_roe[ivx] == 0.0) fra_roe = 0.5;
 
-      dust_flux(irho, k, j, i) = temp*(sign_roe*df_prim_li[irho]*df_prim_li[ivx] +
-                                 (1.0-sign_roe)*df_prim_ri[irho]*df_prim_ri[ivx]);
+      dust_flux(irho, k, j, i) = temp*(fra_roe*df_prim_li[irho]*df_prim_li[ivx] +
+                                 (1.0-fra_roe)*df_prim_ri[irho]*df_prim_ri[ivx]);
 
-      dust_flux(ivx, k, j, i)  = temp*(sign_roe*df_prim_li[ivx]*dust_flux(irho, k, j, i) +
-                                 (1.0-sign_roe)*df_prim_ri[ivx]*dust_flux(irho, k, j, i));
+      dust_flux(ivx, k, j, i)  = temp*(fra_roe*df_prim_li[ivx]*dust_flux(irho, k, j, i) +
+                                 (1.0-fra_roe)*df_prim_ri[ivx]*dust_flux(irho, k, j, i));
 
-      dust_flux(ivy, k, j, i)  = temp*(sign_roe*df_prim_li[ivy]*dust_flux(irho, k, j, i) +
-                                 (1.0-sign_roe)*df_prim_ri[ivy]*dust_flux(irho, k, j, i));
+      dust_flux(ivy, k, j, i)  = temp*(fra_roe*df_prim_li[ivy]*dust_flux(irho, k, j, i) +
+                                 (1.0-fra_roe)*df_prim_ri[ivy]*dust_flux(irho, k, j, i));
 
-      dust_flux(ivz, k, j, i)  = temp*(sign_roe*df_prim_li[ivz]*dust_flux(irho, k, j, i) +
-                                 (1.0-sign_roe)*df_prim_ri[ivz]*dust_flux(irho, k, j, i));
+      dust_flux(ivz, k, j, i)  = temp*(fra_roe*df_prim_li[ivz]*dust_flux(irho, k, j, i) +
+                                 (1.0-fra_roe)*df_prim_ri[ivz]*dust_flux(irho, k, j, i));
     }
   }
   return;

@@ -64,7 +64,7 @@ void OrbitalAdvection::CalculateOrbitalAdvectionCC(const Real dt,
 
           // calculate dust fluids flux
           if (NDUSTFLUIDS > 0) {
-            for (int ndv=0; ndv<NDUSTVAR; ++ndv) {
+            for (int ndv=0; ndv<NDUSTVARS; ++ndv) {
               dfbuf.InitWithShallowSlice(orbital_df_cons, 4, ndv, 1);
               if (xorder <= 2) {
                 RemapFluxPlm(pflux, dfbuf, epsilon, osgn, k, i, js, je+1, shift0);
@@ -104,7 +104,7 @@ void OrbitalAdvection::CalculateOrbitalAdvectionCC(const Real dt,
           }
           // calculate dust fluids flux
           if (NDUSTFLUIDS > 0) {
-            for (int ndv=0; ndv<NDUSTVAR; ++ndv) {
+            for (int ndv=0; ndv<NDUSTVARS; ++ndv) {
               dfbuf.InitWithShallowSlice(orbital_df_cons, 4, ndv, 1);
               if (xorder <= 2) {
                 RemapFluxPlm(pflux, dfbuf, epsilon, osgn, j, i, ks, ke+1, shift0);

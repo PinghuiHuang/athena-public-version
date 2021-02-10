@@ -108,7 +108,7 @@ SoundSpeed	isothermal_hydro.cpp	/^Real EquationOfState::SoundSpeed(const Real du
 SoundSpeed	isothermal_mhd.cpp	/^Real EquationOfState::SoundSpeed(const Real prim[NHYDRO]) {$/;"	f	class:EquationOfState
 SoundSpeed_DustFluids	eos.hpp	/^  Real SoundSpeed_DustFluids(const Real dust_nu, const Real t_eddy) {return 0.0;}$/;"	f	class:EquationOfState
 SoundSpeed_DustFluids	eos.hpp	/^  Real SoundSpeed_DustFluids(const Real[]) {return 0.0;}$/;"	f	class:EquationOfState
-SoundSpeed_DustFluids	eos_dustfluids.cpp	/^Real EquationOfState::SoundSpeed_DustFluids(const Real prim_df[(NDUSTVAR)],$/;"	f	class:EquationOfState
+SoundSpeed_DustFluids	eos_dustfluids.cpp	/^Real EquationOfState::SoundSpeed_DustFluids(const Real prim_df[(NDUSTVARS)],$/;"	f	class:EquationOfState
 SoundSpeedsGR	adiabatic_hydro_gr.cpp	/^void EquationOfState::SoundSpeedsGR(Real rho_h, Real pgas, Real u0, Real u1, Real g00,$/;"	f	class:EquationOfState
 SoundSpeedsGR	eos.hpp	/^  void SoundSpeedsGR(Real, Real, Real, Real, Real, Real, Real, Real *, Real *)$/;"	f	class:EquationOfState
 SoundSpeedsSR	adiabatic_hydro_gr.cpp	/^void EquationOfState::SoundSpeedsSR(Real rho_h, Real pgas, Real vx, Real gamma_lorentz_sq,$/;"	f	class:EquationOfState

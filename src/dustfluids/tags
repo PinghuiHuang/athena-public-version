@@ -63,7 +63,6 @@ Momentum_Diffusion_Flag	diffusions/dustfluids_diffusion.hpp	/^    bool Momentum_
 Multiplication	drags/multiplication.cpp	/^void DustGasDrag::Multiplication(const AthenaArray<Real> &a_matrix,$/;"	f	class:DustGasDrag
 Multiplication	drags/multiplication.cpp	/^void DustGasDrag::Multiplication(const Real a_num, AthenaArray<Real> &b_matrix)$/;"	f	class:DustGasDrag
 Multiplication	drags/multiplication.cpp	/^void DustGasDrag::Multiplication(const Real a_num, const AthenaArray<Real> &b_matrix,$/;"	f	class:DustGasDrag
-NDUSTFLUIDS	dustfluids.cpp	/^  internal_density(NDUSTFLUIDS),    \/\/ normalized dust internal density, used in user defined stopping time$/;"	v
 NewAdvectionDt	new_blockdt_dustfluids.cpp	/^Real DustFluids::NewAdvectionDt() {$/;"	f	class:DustFluids
 NewDiffusionDt	diffusions/dustfluids_diffusion.cpp	/^Real DustFluidsDiffusion::NewDiffusionDt() {$/;"	f	class:DustFluidsDiffusion
 NewDiffusionDt	scalars/scalar_diffusion.cpp	/^Real PassiveScalars::NewDiffusionDt() {$/;"	f	class:PassiveScalars
@@ -102,8 +101,8 @@ coarse_df_cons_	dustfluids.hpp	/^    AthenaArray<Real> coarse_df_cons_, coarse_d
 coarse_df_prim_	dustfluids.hpp	/^    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; \/\/ coarse df_cons and coarse df_prim, used in mesh refinement$/;"	m	class:DustFluids
 coarse_r_	scalars/scalars.hpp	/^  AthenaArray<Real> coarse_s_, coarse_r_;$/;"	m	class:PassiveScalars
 coarse_s_	scalars/scalars.hpp	/^  AthenaArray<Real> coarse_s_, coarse_r_;$/;"	m	class:PassiveScalars
-const_nu_dust	dustfluids.hpp	/^    AthenaArray<Real> const_nu_dust;       \/\/ Constant concentration diffusivity of dust$/;"	m	class:DustFluids
-const_stopping_time	dustfluids.hpp	/^    AthenaArray<Real> const_stopping_time; \/\/ Constant stopping time$/;"	m	class:DustFluids
+const_nu_dust	dustfluids.hpp	/^    Real const_nu_dust[NDUSTFLUIDS];       \/\/ Constant concentration diffusivity of dust$/;"	m	class:DustFluids
+const_stopping_time	dustfluids.hpp	/^    Real const_stopping_time[NDUSTFLUIDS]; \/\/ Constant stopping time$/;"	m	class:DustFluids
 cs_dustfluids_array	dustfluids.hpp	/^    AthenaArray<Real> cs_dustfluids_array;      \/\/ Arrays of sound speed of dust, cs_d^2 = nu_d\/T_eddy$/;"	m	class:DustFluids
 cs_dustfluids_array_n	dustfluids.hpp	/^    AthenaArray<Real> cs_dustfluids_array_n;    \/\/ Arrays of sound speed of dust, cs_d^2 = nu_d\/T_eddy at stage n$/;"	m	class:DustFluids
 det	drags/dust_gas_drag.hpp	/^    Real det;                       \/\/ The determinant of the matrix of drags$/;"	m	class:DustGasDrag
@@ -130,7 +129,7 @@ dfdif	dustfluids.hpp	/^    DustFluidsDiffusion        dfdif;   \/\/ Object used 
 dfdrag	dustfluids.hpp	/^    DustGasDrag                dfdrag;  \/\/ Object used in calculating the dust-gas drags$/;"	m	class:DustFluids
 dflx_	dustfluids.hpp	/^    AthenaArray<Real> dflx_;$/;"	m	class:DustFluids
 dflx_	scalars/scalars.hpp	/^  AthenaArray<Real> dflx_;$/;"	m	class:PassiveScalars
-dfsrc	dustfluids.cpp	/^  dfsrc(this,  pin) {$/;"	f
+dfsrc	dustfluids.cpp	/^  dfsrc(this, pin) {$/;"	f
 dfsrc	dustfluids.hpp	/^    DustFluidsSourceTerms      dfsrc;   \/\/ Object used in calculating the source terms of dust$/;"	m	class:DustFluids
 diff_tot_	diffusions/dustfluids_diffusion.hpp	/^    AthenaArray<Real> diff_tot_;$/;"	m	class:DustFluidsDiffusion
 diffusion_flx	scalars/scalars.hpp	/^  AthenaArray<Real> diffusion_flx[3];$/;"	m	class:PassiveScalars
@@ -159,7 +158,7 @@ g3_	srcterms/dustfluids_srcterms.hpp	/^    Real g1_, g2_, g3_;                  
 gm_	srcterms/dustfluids_srcterms.hpp	/^    Real gm_;                                      \/\/ GM for point mass MUST BE LOCATED AT ORIGIN$/;"	m	class:DustFluidsSourceTerms
 indx_array	drags/dust_gas_drag.hpp	/^    AthenaArray<int>  indx_array;   \/\/ Stores the permutation.$/;"	m	class:DustGasDrag
 integrator	drags/dust_gas_drag.hpp	/^    std::string integrator;         \/\/ Time Integrator$/;"	m	class:DustGasDrag
-internal_density	dustfluids.hpp	/^    AthenaArray<Real> internal_density;    \/\/ normalized dust internal density, used in user defined stopping time$/;"	m	class:DustFluids
+internal_density	dustfluids.hpp	/^    Real internal_density[NDUSTFLUIDS];    \/\/ normalized dust internal density, used in user defined stopping time$/;"	m	class:DustFluids
 laplacian_l_df_fc_	dustfluids.hpp	/^    AthenaArray<Real> laplacian_l_df_fc_, laplacian_r_df_fc_;$/;"	m	class:DustFluids
 laplacian_l_fc_	scalars/scalars.hpp	/^  AthenaArray<Real> laplacian_l_fc_, laplacian_r_fc_;$/;"	m	class:PassiveScalars
 laplacian_r_df_fc_	dustfluids.hpp	/^    AthenaArray<Real> laplacian_l_df_fc_, laplacian_r_df_fc_;$/;"	m	class:DustFluids

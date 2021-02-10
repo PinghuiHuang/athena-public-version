@@ -51,6 +51,10 @@ class DustFluids {
     AthenaArray<Real> df_prim, df_prim1, df_prim_n;  // time-integrator memory register #3
     AthenaArray<Real> df_flux[3];                    // face-averaged flux vector
 
+    // storage for mesh refinement, SMR/AMR
+    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; // coarse df_cons and coarse df_prim, used in mesh refinement
+    int refinement_idx{-1};                             // vector of pointers in MeshRefinement class
+
     AthenaArray<Real> stopping_time_array;      // Arrays of stopping time of dust
     AthenaArray<Real> nu_dustfluids_array;      // Arrays of dust diffusivity array, nu_d
     AthenaArray<Real> cs_dustfluids_array;      // Arrays of sound speed of dust, cs_d^2 = nu_d/T_eddy
@@ -64,10 +68,6 @@ class DustFluids {
     // (only needed for 4th order EOS evaluations that have explicit dependence on species
     // concentration)
 
-    // storage for mesh refinement, SMR/AMR
-    AthenaArray<Real> coarse_df_cons_, coarse_df_prim_; // coarse df_cons and coarse df_prim, used in mesh refinement
-    int refinement_idx{-1};                             // vector of pointers in MeshRefinement class
-
     DustFluidsBoundaryVariable dfbvar;  // Dust Fluids boundary variables Object (Cell-Centered)
     DustGasDrag                dfdrag;  // Object used in calculating the dust-gas drags
     DustFluidsDiffusion        dfdif;   // Object used in calculating the diffusions of dust
@@ -76,16 +76,16 @@ class DustFluids {
     bool ConstStoppingTime_Flag;           // true or false, the flag of using the constant stopping time of dust
     bool SoundSpeed_Flag;                  // true or false, turn on the sound speed of dust fluids
 
-    AthenaArray<Real> internal_density;    // normalized dust internal density, used in user defined stopping time
-    AthenaArray<Real> const_stopping_time; // Constant stopping time
-    AthenaArray<Real> const_nu_dust;       // Constant concentration diffusivity of dust
+    Real internal_density[NDUSTFLUIDS];    // normalized dust internal density, used in user defined stopping time
+    Real const_stopping_time[NDUSTFLUIDS]; // Constant stopping time
+    Real const_nu_dust[NDUSTFLUIDS];       // Constant concentration diffusivity of dust
 
 
     // Public functions:
     // Stopping time
     // Calculate the user defined stopping time, varied with the properties of gas and dust
     void UserDefinedStoppingTime(const int kl, const int ku, const int jl, const int ju,
-        const int il, const int iu, const AthenaArray<Real> internal_density,
+        const int il, const int iu, const Real *internal_density,
         const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df, AthenaArray<Real> &stopping_time);
 
     // Set the constant stopping time of dust
@@ -101,7 +101,7 @@ class DustFluids {
 
     // Riemann Solvers for dust fluids
     // HLLE solver without sound speed of dust
-    void HLLENoCsRiemannSolverDustFluids( const int k, const int j, const int il, const int iu,
+    void HLLENoCsRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &prim_df_l,
         AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux);
 

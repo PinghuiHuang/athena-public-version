@@ -78,7 +78,7 @@ class EquationOfState {
 #if !RELATIVISTIC_DYNAMICS  // Newtonian: SR, GR defined as no-op
 #pragma omp declare simd simdlen(SIMD_WIDTH) uniform(this)
   Real SoundSpeed(const Real prim[(NHYDRO)]);
-  Real SoundSpeed_DustFluids(const Real prim_df[(NDUSTVAR)], const Real nu_dust, const Real eddy_time);
+  Real SoundSpeed_DustFluids(const Real prim_df[(NDUSTVARS)], const Real nu_dust, const Real eddy_time);
   // Define flooring function for fourth-order EOS as no-op for SR, GR regimes
 #pragma omp declare simd simdlen(SIMD_WIDTH) uniform(this,prim,cons,bcc,k,j) linear(i)
   void ApplyPrimitiveConservedFloors(

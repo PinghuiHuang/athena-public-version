@@ -17,9 +17,11 @@
 #include "../../athena.hpp"
 #include "../../athena_arrays.hpp"
 #include "../dustfluids.hpp"
+#include "../diffusions/dustfluids_diffusion.hpp"
 
 // Forward declarations
 class DustFluids;
+class DustFluidsDiffusion;
 class ParameterInput;
 
 //! \class DustFluidsSourceTerms
@@ -59,6 +61,7 @@ class DustFluidsSourceTerms {
 
   private:
     friend class DustFluids;
+    friend class DustFluidsDiffusion;
     DustFluids *pmy_dustfluids_;                   // ptr to DustFluids containing this DustFluidsSourceTerms
     Real gm_;                                      // GM for point mass MUST BE LOCATED AT ORIGIN
     Real g1_, g2_, g3_;                            // constant acc'n in each direction

@@ -74,7 +74,7 @@ void EquationOfState::DustFluidsConservedToPrimitiveCellAverage(
     Coordinates *pco, int il, int iu, int jl, int ju, int kl, int ku) {
   MeshBlock  *pmb = pmy_block_;
   DustFluids *pdf = pmb->pdustfluids;
-  int nl = 0; int nu = NDUSTVAR - 1;
+  int nl = 0; int nu = NDUSTVARS - 1;
   // TODO(felker): assuming uniform mesh with dx1f=dx2f=dx3f, so this should factor out
   // TODO(felker): also, this may need to be dx1v, since Laplacian is cell-centered
   Real h = pco->dx1f(il);  // pco->dx1f(i); inside loop
@@ -185,7 +185,7 @@ void EquationOfState::DustFluidsPrimitiveToConserved(
 //                                                     int k, int j, int i)
 // \brief Apply species concentration floor to cell-averaged DUSTFLUIDS or
 // reconstructed L/R cell inteprim_dface states (if PPM is used, e.g.) along:
-// (NDUSTVAR x) x1 slices
+// (NDUSTVARS x) x1 slices
 
 void EquationOfState::ApplyDustFluidsFloors(AthenaArray<Real> &prim_df, int n, int k, int j, int i) {
   // TODO(felker): process user-input "hydro/dfloor" in each EquationOfState ctor
@@ -224,7 +224,7 @@ void EquationOfState::ApplyDustFluidsPrimitiveConservedFloors(
 }
 
 //Real EquationOfState::SoundSpeed_DustFluids(const Real dust_nu, const Real t_eddy) {
-Real EquationOfState::SoundSpeed_DustFluids(const Real prim_df[(NDUSTVAR)],
+Real EquationOfState::SoundSpeed_DustFluids(const Real prim_df[(NDUSTVARS)],
         const Real nu_dust, const Real eddy_time) {
     Real iso_dustfluids_sound_speed = std::sqrt(nu_dust/eddy_time);
     return iso_dustfluids_sound_speed;

@@ -46,7 +46,7 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
   Diffusion_Flag = pin->GetBoolean("dust", "Diffusion_Flag");
 
   if (Diffusion_Flag) {
-    ConstNu_Flag            = pin->GetBoolean("dust",      "Const_Nu_Dust_Flag");
+    ConstNu_Flag = pin->GetBoolean("dust", "Const_Nu_Dust_Flag");
     Momentum_Diffusion_Flag = pin->GetOrAddBoolean("dust", "Momentum_Diffusion_Flag", false);
   }
 
@@ -55,12 +55,16 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
     dustfluids_diffusion_defined = true;
 
   // eddy time is set Omega_K^-1 at r0 for disk problems, or it is set as constant 1.0 for other problems by default
-  eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 1.0);
+  if (pdf->dfsrc.Omega_0_ != 0) {
+    eddy_timescale_r0 = 1.0/(pdf->dfsrc.Omega_0_);
+  } else {
+    eddy_timescale_r0 = pin->GetOrAddReal("dust", "eddy_time", 1.0);
+  }
 
   if (dustfluids_diffusion_defined) {
-    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(NDUSTVAR, nc3,   nc2,   nc1+1); // Face centered x1 diffusive flux
-    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(NDUSTVAR, nc3,   nc2+1, nc1);   // Face centered x2 diffusive flux
-    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(NDUSTVAR, nc3+1, nc2,   nc1);   // Face centered x3 diffusive flux
+    dustfluids_diffusion_flux[X1DIR].NewAthenaArray(NDUSTVARS, nc3,   nc2,   nc1+1); // Face centered x1 diffusive flux
+    dustfluids_diffusion_flux[X2DIR].NewAthenaArray(NDUSTVARS, nc3,   nc2+1, nc1);   // Face centered x2 diffusive flux
+    dustfluids_diffusion_flux[X3DIR].NewAthenaArray(NDUSTVARS, nc3+1, nc2,   nc1);   // Face centered x3 diffusive flux
 
     dx1_.NewAthenaArray(nc1);
     dx2_.NewAthenaArray(nc1);
@@ -79,7 +83,6 @@ DustFluidsDiffusion::DustFluidsDiffusion(DustFluids *pdf, ParameterInput *pin) :
 
 void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
     const AthenaArray<Real> &u, const AthenaArray<Real> &cons_df) {
-  DustFluids *pdf  = pmy_dustfluids_;
 
   // Set the diffusive flux as zeros
   ClearDustFluidsFlux(dustfluids_diffusion_flux);
@@ -88,9 +91,8 @@ void DustFluidsDiffusion::CalcDustFluidsDiffusionFlux(const AthenaArray<Real> &w
   DustFluidsConcentrationDiffusiveFlux(prim_df, w, dustfluids_diffusion_flux);
 
   // Calculate the correction of momentum diffusive flux due to concentration diffusion
-  if (Momentum_Diffusion_Flag) {
+  if (Momentum_Diffusion_Flag)
     DustFluidsMomentumDiffusiveFlux(prim_df, w, dustfluids_diffusion_flux);
-  }
 
   return;
 }
@@ -124,7 +126,7 @@ void DustFluidsDiffusion::AddDustFluidsDiffusionFlux(AthenaArray<Real> *flux_dif
 
 
 //! \fn void DustFluidsDiffusion::ClearDustFluidsFlux
-//  \brief Reset dust diffusive fluxes back to zeros
+//! \brief Reset dust diffusive fluxes back to zeros
 void DustFluidsDiffusion::ClearDustFluidsFlux(AthenaArray<Real> *flux_diff) {
   flux_diff[X1DIR].ZeroClear();
   flux_diff[X2DIR].ZeroClear();
@@ -143,12 +145,9 @@ Real DustFluidsDiffusion::NewDiffusionDt() {
   int iu = pmb_->ie + NGHOST; int ju = pmb_->je; int ku = pmb_->ke;
   int dust_id, rho_id, v1_id, v2_id, v3_id;
   Real fac;
-  if (f3)
-    fac = 1.0/6.0;
-  else if (f2)
-    fac = 0.25;
-  else
-    fac = 0.5;
+  if (f3) fac = 1.0/6.0;
+  else if (f2) fac = 0.25;
+  else fac = 0.5;
 
   Real dt_df_diff = real_max;
 

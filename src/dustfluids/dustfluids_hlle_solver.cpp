@@ -39,8 +39,8 @@ void DustFluids::HLLERiemannSolverDustFluids(const int k, const int j, const int
                           const int index, AthenaArray<Real> &prim_df_l,
                           AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux) {
 
-  Real df_prim_li[(NDUSTVAR)], df_prim_ri[(NDUSTVAR)], df_prim_roe[(NDUSTVAR)];
-  Real df_fl[(NDUSTVAR)],      df_fr[(NDUSTVAR)],      df_flxi[(NDUSTVAR)];
+  Real df_prim_li[(NDUSTVARS)], df_prim_ri[(NDUSTVARS)], df_prim_roe[(NDUSTVARS)];
+  Real df_fl[(NDUSTVARS)],      df_fr[(NDUSTVARS)],      df_flxi[(NDUSTVARS)];
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int idust = n;
@@ -113,6 +113,5 @@ void DustFluids::HLLERiemannSolverDustFluids(const int k, const int j, const int
       dust_flux(ivz,  k, j, i) = df_flxi[ivz];
     }
   }
-
   return;
 }

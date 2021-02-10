@@ -43,7 +43,7 @@ Real DustFluids::NewAdvectionDt() {
   AthenaArray<Real> &df_prim = pmb->pdustfluids->df_prim;
   // hyperbolic timestep constraint in each (x1-slice) cell along coordinate direction:
   AthenaArray<Real> &dt1 = dt1_, &dt2 = dt2_, &dt3 = dt3_;  // (x1 slices)
-  Real df_prim_i[NDUSTVAR];
+  Real df_prim_i[NDUSTVARS];
 
   Real real_max = std::numeric_limits<Real>::max();
   // Note, "dt_hyperbolic" currently refers to the dt limit imposed by evoluiton of the
@@ -70,9 +70,9 @@ Real DustFluids::NewAdvectionDt() {
           df_prim_i[v3_id]  = df_prim(v3_id,  k, j, i);
 
           if ((fluid_status == FluidFormulation::evolve) && SoundSpeed_Flag) {
-            dt1(i) /= (std::abs(df_prim_i[v1_id]) + cs_dustfluids_array(dust_id,k,j,i));
-            dt2(i) /= (std::abs(df_prim_i[v2_id]) + cs_dustfluids_array(dust_id,k,j,i));
-            dt3(i) /= (std::abs(df_prim_i[v3_id]) + cs_dustfluids_array(dust_id,k,j,i));
+            dt1(i) /= (std::abs(df_prim_i[v1_id]) + cs_dustfluids_array(dust_id, k, j, i));
+            dt2(i) /= (std::abs(df_prim_i[v2_id]) + cs_dustfluids_array(dust_id, k, j, i));
+            dt3(i) /= (std::abs(df_prim_i[v3_id]) + cs_dustfluids_array(dust_id, k, j, i));
           } else { // FluidFormulation::background or disabled. Assume scalar advection:
             dt1(i) /= (std::abs(df_prim_i[v1_id]));
             dt2(i) /= (std::abs(df_prim_i[v2_id]));

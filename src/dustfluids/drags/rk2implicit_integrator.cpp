@@ -31,9 +31,10 @@ void DustGasDrag::RK2ImplicitFeedback(const int stage,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  MeshBlock  *pmb = pmy_dustfluids_->pmy_block;
-  DustFluids *pdf = pmy_dustfluids_;
-  Hydro      *ph  = pmb->phydro;
+  MeshBlock  *pmb   = pmy_dustfluids_->pmy_block;
+  DustFluids *pdf   = pmy_dustfluids_;
+  Hydro      *ph    = pmb->phydro;
+  int orb_advection = pmb->pmy_mesh->orbital_advection;
 
   AthenaArray<Real> &w_n             = ph->w_n;
   AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
@@ -42,7 +43,7 @@ void DustGasDrag::RK2ImplicitFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  if ( stage == 1 ) {
+  if (((orb_advection < 2) && stage == 1) || ((orb_advection == 2) && stage == 2)) {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
@@ -186,12 +187,10 @@ void DustGasDrag::RK2ImplicitFeedback(const int stage,
             dust_m2 += delta_m2(n);
             dust_m3 += delta_m3(n);
           }
-
         }
       }
     }
-  }
-  else { // stage == 2
+  } else {
     AthenaArray<Real> force_x1_n(NSPECIES);
     AthenaArray<Real> force_x2_n(NSPECIES);
     AthenaArray<Real> force_x3_n(NSPECIES);
@@ -373,7 +372,6 @@ void DustGasDrag::RK2ImplicitFeedback(const int stage,
             dust_m2 += delta_m2(n);
             dust_m3 += delta_m3(n);
           }
-
         }
       }
     }
@@ -387,9 +385,10 @@ void DustGasDrag::RK2ImplicitNoFeedback(const int stage,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  MeshBlock  *pmb = pmy_dustfluids_->pmy_block;
-  DustFluids *pdf = pmy_dustfluids_;
-  Hydro      *ph  = pmb->phydro;
+  MeshBlock  *pmb   = pmy_dustfluids_->pmy_block;
+  DustFluids *pdf   = pmy_dustfluids_;
+  Hydro      *ph    = pmb->phydro;
+  int orb_advection = pmb->pmy_mesh->orbital_advection;
 
   AthenaArray<Real> &w_n             = ph->w_n;
   AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
@@ -398,7 +397,7 @@ void DustGasDrag::RK2ImplicitNoFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  if ( stage == 1 ) {
+  if (((orb_advection < 2) && stage == 1) || ((orb_advection == 2) && stage == 2)) {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
@@ -506,12 +505,10 @@ void DustGasDrag::RK2ImplicitNoFeedback(const int stage,
             dust_m2 += delta_m2(n);
             dust_m3 += delta_m3(n);
           }
-
         }
       }
     }
-  }
-  else { // stage == 2
+  } else {
     AthenaArray<Real> force_x1_n(NSPECIES);
     AthenaArray<Real> force_x2_n(NSPECIES);
     AthenaArray<Real> force_x3_n(NSPECIES);
@@ -653,7 +650,6 @@ void DustGasDrag::RK2ImplicitNoFeedback(const int stage,
             dust_m2 += delta_m2(n);
             dust_m3 += delta_m3(n);
           }
-
         }
       }
     }

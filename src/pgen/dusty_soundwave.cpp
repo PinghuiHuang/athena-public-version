@@ -48,6 +48,10 @@
 #include <mpi.h>
 #endif
 
+#if NON_BAROTROPIC_EOS
+#error "This problem generator requires isothermal equation of state!"
+#endif
+
 // problem parameters which are useful to make global to this file
 namespace {
 // Parameters which define initial solution -- made global so that they can be shared

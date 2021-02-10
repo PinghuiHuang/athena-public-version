@@ -39,8 +39,8 @@ void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const
                           const int index, AthenaArray<Real> &prim_df_l,
                           AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux) {
 
-  Real df_prim_li[(NDUSTVAR)], df_prim_ri[(NDUSTVAR)], df_prim_roe[(NDUSTVAR)];
-  Real df_fl[(NDUSTVAR)],      df_fr[(NDUSTVAR)],      df_flxi[(NDUSTVAR)];
+  Real df_prim_li[(NDUSTVARS)], df_prim_ri[(NDUSTVARS)], df_prim_roe[(NDUSTVARS)];
+  Real df_fl[(NDUSTVARS)],      df_fr[(NDUSTVARS)],      df_flxi[(NDUSTVARS)];
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int idust = n;
@@ -103,11 +103,10 @@ void DustFluids::HLLENoCsRiemannSolverDustFluids(const int k, const int j, const
       df_flxi[ivz]  = 0.5*(df_fl[ivz]+df_fr[ivz]) + (df_fl[ivz]-df_fr[ivz])*tmp;
 
       dust_flux(irho, k, j, i) = df_flxi[irho];
-      dust_flux(ivx,  k, j, i)  = df_flxi[ivx];
-      dust_flux(ivy,  k, j, i)  = df_flxi[ivy];
-      dust_flux(ivz,  k, j, i)  = df_flxi[ivz];
+      dust_flux(ivx,  k, j, i) = df_flxi[ivx];
+      dust_flux(ivy,  k, j, i) = df_flxi[ivy];
+      dust_flux(ivz,  k, j, i) = df_flxi[ivz];
     }
   }
-
   return;
 }

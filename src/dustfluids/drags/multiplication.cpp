@@ -56,8 +56,7 @@ void DustGasDrag::Multiplication(const AthenaArray<Real> &a_matrix,
         }
       }
     }
-  }
-  else {
+  } else {
     if ( (n_a != n_b) || (n_a != n_c) || (m_c != 1) ) {
       std::stringstream msg;
       msg << "### FATAL ERROR in DustGasDrag::Multiplication, Bad Dimensions." << std::endl;

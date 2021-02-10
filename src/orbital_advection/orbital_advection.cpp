@@ -294,7 +294,7 @@ OrbitalAdvection::OrbitalAdvection(MeshBlock *pmb, ParameterInput *pin)
           }
         }
         if (NDUSTFLUIDS>0) {
-          orbital_df_cons.NewAthenaArray(NDUSTVAR, nc3, nc1, nc2+onx+1);
+          orbital_df_cons.NewAthenaArray(NDUSTVARS, nc3, nc1, nc2+onx+1);
         }
       }
     } else if (orbital_direction==2) { // spherical_polar
@@ -326,7 +326,7 @@ OrbitalAdvection::OrbitalAdvection(MeshBlock *pmb, ParameterInput *pin)
           }
         }
         if (NDUSTFLUIDS>0) {
-          orbital_df_cons.NewAthenaArray(NDUSTVAR, nc2, nc1, nc3+onx+1);
+          orbital_df_cons.NewAthenaArray(NDUSTVARS, nc2, nc1, nc3+onx+1);
         }
       }
     }
@@ -334,8 +334,8 @@ OrbitalAdvection::OrbitalAdvection(MeshBlock *pmb, ParameterInput *pin)
     u_orb.NewAthenaArray(NHYDRO,nc3,nc2,nc1);
 
     if (NDUSTFLUIDS > 0) {
-      df_prim_orb.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
-      df_cons_orb.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
+      df_prim_orb.NewAthenaArray(NDUSTVARS, nc3, nc2, nc1);
+      df_cons_orb.NewAthenaArray(NDUSTVARS, nc3, nc2, nc1);
     }
 
     if (orbital_advection_active) {
@@ -347,11 +347,11 @@ OrbitalAdvection::OrbitalAdvection(MeshBlock *pmb, ParameterInput *pin)
                                      (nc2+2*NGHOST)/2, (nc1+2*NGHOST)/2);
         u_temp.NewAthenaArray(NHYDRO, nc3, nc2, nc1);
         if (NDUSTFLUIDS>0) {
-          df_cons_coarse_send.NewAthenaArray(NDUSTVAR, (nc3+2*NGHOST)/2,
+          df_cons_coarse_send.NewAthenaArray(NDUSTVARS, (nc3+2*NGHOST)/2,
                                        (nc2+2*NGHOST)/2, (nc1+2*NGHOST)/2);
-          df_cons_coarse_recv.NewAthenaArray(NDUSTVAR, (nc3+2*NGHOST)/2,
+          df_cons_coarse_recv.NewAthenaArray(NDUSTVARS, (nc3+2*NGHOST)/2,
                                        (nc2+2*NGHOST)/2, (nc1+2*NGHOST)/2);
-          df_cons_temp.NewAthenaArray(NDUSTVAR, nc3, nc2, nc1);
+          df_cons_temp.NewAthenaArray(NDUSTVARS, nc3, nc2, nc1);
         }
         if (MAGNETIC_FIELDS_ENABLED) {
           b1_coarse_send.NewAthenaArray((nc3+2*NGHOST)/2,

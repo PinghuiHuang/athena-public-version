@@ -31,9 +31,10 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  MeshBlock  *pmb = pmy_dustfluids_->pmy_block;
-  DustFluids *pdf = pmy_dustfluids_;
-  Hydro      *ph  = pmb->phydro;
+  MeshBlock  *pmb   = pmy_dustfluids_->pmy_block;
+  DustFluids *pdf   = pmy_dustfluids_;
+  Hydro      *ph    = pmb->phydro;
+  int orb_advection = pmb->pmy_mesh->orbital_advection;
 
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
@@ -42,7 +43,7 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
   AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
   AthenaArray<Real> &stopping_time_n = pdf->stopping_time_array_n;
 
-  if (stage == 1) {
+  if (((orb_advection < 2) && stage == 1) || ((orb_advection == 2) && stage == 2)) {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
@@ -208,8 +209,7 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
         }
       }
     }
-  }
-  else {
+  } else {
     AthenaArray<Real> force_x1_n(NSPECIES);
     AthenaArray<Real> force_x2_n(NSPECIES);
     AthenaArray<Real> force_x3_n(NSPECIES);
@@ -262,6 +262,11 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
           const Real &gas_v1_n  = w_n(IVX, k, j, i);
           const Real &gas_v2_n  = w_n(IVY, k, j, i);
           const Real &gas_v3_n  = w_n(IVZ, k, j, i);
+
+          const Real &gas_rho = w(IDN, k, j, i);
+          const Real &gas_v1  = w(IVX, k, j, i);
+          const Real &gas_v2  = w(IVY, k, j, i);
+          const Real &gas_v3  = w(IVZ, k, j, i);
 
           // Set the drag force
           for (int index=1; index<=NDUSTFLUIDS; ++index) {
@@ -382,7 +387,7 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
           // Update the energy of gas if the gas is non barotropic.
           if (NON_BAROTROPIC_EOS) {
             Real &gas_erg   = u(IEN, k, j, i);
-            Real work_drag  = delta_gas_m1 * gas_v1_n + delta_gas_m2 * gas_v2_n + delta_gas_m3 * gas_v3_n;
+            Real work_drag  = delta_gas_m1 * gas_v1 + delta_gas_m2 * gas_v2 + delta_gas_m3 * gas_v3;
             gas_erg        += work_drag;
           }
 
@@ -414,7 +419,6 @@ void DustGasDrag::TRBDF2Feedback(const int stage,
             dust_m2 += delta_dust_m2;
             dust_m3 += delta_dust_m3;
           }
-
         }
       }
     }
@@ -428,9 +432,10 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  MeshBlock  *pmb = pmy_dustfluids_->pmy_block;
-  DustFluids *pdf = pmy_dustfluids_;
-  Hydro      *ph  = pmb->phydro;
+  MeshBlock  *pmb   = pmy_dustfluids_->pmy_block;
+  DustFluids *pdf   = pmy_dustfluids_;
+  Hydro      *ph    = pmb->phydro;
+  int orb_advection = pmb->pmy_mesh->orbital_advection;
 
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
@@ -439,7 +444,7 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
   AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
   AthenaArray<Real> &stopping_time_n = pdf->stopping_time_array_n;
 
-  if (stage == 1) {
+  if (((orb_advection < 2) && stage == 1) || ((orb_advection == 2) && stage == 2)) {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
@@ -565,8 +570,7 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
         }
       }
     }
-  }
-  else {
+  } else {
     AthenaArray<Real> force_x1_n(NSPECIES);
     AthenaArray<Real> force_x2_n(NSPECIES);
     AthenaArray<Real> force_x3_n(NSPECIES);
@@ -723,7 +727,6 @@ void DustGasDrag::TRBDF2NoFeedback(const int stage,
             dust_m2 += delta_dust_m2;
             dust_m3 += delta_dust_m3;
           }
-
         }
       }
     }

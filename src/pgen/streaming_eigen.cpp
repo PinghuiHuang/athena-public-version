@@ -31,6 +31,9 @@
 #include "../parameter_input.hpp"
 #include "../utils/utils.hpp" // ran2()
 
+#if NON_BAROTROPIC_EOS
+#error "This problem generator requires isothermal equation of state!"
+#endif
 
 namespace {
 Real amp, nwx, nwy, nwz, rhog0; // amplitude, Wavenumbers
@@ -174,6 +177,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           Real K_vel    = qshear*Omega_0*x_dis;
           Real gas_vel1 = AN*Kai0*Psi;
           Real gas_vel2 = 0.0;
+          // NSH-equilibrium
           if(!porb->orbital_advection_defined)
             gas_vel2 = -1.0*K_vel - 0.5*kappap2*BN*Kai0*Psi;
           else
@@ -221,6 +225,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               Real dust_vel2 = 0.0;
               Real dust_vel3 = 0.0;
 
+              // NSH-equilibrium
               if(!porb->orbital_advection_defined) { // orbital advection turns off
                 dust_vel1 = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel2 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
                 dust_vel2 = -1.0 * K_vel + ((gas_vel2 + K_vel) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
@@ -273,6 +278,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
           Real gas_vel1 = AN*Kai0*Psi;
           Real gas_vel2 = 0.0;
           Real gas_vel3 = 0.0;
+          // NSH-equilibrium
           if(!porb->orbital_advection_defined)
             gas_vel3 = -1.0*K_vel - 0.5*kappap2*BN*Kai0*Psi;
           else
@@ -324,6 +330,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
               Real dust_vel2 = 0.0;
               Real dust_vel3 = 0.0;
 
+              // NSH-equilibrium
               if(!porb->orbital_advection_defined) { // orbital advection turns off
                 dust_vel1 = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel3 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
                 dust_vel2 = 0.0;

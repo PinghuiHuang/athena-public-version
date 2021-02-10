@@ -31,9 +31,10 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  MeshBlock  *pmb = pmy_dustfluids_->pmy_block;
-  DustFluids *pdf = pmy_dustfluids_;
-  Hydro      *ph  = pmb->phydro;
+  MeshBlock  *pmb   = pmy_dustfluids_->pmy_block;
+  DustFluids *pdf   = pmy_dustfluids_;
+  Hydro      *ph    = pmb->phydro;
+  int orb_advection = pmb->pmy_mesh->orbital_advection;
 
   AthenaArray<Real> &w_n             = ph->w_n;
   AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
@@ -42,7 +43,7 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  if (stage == 1) {
+  if (((orb_advection < 2) && stage == 1) || ((orb_advection == 2) && stage == 2)) {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
@@ -144,12 +145,10 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
             dust_m2 += delta_m2_explicit(n);
             dust_m3 += delta_m3_explicit(n);
           }
-
         }
       }
     }
-  }
-  else {
+  } else {
     AthenaArray<Real> force_x1_n(NSPECIES);
     AthenaArray<Real> force_x2_n(NSPECIES);
     AthenaArray<Real> force_x3_n(NSPECIES);
@@ -183,6 +182,11 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
           const Real &gas_v1_n   = w_n(IVX, k, j, i);
           const Real &gas_v2_n   = w_n(IVY, k, j, i);
           const Real &gas_v3_n   = w_n(IVZ, k, j, i);
+
+          const Real &gas_rho  = w(IDN, k, j, i);
+          const Real &gas_v1   = w(IVX, k, j, i);
+          const Real &gas_v2   = w(IVY, k, j, i);
+          const Real &gas_v3   = w(IVZ, k, j, i);
 
           // Set the drag force
           for (int index=1; index<=NDUSTFLUIDS; ++index) {
@@ -271,8 +275,8 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
           // Update the energy of gas if the gas is non barotropic. dE = dM * v
           if (NON_BAROTROPIC_EOS) {
             Real &gas_erg   = u(IEN, k, j, i);
-            Real work_drag  = delta_m1_implicit(0)*gas_v1_n + delta_m2_implicit(0)*gas_v2_n
-                              + delta_m3_implicit(0)*gas_v3_n;
+            Real work_drag  = delta_m1_implicit(0)*gas_v1 + delta_m2_implicit(0)*gas_v2
+                              + delta_m3_implicit(0)*gas_v3;
             gas_erg        += work_drag;
           }
 
@@ -293,7 +297,6 @@ void DustGasDrag::TrapezoidFeedback(const int stage,
             dust_m2 += delta_m2_implicit(n);
             dust_m3 += delta_m3_implicit(n);
           }
-
         }
       }
     }
@@ -307,9 +310,10 @@ void DustGasDrag::TrapezoidNoFeedback(const int stage,
       const AthenaArray<Real> &w, const AthenaArray<Real> &prim_df,
       const AthenaArray<Real> &u, AthenaArray<Real> &cons_df) {
 
-  MeshBlock  *pmb = pmy_dustfluids_->pmy_block;
-  DustFluids *pdf = pmy_dustfluids_;
-  Hydro      *ph  = pmb->phydro;
+  MeshBlock  *pmb   = pmy_dustfluids_->pmy_block;
+  DustFluids *pdf   = pmy_dustfluids_;
+  Hydro      *ph    = pmb->phydro;
+  int orb_advection = pmb->pmy_mesh->orbital_advection;
 
   AthenaArray<Real> &w_n             = ph->w_n;
   AthenaArray<Real> &prim_df_n       = pdf->df_prim_n;
@@ -318,7 +322,7 @@ void DustGasDrag::TrapezoidNoFeedback(const int stage,
   int is = pmb->is; int js = pmb->js; int ks = pmb->ks;
   int ie = pmb->ie; int je = pmb->je; int ke = pmb->ke;
 
-  if (stage == 1) {
+  if (((orb_advection < 2) && stage == 1) || ((orb_advection == 2) && stage == 2)) {
     AthenaArray<Real> force_x1(NSPECIES);
     AthenaArray<Real> force_x2(NSPECIES);
     AthenaArray<Real> force_x3(NSPECIES);
@@ -396,12 +400,10 @@ void DustGasDrag::TrapezoidNoFeedback(const int stage,
             dust_m2 += delta_m2_explicit(n);
             dust_m3 += delta_m3_explicit(n);
           }
-
         }
       }
     }
-  }
-  else {
+  } else {
     AthenaArray<Real> force_x1_n(NSPECIES);
     AthenaArray<Real> force_x2_n(NSPECIES);
     AthenaArray<Real> force_x3_n(NSPECIES);
@@ -508,7 +510,6 @@ void DustGasDrag::TrapezoidNoFeedback(const int stage,
             dust_m2 += delta_m2_implicit(n);
             dust_m3 += delta_m3_implicit(n);
           }
-
         }
       }
     }

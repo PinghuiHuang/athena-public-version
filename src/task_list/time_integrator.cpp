@@ -983,8 +983,7 @@ TimeIntegratorTaskList::TimeIntegratorTaskList(ParameterInput *pin, Mesh *pm) {
         AddTask(SEND_DFS,(DRAG_DUSTGAS|SRCTERM_DFS));
         AddTask(RECV_DFS,NONE);
         AddTask(SETB_DFS,(RECV_DFS|DRAG_DUSTGAS|SRCTERM_DFS));
-      }
-      else {
+      } else {
         AddTask(SEND_HYD,SRCTERM_HYD);
         AddTask(RECV_HYD,NONE);
         AddTask(SETB_HYD,(RECV_HYD|SRCTERM_HYD));
@@ -2581,8 +2580,8 @@ TaskStatus TimeIntegratorTaskList::DustGasDrag(MeshBlock *pmb, int stage) {
       // Scaled coefficient for RHS update
       Real dt = (stage_wghts[(stage-1)].beta)*(pmb->pmy_mesh->dt);
       // Evaluate the time-dependent drags at the time at the beginning of the stage
-      //pdf->dfdrag.DragIntegrate(stage, t_start_stage, dt, pdf->stopping_time_array,
-                                  //ph->w, pdf->df_prim, ph->u, pdf->df_cons);
+      pdf->dfdrag.DragIntegrate(stage, t_start_stage, dt, pdf->stopping_time_array,
+                                  ph->w, pdf->df_prim, ph->u, pdf->df_cons);
     }
     return TaskStatus::next;
   }

@@ -134,7 +134,7 @@ void ATHDF5Output::WriteOutputFile(Mesh *pm, ParameterInput *pin, bool flag) {
       num_variables[n_dataset] += 1;
     // Dust Fluids
     if (NDUSTFLUIDS > 0)
-      num_variables[n_dataset] += NDUSTVAR;
+      num_variables[n_dataset] += NDUSTVARS;
 
     // n_dataset = 1: face-centered FaceField variable data
     n_dataset++;

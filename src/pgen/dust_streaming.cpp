@@ -31,7 +31,9 @@
 #include "../utils/utils.hpp" // ran2()
 #include "../orbital_advection/orbital_advection.hpp"
 
-
+#if NON_BAROTROPIC_EOS
+#error "This problem generator requires isothermal equation of state!"
+#endif
 
 namespace {
 Real amp, nwx, nwy, nwz, rhog0; // amplitude, Wavenumbers
@@ -213,8 +215,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
                 dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel2))/(1.0 + kappap2*SQR(Stokes[dust_id]));
                 dust_vel2  = ((gas_vel2) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
                 dust_vel3  = 0.0;
-              }
-              else {
+              } else {
                 dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel2 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
                 dust_vel2  = -1.0 * K_vel;
                 dust_vel2 += ((gas_vel2 + K_vel) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
@@ -296,8 +297,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
                 dust_vel1 = (gas_vel1 + 2.0*Stokes[dust_id]*gas_vel3)/(1.0 + kappap2*SQR(Stokes[dust_id]));
                 dust_vel2 = 0.0;
                 dust_vel3 = ((gas_vel3) - (2.0 - qshear)*Stokes[dust_id]*gas_vel1)/(1.0 + kappap2*SQR(Stokes[dust_id]));
-              }
-              else {
+              } else {
                 dust_vel1  = (gas_vel1 + 2.0*Stokes[dust_id]*(gas_vel3 + K_vel))/(1.0 + kappap2*SQR(Stokes[dust_id]));
                 dust_vel2  = 0.0;
                 dust_vel3  = -1.0 * K_vel;

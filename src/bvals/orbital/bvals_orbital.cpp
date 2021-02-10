@@ -116,8 +116,8 @@ void OrbitalBoundaryCommunication::InitBoundaryData(
       if (nx3>1) { //3D
         bd.nbmax = 4;
         if (type == BoundaryQuantity::orbital_cc) {
-          ssize = (NHYDRO+NDUSTVAR)*(nx1/2+2)*(nx2/2+2)*(nx3/2+2);
-          lsize = (NHYDRO+NDUSTVAR)*nx1*nx2*nx3;
+          ssize = (NHYDRO+NDUSTVARS)*(nx1/2+2)*(nx2/2+2)*(nx3/2+2);
+          lsize = (NHYDRO+NDUSTVARS)*nx1*nx2*nx3;
         } else if (type == BoundaryQuantity::orbital_fc) {
           ssize = (nx1/2+1)*(nx2/2+2)*(nx3/2+2)
                   +(nx1/2+2)*(nx2/2+1)*(nx3/2+2)
@@ -133,8 +133,8 @@ void OrbitalBoundaryCommunication::InitBoundaryData(
       } else { //2D
         bd.nbmax = 2;
         if (type == BoundaryQuantity::orbital_cc) {
-          ssize = (NHYDRO+NDUSTVAR)*(nx1/2+2)*(nx2/2+2);
-          lsize = (NHYDRO+NDUSTVAR)*nx1*nx2;
+          ssize = (NHYDRO+NDUSTVARS)*(nx1/2+2)*(nx2/2+2);
+          lsize = (NHYDRO+NDUSTVARS)*nx1*nx2;
         } else if (type == BoundaryQuantity::orbital_fc) {
           ssize = (nx1/2+1)*(nx2/2+2)
                   +(nx1/2+2)*(nx2/2+1)
@@ -151,8 +151,8 @@ void OrbitalBoundaryCommunication::InitBoundaryData(
     } else if (porb->orbital_direction == 2) {
       bd.nbmax = 4;
       if (type == BoundaryQuantity::orbital_cc) {
-        ssize = (NHYDRO+NDUSTVAR)*(nx1/2+2)*(nx2/2+2)*(nx3/2+2);
-        lsize = (NHYDRO+NDUSTVAR)*nx1*nx2*nx3;
+        ssize = (NHYDRO+NDUSTVARS)*(nx1/2+2)*(nx2/2+2)*(nx3/2+2);
+        lsize = (NHYDRO+NDUSTVARS)*nx1*nx2*nx3;
       } else if (type == BoundaryQuantity::orbital_fc) {
         ssize = (nx1/2+1)*(nx2/2+2)*(nx3/2+2)
                   +(nx1/2+2)*(nx2/2+1)*(nx3/2+2)
@@ -186,7 +186,7 @@ void OrbitalBoundaryCommunication::InitBoundaryData(
     int size(0);
     if (porb->orbital_direction == 1) {
       if (type == BoundaryQuantity::orbital_cc) {
-        size = (NHYDRO+NDUSTVAR)*nx1*nx2*nx3;
+        size = (NHYDRO+NDUSTVARS)*nx1*nx2*nx3;
       } else if (type == BoundaryQuantity::orbital_fc) {
         size = (2*nx1*nx3+nx1+nx3)*nx2;
       } else {
@@ -198,7 +198,7 @@ void OrbitalBoundaryCommunication::InitBoundaryData(
       }
     } else if (porb->orbital_direction == 2) {
       if (type == BoundaryQuantity::orbital_cc) {
-        size = (NHYDRO+NDUSTVAR)*nx1*nx2*nx3;
+        size = (NHYDRO+NDUSTVARS)*nx1*nx2*nx3;
       } else if (type == BoundaryQuantity::orbital_fc) {
         size = (2*nx1*nx2+nx1+nx2)*nx3;
       } else {
@@ -494,7 +494,7 @@ void OrbitalBoundaryCommunication::StartReceiving(BoundaryCommSubset phase) {
 #ifdef MPI_PARALLEL
         int target_rank = orbital_recv_neighbor_[upper][n].rank;
         if ((target_rank != Globals::my_rank) && (target_rank != -1)) {
-          size = (NHYDRO+NDUSTVAR)*orbital_recv_cc_count_[upper][n];
+          size = (NHYDRO+NDUSTVARS)*orbital_recv_cc_count_[upper][n];
           tag  = pbval_->CreateBvalsMPITag(pmy_block_->lid, n+tag_offset[upper],
                                            orbital_advection_cc_phys_id_);
           MPI_Irecv(orbital_bd_cc_[upper].recv[n], size, MPI_ATHENA_REAL,
@@ -595,7 +595,7 @@ void OrbitalBoundaryCommunication::SendBoundaryBuffersCC() {
           LoadDustFluidsBufferToFiner(orbital_bd_cc_[upper].send[n], p, n+offset[upper]);
         }
       }
-      if (p != (NHYDRO+NDUSTVAR)*orbital_send_cc_count_[upper][n]) {
+      if (p != (NHYDRO+NDUSTVARS)*orbital_send_cc_count_[upper][n]) {
         std::stringstream msg;
         msg << "### FATAL ERROR in OrbitalBoundaryCommunication"
             << "::SendBoundaryBuffersCC" << std::endl
@@ -701,7 +701,7 @@ bool OrbitalBoundaryCommunication::ReceiveBoundaryBuffersCC() {
           SetDustFluidsBufferFromFiner(orbital_bd_cc_[upper].recv[n], p, n+offset[upper]);
         }
       }
-      if (p != (NHYDRO+NDUSTVAR)*orbital_recv_cc_count_[upper][n]) {
+      if (p != (NHYDRO+NDUSTVARS)*orbital_recv_cc_count_[upper][n]) {
         std::stringstream msg;
         msg << "### FATAL ERROR in OrbitalBoundaryCommunication"
             << "::ReceiveBoundaryBuffersCC" << std::endl
@@ -2499,7 +2499,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferSameLevel(
           for(int i=pmb->is; i<=pmb->ie; i++) {
             int offset = porb->ofc(k,i);
             int xl = pmb->js-xgh-offset+onx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int j=xl; j<=pmb->je; j++) {
                 buf[p++] = dfi(ndv,k,j,i);
               }
@@ -2511,7 +2511,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferSameLevel(
           for(int i=pmb->is; i<=pmb->ie; i++) {
             int offset = porb->ofc(k,i);
             int xu = pmb->je+1+xgh-offset-onx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int j=pmb->js; j<=xu; j++) {
                 buf[p++] = dfi(ndv,k,j,i);
               }
@@ -2532,7 +2532,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferSameLevel(
           for(int i=pmb->is; i<=pmb->ie; i++) {
             int offset = porb->ofc(j,i);
             int xl = pmb->ks-xgh-offset+onx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int k=xl; k<=pmb->ke; k++) {
                 buf[p++] = dfi(ndv,k,j,i);
               }
@@ -2544,7 +2544,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferSameLevel(
           for(int i=pmb->is; i<=pmb->ie; i++) {
             int offset = porb->ofc(j,i);
             int xu = pmb->ke+1+xgh-offset-onx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int k=pmb->ks; k<=xu; k++) {
                 buf[p++] = dfi(ndv,k,j,i);
               }
@@ -2582,7 +2582,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferToCoarser(Real *buf, int 
           for(int i=pmb->cis; i<=pmb->cie; i++) {
             int offset = porb->ofc_coarse(k,i);
             int xl = pmb->cjs-xgh-offset+honx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int j=xl; j<=pmb->cje; j++) {
                 buf[p++] = dfi(ndv,k,j,i);
               }
@@ -2594,7 +2594,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferToCoarser(Real *buf, int 
           for(int i=pmb->cis; i<=pmb->cie; i++) {
             int offset = porb->ofc_coarse(k,i);
             int xu = pmb->cje+1+xgh-offset-honx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int j=pmb->cjs; j<=xu; j++) {
                 buf[p++] = dfi(ndv,k,j,i);
               }
@@ -2615,7 +2615,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferToCoarser(Real *buf, int 
           for(int i=pmb->cis; i<=pmb->cie; i++) {
             int offset = porb->ofc_coarse(j,i);
             int xl = pmb->cks-xgh-offset+honx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int k=xl; k<=pmb->cke; k++) {
                 buf[p++] = dfi(ndv,k,j,i);
               }
@@ -2627,7 +2627,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferToCoarser(Real *buf, int 
           for(int i=pmb->cis; i<=pmb->cie; i++) {
             int offset = porb->ofc_coarse(j,i);
             int xu = pmb->cke+1+xgh-offset-honx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int k=pmb->cks; k<=xu; k++) {
                 buf[p++] = dfi(ndv,k,j,i);
               }
@@ -2693,7 +2693,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferToFiner(Real *buf, int &p
             << "Neighbors are read incorrectly." << std::endl;
         ATHENA_ERROR(msg);
       }
-      BufferUtility::PackData(dfi, buf, 0, NDUSTVAR-1,
+      BufferUtility::PackData(dfi, buf, 0, NDUSTVARS-1,
                               il, iu, jl, ju, kl, ku, p);
     } else if (porb->orbital_direction == 2) {
       int &onx = pmb->block_size.nx3;
@@ -2725,7 +2725,7 @@ void OrbitalBoundaryCommunication::LoadDustFluidsBufferToFiner(Real *buf, int &p
             << "Neighbors are read incorrectly." << std::endl;
         ATHENA_ERROR(msg);
       }
-      BufferUtility::PackData(dfi, buf, 0, NDUSTVAR-1,
+      BufferUtility::PackData(dfi, buf, 0, NDUSTVARS-1,
                               il, iu, jl, ju, kl, ku, p);
     }
   }
@@ -2756,7 +2756,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferSameLevel(
             if (offset<=0) {
               xl -= onx; xu -= onx;
             }
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
 #pragma omp simd
               for(int j=xl; j<=xu; j++) {
                 df_conso(ndv,k,i,j) = buf[p++];
@@ -2773,7 +2773,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferSameLevel(
             if (offset>0) {
               xl += onx; xu += onx;
             }
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
 #pragma omp simd
               for(int j=xl; j<=xu; j++) {
                 df_conso(ndv,k,i,j) = buf[p++];
@@ -2799,7 +2799,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferSameLevel(
             if (offset<=0) {
               xl -= onx; xu -= onx;
             }
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
 #pragma omp simd
               for (int k=xl; k<=xu; k++) {
                 df_conso(ndv,j,i,k) = buf[p++];
@@ -2816,7 +2816,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferSameLevel(
             if(offset>0) {
               xl += onx; xu += onx;
             }
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
 #pragma omp simd
               for(int k=xl; k<=xu; k++) {
                 df_conso(ndv,j,i,k) = buf[p++];
@@ -2866,9 +2866,9 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
         int ju = pmb->cje+1;
         // TODO(tomo-ono): This part has a problem with "#pragma omp simd"
         //                 when using the Intel compiler
-        // BufferUtility::UnpackData(buf, dfco, 0, NDUSTVAR-1,
+        // BufferUtility::UnpackData(buf, dfco, 0, NDUSTVARS-1,
         //                           il, iu, jl, ju, kl, ku, p);
-        for(int n=0; n<NDUSTVAR; ++n) {
+        for(int n=0; n<NDUSTVARS; ++n) {
           for(int k=kl; k<=ku; k++) {
             for(int j=jl; j<=ju; j++) {
               for(int i=il; i<=iu; i++) {
@@ -2877,7 +2877,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
             }
           }
         }
-        pmb->pmr->ProlongateCellCenteredValues(dfco, dfto, 0, NDUSTVAR-1, pmb->cis,
+        pmb->pmr->ProlongateCellCenteredValues(dfco, dfto, 0, NDUSTVARS-1, pmb->cis,
                                                pmb->cie, jl+1, pmb->cje, pmb->cks,
                                                pmb->cke);
         for(int k=pmb->ks; k<=pmb->ke; k++) {
@@ -2886,7 +2886,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
             int xl = pmb->js-xgh-offset+onx;
             int xu = pmb->je;
             const int shift = (offset>0)? 0: -onx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for(int j=xl; j<=xu; j++) {
                 df_conso(ndv,k,i,j+shift) = dfto(ndv,k,j,i);
               }
@@ -2898,9 +2898,9 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
         int ju = pmb->cje+2+xgh-porb->min_ofc_coarse-onx/2;
         // TODO(tomo-ono): This part has a problem with "#pragma omp simd"
         //                 when using the Intel compiler
-        // BufferUtility::UnpackData(buf, dfco, 0, NDUSTVAR-1,
+        // BufferUtility::UnpackData(buf, dfco, 0, NDUSTVARS-1,
         //                           il, iu, jl, ju, kl, ku, p);
-        for(int n=0; n<NDUSTVAR; ++n) {
+        for(int n=0; n<NDUSTVARS; ++n) {
           for(int k=kl; k<=ku; k++) {
             for(int j=jl; j<=ju; j++) {
               for(int i=il; i<=iu; i++) {
@@ -2909,7 +2909,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
             }
           }
         }
-        pmb->pmr->ProlongateCellCenteredValues(dfco, dfto, 0, NDUSTVAR-1, pmb->cis,
+        pmb->pmr->ProlongateCellCenteredValues(dfco, dfto, 0, NDUSTVARS-1, pmb->cis,
                                                pmb->cie, pmb->cjs, ju-1, pmb->cks,
                                                pmb->cke);
         for(int k=pmb->ks; k<=pmb->ke; k++) {
@@ -2918,7 +2918,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
             int xl = pmb->js;
             int xu = pmb->je+1+xgh-offset-onx;
             const int shift = (offset>0)? 2*onx: onx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int j=xl; j<=xu; j++) {
                 df_conso(ndv,k,i,j+shift) = dfto(ndv,k,j,i);
               }
@@ -2944,9 +2944,9 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
         int ku = pmb->cke+1;
         // TODO(tomo-ono): This part has a problem with "#pragma omp simd"
         //                 when using the Intel compiler
-        // BufferUtility::UnpackData(buf, dfco, 0, NDUSTVAR-1,
+        // BufferUtility::UnpackData(buf, dfco, 0, NDUSTVARS-1,
         //                           il, iu, jl, ju, kl, ku, p);
-        for(int n=0; n<NDUSTVAR; ++n) {
+        for(int n=0; n<NDUSTVARS; ++n) {
           for(int k=kl; k<=ku; k++) {
             for(int j=jl; j<=ju; j++) {
               for(int i=il; i<=iu; i++) {
@@ -2955,7 +2955,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
             }
           }
         }
-        pmb->pmr->ProlongateCellCenteredValues(dfco, dfto, 0, NDUSTVAR-1, pmb->cis,
+        pmb->pmr->ProlongateCellCenteredValues(dfco, dfto, 0, NDUSTVARS-1, pmb->cis,
                                                pmb->cie, pmb->cjs, pmb->cje,
                                                kl+1, pmb->cke);
         for(int j=pmb->js; j<=pmb->je; j++) {
@@ -2964,7 +2964,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
             int xl = pmb->ks-xgh-offset+onx;
             int xu = pmb->ke;
             const int shift = (offset>0)? 0: -onx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int k=xl; k<=xu; k++) {
                 df_conso(ndv,j,i,k+shift) = dfto(ndv,k,j,i);
               }
@@ -2976,9 +2976,9 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
         int ku = pmb->cke+2+xgh-porb->min_ofc_coarse-onx/2;
         // TODO(tomo-ono): This part has a problem with "#pragma omp simd"
         //                 when using the Intel compiler
-        // BufferUtility::UnpackData(buf, dfco, 0, NDUSTVAR-1,
+        // BufferUtility::UnpackData(buf, dfco, 0, NDUSTVARS-1,
         //                           il, iu, jl, ju, kl, ku, p);
-        for(int n=0; n<NDUSTVAR; ++n) {
+        for(int n=0; n<NDUSTVARS; ++n) {
           for(int k=kl; k<=ku; k++) {
             for(int j=jl; j<=ju; j++) {
               for(int i=il; i<=iu; i++) {
@@ -2987,7 +2987,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
             }
           }
         }
-        pmb->pmr->ProlongateCellCenteredValues(dfco, dfto, 0, NDUSTVAR-1, pmb->cis,
+        pmb->pmr->ProlongateCellCenteredValues(dfco, dfto, 0, NDUSTVARS-1, pmb->cis,
                                                pmb->cie, pmb->cjs, pmb->cje,
                                                pmb->cks, ku-1);
         for(int j=pmb->js; j<=pmb->je; j++) {
@@ -2996,7 +2996,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromCoarser(
             int xl = pmb->ks;
             int xu = pmb->ke+1+xgh-offset-onx;
             const int shift = (offset>0)? 2*onx: onx;
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
               for (int k=xl; k<=xu; k++) {
                 df_conso(ndv,j,i,k+shift) = dfto(ndv,k,j,i);
               }
@@ -3066,7 +3066,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromFiner(
             if (offset<=0) {
               xl -= onx; xu -= onx;
             }
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
 #pragma omp simd
               for (int j=xl; j<=xu; j++) {
                 df_conso(ndv,k,i,j) = buf[p++];
@@ -3083,7 +3083,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromFiner(
             if (offset>0) {
               xl += onx; xu += onx;
             }
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
 #pragma omp simd
               for (int j=xl; j<=xu; j++) {
                 df_conso(ndv,k,i,j) = buf[p++];
@@ -3126,7 +3126,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromFiner(
             if (offset<=0) {
               xl -= onx; xu -= onx;
             }
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
 #pragma omp simd
               for(int k=xl; k<=xu; k++) {
                 df_conso(ndv,j,i,k) = buf[p++];
@@ -3143,7 +3143,7 @@ void OrbitalBoundaryCommunication::SetDustFluidsBufferFromFiner(
             if(offset>0) {
               xl += onx; xu += onx;
             }
-            for(int ndv=0 ; ndv<NDUSTVAR; ndv++) {
+            for(int ndv=0 ; ndv<NDUSTVARS; ndv++) {
 #pragma omp simd
               for(int k=xl; k<=xu; k++) {
                 df_conso(ndv,j,i,k) = buf[p++];

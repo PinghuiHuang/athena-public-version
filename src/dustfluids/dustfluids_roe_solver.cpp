@@ -39,9 +39,9 @@ inline void RoeFlux(const int irho, const Real df_prim_roe[], const Real df_du[]
 void DustFluids::RoeRiemannSolverDustFluids(const int k, const int j, const int il, const int iu,
         const int index, AthenaArray<Real> &prim_df_l,
         AthenaArray<Real> &prim_df_r, AthenaArray<Real> &dust_flux) {
-  Real df_prim_li[(NDUSTVAR)], df_prim_ri[(NDUSTVAR)], df_prim_roe[(NDUSTVAR)];
-  Real df_fl[(NDUSTVAR)],      df_fr[(NDUSTVAR)],      df_flxi[(NDUSTVAR)];
-	Real df_ev[(NDUSTVAR)],      df_du[(NDUSTVAR)];
+  Real df_prim_li[(NDUSTVARS)], df_prim_ri[(NDUSTVARS)], df_prim_roe[(NDUSTVARS)];
+  Real df_fl[(NDUSTVARS)],      df_fr[(NDUSTVARS)],      df_flxi[(NDUSTVARS)];
+	Real df_ev[(NDUSTVARS)],      df_du[(NDUSTVARS)];
 
   for (int n=0; n<NDUSTFLUIDS; ++n) {
     int idust = n;
@@ -115,7 +115,7 @@ void DustFluids::RoeRiemannSolverDustFluids(const int k, const int j, const int 
 				df_flxi[ivy]  = df_fl[ivy];
 				df_flxi[ivz]  = df_fl[ivz];
 			}
-			if (df_ev[NDUSTVAR-1] <= 0.0) {
+			if (df_ev[NDUSTVARS-1] <= 0.0) {
 				df_flxi[irho] = df_fr[irho];
 				df_flxi[ivx]  = df_fr[ivx];
 				df_flxi[ivy]  = df_fr[ivy];
@@ -233,7 +233,6 @@ inline void RoeFlux(const int rho_id, const Real df_prim_roe[], const Real df_du
   dust_flux[v3_id] += coeff[0]*v3;
   dust_flux[v3_id] += coeff[2];
   dust_flux[v3_id] += coeff[3]*v3;
-
   return;
 }
 } // namespace

@@ -96,9 +96,9 @@
 #define NHYDRO @NHYDRO_VARIABLES@
 #define NFIELD @NFIELD_VARIABLES@
 #define NWAVE @NWAVE_VALUE@
-#define NDUSTFLUIDS @NUMBER_DUST_FLUIDS@
-#define NDUSTVAR @NUMBER_DUST_FLUIDS@*4
-#define NSPECIES @NUMBER_DUST_FLUIDS@+1
+#define NDUSTFLUIDS @NUMBER_DUST_FLUIDS@    // number of dust fluids species
+#define NDUSTVARS @NUMBER_DUST_FLUIDS@*4    // number of dust fluids variables
+#define NSPECIES @NUMBER_DUST_FLUIDS@+1     // N dust + 1 gas
 #define NGHOST @NUMBER_GHOST_CELLS@
 #define MAX_NSTAGE 6     // maximum number of stages per cycle for time-integrator
 #define MAX_NREGISTER 3  // maximum number of (u, b) register pairs for time-integrator

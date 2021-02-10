@@ -33,6 +33,10 @@
 #include "../parameter_input.hpp"
 #include "../dustfluids/dustfluids.hpp"
 
+//#if NON_BAROTROPIC_EOS
+//#error "This problem generator requires isothermal equation of state!"
+//#endif
+
 // problem parameters which are useful to make global to this file
 namespace {
 Real v0, t0, x0, user_dt, iso_cs, gamma_gas;

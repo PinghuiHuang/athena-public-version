@@ -58,7 +58,7 @@ void DustGasDrag::BackwardEulerFeedback(const int stage,
   //Real inv_dt   = 1.0/dt;
   //Real wghts[3] = {0.0, 1.0, -1.0};
   //AthenaArray<Real> u_d(NHYDRO,         pmb->ncells3, pmb->ncells2, pmb->ncells1);
-  //AthenaArray<Real> cons_df_d(NDUSTVAR, pmb->ncells3, pmb->ncells2, pmb->ncells1);
+  //AthenaArray<Real> cons_df_d(NDUSTVARS, pmb->ncells3, pmb->ncells2, pmb->ncells1);
   //pmb->WeightedAve(u_d,       u_as,       u_bs,       u_as,       u_bs,       wghts);
   //pmb->WeightedAve(cons_df_d, df_cons_as, df_cons_bs, df_cons_as, df_cons_bs, wghts);
 
@@ -79,10 +79,10 @@ void DustGasDrag::BackwardEulerFeedback(const int stage,
         delta_m3.ZeroClear();
 
         // Alias the primitives of gas
-        const Real &gas_rho  = w(IDN, k, j, i);
-        const Real &gas_v1   = w(IVX, k, j, i);
-        const Real &gas_v2   = w(IVY, k, j, i);
-        const Real &gas_v3   = w(IVZ, k, j, i);
+        const Real &gas_rho = w(IDN, k, j, i);
+        const Real &gas_v1  = w(IVX, k, j, i);
+        const Real &gas_v2  = w(IVY, k, j, i);
+        const Real &gas_v3  = w(IVZ, k, j, i);
 
         // Set the drag force
         for (int index=1; index<=NDUSTFLUIDS; ++index) {

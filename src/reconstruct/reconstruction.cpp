@@ -233,10 +233,10 @@ Reconstruction::Reconstruction(MeshBlock *pmb, ParameterInput *pin) :
     scr01_i_df_.NewAthenaArray(nc1);
     scr02_i_df_.NewAthenaArray(nc1);
 
-    scr1_ni_df_.NewAthenaArray(NDUSTVAR, nc1);
-    scr2_ni_df_.NewAthenaArray(NDUSTVAR, nc1);
-    scr3_ni_df_.NewAthenaArray(NDUSTVAR, nc1);
-    scr4_ni_df_.NewAthenaArray(NDUSTVAR, nc1);
+    scr1_ni_df_.NewAthenaArray(NDUSTVARS, nc1);
+    scr2_ni_df_.NewAthenaArray(NDUSTVARS, nc1);
+    scr3_ni_df_.NewAthenaArray(NDUSTVARS, nc1);
+    scr4_ni_df_.NewAthenaArray(NDUSTVARS, nc1);
   }
 
   if ((xorder == 3) || (xorder == 4)) {
@@ -273,10 +273,10 @@ Reconstruction::Reconstruction(MeshBlock *pmb, ParameterInput *pin) :
       scr13_i_df_.NewAthenaArray(nc1);
       scr14_i_df_.NewAthenaArray(nc1);
 
-      scr5_ni_df_.NewAthenaArray(NDUSTVAR, nc1);
-      scr6_ni_df_.NewAthenaArray(NDUSTVAR, nc1);
-      scr7_ni_df_.NewAthenaArray(NDUSTVAR, nc1);
-      scr8_ni_df_.NewAthenaArray(NDUSTVAR, nc1);
+      scr5_ni_df_.NewAthenaArray(NDUSTVARS, nc1);
+      scr6_ni_df_.NewAthenaArray(NDUSTVARS, nc1);
+      scr7_ni_df_.NewAthenaArray(NDUSTVARS, nc1);
+      scr8_ni_df_.NewAthenaArray(NDUSTVARS, nc1);
     }
 
     // Precompute PPM coefficients in x1-direction ---------------------------------------
